@@ -22,7 +22,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/board/{1}.jsp" /> 
 	</definition>							<!-- {1} -> * 에 오는 것과 동일한 텍스트 해당. 1은 인덱스(첫번째 별표) -->
 	
-	
 	<definition name="data/*" extends="content"> 
 		<put-attribute name="title" value="" /> 
 		<put-attribute name="body" value="/WEB-INF/views/data/{1}.jsp" /> 
