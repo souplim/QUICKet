@@ -1,40 +1,193 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page trimDirectiveWhitespaces="true" %>  
+<%@ page trimDirectiveWhitespaces="true" %>
+<style>
 
-<c:set var="clientUri" value='${requestScope["javax.servlet.forward.request_uri"]}' />  
-<div class="container">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="/">Spring Boot Example</a>
-  </div>
-  <div id="navbar" class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li <c:if test="${clientUri eq '/'}">class="active"</c:if>><a href="/">Home</a></li>
-      <li <c:if test="${fn:containsIgnoreCase(clientUri,'/board')}">class="active"</c:if>>
-      	<a href="/board/boardList">게시판</a>
-      </li>
-      <li><a href="#contact">Contact</a></li>
-      <li class="dropdown <c:if test="${fn:containsIgnoreCase(clientUri, '/data')}">active</c:if>">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">공공데이터<span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-          <!-- <li><a href="/data/chungnamView">충남 관광 명소</a></li>
-          <li><a href="/data/animalDaejeonView">대전 유기동물 공고</a></li> -->
-          <!-- 소제목 설정 -->
-          <li class="dropdown-header">명소찾기</li>
-          <li><a href="/data/chungnamView">충남 관광 명소</a></li>
-          <li class="divider"></li><!-- 구분선 -->
-          <li class="dropdown-header">유기동물</li>
-          <li><a href="/data/animalDaejeonView">대전 유기동물 공고</a></li>
+#wrapper {
+ 	width : 100%;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background-color: #00000075;
+}
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+/* Sidebar Styles */
+ .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+}
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #444;
+    background: rgba(255, 255, 255, 0.2);
+}
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+    text-decoration: none;
+}
+.sidebar-nav .sidebar-brand {
+    text-align: left;
+}
+.sidebar-nav .sidebar-brand img {
+    width: 75px;
+}
+.sidebar-nav ul {
+    list-style: none;
+    list-style-position:outside;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-nav ul > li {
+    font-size: 13px;
+}
+.sidebar-nav ul > li > a {
+    color: #ddd;
+    text-decoration: none;
+    padding-left: 10px;
+}
+.sidebar-nav ul > li > a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+    #sidebar-wrapper {
+        width: 250px;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+</style>
+
+<script>
+	$(document).ready(function(){
+		$("#open-btn").click(function (e) {
+		    e.preventDefault();
+		    $("#wrapper").removeClass("toggled").addClass("active")
+		});
+		
+		$("#close-btn").click(function (e) {
+		    e.preventDefault();
+		    $("#wrapper").removeClass("active").addClass("toggled")
+		});
+	});
+</script>
+
+
+<div class="container-fluid">
+	<div id="wrapper" class="toggled">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <button type="button" id="close-btn" class="btn btn-info">CLOSE</button>
+            <li><a href="#">뮤지컬</a> </li>
+            <li><a href="#">연극</a> </li>
+            <li><a href="#">랭킹</a></li>
+            <li><a href="#">지역</a></li>
+            <li> <a href="#">공지사항</a></li>
+            <li> <a href="#">쿠폰/이벤트</a></li>
+            <li> <a href="#">고객센터</a></li>
+            <li> <a href="#">마이페이지</a></li>
         </ul>
-      </li>
-    </ul>
-  </div><!--/.nav-collapse -->
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content
+    <div id="page-content-wrapper"> <a href="#" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-th-list"></span></a>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                     <h1>KODI</h1>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- /#page-content-wrapper -->
 </div>
+
+        <div class="navbar-header">
+        
+        <button type="button" id="open-btn" class="btn btn-info navbar-left">메뉴</button>
+          
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">홈</a></li>
+            <li><a href="#">뮤지컬</a></li>
+            <li><a href="#">랭킹</a></li>
+            <li><a href="#">지역</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">로그인</a></li>
+            <li><a href="#">고객센터</a></li>
+          </ul>
+        </div>
+        
+      </div>
+  
