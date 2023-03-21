@@ -36,6 +36,13 @@
 	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
+	
+		<script type="text/javascript">
+			$("#menu-toggle").click(function (e) {
+			    e.preventDefault();
+			    $("#wrapper").toggleClass("toggled");
+			});
+		</script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -48,8 +55,7 @@
 				<tiles:insertAttribute name="left"/>
 			</div>
 			<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<tiles:insertAttribute name="sub"/>
-				<tiles:insertAttribute name="main"/>
+				<tiles:insertAttribute name="body"/>
 			</div>
 		</div>
 		</div>	
