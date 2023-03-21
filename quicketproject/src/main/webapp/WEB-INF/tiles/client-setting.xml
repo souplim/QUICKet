@@ -25,6 +25,23 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
 	</definition>						
 	
+<<<<<<< Updated upstream
+=======
+	<!-- 고객센터 레이아웃 -->
+	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
+	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="client/inq/*" extends="cs">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
+	</definition>
+>>>>>>> Stashed changes
 	
 			<!-- Control 단에서 error/error_page 받아오면... -->
 	<definition name="error/*" extends="content"> 
