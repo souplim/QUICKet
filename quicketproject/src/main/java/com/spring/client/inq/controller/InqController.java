@@ -17,4 +17,11 @@ public class InqController {
 		
 		return "client/inq/inqList"; // /WEB-INF/views/client/inq/inqList.jsp -> client 폴더 삭제?
 	}
+	
+	@GetMapping(value="/inqWriteForm")
+	public String inqWriteForm() {
+		log.info("1대1문의 리스트 화면");
+		
+		return "client/inq/inqWriteForm"; // /WEB-INF/views/client/inq/inqWriteForm.jsp -> client 폴더 삭제?
+	}
 }
