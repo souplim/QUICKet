@@ -2,9 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<!-- <typeAlias type="com.spring.client.board.vo.BoardVO" alias="board" />
-		<typeAlias type="com.spring.client.reply.vo.ReplyVO" alias="reply" />
+		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
 		
-		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> -->
 	</typeAliases>
 </configuration>

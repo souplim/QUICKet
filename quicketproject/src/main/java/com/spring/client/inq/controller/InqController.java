@@ -15,13 +15,20 @@ public class InqController {
 	public String inqList() {
 		log.info("1대1문의 리스트 화면");
 		
-		return "client/inq/inqList"; // /WEB-INF/views/client/inq/inqList.jsp -> client 폴더 삭제?
+		return "client/inq/inqList"; // /WEB-INF/views/client/inq/inqList.jsp 
 	}
 	
 	@GetMapping(value="/inqWriteForm")
 	public String inqWriteForm() {
-		log.info("1대1문의 리스트 화면");
+		log.info("1대1문의 등록 폼");
 		
-		return "client/inq/inqWriteForm"; // /WEB-INF/views/client/inq/inqWriteForm.jsp -> client 폴더 삭제?
+		return "client/inq/inqWriteForm"; // /WEB-INF/views/client/inq/inqWriteForm.jsp 
+	}
+	
+	@GetMapping(value="/inqDetail")
+	public String inqDetail() {
+		log.info("1대1문의 상세화면");
+		
+		return "client/inq/inqDetail"; // /WEB-INF/views/client/inq/inqDetail.jsp 
 	}
 }
