@@ -12,5 +12,10 @@ public class ClientShowController {
 	public String mainPage() {
 		return "client/show/mainPage";
 	}
+	
+	@GetMapping("/genre")
+	public String genrePage() {
+		return "client/show/genrePage";
+	}
 
 }
