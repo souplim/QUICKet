@@ -32,7 +32,8 @@
 	
 	    <!-- Custom styles for this template -->
 	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">
-	
+		
+		
 	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
@@ -43,6 +44,10 @@
 			    $("#wrapper").toggleClass("toggled");
 			});
 		</script>
+		
+		<style>
+			.side-bar{ width : 180px; }
+		</style>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -51,7 +56,7 @@
 		
 		<div class="container-fluid">
 			<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+			<div class="sidebar side-bar">
 				<tiles:insertAttribute name="left"/>
 			</div>
 			<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
