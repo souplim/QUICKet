@@ -120,6 +120,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Target
-target/
+target/*
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,windows
