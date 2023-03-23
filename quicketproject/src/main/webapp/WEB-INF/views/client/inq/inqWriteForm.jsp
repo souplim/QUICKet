@@ -46,6 +46,8 @@
 		
 		
 	</style>
+	
+	<script type="text/javascript" src="/resources/include/js/common.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			/* 1대1문의하기 버튼 클릭시 처리 이벤트 */
@@ -55,6 +57,7 @@
 			
 			/* 유형 선택시 세부유형 option항목 처리 이벤트 */
 			$("#i_category").on("change", function(){
+				const opt = ["선택"];
 				const member = ["로그인","아이디/패스워드","회원가입","회원탈퇴"];
 				const show = ["예매","취소/변경","배송","결제","이벤트","건의사항","기타"];
 				const etc = ["건의사항","기타"];
@@ -65,6 +68,7 @@
 				if(category == "member") detail = member;
 				else if(category == "show") detail = show;
 				else if(category == "etc") detail = etc;
+				else if(category == "opt") detail = opt;
 				
 				let target = $("#i_cate_detail");
 				target.empty(); /* 기존에 들어가 있는 옵션 삭제 */
@@ -90,6 +94,58 @@
 					$(this).next("dd").slideUp();
 				}
 			});
+			
+			
+			/* 글자수 제한 */
+			$("#i_content").on("input", function(){
+				let length = $(this).val().length;
+				
+				if(length<1000)
+					$("#counter").css("color","black");
+				else
+					$("#counter").css("color","red");
+				
+				const str = $(this).val();
+				$(this).val(str.substr(0,1000));
+				
+				$("#counter").text($(this).val().length);
+			});
+			
+			/* 등록버튼 클릭시 처리 이벤트 */
+			$("#insertBtn").on("click", function(){
+				if($("#i_category").val()=="opt"){
+					alert("유형을 선택해주세요.");
+					return false;
+				} else if($("#i_cate_detail").val()=="opt"){
+					alert("세부유형을 선택해주세요.");
+					return false;
+				}
+				// alert("취소/변경 및 배송 문의는 예약번호를 조회해주셔야 합니다.");
+				else if (!chkData("#i_title","제목을")) return false;
+				else if (!chkData("#i_content","내용을")) return false;
+				else {
+					$("#insertForm").attr({
+						"method" : "post",
+						"action" : "/inq/inqInsert"
+					});
+					$("#insertForm").submit();
+				}
+			});
+			
+			/* 취소버튼 클릭시 처리 이벤트 */
+			$("#cancelBtn").on("click", function(){
+				const opt = "선택";
+				$("#i_category").val("opt").prop("selected", true);
+				
+				//$("#i_cate_detail").val("opt").prop("selected", true);
+				let target = $("#i_cate_detail");
+				target.empty(); 
+				target.append("<option>선택</option>");
+				
+				$("#ti_num").val("ticketNum").prop("selected", true);
+				$("#i_title").val("");
+				$("#i_content").val("");
+			});
 		});
 	</script>
 	</head>
@@ -111,7 +167,7 @@
 					<div class="form-group col-md-3">
 						<label for="i_category" class="sr-only">유형</label>
 						<select class="form-control" id="i_category" name="i_category">
-							<option>선택</option>
+							<option value="opt">선택</option>
 							<option value="member">회원정보</option>
 							<option value="show">공연</option>
 							<option value="etc">그 외</option>
@@ -121,16 +177,17 @@
 					<div class="form-group col-md-3">
 						<label for="i_cate_detail" class="sr-only">세부유형</label>
 						<select class="form-control" id="i_cate_detail" name="i_cate_detail">
-							<option>선택</option>
+							<option value="opt">선택</option>
 						</select>
 					</div>
 					
 					<div class="form-group col-md-6">
-						<label class="sr-only" for="i_cate_detail">예매번호</label>
+						<label class="sr-only" for="ti_num">예매번호</label>
 						<select class="form-control" id="ti_num" name="ti_num">
-							<option>예매번호</option>
+							<option value="ticketNum">예매번호</option>
 						</select>
 					</div>
+					
 				</div>
 				
 				<div id="faqBox" >
@@ -156,6 +213,7 @@
 						<label for="i_content" class="col-md-2 control-label">문의내용</label>
 						<div class="col-md-9">
 							<textarea id="i_content" name="i_content" class="form-control" rows="10"></textarea>
+							<p class="text-right"><span id="counter">0</span>/1000</p>
 						</div>
 					</div>
 					

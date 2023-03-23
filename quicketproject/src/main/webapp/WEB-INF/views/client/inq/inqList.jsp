@@ -8,15 +8,58 @@
 			$("#insertFormBtn").on("click",function(){
 				location.href="/inq/inqWriteForm";
 			});
+			
+			/* 제목 마우스오버 시 밑줄 */
+			$(".goDetail").hover(function(){
+				$(this).css("textDecoration","underline");
+			}, function(){
+				$(this).css("textDecoration","none");
+			});
+			
+			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
+			$(".goDetail").click(function(){
+				let i_num = $(this).parents("tr").attr("data-num");
+				$("#i_num").val(i_num);
+				console.log("글번호:"+i_num);
+				// 상세 페이지로 이동하기 위해 form 추가(id: dataForm)
+				$("#dataForm").attr({
+					"method" : "get", 
+					"action" : "/inq/inqDetail"
+				});
+				$("#dataForm").submit();
+				
+			});
+			
+			/* 페이징 처리 이벤트 */
+			$(".paginate_button a").click(function(e){
+				e.preventDefault(); // a태그 -> href로 이동하는 성격 해제
+				// dataForm 폼 하위 pageNum을 이름으로 가지는 input의 값을 클릭한 번호
+				$("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
+				
+				// pageNum을 들고 다시 페이지 list 부르기
+				$("#pageForm").attr({
+					"method" : "get",
+					"action" : "/inq/inqList"
+				});
+				$("#pageForm").submit();
+			});
+			
 		});
 	</script>
 	</head>
 	<body>
 		<div class="contentContainer container">
-			
+			<%-- ================= 데이터 전달 폼 ================= --%>
 			<form name="dataForm" id="dataForm">
 				<input type="hidden" name="i_num" id="i_num">
 			</form>
+			
+			<form name="pageForm" id="pageForm">
+				<!-- 페이징 처리를 위한 파라미터 -->
+				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}"/>
+				<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"/>
+			</form>
+			
 			
 			<div>
 				<h1>1:1 문의내역</h1>
@@ -34,35 +77,28 @@
 					<thead>
 						<tr>
 							<th data-value="i_num" class="order text-center col-md-1">글번호</th>
-							<th data-value="b_date" class="order col-md-2">작성일</th>
 							<th class="text-center col-md-2">카테고리</th>
-							<th class="text-center col-md-4">제목</th>
-							<th class="text-center col-md-2">작성자</th>
-							<th class="text-center col-md-1">답변현황</th>
+							<th class="text-center col-md-5">제목</th>
+							<th data-value="i_regidate" class="order text-center col-md-2">작성일</th>
+							<th class="text-center col-md-2">답변현황</th>
 						</tr>
 					</thead>
 					<tbody id="list" class="table-striped">
 						<!-- 데이터 출력 -->
-						<%-- <c:choose>
-							<c:when test="${not empty boardList}">
-								<c:forEach var="board" items="${boardList}" varStatus="status">
-									<tr class="text-center" data-num="${board.b_num}">
-										<td>${board.b_num}</td>
-										<td class="goDetail text-left">${board.b_title}
-											<c:if test="${board.r_cnt > 0}"> <!-- 댓글 수 1 초과일 때만 출력 -->
-												<span class="reply_count">&nbsp;[${board.r_cnt}]</span>
-											</c:if>
-										</td>
-										<td class="name">${board.b_name}</td>
-										<td class="text-left">${board.b_date}</td>
-										<td class="text-center">${board.readcnt}</td>
+						<!-- <c:if test=""></c:if> ${inq.u_id} 세션아이디와 작성자아이디가 같을 경우 출력 -->
+						<c:choose>
+							<c:when test="${not empty inqList}">
+								<c:forEach var="inq" items="${inqList}" varStatus="status">
+									<tr class="text-center" data-num="${inq.i_num}">
+										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
+										<td>${count - status.index}</td> 
+										<%-- <td>${inq.i_num}</td> --%>
+										<td>${inq.i_category} > ${inq.i_cate_detail}</td>
+										<td class="text-center goDetail">${inq.i_title}</td>
+										<td>${inq.i_regidate}</td>
 										<td>
-											<c:if test="${not empty board.b_thumb}">
-												<img src="/uploadStorage/board/thumbnail/${board.b_thumb}" />
-											</c:if>
-											<c:if test="${empty board.b_thumb}">
-												<img src="/resources/images/common/noimage.png" />
-											</c:if>
+											<c:if test="${inq.i_reply==0}">답변 대기중</c:if>
+											<c:if test="${inq.i_reply==1}">답변 완료</c:if>
 										</td>
 									</tr>
 								</c:forEach>
@@ -72,13 +108,14 @@
 									<td colspan="6" class="tac text-center">등록된 게시글이 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
-						</c:choose> --%>
+						</c:choose>
+						
 					</tbody>
 				</table>
 			</div>
 			
 			<%-- ================= 페이징 출력 시작 ================= --%>
-			<%-- <div class="text-center">
+			<div class="text-center">
 				<ul class="pagination">
 					<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인 -->
 					<c:if test="${pageMaker.prev}">
@@ -102,7 +139,7 @@
 						</li>
 					</c:if>
 				</ul>
-			</div> --%>
+			</div>
 			
 		</div>	
 	</body>

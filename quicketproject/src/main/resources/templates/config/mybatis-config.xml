@@ -3,6 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
-		
+		<typeAlias type="com.spring.client.inq.reply.vo.InqReplyVO" alias="inqReply" />
 	</typeAliases>
 </configuration>
