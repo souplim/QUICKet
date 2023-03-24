@@ -12,4 +12,6 @@ public interface InqService {
 	public InqVO inqDetail(int i_num); /* 상세 페이지 */
 	public int inqUpdate(InqVO inqVO); /* 수정 */
 	
+	public InqVO adminInqDetail(int i_num); /* 문의 상세 페이지(관리자) */
+	
 }

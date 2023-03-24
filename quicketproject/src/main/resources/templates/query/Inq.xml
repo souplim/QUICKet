@@ -6,20 +6,33 @@
 	<select id="inqList" parameterType="inq" resultType="inq">
 		<![CDATA[
 			SELECT 
-	        		rnum, i_num, u_name, u_id, i_category, i_cate_detail, i_reply, i_title, i_content, i_regidate, i_update
+		        rnum, i_num, u_name, u_id, i_category, i_cate_detail, i_reply, i_title, 
+		        i_content,TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
 			FROM (
-			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
+			        SELECT 
 			                rownum AS rnum, i_num, U.u_name AS u_name, U.u_id, i_category, i_cate_detail, i_reply, i_title, i_content, 
-			                TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update /* 이 안에서 명시한 변수 아니면 위에서 사용 불가 */
-			        FROM inquiry I LEFT OUTER JOIN q_user U ON I.u_id = U.u_id
-			        WHERE ]]>
+			                i_regidate, i_update
+			        FROM (
+			            SELECT 
+			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content, 
+			                i_regidate, i_update
+			            FROM inquiry 
+			            ORDER BY i_num desc
+			        ) I inner JOIN q_user U ON I.u_id = U.u_id
+	        WHERE 
+		]]>
 		<![CDATA[ rownum <= #{pageNum} * #{amount}
-					ORDER BY i_num desc 
 			)  
 			WHERE rnum > (#{pageNum} -1) * #{amount} AND (u_id = #{u_id})
-			ORDER BY i_num desc  
 		]]>
 	</select>
+	
+	<!-- 검색(유형, 날짜) 부분 -->
+	<sql id="inqSearch">
+		<if test="search=='member'">
+			<![CDATA[ i_category=='회원정보' AND  ]]>
+		</if>
+	</sql>
 	
 	<!-- 회원 문의글 수 구현 -->
 	<select id="inqListCnt" parameterType="inq" resultType="int">
@@ -35,8 +48,17 @@
 	
 	<!-- 문의내역 상세정보 조회 -->
 	<select id="inqDetail" parameterType="int" resultType="inq">
-		SELECT i_num, U.u_name, i_category, i_cate_detail, i_reply, i_title, i_content, TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, i_update
+		SELECT i_num, u_id, U.u_name, i_category, i_cate_detail, i_reply, i_title, i_content, 
+			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
 		FROM inquiry I LEFT OUTER JOIN q_user U ON I.u_id = U.u_id
+		WHERE i_num = #{i_num}
+	</select>
+	
+	<!-- 문의내역 상세정보 관리자 조회 -->
+	<select id="adminInqDetail" parameterType="int" resultType="inq">
+		SELECT i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content, 
+			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
+		FROM inquiry
 		WHERE i_num = #{i_num}
 	</select>
 	

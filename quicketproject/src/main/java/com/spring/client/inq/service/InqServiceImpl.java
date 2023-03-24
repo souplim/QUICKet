@@ -54,6 +54,14 @@ public class InqServiceImpl implements InqService {
 		return result;
 	}
 
+	// 문의글 상세 (관리자)
+	@Override
+	public InqVO adminInqDetail(int i_num) {
+		InqVO inqVO = null;
+		inqVO = inqDao.adminInqDetail(i_num);
+		return inqVO;
+	}
+
 	
 
 }

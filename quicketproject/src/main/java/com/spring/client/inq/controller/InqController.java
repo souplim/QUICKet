@@ -29,7 +29,7 @@ public class InqController {
 	private InqService inqService;
 	
 	/***********************************************************
-	 * 문의사항 리스트 조회하기
+	 * 문의사항 리스트 조회하기(검색포함)
 	 * 요청 주소 : http://localhost:8080/inq/inqList
 	 ***********************************************************/
 	@GetMapping(value="/inqList")

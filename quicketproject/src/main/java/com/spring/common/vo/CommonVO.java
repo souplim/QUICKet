@@ -14,6 +14,7 @@ public class CommonVO {
 	
 	// 조건 검색 시 사용할 필드(검색대상, 검색단어)
 	private String search = "";
+	private String search_detail ="";
 	private String keyword = "";
 	
 	// 관리자 페이지 - 날짜 검색 시 사용할 필드(시작일, 종료일)

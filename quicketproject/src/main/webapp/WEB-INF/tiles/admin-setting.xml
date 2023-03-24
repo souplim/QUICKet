@@ -16,4 +16,11 @@
 		<put-attribute name="sub" value="" />
 		<put-attribute name="main" value="/WEB-INF/views/admin/board/{1}.jsp" />
 	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="admin/inq/*" extends="basic">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/inq/{1}.jsp" />
+	</definition>
 </tiles-definitions>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.inq.dao.AdminInqDao">
+
+	<sql id="boardSearch">
+		<if test="search=='i_title'">
+			<![CDATA[i_title LIKE '%'||#{keyword}||'%' ]]> <!-- 마이바티스 #{} 바인딩, ${} 직접 값 삽입(보안상 문제) -->
+		</if>
+		<if test="search=='i_content'">
+			<![CDATA[i_content LIKE '%'||#{keyword}||'%' ]]>
+		</if>
+		<if test="search=='u_id'">
+			<![CDATA[u_id LIKE '%'||#{keyword}||'%' ]]>
+		</if>
+		<if test="search=='i_regidate'">
+			<![CDATA[to_char(i_regidate,'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
+		</if>
+	</sql>
+
+	<!-- 검색어 혹은 날짜로 검색 -->
+	<select id="inqList" parameterType="inq" resultType="inq">
+		<![CDATA[
+			SELECT 
+			        rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content,
+			        TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
+			FROM (
+			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
+			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, --이 안에서 명시한 변수 아니면 위에서 사용 불가
+			                i_content, i_regidate, i_update 
+			        FROM inquiry 
+			        WHERE ]]>
+			        		<trim prefix="(" suffix=") AND" prefixOverrides="AND"> <!-- 아래 조건 만족하지 않으면 () AND <- AND 제거 -->
+								<include refid="boardSearch"></include>
+							</trim>
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+						ORDER BY i_num desc
+				) 
+				WHERE rnum > (#{pageNum} -1) * #{amount}
+			]]>
+	</select>
+	
+	<!-- 세부유형으로 검색 -->
+	<select id="inqCateList" parameterType="inq" resultType="inq">
+		<![CDATA[
+			SELECT 
+			        rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content,
+			        TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
+			FROM (
+			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
+			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, 
+			                i_content, i_regidate, i_update 
+			        FROM inquiry 
+			        WHERE ]]>
+			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_category = #{i_category}) 
+						ORDER BY i_num desc
+				) 
+				WHERE rnum > (#{pageNum} -1) * #{amount}
+			]]>
+	</select>
+	
+	<!-- 답변여부로 검색 -->
+	<select id="inqReplyList" parameterType="inq" resultType="inq">
+		<![CDATA[
+			SELECT 
+			        rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content,
+			        TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
+			FROM (
+			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
+			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, 
+			                i_content, i_regidate, i_update 
+			        FROM inquiry 
+			        WHERE ]]>
+			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_reply = #{i_reply})
+						ORDER BY i_num desc
+				) 
+				WHERE rnum > (#{pageNum} -1) * #{amount}
+			]]>
+	</select>
+	
+	<!-- 회원 문의글 삭제 -->
+	<delete id="inqDelete" parameterType="Integer">
+		DELETE FROM inquiry
+		WHERE i_num = #{i_num}
+	</delete>
+	
+	<!-- 회원 문의글에 답변 등록 -->
+	<insert id="inqReplyInsert" parameterType="inqReply">
+		INSERT INTO inquiry_reply(i_r_num, i_num, i_r_content, i_r_regidate, i_r_update)
+		VALUES(inquiry_reply_seq.NEXTVAL, #{i_num}, #{i_r_content}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- 회원 문의글에 답변 수정 -->
+	<insert id="inqReplyUpdate" parameterType="inqReply">
+		UPDATE inquiry_reply
+		SET i_r_content = #{i_r_content}, i_r_update = SYSDATE
+		WHERE i_num = #{i_num}
+	</insert>
+	
+	<!-- 회원 문의글에 답변 삭제 -->
+	<delete id="inqReplyDelete" parameterType="Integer">
+		DELETE FROM inquiry_reply
+		WHERE i_r_num = #{i_r_num}
+	</delete>
+</mapper>

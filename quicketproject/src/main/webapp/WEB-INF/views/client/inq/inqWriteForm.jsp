@@ -55,19 +55,19 @@
 				location.href="/inq/inqList";
 			});
 			
-			/* 유형 선택시 세부유형 option항목 처리 이벤트 */
+			/* 유형 선택시 세부유형 option 항목 처리 이벤트 */
 			$("#i_category").on("change", function(){
 				const opt = ["선택"];
-				const member = ["로그인","아이디/패스워드","회원가입","회원탈퇴"];
-				const show = ["예매","취소/변경","배송","결제","이벤트","건의사항","기타"];
-				const etc = ["건의사항","기타"];
+				const 회원정보 = ["로그인","아이디/패스워드","회원가입","회원탈퇴"];
+				const 공연 = ["예매","취소/변경","배송","결제","이벤트","건의사항","기타"];
+				const 그외 = ["건의사항","기타"];
 				
 				let category = $("#i_category").val();
 				
 				let detail;
-				if(category == "member") detail = member;
-				else if(category == "show") detail = show;
-				else if(category == "etc") detail = etc;
+				if(category == "회원정보") detail = 회원정보;
+				else if(category == "공연") detail = 공연;
+				else if(category == "그 외") detail = 그외;
 				else if(category == "opt") detail = opt;
 				
 				let target = $("#i_cate_detail");
@@ -168,9 +168,9 @@
 						<label for="i_category" class="sr-only">유형</label>
 						<select class="form-control" id="i_category" name="i_category">
 							<option value="opt">선택</option>
-							<option value="member">회원정보</option>
-							<option value="show">공연</option>
-							<option value="etc">그 외</option>
+							<option value="회원정보">회원정보</option>
+							<option value="공연">공연</option>
+							<option value="그 외">그 외</option>
 						</select>
 					</div>
 					

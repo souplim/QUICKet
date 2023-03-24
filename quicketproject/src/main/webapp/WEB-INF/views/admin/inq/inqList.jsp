@@ -1,50 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
-
+	<!-- 스크립트 정의 -->
+	<script type="text/javascript" src="/resources/include/js/common.js"></script>
+	<script type="text/javascript" src="/resources/include/js/adminInq.js"></script> <!-- 관리 편하게 하기 위해 js 파일 따로 생성 -->
+	
+	<!-- 값을 담는 것 JSP(코어태그와 표현언어로 해야 하기 때문에), 변수 사용하는 건 JS -> 처리 별도로 해야함
+	     표현언어 jstl은 jsp에서 표현하기 때문에 따로 빼는 js 파일에 들어가면 javascript는 이를 텍스트로 인식한다. -->
 	<script type="text/javascript">
-		$(function(){
-			/* 1대1문의하기 버튼 클릭시 처리 이벤트 */
-			$("#insertFormBtn").on("click",function(){
-				location.href="/inq/inqWriteForm";
-			});
-			
-			/* 제목 마우스오버 시 밑줄 */
-			$(".goDetail").hover(function(){
-				$(this).css("textDecoration","underline");
-			}, function(){
-				$(this).css("textDecoration","none");
-			});
-			
-			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-			$(".goDetail").click(function(){
-				let i_num = $(this).parents("tr").attr("data-num");
-				$("#i_num").val(i_num);
-				console.log("글번호:"+i_num);
-				// 상세 페이지로 이동하기 위해 form 추가(id: dataForm)
-				$("#dataForm").attr({
-					"method" : "get", 
-					"action" : "/inq/inqDetail"
-				});
-				$("#dataForm").submit();
-				
-			});
-			
-			/* 페이징 처리 이벤트 */
-			$(".paginate_button a").click(function(e){
-				e.preventDefault(); // a태그 -> href로 이동하는 성격 해제
-				// dataForm 폼 하위 pageNum을 이름으로 가지는 input의 값을 클릭한 번호
-				$("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
-				
-				// pageNum을 들고 다시 페이지 list 부르기
-				$("#pageForm").attr({
-					"method" : "get",
-					"action" : "/inq/inqList"
-				});
-				$("#pageForm").submit();
-			});
-			
-		});
+		search = "<c:out value='${data.search}' />"; 
+		search_detail = "<c:out value='${data.search_detail}' />"; 
+		start_date = "<c:out value='${data.start_date}' />"; /* date -> controller에서 넘겨진 inqVO */
+		end_date = "<c:out value='${data.end_date}' />";
+		keyword = "<c:out value='${data.keyword}' />";
 	</script>
 	</head>
 	<body>
@@ -62,13 +30,45 @@
 			
 			
 			<div>
-				<h1>1:1 문의내역</h1>
-				<p>고객님이 문의하신 질문과 답변내용을 확인하실 수 있습니다.</p>
+				<h1>1:1 문의 관리</h1>
 			</div>
 			
-			<%-- ================= 1대1문의하기 버튼 시작 ================= --%>
-			<div class="contentBtn text-right">
-				<button type="button" id="insertFormBtn" class="btn btn-primary">1대1 문의하기</button>
+			<%-- ================= 검색 부분 출력 ================= --%>
+			<div class="well text-center">
+				<form class="form-inline" id="f_search">
+					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}"> 
+					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+					<%-- <input type="hidden" name="i_reply" id="i_reply" value="${inq.i_reply}"> --%>
+					
+					<div class="form-group">
+						<label for="search" class="sr-only">검색조건</label>
+						<select id="search" name="search" class="form-control">
+							<option value="i_title">제목</option>
+							<option value="u_id">작성자</option>
+							<option value="i_content">내용</option>
+							<option value="i_category">유형</option>
+							<option value="i_reply">답변현황</option>
+							<option value="i_regidate">작성일자</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="search_detail" class="sr-only">세부 검색조건</label>
+						<select id="search_detail" name="search_detail" class="form-control">
+							<option value="opt">---</option>
+						</select>
+					</div>
+					
+					<div class="form-group" id="textCheck"> <!-- 날짜 외 검색 선택 시 보이는 부분 -->
+						<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요" />
+					</div>
+					<div class="form-group" id="dateCheck"> <!-- 날짜 검색 선택 시 보이는 부분 -->
+						<input type="date" name="start_date" id="start_date" placeholder="시작일자" class="form-control">
+						<input type="date" name="end_date" id="end_date" placeholder="종료일자" class="form-control">
+					</div>
+					<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+					<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button> <!-- 전체 레코드 조회 -->
+				</form>
 			</div>
 			
 			<%-- ================= 리스트 시작 ================= --%>
@@ -78,9 +78,11 @@
 						<tr>
 							<th data-value="i_num" class="order text-center col-md-1">글번호</th>
 							<th class="text-center col-md-2">카테고리</th>
-							<th class="text-center col-md-5">제목</th>
+							<th class="text-center col-md-4">제목</th>
 							<th data-value="i_regidate" class="order text-center col-md-2">작성일</th>
-							<th class="text-center col-md-2">답변현황</th>
+							<th class="text-center col-md-1">작성자</th>
+							<th class="text-center col-md-1">답변현황</th>
+							<th class="text-center col-md-1">삭제</th>
 						</tr>
 					</thead>
 					<tbody id="list" class="table-striped">
@@ -92,14 +94,16 @@
 									<tr class="text-center" data-num="${inq.i_num}">
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
 										<%-- <td>${count - status.index}</td>  --%>
-										<td>${inq.i_num}</td>
+										<td>${inq.i_num}</td> 
 										<td>${inq.i_category} > ${inq.i_cate_detail}</td>
 										<td class="text-center goDetail">${inq.i_title}</td>
 										<td>${inq.i_regidate}</td>
+										<td>${inq.u_id}</td>
 										<td>
 											<c:if test="${inq.i_reply==0}">답변 대기중</c:if>
 											<c:if test="${inq.i_reply==1}">답변 완료</c:if>
 										</td>
+										<td><button type="button" class="delBtn btn-danger">삭제</button></td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -140,6 +144,9 @@
 					</c:if>
 				</ul>
 			</div>
+			
+			<%-- ================= 상세정보 시작 ================= --%>		
+			<jsp:include page="inqDetailReply.jsp" />
 			
 		</div>	
 	</body>
