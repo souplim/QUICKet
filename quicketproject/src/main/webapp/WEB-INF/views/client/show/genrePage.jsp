@@ -40,7 +40,13 @@
 					<div class="form-group">
 						<div class="col-sm-2 col-sm-offset-2">
 							<div id="datepicker"></div>
-							<input type="hidden" id="date_value" />		
+							<input type="hidden" id="date_value" />	
+							<br/>
+							<select class="form-control">
+								<option>지역</option>
+								<option>서울</option>
+								<option>경기</option>								
+							</select>	
 						</div>
 						<div class="col-sm-4 col-sm-offset-1">
 							<ul class="nav nav-tabs" role="tablist">

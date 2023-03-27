@@ -17,5 +17,10 @@ public class ClientShowController {
 	public String genrePage() {
 		return "client/show/genrePage";
 	}
+	
+	@GetMapping("/search")
+	public String searchPage() {
+		return "client/show/searchPage";
+	}
 
 }
