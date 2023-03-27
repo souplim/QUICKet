@@ -4,5 +4,6 @@
 	<typeAliases>
 		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
 		<typeAlias type="com.spring.client.inq.reply.vo.InqReplyVO" alias="inqReply" />
+		<typeAlias type="com.spring.client.mypage.vo.MypageVO" alias="mypage" />
 	</typeAliases>
 </configuration>
