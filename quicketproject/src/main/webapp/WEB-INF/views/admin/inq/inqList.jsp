@@ -35,10 +35,9 @@
 			
 			<%-- ================= 검색 부분 출력 ================= --%>
 			<div class="well text-center">
-				<form class="form-inline" id="f_search">
+				<form class="form-inline" id="f_search" name="f_search">
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}"> 
 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
-					<%-- <input type="hidden" name="i_reply" id="i_reply" value="${inq.i_reply}"> --%>
 					
 					<div class="form-group">
 						<label for="search" class="sr-only">검색조건</label>

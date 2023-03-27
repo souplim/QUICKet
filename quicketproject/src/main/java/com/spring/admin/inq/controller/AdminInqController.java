@@ -49,12 +49,14 @@ public class AdminInqController {
 	public String inqList(@ModelAttribute("data") InqVO inqVO, Model model) {
 		log.info("1대1문의 리스트 화면");
 		
-		// 회원 아이디 임의로 지정
-		inqVO.setU_id("yubin");
+		// 회원 아이디 임의로 지정 -> 없애면 페이징 처리시 들어가는 pageNum 전달이 안 돼서 페이지네이션 사라짐...
+		//inqVO.setU_id("yubin");
+		inqVO.setU_id("user02");
 		
 		// 회원 문의글 리스트 조회
 		List<InqVO> inqList = null;
 		
+		// 조회(검색 추가)
 		if(inqVO.getSearch().equals("i_category")) {
 			inqVO.setI_category(inqVO.getSearch_detail());
 			

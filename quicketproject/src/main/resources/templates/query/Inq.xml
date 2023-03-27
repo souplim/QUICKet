@@ -27,13 +27,6 @@
 		]]>
 	</select>
 	
-	<!-- 검색(유형, 날짜) 부분 -->
-	<sql id="inqSearch">
-		<if test="search=='member'">
-			<![CDATA[ i_category=='회원정보' AND  ]]>
-		</if>
-	</sql>
-	
 	<!-- 회원 문의글 수 구현 -->
 	<select id="inqListCnt" parameterType="inq" resultType="int">
 		SELECT COUNT(i_num) FROM inquiry
@@ -42,22 +35,22 @@
 	
 	<!-- 문의글 등록 -->
 	<insert id="inqInsert" parameterType="inq">
-		INSERT INTO inquiry(i_num, u_id, i_category, i_cate_detail, i_title, i_content)
-		VALUES(inquiry_seq.NEXTVAL, #{u_id}, #{i_category}, #{i_cate_detail}, #{i_title}, #{i_content})
+		INSERT INTO inquiry(i_num, u_id, i_category, i_cate_detail, i_title, i_content, ti_num)
+		VALUES(inquiry_seq.NEXTVAL, #{u_id}, #{i_category}, #{i_cate_detail}, #{i_title}, #{i_content}, #{ti_num})
 	</insert>
 	
 	<!-- 문의내역 상세정보 조회 -->
 	<select id="inqDetail" parameterType="int" resultType="inq">
-		SELECT i_num, u_id, U.u_name, i_category, i_cate_detail, i_reply, i_title, i_content, 
-			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
-		FROM inquiry I LEFT OUTER JOIN q_user U ON I.u_id = U.u_id
-		WHERE i_num = #{i_num}
+		SELECT i_num, U.u_id, U.u_name, i_category, i_cate_detail, i_reply, i_title, i_content, 
+			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update, ti_num
+		FROM inquiry I INNER JOIN q_user U ON I.u_id = U.u_id
+		WHERE i_num = #{i_num} 
 	</select>
 	
 	<!-- 문의내역 상세정보 관리자 조회 -->
 	<select id="adminInqDetail" parameterType="int" resultType="inq">
 		SELECT i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content, 
-			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
+			TO_CHAR(i_regidate, 'YYYY-MM-DD') AS i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update, ti_num
 		FROM inquiry
 		WHERE i_num = #{i_num}
 	</select>
@@ -68,4 +61,5 @@
 		SET i_title = #{i_title}, i_content=#{i_content}
 		WHERE i_num=#{i_num}
 	</update>
+
 </mapper>

@@ -38,7 +38,7 @@ public class InqServiceImpl implements InqService {
 		return result;
 	}
 	
-	// 문의글 상세
+	// 문의글 상세정보
 	@Override
 	public InqVO inqDetail(int i_num) {
 		InqVO inqVO = null;
@@ -62,6 +62,7 @@ public class InqServiceImpl implements InqService {
 		return inqVO;
 	}
 
+	
 	
 
 }

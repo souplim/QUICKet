@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
-
+	
+	<style type="text/css">
+		.contentBtn { margin-bottom: 20px; }
+	</style>
+	
 	<script type="text/javascript">
 		$(function(){
 			/* 1대1문의하기 버튼 클릭시 처리 이벤트 */
@@ -105,7 +109,7 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="6" class="tac text-center">등록된 게시글이 존재하지 않습니다.</td>
+									<td colspan="6" class="tac text-center">등록된 문의글이 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

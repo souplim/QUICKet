@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 	
+	<style type="text/css">
+		#inqReplyList { margin-bottom: 20px; }
+	</style>
+	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -129,11 +133,6 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<%-- ================= 데이터 전달 폼 ================= --%>
-			<%-- <form name="dataForm" id="dataForm">
-				<input type="hidden" name="i_title" id="i_title" value="${inqDetail.i_title}">
-				<input type="hidden" name="i_content" id="i_content" value="${inqDetail.i_content}">
-			</form> --%>
 			
 			<div>
 				<h1>1:1 문의내역</h1>
@@ -156,15 +155,19 @@
 						<td class="col-md-3">${inqDetail.i_regidate}</td>
 					</tr>
 					<tr>
-						<td class="col-md-3">제목</td>
-						<%-- <td class="col-md-3 text-left">${inqDetail.i_title}</td> --%>
-						<td class="col-md-3 text-left">
-							<input type="text" id="i_title" name="i_title" class="form-control" value="${inqDetail.i_title}" readonly/>
-						</td>
-						<td class="col-md-3">답변현황</td>
-						<td class="col-md-3">
+						<td class="col-md-3">예매번호</td>
+						<td class="col-md-3">${inqDetail.ti_num}</td>
+						<td class="col-md-3" style="vertical-align:middle">답변현황</td>
+						<td class="col-md-3" style="vertical-align:middle">
 							<c:if test="${inqDetail.i_reply==0}">답변 대기중</c:if>
 							<c:if test="${inqDetail.i_reply==1}">답변 완료</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-md-3" style="vertical-align:middle">제목</td>
+						<%-- <td class="col-md-3 text-left">${inqDetail.i_title}</td> --%>
+						<td colspan="3" class="col-md-9 text-left">
+							<input type="text" id="i_title" name="i_title" class="form-control" value="${inqDetail.i_title}" readonly/>
 						</td>
 					</tr>
 					<tr>

@@ -6,8 +6,8 @@ $(function(){
 	if(search=="i_category" || search=="reply") {
 		$("#dateCheck").hide();
 		$('#textCheck').hide();
-		/*$("#start_date").val(date);
-		$("#end_date").val(date);*/
+		$("#start_date").val(date);
+		$("#end_date").val(date);
 	} else if (search=="i_regidate"){
 		$('#search').val(search);
 		$('#textCheck').hide(); /* 날짜 검색 선택 시 보이는 부분 감추기 */
@@ -71,8 +71,6 @@ $(function(){
 			$('#textCheck').show();
 		}
 		
-		console.log()
-		
 	});
 	
 	/* 엔터 시 검색 */
@@ -87,23 +85,6 @@ $(function(){
 		$(this).css("textDecoration","underline");
 	}, function(){
 		$(this).css("textDecoration","none");
-	});
-	
-	$(".goDetail").click(function(){
-		$(this).css("textDecoration","underline");
-	});
-	/* 페이징 처리 이벤트 */
-	$(".paginate_button a").click(function(e){
-		e.preventDefault(); // a태그 -> href로 이동하는 성격 해제
-		// dataForm 폼 하위 pageNum을 이름으로 가지는 input의 값을 클릭한 번호
-		$("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
-		
-		// pageNum을 들고 다시 페이지 list 부르기
-		$("#pageForm").attr({
-			"method" : "get",
-			"action" : "/admin/inq/inqList"
-		});
-		$("#pageForm").submit();
 	});
 	
 	/* 유형 선택시 세부유형 option 항목 처리 이벤트 */
@@ -126,6 +107,16 @@ $(function(){
 			target.append("<option>"+search_detail[x]+"</option>")
 	});
 	
+	/* 페이징 처리 이벤트 */
+	$(".paginate_button a").click(function(e){
+		e.preventDefault(); // a태그 -> href로 이동하는 성격 해제
+		// dataForm 폼 하위 pageNum을 이름으로 가지는 input의 값을 클릭한 번호
+		$("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
+		
+		// 폼태그 안 데이터 들고 다시 페이지 list 부르기
+		goPage();
+	});
+	
 	/* 삭제 버튼 클릭시 처리 이벤트 */
 	$('.delBtn').click(function(){
 		if(confirm('정말 삭제하시겠습니까?')){
@@ -139,6 +130,7 @@ $(function(){
 
 /* 페이지 이동 */
 function goPage(){
+	
 	$('#f_search').attr({
 		"method" : "get",
 		"action" : "/admin/inq/inqList"

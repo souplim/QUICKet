@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 	
+	<style type="text/css">
+		#inqReplyList { margin-bottom: 20px; }
+	</style>
+	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -11,8 +15,13 @@
 				/* 클릭한 글번호 가져오기 */
 				const num = $(this).parents("tr").attr("data-num");
 				
+				/* 클릭한 리스트 색으로 표시 */
+				$(".info").removeClass("info");
+				$(this).parents("tr").addClass("info");
+				
 				/* 세부정보 + 답변 서버에서 가져와 보여주는 함수 */
 				listAll(num);
+				
 			});
 			
 			/* 등록/수정 버튼 클릭시 데이터 받아다가 input 값 넣을 수 있게 이벤트 처리 후 수정 처리 */
@@ -100,7 +109,7 @@
 								} else {
 									alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
 								}
-								listReply(i_num);
+								listAll(i_num);
 							}
 						}); 
 					});				
@@ -152,7 +161,9 @@
 								} else {
 									alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
 								}
-								listReply(i_num);
+								/* inqList reload 해서 기존에 보던 페이지 보려면 어떻게 해야 할까? -> 답변 수정/등록 했을 때 리스트에서 답변완료 출력하려면? */
+								// listAll(i_num);
+								window.location.replace("/admin/inq/inqList?pageNum="+$('#pageNum').val()+"&amount="+$('#amount').val());
 							}
 						}); 
 					});				
@@ -198,7 +209,6 @@
 		
 		/* 서버로부터 상세정보 + 답변 불러와 보여주는 함수 */
 		function listAll(num){
-			$(this).css("textDecoration","underline");
 			
 			// 답변(textarea 태그, input값) 초기화
 			$("#item-template .panel-title").empty();
@@ -240,8 +250,12 @@
 						
 						// 테이블에 데이터 삽입
 						$(".dataNum").attr("data-num", i_num);
-						$("#i_num").html(i_num);
-						$("#ti_num").html(ti_num);
+						$("#detail_i_num").html(i_num);
+						
+						// 예매번호 초기화 및 대입
+						$("#ti_num").html("");
+						if(ti_num != 0) { $("#ti_num").html(ti_num); }
+						
 						$("#u_id").html(u_id);
 						$("#i_category").html(i_category + " > " +i_cate_detail);
 						$("#i_regidate").html(i_regidate);
@@ -314,7 +328,7 @@
 						<td class="col-md-3"></td>
 						<td class="col-md-3"></td>
 						<td class="col-md-3">글번호</td>
-						<td class="col-md-3" id="i_num"></td>
+						<td class="col-md-3" id="detail_i_num"></td>
 					</tr>
 					<tr>	
 						<td class="col-md-3">예매번호</td>

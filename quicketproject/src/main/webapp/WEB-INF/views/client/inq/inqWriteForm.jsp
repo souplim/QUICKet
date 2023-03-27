@@ -8,18 +8,19 @@
 		#confirmFaq {
 			width: 100%;
 			height: 40px;
+			display: flex;
 			border: 1px solid lightgray;
 			cursor: pointer;
 			padding: 10px 0 0 10px;
 		}
-		
+		#faqText { width: 97%; } 
 		#faqBox {
 			margin-bottom: 10px;
 		}
 		
 		#faqBoxList {
 			display: none;
-			border: 1px solid lightgray;
+			/* border: 1px solid lightgray; */
 			height: auto;
 		}
 		#faqBoxList dt {
@@ -76,6 +77,11 @@
 				for(x in detail)
 					target.append("<option>"+detail[x]+"</option>")
 			});
+			
+			/* 예매번호 선택시 option 항목 처리 이벤트 */
+			/* $("#ti_num").on("change", function(){
+				let ti_num = $("#i_category").val();
+			}); */
 			
 			/* faqList 클릭하면 faq리스트 slideDown 처리 이벤트 */
 			$("#confirmFaq").on("click", function(){
@@ -164,8 +170,8 @@
 			<%-- ================= 폼 시작 ================= --%>
 			<form class="form-horiozontal" id="insertForm">
 				<div class="select row">
-					<div class="form-group col-md-3">
-						<label for="i_category" class="sr-only">유형</label>
+					<div class="col-md-1"><label for="i_category">유형</label></div>  
+					<div class="form-group col-md-2">
 						<select class="form-control" id="i_category" name="i_category">
 							<option value="opt">선택</option>
 							<option value="회원정보">회원정보</option>
@@ -174,32 +180,98 @@
 						</select>
 					</div>
 					
-					<div class="form-group col-md-3">
-						<label for="i_cate_detail" class="sr-only">세부유형</label>
+					<div class="col-md-1"><label for="i_cate_detail">세부유형</label></div>
+					<div class="form-group col-md-2">
 						<select class="form-control" id="i_cate_detail" name="i_cate_detail">
 							<option value="opt">선택</option>
 						</select>
 					</div>
 					
-					<div class="form-group col-md-6">
-						<label class="sr-only" for="ti_num">예매번호</label>
-						<select class="form-control" id="ti_num" name="ti_num">
-							<option value="ticketNum">예매번호</option>
+					<div class="col-md-1"><label for="ti_num">예매번호</label></div>
+					<div class="form-group col-md-5">
+						<select class="form-control" name="ti_num" id="ti_num">
+							<option value="ticketNum">선택</option>
+							<c:if test="${not empty ticketLists}">
+								<c:forEach var="ticket" items="${ticketLists}" varStatus="status">
+									<option value="${ticket.ti_num}">
+										${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+										${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+										${ticket.seat_date}
+									</option>
+								</c:forEach>
+							</c:if> 
 						</select>
 					</div>
 					
 				</div>
 				
 				<div id="faqBox" >
-					<div id="confirmFaq">문의전, 연관 FAQ를 확인해보세요!</div>
+					<div id="confirmFaq" class="bg-info">
+						<div id="faqText">문의전, 연관 FAQ를 확인해보세요!</div>
+						<div class="glyphicon glyphicon-chevron-down text-right" aria-hidden="true"></div>
+					</div>
+					
 					<div id="faqBoxList">
-						<dl>
+						<!-- <dl>
 							<dt class="faqTitle">test</dt>
 							<dd class="faqContents">test</dd>
 							<dt class="faqTitle">test2</dt>
 							<dd class="faqContents">test2</dd>
-						</dl>
+						</dl> -->
+						
+						<!-- 부트스트랩 아코디언 -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="headingOne">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						          전화로 회원가입/탈퇴/정보 수정이 가능한가요?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						      <div class="panel-body">
+						      	회원가입 및 탈퇴, 정보수정은 인터파크 홈페이지에서 고객님께서 모두 하실 수 있습니다.
+						      </div>
+						    </div>
+						  </div>
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="headingTwo">
+						      <h4 class="panel-title">
+						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						          이메일 인증을 통해 가입 후 다른 이메일로 변경은 어떻게 진행 해야 하나요?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						      <div class="panel-body">
+						      	이메일 변경은 고객님께서 직접 홈페이지 로그인 후 상단의 [회원정보]
+								또는 [마이페이지 > 회원정보 > 회원정보조회/수정] 에서 정보를 변경하실 수 있습니다.
+								또한 모바일 페이지의 [회원정보수정] 메뉴를 통해서도 가능합니다.
+						      </div>
+						    </div>
+						  </div>
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="headingThree">
+						      <h4 class="panel-title">
+						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						          이메일 명의자와 가입자의 명의자가 맞지 않더라도 인증이 가능한가요?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						      <div class="panel-body">
+						      	네 맞습니다. 이메일 계정에 등록 된 정보와 달라도 인증은 가능합니다. 
+								이메일 등록 정보와 회원정보간의 일치 여부를 확인하는 것은 불가능합니다. 
+								단, 상품 구매 또는 결제 수단 이용 시 제 3자 무단 사용을 방지하기 위해 추가적인 본인인증을 실시하며, 
+								내국인은  "휴대폰인증 또는 I-PIN 인증" , 외국인은 "외국인 등록번호" 인증 후 결제가 가능합니다. 
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						
 					</div>
+					
 				</div>
 				
 				<div id="inqContent" class="form-horizontal">

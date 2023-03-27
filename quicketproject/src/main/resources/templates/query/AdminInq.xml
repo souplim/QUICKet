@@ -33,7 +33,6 @@
 								<include refid="boardSearch"></include>
 							</trim>
 			<![CDATA[ rownum <= #{pageNum} * #{amount}
-						ORDER BY i_num desc
 				) 
 				WHERE rnum > (#{pageNum} -1) * #{amount}
 			]]>
@@ -52,7 +51,6 @@
 			        FROM inquiry 
 			        WHERE ]]>
 			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_category = #{i_category}) 
-						ORDER BY i_num desc
 				) 
 				WHERE rnum > (#{pageNum} -1) * #{amount}
 			]]>
@@ -71,7 +69,6 @@
 			        FROM inquiry 
 			        WHERE ]]>
 			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_reply = #{i_reply})
-						ORDER BY i_num desc
 				) 
 				WHERE rnum > (#{pageNum} -1) * #{amount}
 			]]>
@@ -90,11 +87,11 @@
 	</insert>
 	
 	<!-- 회원 문의글에 답변 수정 -->
-	<insert id="inqReplyUpdate" parameterType="inqReply">
+	<update id="inqReplyUpdate" parameterType="inqReply">
 		UPDATE inquiry_reply
 		SET i_r_content = #{i_r_content}, i_r_update = SYSDATE
 		WHERE i_num = #{i_num}
-	</insert>
+	</update>
 	
 	<!-- 회원 문의글에 답변 삭제 -->
 	<delete id="inqReplyDelete" parameterType="Integer">

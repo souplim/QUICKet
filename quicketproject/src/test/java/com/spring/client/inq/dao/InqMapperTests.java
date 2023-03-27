@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.spring.client.inq.vo.InqVO;
+import com.spring.client.mypage.vo.MypageVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -59,13 +60,15 @@ public class InqMapperTests {
 		log.info(String.valueOf(result));
 	} */
 	
-	@Test
+	/* @Test
 	public void testInqListCnt() {
 		log.info("inqListCnt() 메서드 실행");
 		InqVO inqVO = new InqVO();
 		inqVO.setU_id("yubin");
 		int result = inqDao.inqListCnt(inqVO);
 		log.info(String.valueOf(result));
-	}
+	} */
+	
+	
 	
 }
