@@ -93,6 +93,7 @@
 		    <artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 		
+		<!--메일-->
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
