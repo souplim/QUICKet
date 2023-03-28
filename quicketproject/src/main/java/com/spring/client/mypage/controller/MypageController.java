@@ -62,6 +62,12 @@ public class MypageController {
 	public String myTicketDetail(@ModelAttribute MypageVO mypageVO, Model model) { 
 		log.info("예매내역 상세화면");
 		
+		// 공연 상세 페이지에 들어갈 공연 관심 수 조회
+		System.out.println(mypageVO.getS_num());
+		int likesCount = mypageService.likesCount(mypageVO.getS_num());
+		mypageVO.setLikesCount(likesCount);
+		
+		// 세부정보 조회
 		mypageVO.setU_id("user02");
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		model.addAttribute("ticketDetail", ticketDetail);
@@ -69,6 +75,7 @@ public class MypageController {
 		// 좌석번호 리스트 조회
 		List<Integer> seatList = mypageService.mySeatList(mypageVO.getTi_num());
 		model.addAttribute("seatList", seatList);
+				
 		return "client/mypage/myTicketDetail"; // /WEB-INF/views/client/mypage/myTicketDetail.jsp 
 	}
 	

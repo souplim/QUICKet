@@ -30,5 +30,6 @@ public class MypageVO extends CommonVO {
 	private int s_num=0; // 공연 번호
 	private String b_regidate; // 관심공연 등록일
 	private int is_likes = 0; // 찜 상태
+	
 	private int likesCount = 0; // 공연 찜 개수
 }

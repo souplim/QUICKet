@@ -23,4 +23,6 @@ public interface MypageDao {
 	List<Integer> mySeatList(int ti_num); /* 좌석번호 리스트 조회 */
 	
 	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
+	
+	int likesCount(int s_num); /* 상세페이지 - 공연의 관심수 조회 */
 }

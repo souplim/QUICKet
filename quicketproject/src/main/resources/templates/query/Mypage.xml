@@ -120,4 +120,12 @@
 		WHERE u_id = #{u_id}
 		ORDER BY b_regidate DESC
 	</select>
+	
+	<!-- 상세페이지 - 공연의 관심수 -->
+	<select id="likesCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) likesCount
+		FROM bookmark
+		WHERE s_num = ${s_num}
+	</select>
+	
 </mapper>
