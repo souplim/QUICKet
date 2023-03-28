@@ -10,11 +10,7 @@ import com.spring.client.inq.vo.InqVO;
 @Mapper
 public interface AdminInqDao {
 	
-	public List<InqVO> inqList(InqVO inqVO); /* 문의 리스트 */
-
-	public List<InqVO> inqCateList(InqVO inqVO); /* 세부 유형으로 조회 */
-
-	public List<InqVO> inqReplyList(InqVO inqVO); /* 답변 여부로 조회 */
+	public List<InqVO> inqList(InqVO inqVO); /* 문의 리스트 조회 */
 
 	public int inqDelete(Integer i_num); /* 회원 문의글 삭제 */
 
@@ -23,4 +19,6 @@ public interface AdminInqDao {
 	public int inqReplyUpdate(InqReplyVO inqReplyVO); /* 회원 문의글에 답변 수정 */
 
 	public int inqReplyDelete(Integer i_r_num); /* 회원 문의글에 답변 삭제 */
+
+	public int inqListCnt(InqVO inqVO); /* 검색 반영한 회원 문의글 수 구현 */
 }

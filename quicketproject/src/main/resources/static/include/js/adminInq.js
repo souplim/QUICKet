@@ -2,12 +2,20 @@ let keyword = "", search = "", search_detail = "", start_date = "", end_date = "
 
 $(function(){
 		
-	/* 검색 */
-	if(search=="i_category" || search=="reply") {
-		$("#dateCheck").hide();
+	/* 유형별 영역 숨기기 */
+	if(search=="i_category" || search=="i_reply") {
+		$("#dateCheck").hide(); /* 유형 검색 선택 시 날짜, 검색어 부분 감추기 */
 		$('#textCheck').hide();
 		$("#start_date").val(date);
 		$("#end_date").val(date);
+		
+		$('#keyword').val(""); /* 키워드 초기화 */
+		$("#search").val(search); /* 유형 검색 후 유형 보여주기 */
+		/*$("#search_detail").val(111);*/ // 왜 안 먹을까?
+		console.log(search_detail);
+		
+		
+		
 	} else if (search=="i_regidate"){
 		$('#search').val(search);
 		$('#textCheck').hide(); /* 날짜 검색 선택 시 보이는 부분 감추기 */
@@ -20,13 +28,10 @@ $(function(){
 		$("#end_date").val(date);
 	} 
 	
-	/* 검색단어 보여주기 */
+	/* 검색어로 검색할 경우 유형 및 검색단어 보여주기 */
 	if(keyword!=""){ 
 		$("#search").val(search);
-		$("#search_detail").val(search_detail);
 		$("#keyword").val(keyword);
-		console.log(search);
-		console.log(keyword);
 	}
 	
 	/* 검색 버튼 클릭 시 처리 이벤트 */
@@ -58,7 +63,7 @@ $(function(){
 	});
 	
 	/* 검색 대상이 변경될 때마다 처리 이벤트 -> */
-	$('#search').on("change", function(){
+	$('#search').on("input", function(){
 		
 		if($('#search').val()=="i_regidate"){
 			$('#textCheck').hide();

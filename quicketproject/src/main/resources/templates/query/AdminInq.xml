@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.admin.inq.dao.AdminInqDao">
 
-	<sql id="boardSearch">
+	<sql id="inqSearch">
 		<if test="search=='i_title'">
 			<![CDATA[i_title LIKE '%'||#{keyword}||'%' ]]> <!-- 마이바티스 #{} 바인딩, ${} 직접 값 삽입(보안상 문제) -->
 		</if>
@@ -11,6 +11,12 @@
 		</if>
 		<if test="search=='u_id'">
 			<![CDATA[u_id LIKE '%'||#{keyword}||'%' ]]>
+		</if>
+		<if test="search=='i_category'">
+			i_category = #{i_category}
+		</if>
+		<if test="search=='i_reply'">
+			i_reply = #{i_reply}
 		</if>
 		<if test="search=='i_regidate'">
 			<![CDATA[to_char(i_regidate,'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
@@ -30,7 +36,7 @@
 			        FROM inquiry 
 			        WHERE ]]>
 			        		<trim prefix="(" suffix=") AND" prefixOverrides="AND"> <!-- 아래 조건 만족하지 않으면 () AND <- AND 제거 -->
-								<include refid="boardSearch"></include>
+								<include refid="inqSearch"></include>
 							</trim>
 			<![CDATA[ rownum <= #{pageNum} * #{amount}
 				) 
@@ -38,40 +44,12 @@
 			]]>
 	</select>
 	
-	<!-- 세부유형으로 검색 -->
-	<select id="inqCateList" parameterType="inq" resultType="inq">
-		<![CDATA[
-			SELECT 
-			        rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content,
-			        TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
-			FROM (
-			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
-			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, 
-			                i_content, i_regidate, i_update 
-			        FROM inquiry 
-			        WHERE ]]>
-			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_category = #{i_category}) 
-				) 
-				WHERE rnum > (#{pageNum} -1) * #{amount}
-			]]>
-	</select>
-	
-	<!-- 답변여부로 검색 -->
-	<select id="inqReplyList" parameterType="inq" resultType="inq">
-		<![CDATA[
-			SELECT 
-			        rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, i_content,
-			        TO_CHAR(i_regidate, 'YYYY-MM-DD') AS  i_regidate, TO_CHAR(i_update, 'YYYY-MM-DD') AS i_update
-			FROM (
-			        SELECT /*+ INDEX_DESC(inquiry pk_inquiry) */
-			                rownum AS rnum, i_num, u_id, i_category, i_cate_detail, i_reply, i_title, 
-			                i_content, i_regidate, i_update 
-			        FROM inquiry 
-			        WHERE ]]>
-			<![CDATA[ rownum <= #{pageNum} * #{amount} AND (i_reply = #{i_reply})
-				) 
-				WHERE rnum > (#{pageNum} -1) * #{amount}
-			]]>
+	<!-- 검색 & 페이징 처리 위한 회원 문의글 수 구현 -->
+	<select id="inqListCnt" parameterType="inq" resultType="int">
+		SELECT COUNT(i_num) FROM inquiry
+		<trim prefix=" WHERE (" suffix=")">
+			<include refid="inqSearch"></include>
+		</trim>
 	</select>
 	
 	<!-- 회원 문의글 삭제 -->

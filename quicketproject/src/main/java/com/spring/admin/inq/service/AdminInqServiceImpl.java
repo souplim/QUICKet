@@ -25,22 +25,6 @@ public class AdminInqServiceImpl implements AdminInqService {
 		return list;
 	}
 
-	// 세부 유형으로 검색한 문의글 목록
-	@Override
-	public List<InqVO> inqCateList(InqVO inqVO) {
-		List<InqVO> list = null;
-		list = adminInqDao.inqCateList(inqVO);
-		return list;
-	}
-
-	// 답변여부로 검색한 문의글 목록
-	@Override
-	public List<InqVO> inqReplyList(InqVO inqVO) {
-		List<InqVO> list = null;
-		list = adminInqDao.inqReplyList(inqVO);
-		return list;
-	}
-
 	// 회원 문의글 삭제
 	@Override
 	public int inqDelete(Integer i_num) {
@@ -67,6 +51,13 @@ public class AdminInqServiceImpl implements AdminInqService {
 	public int inqReplyDelete(Integer i_r_num) {
 		int result = adminInqDao.inqReplyDelete(i_r_num);
 		return result;
+	}
+
+	/* 검색 반영한 회원 문의글 수 구현 */
+	@Override
+	public int inqListCnt(InqVO inqVO) {
+		int count = adminInqDao.inqListCnt(inqVO);
+		return count;
 	}
 
 }

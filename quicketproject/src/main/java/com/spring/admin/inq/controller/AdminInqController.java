@@ -57,22 +57,19 @@ public class AdminInqController {
 		List<InqVO> inqList = null;
 		
 		// 조회(검색 추가)
-		if(inqVO.getSearch().equals("i_category")) {
+		if(inqVO.getSearch().equals("i_category")) { /* 유형 검색일 경우 */
 			inqVO.setI_category(inqVO.getSearch_detail());
-			
-			inqList = adminInqService.inqCateList(inqVO);
-		} else if(inqVO.getSearch().equals("i_reply")) {
+		} else if(inqVO.getSearch().equals("i_reply")) { /* 답변현황 검색일 경우 */
 			// 답변여부 변수 변환
 			if(inqVO.getSearch_detail().equals("답변대기중")) inqVO.setI_reply(0);
 			else if(inqVO.getSearch_detail().equals("답변완료")) inqVO.setI_reply(1);;
-			
-			inqList = adminInqService.inqReplyList(inqVO);
-		} else
-			inqList = adminInqService.inqList(inqVO);
+		} 
+		
+		inqList = adminInqService.inqList(inqVO);
 		model.addAttribute("inqList", inqList);
 		
 		// 페이징 처리
-		int total = inqService.inqListCnt(inqVO);
+		int total = adminInqService.inqListCnt(inqVO);
 		model.addAttribute("pageMaker", new PageDTO(inqVO, total));
 		
 		// 리스트 번호 새로 부여
