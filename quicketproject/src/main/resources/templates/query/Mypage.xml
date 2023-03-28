@@ -25,10 +25,10 @@
 			    ]]>
 		    <trim prefix="(" suffix=") AND" prefixOverrides="AND"> <!-- 아래 조건 만족하지 않으면 () AND <- AND 제거 -->
 				<if test="search=='seat_date'">
-					<![CDATA[seat_date between #{start_date} and #{end_date} ]]>
+					<![CDATA[to_char(seat_date, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
 				</if>
 				<if test="search=='ti_regdate'">
-					<![CDATA[ti_regdate between #{start_date} and #{end_date} ]]>
+					<![CDATA[to_char(ti_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
 				</if>
 			</trim>
 			<![CDATA[ rownum <= #{pageNum} * #{amount} AND u_id = #{u_id}
