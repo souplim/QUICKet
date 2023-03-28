@@ -1,7 +1,11 @@
 package com.spring.client.user.service;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+//import java.util.List;
+>>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +34,11 @@ public class ClientUserServiceImpl implements ClientUserService {
 		
 		return vo;
 	}
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	@Override
 	public int userJoin(UserVO user) throws Exception {
 		int result = 0; 
@@ -83,7 +91,11 @@ public class ClientUserServiceImpl implements ClientUserService {
 		int result = 0;
 		result = clientUserDao.userConfirm(u_name, u_id, u_email);
 		return result;
+<<<<<<< HEAD
 	}
+=======
+	}*/
+>>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	
 	
 	
