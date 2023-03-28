@@ -5,11 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-//import java.util.List;
-<<<<<<< HEAD
+
 import java.util.List;
-=======
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
 
 import javax.servlet.http.HttpSession;
 
@@ -20,13 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-=======
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
-///import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -68,29 +63,18 @@ public class ClientUserController {
 	/*************************************************************
 	 * 회원가입 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
-	 *************************************************************/
-<<<<<<< HEAD
-=======
-	/*
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+	 *************************************************************/a
 	@GetMapping("/join")
 	public String joinForm() {
 		log.info("client 회원가입 화면 호출");
 		return "client/user/join"; 	// views/client/login.jsp
-<<<<<<< HEAD
 	}
-=======
-	}*/
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
-	
+
 	/*************
 	 * 회원가입 처리 메서드
 	 */
-<<<<<<< HEAD
 	@PostMapping("/userJoin")
-=======
-	/*@PostMapping("/userJoin")
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
 	public String userJoin(UserVO user, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원가입 처리 메소드 호출 userJoin() ");
 		
@@ -106,11 +90,7 @@ public class ClientUserController {
 		}
 		return "redirect:" + path;
 	}
-<<<<<<< HEAD
-	
-=======
-	*/
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
 	@PostMapping("/login")
 	public String userLoginProcess(UserVO login, Model model, RedirectAttributes ras, HttpSession session) {
 		String url = "";
@@ -194,11 +174,7 @@ public class ClientUserController {
 	 * 회원 정보 수정 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/userUpdateForm 으로 요청
 	 *************************************************************/
-<<<<<<< HEAD
 	@GetMapping("/userUpdateForm")
-=======
-	/*@GetMapping("/userUpdateForm")
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	public String userUpdateForm(@ModelAttribute UserVO uvo, Model model) {
 		
 		UserVO userinfo = clientUserService.userInfo(uvo);
@@ -224,39 +200,23 @@ public class ClientUserController {
 		}
 		return "redirect:" + path;
 	}
-<<<<<<< HEAD
-	
-=======
-	*/
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
 	
 	/****
 	 * 인증메일 전송 메소드
 	 */
-<<<<<<< HEAD
 	@PostMapping("/mailConfirm")
-=======
-	/*@PostMapping("/mailConfirm")
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	@ResponseBody
 	public String mailConfirm(String email) throws Exception {
 	    String code = mailService.sendMessage(email);
 	    log.info("인증코드 : " + code);
 	    return code;
 	}
-<<<<<<< HEAD
-	
+
 	/**
 	 * 비밀번호 재설정 폼 화면 
 	 */
 	@GetMapping("/setPwdForm")
-=======
-	*/
-	/**
-	 * 비밀번호 재설정 폼 화면 
-	 */
-	/*@GetMapping("/setPwdForm")
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	public String setPwdForm(@ModelAttribute UserVO uvo, Model model) {
 		
 			UserVO userinfo = clientUserService.userInfo(uvo);
@@ -264,19 +224,11 @@ public class ClientUserController {
 			
 			log.info("client 회원정보 화면 호출");
 			return "client/user/setPwdForm"; 	// views/client/userInfo.jsp
-<<<<<<< HEAD
 	}
+
 	
 	/**
-	 * 비밀번호 재설정 처리
-	 */
-=======
-	}*/
-	
-	/**
-	 * 비밀번호 재설정 처리
-	 
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+	 * 비밀번호 재설정 처리*/
 	@PostMapping("/setNewPwd")
 	public String setNewPwd(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("비밀번호 재설정 메소드 호출");
@@ -293,19 +245,10 @@ public class ClientUserController {
 			path = "/user/setPwdForm?u_num=" + uvo.getU_num();
 		}
 		return "redirect:" + path;
-<<<<<<< HEAD
 	}
 	
 	/**
-	 * 회원 탈퇴 처리
-	*/
-=======
-	}*/
-	
-	/**
-	 * 회원 탈퇴 처리
-	
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+	 * 회원 탈퇴 처리*/
 	@GetMapping("/userDelete")
 	public String userDelete(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원 탈퇴 처리 메소드 호출");
@@ -325,20 +268,13 @@ public class ClientUserController {
 		
 		return "redirect:"+path;
 	}
-<<<<<<< HEAD
-	 
-=======
-	 */
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
 	/*************************************************************
 	 * 아이디 비밀번호 찾기 (아이디 찾기) 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
-<<<<<<< HEAD
+
 	@GetMapping("/searchIdForm")
-=======
-	/*@GetMapping("/searchIdForm")
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	public String searchIdForm() {
 		log.info("아이디 찾기 화면 호출");
 		return "client/user/searchIdForm"; 	// views/client/login.jsp
@@ -377,10 +313,8 @@ public class ClientUserController {
 		//model.addAttribute("data", result);
 		
 		return result;
-<<<<<<< HEAD
 	}
-=======
-	}*/
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
+
+
 
 }

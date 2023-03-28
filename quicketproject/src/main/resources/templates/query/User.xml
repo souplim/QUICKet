@@ -19,7 +19,6 @@
 	</select>
 	
 	
-<<<<<<< HEAD
 	<!-- 회원가입 처리 -->
 
 	<insert id="userJoin" parameterType="user">
@@ -28,88 +27,46 @@
 	</insert>
 	
 	<!-- 비밀번호 변경 처리  -->
-=======
-	<!-- 회원가입 처리 
-	<insert id="userJoin" parameterType="user">
-		insert into q_user(u_id, u_num, u_pwd, u_name, u_gender, u_birth, u_email, u_phone)
-		values (#{u_id}, q_user_seq.nextval, #{u_pwd}, #{u_name}, #{u_gender}, to_date(#{u_birth},'YYYY-MM-DD'), #{u_email}, #{u_phone})
-	</insert>-->
-
-	<!-- 비밀번호 변경 처리  
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	<update id="setNewPwd" parameterType="user">
 		update q_user
 		set u_pwd = #{u_pwd}, u_pwddate = sysdate, u_moddate = sysdate
 		where u_id = #{u_id}		
 	</update>
-<<<<<<< HEAD
 	
 	<!-- 회원 탈퇴 처리 -->
-=======
-	-->
-	<!-- 회원 탈퇴 처리 
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	<update id="userDelete" parameterType="user">
 		update q_user
 		set u_state = 0, u_moddate = sysdate
 		where u_num = #{u_num}
-<<<<<<< HEAD
 	</update>
 	
 	<!-- 회원 정보 수정 처리-->
-=======
-	</update>-->
-	
-	<!-- 회원 정보 수정 처리
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	<update id="userUpdate" parameterType="user">
 		update q_user
 		set u_email = #{u_email}, u_moddate = sysdate, u_phone = #{u_phone}
 		where u_num = #{u_num} 
-<<<<<<< HEAD
 	</update> 
 	
 	<!-- 전화번호로 아이디 찾기 -->
-=======
-	</update> -->
-	
-	<!-- 전화번호로 아이디 찾기 
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	<select id="searchIdPhone" parameterType="String" resultType="user">
 	 select u_id, to_char(u_regdate,'YYYY-MM-DD') as u_regdate
 	 from q_user
 	 where u_name = #{u_name} and u_phone = #{u_phone} and u_state = 1
-<<<<<<< HEAD
  	 </select>
 	
 	<!-- 이메일로 아이디 찾기 -->
-=======
- 	 </select>-->
-	
-	<!-- 이메일로 아이디 찾기 
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 	<select id="searchIdEmail" parameterType="String" resultType="user">
 	 select u_id, to_char(u_regdate,'YYYY-MM-DD') as u_regdate
 	 from q_user
 	 where u_name = #{u_name} and u_email = #{u_email} and u_state = 1
-<<<<<<< HEAD
  	 </select>
  	 
  	 <!-- 비밀번호 찾기 : 일치하는 회원 정보 존재하는지 확인 -->
-=======
- 	 </select>-->
- 	 
- 	 <!-- 비밀번호 찾기 : 일치하는 회원 정보 존재하는지 확인
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
  	 <select id="userConfirm" parameterType="String" resultType="int">
  	 	select nvl((
  	 		select 1 from q_user
  	 		where u_name = #{u_name} and u_id = #{u_id} and u_email = #{u_email} and u_state = 1
  	 	), 0) as result
  	 	from dual
-<<<<<<< HEAD
  	 </select>
-=======
- 	 </select> -->
->>>>>>> 3426caeb608bf1188635703f62a14c7ccddc2022
 </mapper>
