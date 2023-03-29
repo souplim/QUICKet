@@ -12,13 +12,19 @@
 </style>
 
 <script>
-	$("#newPwdBtn").click(function(){
-		$("#pwdForm").attr({
-			"method" : "post",
-			"enctype" : "multipart/form-data",
-			"action" : "/user/setNewPwd?u_id="+$("#u_id").val()
+	$(function(){
+		$("#newPwdBtn").click(function(){
+			console.log("click");
+			
+			$("#pwdForm").attr({
+				"method" : "post",
+				"enctype" : "multipart/form-data",
+				"action" : "/user/newPwd"
+			});
+			$("#pwdForm").submit();
+			console.log("..")
+			
 		});
-		$("#pwdForm").submit();
 	});
 </script>
 </head>
@@ -27,7 +33,7 @@
     <div class="container">
 
       <form class="form-signin" id="pwdForm">
-      <input type="hidden" id="u_id" value="${user.u_id}"/>
+      <input type="hidden" id="u_id" name="u_id" value="${user.u_id}"/>
         	<table class="table" id="table">
 				<tr class="form-group">
 					<td class="text-center">새 비밀번호</td>
@@ -50,7 +56,7 @@
 				<tr id="btnArea">
 					<td></td>
 					<td colspan="3">
-						<button type="button" id="newPwdBtn" class="btn btn-block">확인</button>
+						<button type="button" id="newPwdBtn" class="btn btn-default btn-block">확인</button>
 					</td>
 				</tr>
 			</table>

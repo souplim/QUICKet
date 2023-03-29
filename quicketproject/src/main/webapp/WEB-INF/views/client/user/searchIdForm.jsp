@@ -139,7 +139,7 @@
 			}
 		}); 	// 백스페이스로 지웠을 때는 왜 안될꼬,,,,
 		
-		$("#keySendBtn").click(function(){
+		$("#pwdSendBtn").click(function(){
 
 			let email = $("#pw-email").val() + "@" + $("#pw-emailaddress").val();
 			
@@ -154,21 +154,18 @@
 					if(data == 0) {
 						alert("입력한 정보와 일치하는 회원 정보가 없습니다.");
 					} else {
-						$("#chkKeyArea").css("display", "table-row");
-						
 						$.ajax({
 							type:"POST",
-							url:"/user/mailConfirm",
+							url:"/user/sendTempPwd",
 							data : {
-								"email":email
+								"email":email, "id":$("#pw-id").val()
 							},
 							success:function(data){
-								alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n인증번호를 입력해주세요.");
-								$("#keySendBtn").attr("disabled","disabled");
-								$("#chkKey").focus();
-								chkEmailConfirm(data);
-							}
+								alert("해당 이메일로 임시 비밀번호가 발급되었습니다.<br>임시 비밀번호로 로그인해주세요.");
+							},
+							error: function (xhr, status, error) { alert("실패"); }
 						});
+						////// 왜 실패가 뜨지...
 					}
 				}
 			});
@@ -181,11 +178,21 @@
 					$("#pwdBtnArea").css("display", "none");
 				}
 			});
-			
+			/*
 			$("#pwdBtn").click(function(){
-				location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
+				
+				$.ajax({
+					url : "/user/setNewPwdForm",
+					type : "POST",
+					data : { "u_name":$("#pw-name").val(), "u_id":$("#pw-id").val(), "u_email":email
+					},success:function(data){
+				
+					}
+				});
+	
+				//location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
 			});
-			
+			*/
 		});
 		
 		
@@ -193,7 +200,7 @@
 		/******************/
 	
 	});
-	
+		/*
 	  function chkEmailConfirm(data) {
 		  $("#chkKey").on("keyup",function(){
 			  if(data != $("#chkKey").val() ) { 	// 인증번호 일치 X
@@ -213,7 +220,7 @@
 					$("#chkSpan").addClass("glyphicon-ok");	
 				} 
 		  });
-	  }
+	  }*/
 	
 </script>
 
@@ -378,8 +385,9 @@
 					</tr>
 					<tr class="form-group" id="sendBtnArea">
 						<td></td>
-						<td colspan="4"><button type="button" id="keySendBtn" class="btn btn-default btn-block">인증키 전송</button></td>
+						<td colspan="4"><button type="button" id="pwdSendBtn" class="btn btn-default btn-block">임시 비밀번호 전송</button></td>
 					</tr>
+					<!-- 
 					<tr class="form-group" id="chkKeyArea">
 						<td></td>
 						<td colspan="4">
@@ -393,6 +401,7 @@
 						<td></td>
 						<td colspan="4"><button type="button" id="pwdBtn" class="btn btn-default btn-block">확인</button></td>
 					</tr>
+					-->
 				</table>
 			</form>
 		  </div>

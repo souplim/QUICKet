@@ -208,6 +208,7 @@ public class ClientUserController {
 	    log.info("인증코드 : " + code);
 	    return code;
 	}
+
 	
 	/**
 	 * 비밀번호 재설정 폼 화면 
@@ -311,9 +312,28 @@ public class ClientUserController {
 		return result;
 	}
 	
-	@GetMapping("/setNewPwdForm")
-	public String setNewPwdForm() {
+	@PostMapping("/setNewPwdForm")
+	public String setNewPwdForm(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) {
+		model.addAttribute("user", uvo);
 		return "client/user/setNewPwdForm";
+	}
+	
+
+	
+	/**
+	 * 임시 비밀번호 전송 후 비밀번호 변경
+	 */
+	@PostMapping("/sendTempPwd")
+	public String sendTempPwd(String email, String id) throws Exception {
+		String pwd = mailService.sendTempPwd(email);
+		log.info("임시 비밀번호 전송 완료");
+		
+		UserVO user = new UserVO();
+		user.setU_id(id);
+		user.setU_pwd(pwd);
+		clientUserService.setNewPwd(user);
+		log.info("비밀번호 변경 완료 >> " + pwd );
+		return "pwd";
 	}
 
 }

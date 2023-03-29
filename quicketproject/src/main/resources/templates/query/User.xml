@@ -69,4 +69,11 @@
  	 	), 0) as result
  	 	from dual
  	 </select>
+ 	 
+ 	<!-- 새 비밀번호 변경 처리  
+	<update id="newPwd" parameterType="user">
+		update q_user
+		set u_pwd = #{u_pwd}, u_pwddate = sysdate, u_moddate = sysdate
+		where u_id = #{u_id}		
+	</update>-->
 </mapper>

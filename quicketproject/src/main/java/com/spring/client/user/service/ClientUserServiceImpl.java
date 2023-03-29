@@ -85,6 +85,13 @@ public class ClientUserServiceImpl implements ClientUserService {
 		return result;
 	}
 
+	@Override
+	public int newPwd(UserVO user) throws Exception {
+		int result = 0;
+		result = clientUserDao.newPwd(user);
+		return result;
+	}
+
 	
 	
 

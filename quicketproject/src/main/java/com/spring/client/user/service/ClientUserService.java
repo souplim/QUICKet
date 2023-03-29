@@ -16,5 +16,5 @@ public interface ClientUserService {
 	public List<UserVO> searchIdPhone(String u_name, String u_phone);
 	public List<UserVO> searchIdEmail(String u_name, String u_email);
 	public int userConfirm(String u_name, String u_id, String u_email);
-
+	public int newPwd(UserVO user) throws Exception;
 }
