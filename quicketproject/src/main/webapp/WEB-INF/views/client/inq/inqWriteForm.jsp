@@ -229,7 +229,7 @@
 						        </a>
 						      </h4>
 						    </div>
-						    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						    <div id="collapseOne" class="panel-collapse collapse in bg-warning" role="tabpanel" aria-labelledby="headingOne">
 						      <div class="panel-body">
 						      	회원가입 및 탈퇴, 정보수정은 인터파크 홈페이지에서 고객님께서 모두 하실 수 있습니다.
 						      </div>
@@ -243,7 +243,7 @@
 						        </a>
 						      </h4>
 						    </div>
-						    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						    <div id="collapseTwo" class="panel-collapse collapse bg-warning" role="tabpanel" aria-labelledby="headingTwo">
 						      <div class="panel-body">
 						      	이메일 변경은 고객님께서 직접 홈페이지 로그인 후 상단의 [회원정보]
 								또는 [마이페이지 > 회원정보 > 회원정보조회/수정] 에서 정보를 변경하실 수 있습니다.
@@ -259,7 +259,7 @@
 						        </a>
 						      </h4>
 						    </div>
-						    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						    <div id="collapseThree" class="panel-collapse collapse bg-warning" role="tabpanel" aria-labelledby="headingThree">
 						      <div class="panel-body">
 						      	네 맞습니다. 이메일 계정에 등록 된 정보와 달라도 인증은 가능합니다. 
 								이메일 등록 정보와 회원정보간의 일치 여부를 확인하는 것은 불가능합니다. 

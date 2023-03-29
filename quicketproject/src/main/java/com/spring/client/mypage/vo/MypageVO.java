@@ -19,10 +19,13 @@ public class MypageVO extends CommonVO {
 	private int seat_num = 0; // 예매 좌석 번호
 	private String s_opendate; // 공연 시작일
 	private String s_closedate; // 공연 종료일
+	private String img_name = ""; // 이미지 파일
 	private String img_dir = ""; // 이미지 파일
+	private String img_type = ""; // 이미지 파일
 	private String th_name = ""; // 공연장 이름
 	private String hall_id = ""; // 공연홀 아이디
 	private String hall_turn = ""; // 공연회차
+	private String hall_time = ""; // 공연회차
 	private int s_price = 0; // 공연 가격
 	private String pay_name = ""; // 결제자 이름
 	private int pay_amount = 0; // 총결제가격
@@ -30,6 +33,9 @@ public class MypageVO extends CommonVO {
 	private int s_num=0; // 공연 번호
 	private String b_regidate; // 관심공연 등록일
 	private int is_likes = 0; // 찜 상태
-	
 	private int likesCount = 0; // 공연 찜 개수
+	
+	private int q_no=0; // qna 번호
+	private String q_title=""; // qna 제목
+	private String q_regdate; // qna 등록일
 }

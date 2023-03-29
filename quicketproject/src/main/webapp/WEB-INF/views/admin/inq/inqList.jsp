@@ -54,7 +54,7 @@
 					<div class="form-group">
 						<label for="search_detail" class="sr-only">세부 검색조건</label>
 						<select id="search_detail" name="search_detail" class="form-control">
-							<option value="opt">---</option>
+							
 						</select>
 					</div>
 					
@@ -72,7 +72,7 @@
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="inqList" class="table-height">
-				<table summary="게시판 리스트" class="table table-striped">
+				<table summary="관리자 1대1문의 리스트" class="table table-striped">
 					<thead>
 						<tr>
 							<th data-value="i_num" class="order text-center col-md-1">글번호</th>
@@ -86,7 +86,7 @@
 					</thead>
 					<tbody id="list" class="table-striped">
 						<!-- 데이터 출력 -->
-						<!-- <c:if test=""></c:if> ${inq.u_id} 세션아이디와 작성자아이디가 같을 경우 출력 -->
+						<!-- <c:if test=""></c:if> ${inq.u_id} 세션아이디와 작성자아이디가 같을 경우 출력 -> 컨트롤러에서 제어 -->
 						<c:choose>
 							<c:when test="${not empty inqList}">
 								<c:forEach var="inq" items="${inqList}" varStatus="status">

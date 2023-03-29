@@ -16,7 +16,11 @@ public interface MypageService {
 	public List<MypageVO> ticketList(String u_id); /* 등록 폼에서 조회할 회원 예매번호, 공연이름 */
 	
 	List<Integer> mySeatList(int ti_num); /* 좌석번호 리스트 조회 */
-	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
 	
+	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
 	int likesCount(int s_num); /* 공연 상세페이지 공연의 관심 수 조회 */
+	int myLikesListCnt(MypageVO mypageVO); /* 페이징 위한 나의 관심공연 수 */
+	
+	List<MypageVO> qnaList(MypageVO mypageVO); /* qna 리스트 조회 */
+	int qnaListCnt(MypageVO mypageVO); /* 페이징 처리 위한 qna 글 개수 */
 }

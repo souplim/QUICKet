@@ -83,11 +83,32 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
-	/* 공연 상세페이지 공연의 관심 수 조회 */
+	// 공연 상세페이지 공연의 관심 수 조회
 	@Override
 	public int likesCount(int s_num) {
 		int likesCount = mypageDao.likesCount(s_num);
 		return likesCount;
+	}
+
+	// 페이징 처리 위한 나의 관심공연 수 
+	@Override
+	public int myLikesListCnt(MypageVO mypageVO) {
+		int myLikesListCnt = mypageDao.myLikesListCnt(mypageVO);
+		return myLikesListCnt;
+	}
+
+	// qna 리스트 조회
+	@Override
+	public List<MypageVO> qnaList(MypageVO mypageVO) {
+		List<MypageVO> list = mypageDao.qnaList(mypageVO);
+		return list;
+	}
+
+	// qna 리스트 개수 
+	@Override
+	public int qnaListCnt(MypageVO mypageVO) {
+		int qnaListCnt = mypageDao.qnaListCnt(mypageVO);
+		return qnaListCnt;
 	}
 
 	

@@ -23,7 +23,7 @@
 		</if>
 	</sql>
 
-	<!-- 검색어 혹은 날짜로 검색 -->
+	<!-- 문의사항 조회(검색, 페이징 처리) -->
 	<select id="inqList" parameterType="inq" resultType="inq">
 		<![CDATA[
 			SELECT 

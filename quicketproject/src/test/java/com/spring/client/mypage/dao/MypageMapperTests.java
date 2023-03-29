@@ -46,7 +46,7 @@ public class MypageMapperTests {
 	public void testMyTicketDetail() {
 		log.info("myTicketDetail() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
-		mypageVO.setU_id("usesr02");
+		mypageVO.setU_id("user02");
 		mypageVO.setTi_num(2);
 		mypageVO.setS_num(1);
 		MypageVO mypageVO2 = mypageDao.myTicketDetail(mypageVO);
@@ -109,10 +109,38 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
 	public void testLikesCount() {
 		log.info("likesCount() 메서드 실행");
 		int count = mypageDao.likesCount(1);
+		log.info(String.valueOf(count));
+	} */
+	
+	/* @Test
+	public void testMyLikesListCnt() {
+		log.info("myLikesListCnt() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		int count = mypageDao.myLikesListCnt(mypageVO);
+		log.info(String.valueOf(count));
+	} */
+	
+	/* @Test
+	public void testQnaList() {
+		log.info("qnaList() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		List<MypageVO> list = mypageDao.qnaList(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	} */
+	
+	@Test
+	public void testQnaListCnt() {
+		log.info("qnaListCnt() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		int count = mypageDao.qnaListCnt(mypageVO);
 		log.info(String.valueOf(count));
 	}
 }

@@ -21,9 +21,9 @@
 			        ) I inner JOIN q_user U ON I.u_id = U.u_id
 	        WHERE 
 		]]>
-		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		<![CDATA[ rownum <= #{pageNum} * #{amount} AND (I.u_id = #{u_id})
 			)  
-			WHERE rnum > (#{pageNum} -1) * #{amount} AND (u_id = #{u_id})
+			WHERE rnum > (#{pageNum} -1) * #{amount} 
 		]]>
 	</select>
 	

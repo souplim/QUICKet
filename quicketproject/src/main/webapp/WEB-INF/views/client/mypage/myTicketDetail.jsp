@@ -200,7 +200,7 @@
 				</div>
 				<div class="contentTB text-center flex">
 					<div id="img">
-						${ticketDetail.img_dir}
+						${ticketDetail.img_dir}/${ticketDetail.img_name}.${ticketDetail.img_type}
 					</div>
 					<div>
 						<table class="table table-bordered table-ticket">
@@ -214,7 +214,7 @@
 							</tr>
 							<tr>
 								<td class="col-md-4 gray">관람일시</td>
-								<td class="col-md-8 text-left">${ticketDetail.seat_date}</td>
+								<td class="col-md-8 text-left">${ticketDetail.seat_date} ${ticketDetail.hall_turn}${ticketDetail.hall_time}</td>
 							</tr>
 							<tr>
 								<td class="col-md-4 gray">공연장</td>

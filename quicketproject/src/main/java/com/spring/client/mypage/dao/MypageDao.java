@@ -25,4 +25,8 @@ public interface MypageDao {
 	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
 	
 	int likesCount(int s_num); /* 상세페이지 - 공연의 관심수 조회 */
+	int myLikesListCnt(MypageVO mypageVO); /* 페이징 위한 나의 관심공연 수 */
+	
+	List<MypageVO> qnaList(MypageVO mypageVO); /* qna 리스트 조회 */
+	int qnaListCnt(MypageVO mypageVO); /* 페이징 처리 위한 qna 글 개수 */
 }

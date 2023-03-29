@@ -49,6 +49,20 @@
 			$(".detailReload").on("click", function(){
 				location.href="/mypage/myLikeList";
 			});
+  			
+			/* 페이징 처리 이벤트 */
+			$(".paginate_button a").click(function(e){
+				e.preventDefault(); // a태그 -> href로 이동하는 성격 해제
+				// dataForm 폼 하위 pageNum을 이름으로 가지는 input의 값을 클릭한 번호
+				$("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
+				
+				// 폼태그 안 데이터 들고 다시 페이지 list 부르기
+				$("#pageForm").attr({
+					"method" : "get",
+					"action" : "/mypage/myLikeList"
+				});
+				$("#pageForm").submit();
+			});
 			
 		});
 	</script>
@@ -71,6 +85,14 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+		
+		<%-- ================= 데이터 전달 폼 ================= --%>
+		<form name="pageForm" id="pageForm">
+			<!-- 페이징 처리를 위한 파라미터 -->
+			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}"/>
+			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"/>
+		</form>
+		
 		
 		<div class="contentContainer container">
 			<div>
@@ -118,9 +140,35 @@
 								</tr>
 							</c:otherwise>
 						</c:choose>
-						
 					</tbody>
 				</table>
+			</div>
+			
+			<%-- ================= 페이징 출력 시작 ================= --%>
+			<div class="text-center">
+				<ul class="pagination">
+					<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인 -->
+					<c:if test="${pageMaker.prev}">
+						<li class="paginate_button previous">
+							<a href="${pageMaker.startPage -1}">Previous</a>
+						</li>
+					</c:if>
+					
+					<!-- 바로가기 번호 출력 -->
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<!-- 현재 페이지 색깔 : 현재 보고 있는 페이지와 for문으로 돌리고 있는 페이지가 일치하면 class='active' 적용 -->
+						<li class="paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
+							<a href="${num}">${num}</a>
+						</li>
+					</c:forEach>
+					
+					<!-- 다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인 -->
+					<c:if test="${pageMaker.next}">
+						<li class="paginate_button next">
+							<a href="${pageMaker.endPage+1}">Next</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
 			
 		</div>
