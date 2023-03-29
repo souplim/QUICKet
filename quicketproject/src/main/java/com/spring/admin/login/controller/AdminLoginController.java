@@ -71,7 +71,8 @@ class AdminLoginController {
 		
 		if(adminLogin != null) {
 			model.addAttribute("adminLogin", adminLogin);
-			url = "/admin/quicket/main";
+			url = "/admin/user/userList";
+					//"/admin/quicket/main";
 		} else {
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
 			url = "/admin/login";

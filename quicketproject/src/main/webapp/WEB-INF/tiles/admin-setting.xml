@@ -7,15 +7,20 @@
 		<put-attribute name="title" value="관리자 페이지" />
 		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
-		<put-attribute name="sub" value="/WEB-INF/views/template/admin/sub.jsp" />
 		<put-attribute name="main" value="" />
 	</definition>
 					
 	<definition name="admin/user/*" extends="basic">
-		<put-attribute name="title" value="관리자 게시판 관리" />
+		<put-attribute name="title" value="관리자 회원 관리" />
 		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
-		<put-attribute name="sub" value="/WEB-INF/views/template/admin/sub.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/admin/user/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/comm/*" extends="basic">
+		<put-attribute name="title" value="관리자 커뮤니티 관리" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/comm/{1}.jsp" />
 	</definition>
 </tiles-definitions>

@@ -27,7 +27,8 @@
 		<div class="contentContainer container">
 			<!-- <div class="contentTit page-header"><h3 class="text-center">게시판 리스트</h3></div>  -->
 			<form name="detailForm"id="detailForm">
-				<input type="hidden"name="b_num"id="b_num"/>
+				<input type="hidden"name="b_num" id="b_num"/>
+				<!--  공연 번호로 변경  -->
 			</form>
 
 			
@@ -64,16 +65,17 @@
 				<table summary="게시판 리스트" class="table table-striped">
 					<thead>
 						<tr>
-							<th data-value="b_num" class="order text-center col-md-1">글번호</th>
-							<th class="text-center col-md-4">글제목</th>
-							<th class="text-center col-md-2">작성자</th>
-							<th data-value="b_date" class="order col-md-1">작성일</th>
-							<th class="text-center col-md-1">조회수</th>
-							<th class="text-center col-md-2">이미지</th>
+							<th data-value="b_num" class="order text-center col-md-1">공연번호</th>
+							<th class="text-center col-md-2">공연명</th>
+							<th class="text-center col-md-4">공연기간</th>
+							<th class="text-center">기대평</th>
+							<th class="text-center">관람후기</th>
+							<th class="text-center">QnA</th>
+							<th class="text-center">공연상세</th>
 						</tr>
 					</thead>
 					<tbody id="list" class="table-striped">
-						<!--  데이터 출력  -->
+						<!--  데이터 출력  
 						<c:choose>
 							<c:when test="${not empty boardList }">
 								<c:forEach var="board" items="${boardList}" varStatus="status">
@@ -104,7 +106,7 @@
 									<td colspan="5" class="tac text-center">등록된 게시글이 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
-						</c:choose>	
+						</c:choose>	-->
 					</tbody>
 				</table>
 			</div>
