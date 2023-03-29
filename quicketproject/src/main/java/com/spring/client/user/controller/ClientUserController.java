@@ -310,5 +310,10 @@ public class ClientUserController {
 		
 		return result;
 	}
+	
+	@GetMapping("/setNewPwdForm")
+	public String setNewPwdForm() {
+		return "client/user/setNewPwdForm";
+	}
 
 }

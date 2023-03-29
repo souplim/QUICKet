@@ -10,6 +10,17 @@
 <style>
 	.table>tbody>tr>td {border:none;}
 </style>
+
+<script>
+	$("#newPwdBtn").click(function(){
+		$("#pwdForm").attr({
+			"method" : "post",
+			"enctype" : "multipart/form-data",
+			"action" : "/user/setNewPwd?u_id="+$("#u_id").val()
+		});
+		$("#pwdForm").submit();
+	});
+</script>
 </head>
 <body>
 
@@ -18,7 +29,7 @@
       <form class="form-signin" id="pwdForm">
       <input type="hidden" id="u_id" value="${user.u_id}"/>
         	<table class="table" id="table">
-				<tr>
+				<tr class="form-group">
 					<td class="text-center">새 비밀번호</td>
 					<td colspan="3">
 					<div class="form-group has-feedback">
@@ -27,7 +38,7 @@
 					</div>
 					</td>
 				</tr>
-				<tr>
+				<tr class="form-group">
 					<td class="text-center">새 비밀번호 확인</td>
 					<td colspan="3">
 					<div class="form-group has-feedback">
@@ -36,7 +47,12 @@
 					</div>
 					</td>
 				</tr>
-				
+				<tr id="btnArea">
+					<td></td>
+					<td colspan="3">
+						<button type="button" id="newPwdBtn" class="btn btn-block">확인</button>
+					</td>
+				</tr>
 			</table>
       </form>
     

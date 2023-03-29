@@ -183,13 +183,7 @@
 			});
 			
 			$("#pwdBtn").click(function(){
-				$("#pwdForm").attr({
-					"method" : "get",
-					"enctype" : "multipart/form-data",
-					"action" : "/user/setNewPwdForm"
-				});
-				$("#pwdForm").submit();
-				//location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
+				location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
 			});
 			
 		});
