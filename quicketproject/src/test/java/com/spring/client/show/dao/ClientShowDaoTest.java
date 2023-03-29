@@ -55,7 +55,7 @@ public class ClientShowDaoTest {
 		RankVO vo = new RankVO();
 		vo.setRank_start("2023-03-13");
 		vo.setRank_end("2023-03-19");
-		vo.setS_select_genre("뮤지컬");
+		vo.setS_genre("뮤지컬");
 		List<RankVO> result = showDao.rankList(vo);
 		
 		if(result!=null) {

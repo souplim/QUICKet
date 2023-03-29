@@ -13,6 +13,9 @@ public interface ClientShowDao {
 	public List<ShowVO> showList(ShowVO vo);
 	public List<RankVO> rankList(RankVO vo);
 	public ShowVO showDetail(ShowVO vo);
+	
 	public List<ImgVO> detailImg(ShowVO vo);
 	public ImgVO posterImg(ShowVO vo);
+	
+	public int showListCnt(ShowVO vo);
 }

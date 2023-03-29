@@ -90,11 +90,59 @@
 			$("#searchData").click();
 		})
 		
+		
+		//지도정보 버튼 클릭시 처리
+		$(".theaterMapBtn").each(function(){
+			$(this).click(function(){
+				let th_num = $(this).parents(".th_tr").data("num");
+				window.open("/admin/theater/theaterMap?th_num="+th_num, "_blank", "width=600,height=800,scrollbars=yes");
+			})
+		})
+		
 		//데이터등록버튼 클릭시 처리
 		$("#insertTheaterBtn").click(function(){
 			window.open("/admin/theater/insertTheater", "_blank", "width=1200,height=600,scrollbars=yes");
 		})
-		
+		//데이터수정버튼 클릭시 처리
+		$(".updateTheaterBtn").each(function(){
+			$(this).click(function(){
+				let th_num = $(this).parents(".th_tr").data("num");
+				window.open("/admin/theater/updateTheater?th_num="+th_num, "_blank", "width=1200,height=600,scrollbars=yes");
+			})
+		})
+		//데이터삭제버튼 클릭시 처리
+		$(".deleteTheaterBtn").each(function(){
+			$(this).click(function(){
+				if(confirm("정말로 삭제하시겠습니까?")){
+					let del_th_num = $(this).parents(".th_tr").data("num");
+					let value = JSON.stringify({th_num:del_th_num});
+					
+					$.ajax({
+						url: "/admin/theater/theaterDelete",
+						type: "post",
+						headers:{
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data: value,
+						success: function(result){
+							if(result=="SUCCESS"){
+								alert("데이터 삭제를 완료했습니다.");
+								location.reload();
+							}else if(result=="CANCELED"){
+								alert("해당 공연장에 등록된 공연이 존재합니다. 삭제를 취소합니다.");
+							}else if(result=="FAILURE"){
+								alert("데이터 삭제에 실패했습니다.");
+							}
+						},
+						error: function(xhr, textStatus, errorThrown) {
+							
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+						}	
+					})
+				}
+			})
+		})
 	})
 </script>
 
@@ -151,22 +199,22 @@
 				</thead>
 				<tbody id="list">
 					<c:forEach var="theater" items="${theaterList}" varStatus="status">
-						<tr data-num="${theater.th_num}">
+						<tr class="th_tr" data-num="${theater.th_num}">
 							<td class="text-center">${theater.th_num}</td>
 							<td>${theater.th_name}</td>
 							<td>${theater.th_addr}</td>
 							<td class="text-center">${theater.th_seat}</td>	
 							<td>${theater.th_web}</td>
 							<td class="text-center">
-								<button type="button" class="btn btn-default">지도 정보</button>
+								<button type="button" class="theaterMapBtn btn btn-default">지도 정보</button>
 							</td>
 							<td class="th_date text-center">
 								<p><strong>등록일</strong><br/>${theater.th_regdate}</p>
 								<p><strong>수정일</strong><br/>${theater.th_update}</p>
 							</td>
 							<td class="text-center">
-								<button type="button" class="btn btn-default">수정</button><br/>
-								<button type="button" class="btn btn-default">삭제</button>
+								<button type="button" class="updateTheaterBtn btn btn-default">수정</button><br/>
+								<button type="button" class="deleteTheaterBtn btn btn-default">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>

@@ -7,5 +7,4 @@
 		from theater
 		where th_num=#{th_num}]]>
 	</select>
-
 </mapper>

@@ -50,8 +50,13 @@ public class AdminTheaterServiceImpl implements AdminTheaterService{
 
 	@Override
 	public int theaterDelete(TheaterVO vo) {
+		int checkNum = adminTheaterDao.showHasTheater(vo);
 		int result = 0;
-		result = adminTheaterDao.theaterDelete(vo);
+		if(checkNum>0) {
+			result = 500;
+		}else {
+			result = adminTheaterDao.theaterListCnt(vo);
+		}
 		return result;
 	}
 	

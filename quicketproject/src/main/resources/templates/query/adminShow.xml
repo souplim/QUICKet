@@ -4,12 +4,12 @@
 	
 	<!-- 공연 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->
 	<select id="showList" resultType="showVO">
-		<![CDATA[select s_num, s_name, th_num, th_name, s_genre, s_opendate, s_closedate, s_point, s_regdate, s_update 
+		<![CDATA[select s_num, s_name, th_num, th_name, s_genre, s_opendate, s_closedate, s_price, s_point, s_regdate, s_update 
 		from(
 		select ]]>
 		<include refid="showArray"></include> 
 		<![CDATA[
-		rownum as rnum, s_num, s_name, th_num, s_genre, to_char(s_opendate,'yyyy-MM-dd') s_opendate, to_char(s_closedate,'yyyy-MM-dd') s_closedate, s_point, s_regdate, s_update, 
+		rownum as rnum, s_num, s_name, th_num, s_genre, to_char(s_opendate,'yyyy-MM-dd') s_opendate, to_char(s_closedate,'yyyy-MM-dd') s_closedate, s_price, s_point, s_regdate, s_update, 
 		(select theater.th_name from theater where theater.th_num = show.th_num) as th_name 
 		from show
 		where ]]>
@@ -31,7 +31,16 @@
 		<![CDATA[(select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
 		</if>
 		<if test="start_date!='' and end_date!=''">
-		<![CDATA[and ((#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')) or (#{end_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>
+			<if test="search!=''"><![CDATA[and]]></if>
+			<if test="s_select_date==''">
+			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
+			</if>
+			<if test="s_select_date=='open'">
+			<![CDATA[(to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			</if>
+			<if test="s_select_date=='close'">
+			<![CDATA[(to_char(s_closedate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			</if>
 		</if>
 	</sql>
 	<!-- 검색내용 정렬하는 구문 -->

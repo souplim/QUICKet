@@ -346,12 +346,15 @@ $(function(){
 	}	
 	
 	//버튼 클릭시 메서드
+	$("#insertTheaterBtn").click(function(){
+		window.open("/admin/theater/insertTheater", "_blank", "width=1200,height=600,scrollbars=yes");
+	})
 	$("#returnBtn").click(function(){
 		location.href="/admin/show/showDetail?s_num="+${updateData.s_num};
 		
 	})
 	$("#cancelBtn").click(function(){
-		location.href=location.pathname;
+		location.reload();
 	})
 	$("#showUpdateBtn").click(function(){
 		if(!checkForm("#s_name","공연이름을")) return;
@@ -433,7 +436,7 @@ $(function(){
 							<select id="th_num" name="th_num" class="form-control"></select>
 						</div>
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-default">공연장 정보 등록</button>
+							<button type="button" id="insertTheaterBtn" class="btn btn-default">공연장 정보 등록</button>
 						</div>
 					</td>
 				</tr>

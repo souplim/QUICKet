@@ -73,9 +73,13 @@
 		where th_num=#{th_num}]]>
 	</select>
 	
+	<select id="showHasTheater" parameterType="theaterVO" resultType="Integer">
+		<![CDATA[select count(*) from show where th_num=#{th_num}]]>
+	</select>
+	
 	<insert id="theaterInsert" parameterType="theaterVO">
-		insert into theater(th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web)
-		values(theater_seq.nextval, #{th_name}, #{th_seat}, #{th_addr}, #{th_map_lat}, #{th_map_lng}, #{th_web})
+		<![CDATA[insert into theater(th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web)
+		values(theater_seq.nextval, #{th_name}, #{th_seat}, #{th_addr}, #{th_map_lat}, #{th_map_lng}, #{th_web})]]>
 	</insert>
 	
 	<update id="theaterUpdate" parameterType="theaterVO">
@@ -83,10 +87,10 @@
 		set th_name = #{th_name}, 
 			th_seat = #{th_seat}, 
 			th_addr = #{th_addr}, 
-			th_map_lat = #{th_map_lat}, 
-			th_map_lng = #{th_map_lng}, 
-			th_web = #{th_web}
-			th_update = SYSDATE,
+			th_map_lat = #{th_map_lat},
+			th_map_lng = #{th_map_lng},
+			th_web = #{th_web},
+			th_update = SYSDATE
 		where th_num = #{th_num}
 	</update>
 	

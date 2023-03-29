@@ -9,6 +9,7 @@ import com.spring.client.theater.vo.TheaterVO;
 @Mapper
 public interface AdminTheaterDao {
 	public List<TheaterVO> theaterSelectList();
+	public int showHasTheater(TheaterVO vo);
 	
 	public List<TheaterVO> theaterList(TheaterVO vo);
 	public TheaterVO theaterOne(TheaterVO vo);

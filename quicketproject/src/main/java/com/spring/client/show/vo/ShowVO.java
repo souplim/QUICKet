@@ -45,7 +45,7 @@ public class ShowVO extends CommonVO {
 	
 	//검색관련변수
 	private String s_select_region	= ""; 	//지역선택에 쓸 키워드를 저장하는 변수
-	private String s_select_genre	= ""; 	//장르선택에 쓸 키워드를 저장하는 변수
 	private String s_array			= "";	//정렬이 필요할 경우 조건을 저장하는 변수
 	private String s_sortorder		= "";	//정렬이 필요할 경우 순서를 저장하는 변수
+	private String s_select_date	= "";	//날짜 검색 기준을 저장하는 변수
 }
