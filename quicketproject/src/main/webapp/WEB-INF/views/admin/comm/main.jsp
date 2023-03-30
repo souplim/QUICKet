@@ -19,15 +19,21 @@
 	</style>
 
 	<script type="text/javascript">
+	
+	$(function(){
+		
+	});
+	
+	
+		
 	</script>
 	
 	
 	</head>
 	<body>
-		<div class="contentContainer container">
 			<!-- <div class="contentTit page-header"><h3 class="text-center">게시판 리스트</h3></div>  -->
 			<form name="detailForm"id="detailForm">
-				<input type="hidden"name="b_num" id="b_num"/>
+				<input type="hidden"name="s_num" id="s_num"/>
 				<!--  공연 번호로 변경  -->
 			</form>
 
@@ -61,7 +67,7 @@
 			<%-- ========== 검색 기능 종료 ========== --%>
 			
 			<%-- ========== 리스트 시작 ========== --%>
-			<div id="boardList" class="table-height">
+			<div id="commList" class="table-height">
 				<table summary="게시판 리스트" class="table">
 					<thead>
 						<tr>
@@ -129,7 +135,6 @@
 				</ul>
 			</div>
 			<%-- ========== 페이징 출력 종료 ========== --%>
-			
-		</div>
+
 	</body>
 </html>

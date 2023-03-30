@@ -40,6 +40,23 @@
 
 				});
 				
+				$("#searchBtn").click(function(){
+					if($('#keyword').val() == ""){
+						alert("검색어를 입력해주세요.");
+					}
+			
+					$("#pageNum").val(1);
+					goPage();
+				});
+				
+				$("#allSearchBtn").click(function(){
+					$("#search > option:selected").val("");
+					$("#keyword").val("");
+					//goPage();
+					location.href="/admin/user/userList";
+				});
+				
+
 				
 				// 페이징 처리
 				$(".paginate_button a").click(function(e) {
