@@ -3,6 +3,7 @@ package com.spring.client.inq.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,11 +91,27 @@ public class InqController {
 		if(userVO.getU_id()==null)
 			return "redirect:/user/login";
 		else {
-			List<MypageVO> ticketLists = mypageService.ticketList(userVO.getU_id());
-			model.addAttribute("ticketLists", ticketLists);
+			// 회원의 예매번호 조회
+			List<MypageVO> ticketList = mypageService.ticketList(userVO.getU_id());
+			model.addAttribute("ticketList", ticketList);
+			
 			return "client/inq/inqWriteForm"; // /WEB-INF/views/client/inq/inqWriteForm.jsp 
 		}
 	}
+	
+	/***********************************************************
+	 * 문의글 등록시 추천 faq 조회
+	 * 요청 주소 : http://localhost:8080/inq/faqList
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/faqList", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<MypageVO> faqList(@RequestParam("f_category") String f_category){
+		log.info("faq 리스트 조회");
+		
+		List<MypageVO> faqList = mypageService.faqList(f_category);
+		return faqList;
+	}
+	
 	
 	/***********************************************************
 	 * 문의글 등록 구현하기

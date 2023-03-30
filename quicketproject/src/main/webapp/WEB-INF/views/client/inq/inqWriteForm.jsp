@@ -56,7 +56,10 @@
 				location.href="/inq/inqList";
 			});
 			
-			/* 유형 선택시 세부유형 option 항목 처리 이벤트 */
+			/* 예매번호 숨기기 */
+			$("#reserveInfo").hide();
+			
+			/* 유형 선택시 세부유형 option 항목 처리, 유형 '공연' 선택시 예매번호 조회 이벤트 */
 			$("#i_category").on("change", function(){
 				const opt = ["선택"];
 				const 회원정보 = ["로그인","아이디/패스워드","회원가입","회원탈퇴"];
@@ -67,21 +70,48 @@
 				
 				let detail;
 				if(category == "회원정보") detail = 회원정보;
-				else if(category == "공연") detail = 공연;
-				else if(category == "그 외") detail = 그외;
-				else if(category == "opt") detail = opt;
+				else if(category == "공연") {
+					detail = 공연;
+					$("#reserveInfo").show();
+					$("#accordion").show();
+				} else if(category == "그 외") {
+					detail = 그외;
+					$("#reserveInfo").hide();
+					$("#accordion").show();
+				} else {
+					detail = opt;
+					$("#reserveInfo").hide();
+					$("#accordion").hide();
+				}
 				
 				let target = $("#i_cate_detail");
 				target.empty(); /* 기존에 들어가 있는 옵션 삭제 */
 				
 				for(x in detail)
-					target.append("<option>"+detail[x]+"</option>")
+					target.append("<option>"+detail[x]+"</option>");
+					
+				/* 서버로부터 유형에 따른 faq 리스트 불러와 보여주는 함수 */	
+				let Url = "/inq/faqList/?f_category="+category; 	
+				$.ajax({
+					url : Url,
+					type : 'post',
+					headers : {
+						"Content-Type" : "application/json"
+					},
+					dataType: 'json',
+					error : function(xhr, textStatus, errorThrown){
+						alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
+					},
+					success : function(result){
+		                $.each(result, function (i, item) {
+		                	$("#heading"+(i+1)+" a").html(item.f_title);
+		                	let f_content = item.f_content
+		                	f_content = f_content.replace(/(\r\n|\r|\n)/g, "<br />"); 
+		                	$("#collapse"+(i+1)+" div").html(item.f_content);
+		                });
+					}
+				});	
 			});
-			
-			/* 예매번호 선택시 option 항목 처리 이벤트 */
-			/* $("#ti_num").on("change", function(){
-				let ti_num = $("#i_category").val();
-			}); */
 			
 			/* faqList 클릭하면 faq리스트 slideDown 처리 이벤트 */
 			$("#confirmFaq").on("click", function(){
@@ -92,15 +122,14 @@
 				}
 			});
 			
-			/* faq리스트 제목 클릭하면 내용 slideDown 처리 이벤트 */
-			$(".faqTitle").on("click", function(){
+			/* faq리스트 제목 클릭하면 내용 slideDown 처리 이벤트 -> 부트스트랩으로 기능 대체
+			/* $(".faqTitle").on("click", function(){
 				if($(this).next("dd").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
 					$(this).next("dd").slideDown();
 				} else {
 					$(this).next("dd").slideUp();
 				}
-			});
-			
+			}); */
 			
 			/* 글자수 제한 */
 			$("#i_content").on("input", function(){
@@ -187,92 +216,139 @@
 						</select>
 					</div>
 					
-					<div class="col-md-1"><label for="ti_num">예매번호</label></div>
-					<div class="form-group col-md-5">
-						<select class="form-control" name="ti_num" id="ti_num">
-							<option value="ticketNum">선택</option>
-							<c:if test="${not empty ticketLists}">
-								<c:forEach var="ticket" items="${ticketLists}" varStatus="status">
-									<option value="${ticket.ti_num}">
-										${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-										${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-										${ticket.seat_date}
-									</option>
-								</c:forEach>
-							</c:if> 
-						</select>
+					<div id="reserveInfo">
+						<div class="col-md-1"><label for="ti_num">예매번호</label></div>
+						<div class="form-group col-md-5">
+							<select class="form-control" name="ti_num" id="ti_num">
+								<option value="ticketNum">선택</option>
+								<!-- 유형이 공연일 때만 조회 -->
+									<c:if test="${not empty ticketList}" >
+										<c:forEach var="ticket" items="${ticketList}" varStatus="status">
+											<option value="예매번호" >
+												${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+												${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+												${ticket.seat_date}
+											</option>
+										</c:forEach>
+									</c:if> 
+							</select>
+						</div>
+					
 					</div>
 					
 				</div>
-				
-				<div id="faqBox" >
-					<div id="confirmFaq" class="bg-info">
-						<div id="faqText">문의전, 연관 FAQ를 확인해보세요!</div>
-						<div class="glyphicon glyphicon-chevron-down text-right" aria-hidden="true"></div>
-					</div>
-					
-					<div id="faqBoxList">
-						<!-- <dl>
+
+			<div id="faqBox">
+				<div id="confirmFaq" class="bg-info">
+					<div id="faqText">문의전, 연관 FAQ를 확인해보세요!</div>
+					<div class="glyphicon glyphicon-chevron-down text-right" aria-hidden="true"></div>
+				</div>
+
+				<div id="faqBoxList">
+					<!-- <dl>
 							<dt class="faqTitle">test</dt>
 							<dd class="faqContents">test</dd>
 							<dt class="faqTitle">test2</dt>
 							<dd class="faqContents">test2</dd>
 						</dl> -->
+
+					<!-- 부트스트랩 아코디언 -->
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<%-- <c:forEach var="i" begin="0" end="4">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id=i>
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											dfdf
+										</a>
+									</h4>
+								</div>
+								<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby=i>
+									<div class="panel-body">
+										dfdf
+									</div>
+								</div>
+							</div>
+						</c:forEach> --%>
 						
-						<!-- 부트스트랩 아코디언 -->
-						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						  <div class="panel panel-default">
-						    <div class="panel-heading" role="tab" id="headingOne">
-						      <h4 class="panel-title">
-						        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          전화로 회원가입/탈퇴/정보 수정이 가능한가요?
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseOne" class="panel-collapse collapse in bg-warning" role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body">
-						      	회원가입 및 탈퇴, 정보수정은 인터파크 홈페이지에서 고객님께서 모두 하실 수 있습니다.
-						      </div>
-						    </div>
-						  </div>
-						  <div class="panel panel-default">
-						    <div class="panel-heading" role="tab" id="headingTwo">
-						      <h4 class="panel-title">
-						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						          이메일 인증을 통해 가입 후 다른 이메일로 변경은 어떻게 진행 해야 하나요?
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseTwo" class="panel-collapse collapse bg-warning" role="tabpanel" aria-labelledby="headingTwo">
-						      <div class="panel-body">
-						      	이메일 변경은 고객님께서 직접 홈페이지 로그인 후 상단의 [회원정보]
-								또는 [마이페이지 > 회원정보 > 회원정보조회/수정] 에서 정보를 변경하실 수 있습니다.
-								또한 모바일 페이지의 [회원정보수정] 메뉴를 통해서도 가능합니다.
-						      </div>
-						    </div>
-						  </div>
-						  <div class="panel panel-default">
-						    <div class="panel-heading" role="tab" id="headingThree">
-						      <h4 class="panel-title">
-						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						          이메일 명의자와 가입자의 명의자가 맞지 않더라도 인증이 가능한가요?
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseThree" class="panel-collapse collapse bg-warning" role="tabpanel" aria-labelledby="headingThree">
-						      <div class="panel-body">
-						      	네 맞습니다. 이메일 계정에 등록 된 정보와 달라도 인증은 가능합니다. 
-								이메일 등록 정보와 회원정보간의 일치 여부를 확인하는 것은 불가능합니다. 
-								단, 상품 구매 또는 결제 수단 이용 시 제 3자 무단 사용을 방지하기 위해 추가적인 본인인증을 실시하며, 
-								내국인은  "휴대폰인증 또는 I-PIN 인증" , 외국인은 "외국인 등록번호" 인증 후 결제가 가능합니다. 
-						      </div>
-						    </div>
-						  </div>
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading1">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+									</a>
+								</h4>
+							</div>
+							<div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+								<div class="panel-body">
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading2">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapseTwo">
+										
+									</a>
+								</h4>
+							</div>
+							<div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+								<div class="panel-body">
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading3">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapseThree">
+										 
+									</a>
+								</h4>
+							</div>
+							<div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+								<div class="panel-body">
+									
+								</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading4">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse"data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapseFour">
+										
+									</a>
+								</h4>
+							</div>
+							<div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+								<div class="panel-body">
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="heading5">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse"data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapseFive">
+										
+									</a>
+								</h4>
+							</div>
+							<div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+								<div class="panel-body">
+									
+								</div>
+							</div>
 						</div>
 						
 					</div>
-					
 				</div>
+
+			</div>
 				
 				<div id="inqContent" class="form-horizontal">
 					<div class="form-group">

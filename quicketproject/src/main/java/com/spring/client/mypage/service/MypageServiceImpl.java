@@ -111,6 +111,27 @@ public class MypageServiceImpl implements MypageService {
 		return qnaListCnt;
 	}
 
+	// 관람후기 리스트 조회
+	@Override
+	public List<MypageVO> reviewList(MypageVO mypageVO) {
+		List<MypageVO> list = mypageDao.reviewList(mypageVO);
+		return list;
+	}
+
+	// 관람후기 글 개수
+	@Override
+	public int reviewListCnt(MypageVO mypageVO) {
+		int reviewListCnt = mypageDao.reviewListCnt(mypageVO);
+		return reviewListCnt;
+	}
+
+	//문의글 등록 폼에서 조회할 faq 리스트
+	@Override
+	public List<MypageVO> faqList(String f_category) {
+		List<MypageVO> list = mypageDao.faqList(f_category);
+		return list;
+	}
+
 	
 	
 }

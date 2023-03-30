@@ -196,7 +196,7 @@
 					<div class="form-group">
 						<label for="search" class="sr-only">검색조건</label>
 						<select id="search" name="search" class="form-control">
-							<option value="seat_date">관람일</option>
+							<option value="hall_date">관람일</option>
 							<option value="ti_regdate">예매일</option>
 						</select>
 					</div>
@@ -236,7 +236,7 @@
 										<td style="vertical-align:middle">${ticket.ti_regdate}</td> 
 										<td class="data-snum" data-snum="${ticket.s_num}" style="vertical-align:middle">${ticket.ti_num}</td>
 										<td class="text-left goShowDetail" data-uid="${ticket.u_id}" style="vertical-align:middle">${ticket.s_name}</td>
-										<td style="vertical-align:middle">${ticket.seat_date}</td>
+										<td style="vertical-align:middle">${ticket.hall_date}</td>
 										<td style="vertical-align:middle">${ticket.seat_num}</td>
 										<td class="text-danger">
 											<c:if test="${ticket.ti_status==0}">
@@ -311,7 +311,6 @@
 					</div>
 				</div>
 			</div>
-			
 			
 			
 		</div>

@@ -209,14 +209,13 @@ public class MypageController {
 		return "client/mypage/myLikeList"; // /WEB-INF/views/client/mypage/myLikeList.jsp
 	}
 	
-	
 	/***********************************************************
-	 * 나의 커뮤니티 활동(qna, 관람후기) 리스트 조회하기
-	 * 요청 주소 : http://localhost:8080/mypage/communityList
+	 * 나의 qna 리스트 조회하기
+	 * 요청 주소 : http://localhost:8080/mypage/myQnaList
 	 ***********************************************************/
-	@GetMapping(value="/myCommunityList")
-	public String myCommunityList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
-		log.info("커뮤니티 화면");
+	@GetMapping(value="/myQnaList")
+	public String myQnaList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("Q&A 화면");
 		
 		// 회원 아이디 임의로 지정
 		// mypageVO.setU_id("user02");
@@ -236,12 +235,36 @@ public class MypageController {
 		int total = mypageService.qnaListCnt(mypageVO);
 		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
 		
-		// 회원 관람후기 리스트 조회
+		return "client/mypage/myQnaList"; // /WEB-INF/views/client/mypage/myQnaList.jsp
+	}
+	
+	/***********************************************************
+	 * 나의 관람후기 리스트 조회하기
+	 * 요청 주소 : http://localhost:8080/mypage/myReviewList
+	 ***********************************************************/
+	@GetMapping(value="/myReviewList")
+	public String myReviewList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("공연후기 화면");
 		
+		// 회원 아이디 임의로 지정
+		//mypageVO.setU_id("user02");
 		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
 		
-				
-		return "client/mypage/myCommunityList"; // /WEB-INF/views/client/mypage/myCommunityList.jsp
+		// 회원 관람후기 글 리스트 조회
+		List<MypageVO> reviewList = null;
+		reviewList = mypageService.reviewList(mypageVO);
+		model.addAttribute("reviewList", reviewList);
+		
+		// 관람후기 페이징 처리
+		int total = mypageService.reviewListCnt(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+		
+		return "client/mypage/myReviewList"; // /WEB-INF/views/client/mypage/myReviewList.jsp
 	}
 	
 }

@@ -1,7 +1,7 @@
 let keyword = "", search = "", search_detail = "", start_date = "", end_date = "";
 
 $(function(){
-		
+	
 	/* 유형별 영역 숨기기 */
 	if(search=="i_category" || search=="i_reply") {
 		$("#dateCheck").hide(); /* 유형 검색 선택 시 날짜, 검색어 부분 감추기 */
@@ -11,10 +11,20 @@ $(function(){
 		
 		$('#keyword').val(""); /* 키워드 초기화 */
 		$("#search").val(search); /* 유형 검색 후 유형 보여주기 */
-		/*$("#search_detail").val(111);*/ // 왜 안 먹을까?
-		console.log(search_detail);
+		//$("#search_detail").val(1234); // 왜 안 먹을까? -> 동적으로 생성된 option이기 때문! 다시 동적으로 값 주어야 함
+
+		/* 검색했을 때 다시 동적으로 option 값 보여주기 */		
+		const i_category = ["회원정보", "공연", "그 외"];
+		const reply = ["답변대기중", "답변완료"];
 		
+		let search_detail;
+		if(search == "i_category") search_detail = i_category;
+		else if(search == "i_reply") search_detail = reply;
 		
+		let target = $("#search_detail");
+		target.empty(); //기존에 들어가 있는 옵션 삭제
+		for(x in search_detail)
+			target.append("<option value='"+search_detail[x]+"'>"+search_detail[x]+"</option>")
 		
 	} else if (search=="i_regidate"){
 		$('#search').val(search);
@@ -64,7 +74,6 @@ $(function(){
 	
 	/* 검색 대상이 변경될 때마다 처리 이벤트 -> */
 	$('#search').on("input", function(){
-		
 		if($('#search').val()=="i_regidate"){
 			$('#textCheck').hide();
 			$('#dateCheck').show();
@@ -75,7 +84,6 @@ $(function(){
 			$('#dateCheck').hide();
 			$('#textCheck').show();
 		}
-		
 	});
 	
 	/* 엔터 시 검색 */
@@ -109,7 +117,7 @@ $(function(){
 		target.empty(); /* 기존에 들어가 있는 옵션 삭제 */
 		
 		for(x in search_detail)
-			target.append("<option>"+search_detail[x]+"</option>")
+			target.append("<option value='"+search_detail[x]+"'>"+search_detail[x]+"</option>")
 	});
 	
 	/* 페이징 처리 이벤트 */

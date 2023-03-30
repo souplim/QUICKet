@@ -24,8 +24,8 @@ public class MypageMapperTests {
 		log.info("myTicketList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
 		mypageVO.setU_id("user02");
-		mypageVO.setSearch("seat_date");
-//		mypageVO.setSearch("ti_regdate");
+//		mypageVO.setSearch("hall_date");
+		mypageVO.setSearch("ti_regdate");
 		mypageVO.setStart_date("2023-03-01");
 		mypageVO.setEnd_date("2023-03-30");
 		List<MypageVO> list = mypageDao.myTicketList(mypageVO);
@@ -61,6 +61,14 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
+	@Test
+	public void testFaqList() {
+		log.info("faqList() 메서드 실행");
+		List<MypageVO> list = mypageDao.faqList("공연");
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	}
+	
 	/* @Test
 	public void testMyTicketDelete() {
 		log.info("myTicketDeletele() 메서드 실행");
@@ -70,7 +78,7 @@ public class MypageMapperTests {
 	} */ 
 	
 	/* @Test
-	public void testaddlikes() {
+	public void testAddlikes() {
 		log.info("addlikes() 메서드 실행");
 		
 		MypageVO mypageVO = new MypageVO();
@@ -135,12 +143,31 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
 	public void testQnaListCnt() {
 		log.info("qnaListCnt() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
 		mypageVO.setU_id("user02");
 		int count = mypageDao.qnaListCnt(mypageVO);
 		log.info(String.valueOf(count));
-	}
+	} */
+	
+	/* @Test
+	public void testReviewList() {
+		log.info("reviewList() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		List<MypageVO> list = mypageDao.reviewList(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	} */
+	
+	/* @Test
+	public void testReviewListCnt() {
+		log.info("reviewListCnt() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		int count = mypageDao.reviewListCnt(mypageVO);
+		log.info(String.valueOf(count));
+	} */
 }

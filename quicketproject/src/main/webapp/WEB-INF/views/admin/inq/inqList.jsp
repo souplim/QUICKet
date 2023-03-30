@@ -54,7 +54,7 @@
 					<div class="form-group">
 						<label for="search_detail" class="sr-only">세부 검색조건</label>
 						<select id="search_detail" name="search_detail" class="form-control">
-							
+							<!-- <option value="">---</option> -->
 						</select>
 					</div>
 					

@@ -24,8 +24,9 @@ public class MypageVO extends CommonVO {
 	private String img_type = ""; // 이미지 파일
 	private String th_name = ""; // 공연장 이름
 	private String hall_id = ""; // 공연홀 아이디
+	private String hall_date = ""; // 공연 날짜
 	private String hall_turn = ""; // 공연회차
-	private String hall_time = ""; // 공연회차
+	private String hall_time = ""; // 공연시간
 	private int s_price = 0; // 공연 가격
 	private String pay_name = ""; // 결제자 이름
 	private int pay_amount = 0; // 총결제가격
@@ -38,4 +39,13 @@ public class MypageVO extends CommonVO {
 	private int q_no=0; // qna 번호
 	private String q_title=""; // qna 제목
 	private String q_regdate; // qna 등록일
+	
+	private int r_no=0; // 관람후기 번호
+	private String r_title=""; // 관람후기 제목
+	private int r_point=0; // 관람후기 별점
+	private String r_regdate; // 관람후기 등록일
+	
+	private String f_category =""; // faq 유형
+	private String f_title=""; // faq 질문
+	private String f_content=""; // faq 답변
 }
