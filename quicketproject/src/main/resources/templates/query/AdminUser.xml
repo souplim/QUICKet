@@ -22,22 +22,25 @@
 	</sql>
 	
 	<select id="userList" parameterType="user" resultType="user">
-	SELECT 
+	<![CDATA[ SELECT 
         	u_num, u_name, u_id, u_email, u_phone, u_gender,
         	to_char(u_birth,'YYYY-MM-DD') as u_birth,
         	to_char(u_regdate,'YYYY-MM-DD') as u_regdate,
         	to_char(u_moddate,'YYYY-MM-DD') as u_moddate,
         	to_char(u_pwddate,'YYYY-MM-DD') as u_pwddate, u_state
   
-   		FROM q_user
-            	<!-- WHERE
+   		FROM (
+   				select /*+ INDEX_DESC(q_user U_NUM_IDX) */
+					rownum as rnum, u_num, u_name, u_id, u_email, u_phone, u_gender, u_birth, u_regdate, u_moddate, u_pwddate, u_state
+					from q_user
+            	WHERE ]]>
             	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
             		<include refid="userSearch"></include>
             	</trim> 
             <![CDATA[	rownum <= #{pageNum} * #{amount} 
         	 ) userList
     	 WHERE rnum > (#{pageNum} - 1) * #{amount} 
-    	 ]]> -->
+    	 ]]>
 	</select>   
 	
 		

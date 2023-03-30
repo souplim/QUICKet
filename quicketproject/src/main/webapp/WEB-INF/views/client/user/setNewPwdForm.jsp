@@ -22,7 +22,7 @@
 				"action" : "/user/newPwd"
 			});
 			$("#pwdForm").submit();
-			console.log("..")
+			
 			
 		});
 	});

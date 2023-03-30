@@ -26,6 +26,11 @@
 		values (#{u_id}, q_user_seq.nextval, #{u_pwd}, #{u_name}, #{u_gender}, to_date(#{u_birth},'YYYY-MM-DD'), #{u_email}, #{u_phone})
 	</insert>
 	
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select nvl((select 1 from q_user where u_id = #{u_id}), 0) as result from dual
+	</select>
+	
 	<!-- 비밀번호 변경 처리  -->
 	<update id="setNewPwd" parameterType="user">
 		update q_user

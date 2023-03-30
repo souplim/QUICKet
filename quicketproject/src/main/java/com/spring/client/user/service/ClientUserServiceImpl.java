@@ -92,6 +92,14 @@ public class ClientUserServiceImpl implements ClientUserService {
 		return result;
 	}
 
+	@Override
+	public int idCheck(String u_id) {
+		int result = 0;
+		result = clientUserDao.idCheck(u_id);
+		
+		return result;
+	}
+
 	
 	
 

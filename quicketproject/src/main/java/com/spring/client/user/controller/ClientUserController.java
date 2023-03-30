@@ -333,7 +333,25 @@ public class ClientUserController {
 		user.setU_pwd(pwd);
 		clientUserService.setNewPwd(user);
 		log.info("비밀번호 변경 완료 >> " + pwd );
-		return "pwd";
+		
+		return "client/user/login";
+	}
+	
+	// 아이디 중복 체크
+	@ResponseBody
+	@PostMapping("/idCheck")
+	public int idCheck(String u_id, Model model) {
+		log.info("아이디 중복 체크");
+		String value = "";
+		
+		int result = clientUserService.idCheck(u_id);
+		if (result == 1) {
+			value = "결과 : 중복되는 아이디";
+		} else {
+			value = "결과 : 유일한 아이디";
+		}
+		log.info("result : " + result + ", value : " + value );
+		return result;
 	}
 
 }

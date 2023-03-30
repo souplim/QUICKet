@@ -39,7 +39,28 @@
 					}
 
 				});
-			});
+				
+				
+				// 페이징 처리
+				$(".paginate_button a").click(function(e) {
+					 e.preventDefault();
+					 $("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+					 goPage();
+				});
+
+			}); /////////////
+			
+			function goPage() {
+				if($("#search").val()=="all") {
+					$("#keyword").val("");
+				}
+				
+				$("#f_search").attr({
+					"method" : "get",
+					"action" : "/admin/user/userList"
+				});
+				$("#f_search").submit();
+			}
 	</script> 
 </head>
 <body>

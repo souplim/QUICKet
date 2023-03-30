@@ -7,5 +7,6 @@
 		-->
 		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
 		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
+		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
 	</typeAliases>
 </configuration>

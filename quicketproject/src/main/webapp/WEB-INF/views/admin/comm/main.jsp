@@ -62,7 +62,7 @@
 			
 			<%-- ========== 리스트 시작 ========== --%>
 			<div id="boardList" class="table-height">
-				<table summary="게시판 리스트" class="table table-striped">
+				<table summary="게시판 리스트" class="table">
 					<thead>
 						<tr>
 							<th data-value="b_num" class="order text-center col-md-1">공연번호</th>
@@ -75,38 +75,35 @@
 						</tr>
 					</thead>
 					<tbody id="list" class="table-striped">
-						<!--  데이터 출력  
+						<!--  데이터 출력  -->
 						<c:choose>
-							<c:when test="${not empty boardList }">
-								<c:forEach var="board" items="${boardList}" varStatus="status">
-									<tr class="text-center" data-num="${board.b_num }">
-										<td>${board.b_num }</td>
-										<td class="goDetail text-left">
-											${board.b_title }
-											<c:if test="${board.r_cnt > 0 }">
-												<span class="required"><small> [${board.r_cnt}]</small></span>
-											</c:if>
+							<c:when test="${not empty showList }">
+								<c:forEach var="show" items="${showList}" varStatus="status">
+									<tr class="text-center" data-num="${show.s_num }">
+										<td>${show.s_num }</td>
+										<td class="goDetail text-left">${show.s_name }</td>
+										<td class="name"><span>${show.s_opendate }</span> ~ <span>${show.s_closedate}</span> </td>
+										<td class="text-center">
+											<button type="button" class="btn btn-default goExpect">${show.excount }</button>
 										</td>
-										<td class="name">${board.b_name }</td>
-										<td class="text-left">${board.b_date }</td>
-										<td class="text-center">${board.readcnt }</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-default goReview">${show.rcount }</button>
+										</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-default goQNA">${show.qcount }</button>
+										</td>
 										<td>
-											<c:if test="${not empty board.b_thumb }">
-												<img src="/uploadStorage/board/thumbnail/${board.b_thumb}" />
-											</c:if>
-											<c:if test="${empty board.b_thumb }">
-												<img src="/resources/image/common/noimage.png" />
-											</c:if>
+											<button type="button" class="btn btn-default">상세</button>
 										</td>
 									</tr>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="5" class="tac text-center">등록된 게시글이 존재하지 않습니다.</td>
+									<td colspan="7" class="tac text-center">등록된 공연 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
-						</c:choose>	-->
+						</c:choose>	
 					</tbody>
 				</table>
 			</div>
