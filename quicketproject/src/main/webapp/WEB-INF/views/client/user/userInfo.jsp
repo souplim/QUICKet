@@ -7,11 +7,11 @@
 <script>
 	$(function(){
 		$("#userUpdateBtn").click(function(){
-			location.href="/user/userUpdateForm?u_num=" + ${userInfo.u_num};
+			location.href="/user/userUpdateForm";
 		});
 		
 		$("#updatePwdBtn").click(function(){
-			location.href="/user/setPwdForm?u_num=" + $("#u_num").val();
+			location.href="/user/setPwdForm";
 		});
 	});
 </script>
@@ -24,22 +24,22 @@
 	<table class="table">
 		<tr>
 			<td class="text-center">이름</td>
-			<td colspan="3">${userInfo.u_name}</td>
+			<td colspan="3">${userLogin.u_name}</td>
 		</tr>
 		<tr>
 			<td class="text-center">아이디</td>
-			<td colspan="3">${userInfo.u_id}</td>
+			<td colspan="3">${userLogin.u_id}</td>
 		</tr>
 		<tr>
 			<td class="text-center">비밀번호</td>
 			<td></td>
-			<td colspan="2">마지막 비밀번호 변경일 : ${userInfo.u_pwddate}</td>
+			<td colspan="2">마지막 비밀번호 변경일 : ${userLogin.u_pwddate}</td>
 		</tr>
 		<tr>
 			<td class="text-center">성별</td>
 			<td>
 				<c:choose>
-					<c:when test="${userInfo.u_gender == 'M'}">
+					<c:when test="${userLogin.u_gender == 'M'}">
 						남
 					</c:when>
 					<c:otherwise>
@@ -48,15 +48,15 @@
 				</c:choose>
 			</td>
 			<td class="text-right">생년월일</td>
-			<td>${userInfo.u_birth }</td>
+			<td>${userLogin.u_birth }</td>
 		</tr>
 		<tr>
 			<td class="text-center">이메일</td>
-			<td colspan="3" class="">${userInfo.u_email}</td>
+			<td colspan="3" class="">${userLogin.u_email}</td>
 		</tr>
 		<tr>
 			<td class="text-center">전화번호</td>
-			<td colspan="3">${userInfo.u_phone}</td>
+			<td colspan="3">${userLogin.u_phone}</td>
 		</tr>
 		<tr>
 			<td colspan="3"></td>

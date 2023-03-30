@@ -4,6 +4,10 @@
 <title>비밀번호 수정 </title>
 
 <script>
+
+	let pwdReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,20}$/
+
+
 	$(function(){
 		let errorMsg = "${errorMsg}";
 		if(errorMsg!="") {
@@ -14,14 +18,54 @@
 		// 비밀번호 변경 확인 버튼 클릭 시
 		$("#pwdUpdateBtn").click(function(){
 			
-			$("#pwdForm").attr({
-				"method" : "post",
-				"enctype" : "multipart/form-data",
-				"action" : "/user/setNewPwd?u_num="+$("#u_num").val()
-			});
-			$("#pwdForm").submit();
+			if ($("#pwdDiv.has-error").length){
+				alert("비밀번호 형식이 올바르지 않습니다.");
+			} else if ($("#pwdChkDiv.has-error").length){
+				alert("비밀번호와 비밀번호 확인을 올바르게 입력해주세요.");
+			} else {
+				$("#pwdForm").attr({
+					"method" : "post",
+					"enctype" : "multipart/form-data",
+					"action" : "/user/setNewPwd"
+				});
+				$("#pwdForm").submit();
+			}
+				
+			
 		});
 		
+		
+		// 비밀번호
+		$("#pwd").on("keyup", function(){
+			$('#pwd').val($('#pwd').val().trim());
+			if(!pwdReg.test($('#pwd').val())) {
+				$('#pwdDiv').removeClass("has-success");
+				$("#pwdicon").removeClass("glyphicon-ok");
+				$('#pwdDiv').addClass("has-error");
+				$("#pwdicon").addClass("glyphicon-remove");
+			} else {
+				$('#pwdDiv').removeClass("has-error");
+				$("#pwdicon").removeClass("glyphicon-remove");
+				$('#pwdDiv').addClass("has-success");
+				$("#pwdicon").addClass("glyphicon-ok");
+			}
+		});
+		
+		// 비밀번호 확인 
+		$("#u_pwd").on("keyup", function(){
+			$('#u_pwd').val($('#u_pwd').val().trim());
+			if($('#u_pwd').val() != $('#pwd').val()) {
+				$('#pwdChkDiv').removeClass("has-success");
+				$("#pwdChkicon").removeClass("glyphicon-ok");
+				$('#pwdChkDiv').addClass("has-error");
+				$("#pwdChkicon").addClass("glyphicon-remove");
+			} else {
+				$('#pwdChkDiv').removeClass("has-error");
+				$("#pwdChkicon").removeClass("glyphicon-remove");
+				$('#pwdChkDiv').addClass("has-success");
+				$("#pwdChkicon").addClass("glyphicon-ok");
+			}
+		});
 		
 		
 	});
@@ -37,16 +81,17 @@
     <div class="container">
 
       <form class="form-signin" id="pwdForm">
-      <input type="hidden" id="u_num" value="${userLogin.u_num}"/>
-      <input type="hidden" id="u_id" value="${userLogin.u_id}"/>
+      <input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
+      <input type="hidden" id="u_id" name="u_id" value="${userLogin.u_id}"/>
+      <input type="hidden" id="u_pwddate" name="u_pwddate" value="${userLogin.u_pwddate}"/>
         	<table class="table" id="table">
 				<tr>
 					<td class="text-center">이름</td>
-					<td colspan="3">${userInfo.u_name}</td>
+					<td colspan="3">${userLogin.u_name}</td>
 				</tr>
 				<tr>
 					<td class="text-center">아이디</td>
-					<td colspan="3">${userInfo.u_id}</td>
+					<td colspan="3">${userLogin.u_id}</td>
 				</tr>
 				<tr>
 					<td class="text-center">기존 비밀번호</td>
@@ -85,7 +130,7 @@
 					<td class="text-center">성별</td>
 					<td>
 						<c:choose>
-							<c:when test="${userInfo.u_gender == 'M'}">
+							<c:when test="${userLogin.u_gender == 'M'}">
 								남
 							</c:when>
 							<c:otherwise>
@@ -94,15 +139,15 @@
 						</c:choose>
 					</td>
 					<td class="text-right">생년월일</td>
-					<td>${userInfo.u_birth }</td>
+					<td>${userLogin.u_birth }</td>
 				</tr>
 				<tr>
 					<td class="text-center">이메일</td>
-					<td colspan="3">${userInfo.u_email}</td>
+					<td colspan="3">${userLogin.u_email}</td>
 				</tr>
 				<tr>
 					<td class="text-center">전화번호</td>
-					<td colspan="3">${userInfo.u_phone}</td>
+					<td colspan="3">${userLogin.u_phone}</td>
 				</tr>
 				<tr class="text-center">
 					<td colspan="2"><button type="button" class="btn btn-info" id="cancelBtn">취소</button></td>

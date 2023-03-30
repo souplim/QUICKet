@@ -185,6 +185,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <c:if test="${not empty userLogin}">
+            	<li><a>${userLogin.u_name }님 환영합니다.</a></li>
 		 		<li><a href="/user/logout">로그아웃</a></li>
 			</c:if>
 			<c:if test="${empty userLogin}">

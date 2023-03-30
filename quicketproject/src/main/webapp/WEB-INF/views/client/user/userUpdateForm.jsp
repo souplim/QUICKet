@@ -79,7 +79,7 @@
 		
 		// 비밀번호 변경 버튼
 		$("#updatePwdBtn").click(function(){
-			location.href="/user/setPwdForm?u_num=" + $("#u_num").val();
+			location.href="/user/setPwdForm";
 		});
 		
 
@@ -109,7 +109,7 @@
 			else if (!chkData("#chkKey","이메일 본인 인증번호를")) return;
 			else if (!chkData("#u_phone","전화번호를")) return;*/
 			
-			// 회원가입 폼 전송
+			// 수정 버튼 클릭 시 
 			if(emailChk == 0 || $("#emailConfirmChk").html() == "인증번호가 확인되었습니다.") {
 				$("#userUpdateForm").attr({
 					"method" : "post",
@@ -140,11 +140,11 @@
 		
 		$("#DelChkBtn").click(function(){
 			if($("#DelChk").val() == "${userInfo.u_pwd}") {
-				location.href="/user/userDelete?u_num="+${userInfo.u_num};
+				location.href="/user/userDelete";
 			} else if ($("#DelChk").val() == "") {
 				alert("비밀번호 확인을 입력해주세요.");
 				$("#DelChk").focus();
-			} else if ($("#DelChk").val() != "${userInfo.u_pwd}") {
+			} else if ($("#DelChk").val() != "${userLogin.u_pwd}") {
 				alert("비밀번호 확인이 틀렸습니다. 다시 입력해주세요.");
 				$("#DelChk").val("");
 				$("#DelChk").focus();
@@ -177,26 +177,27 @@
 	회원 정보 수정
 	<div class="container">
 <form id="userUpdateForm" name="userUpdateForm">
-	<input type="hidden" id="u_num" name="u_num" value="${userInfo.u_num}"/>
+	<input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
 	<table class="table">
 		<tr class="form-group">
 			<td>이름</td>
-			<td colspan="4">${userInfo.u_name}</td>
+			<td colspan="5">${userLogin.u_name}</td>
 		</tr>
 		<tr class="form-group">
 			<td>아이디</td>
-			<td colspan="4">${userInfo.u_id}</td>
+			<td colspan="5">${userLogin.u_id}</td>
 		</tr>
 		<tr class="form-group">
 			<td>비밀번호</td>
-			<td><button type="button" class="btn btn-warning" id="updatePwdBtn">비밀번호 변경</button></td>
-			<td colspan="3">마지막 비밀번호 변경일 : ${userInfo.u_pwddate}</td>
+			<td colspan="3" class="">마지막 비밀번호 변경일 : ${userLogin.u_pwddate}</td>
+			<td></td>
+			<td class="text-right"><button type="button" class="btn btn-warning " id="updatePwdBtn">비밀번호 변경</button></td>
 		</tr>
 		<tr class="form-group">
 			<td>성별</td>
 			<td>
 				<c:choose>
-					<c:when test="${userInfo.u_gender == 'M'}">
+					<c:when test="${userLogin.u_gender == 'M'}">
 						남
 					</c:when>
 					<c:otherwise>
@@ -204,14 +205,14 @@
 					</c:otherwise>
 				</c:choose>
 			</td>
-			<td></td>
-			<td>생년월일</td>
-			<td>${userInfo.u_birth }</td>
+			<td colspan="2"></td>
+			<td class="text-center">생년월일</td>
+			<td>${userLogin.u_birth }</td>
 		</tr>
 		<tr class="form-group">
 						<td>이메일</td>
 						<td colspan="2"><input type="text" id="email" class="form-control" required></td>
-						<td> <div class="input-group"><span class="input-group-addon">@</span><input type="text" id="email_address" class="form-control" required></div></td>
+						<td colspan="2"> <div class="input-group"><span class="input-group-addon">@</span><input type="text" id="email_address" class="form-control" required></div></td>
 						<td>
 							<select name="emaildomain" id="emaildomain" class="form-control">
 						        <option value="">직접입력</option>
@@ -221,7 +222,7 @@
 						        <option value="hanmail.net">hanmail.net</option>
 						        <option value="nate.com">nate.com</option>
 						    </select>
-							<input type="hidden" id="u_email" name="u_email" value="${userInfo.u_email}" required>
+							<input type="hidden" id="u_email" name="u_email" value="${userLogin.u_email}" required>
 						</td>
 						<td>
 							<div id="btnArea"><button type="button" id="keySendBtn">인증번호 전송</button></div>
@@ -229,22 +230,21 @@
 					</tr>
 					<tr id="keyForm"  class="form-group">
 						<td></td>
-						<td colspan="3"><input type="text" id="chkKey" name="chkKey" class="form-control" placeholder="인증번호를 입력해주세요."></td>
+						<td colspan="4"><input type="text" id="chkKey" name="chkKey" class="form-control" placeholder="인증번호를 입력해주세요."></td>
 						<td><div id="emailConfirmChk"></div></td>
 					</tr>
 		<tr class="form-group">
 			<td>전화번호</td>
-			<td colspan="4"><input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="전화번호를 입력해주세요. (- 제외)" value="${userInfo.u_phone}"/></td>
+			<td colspan="5"><input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="전화번호를 입력해주세요. (- 제외)" value="${userLogin.u_phone}"/></td>
 		</tr>
 		<tr class="form-group">
 			<td colspan="2"></td>
-			<td colspan="2" class="form-group" id="pwdChkArea"><label>비밀번호 확인</label><input type="password" id="DelChk" name="DelChk"/><button type="button" id="DelChkBtn">확인</button></td>
-			<td class="text-right"><button type="button" class="btn btn-warning" id="userDelBtn">회원 탈퇴</button></td>
+			<td colspan="3" class="form-inline text-right" id="pwdChkArea"><label>비밀번호 확인</label><input type="password" id="DelChk" name="DelChk" class="form-control"/><button type="button" id="DelChkBtn" class="btn btn-default">확인</button></td>
+			<td class="text-right"><button type="button" class="btn btn-warning btn-block" id="userDelBtn">회원 탈퇴</button></td>
 		</tr>
 		<tr class="form-group">
-			<td colspan="2" class="text-center"><button type="button" id="cancelBtn" class="btn btn-danger">취소</button></td>
-			<td></td>
-			<td colspan="2" class="text-center"><button type="button" id="updateBtn" class="btn btn-danger">수정</button></td>
+			<td colspan="3" class="text-center"><button type="button" id="cancelBtn" class="btn btn-danger btn-block">취소</button></td>
+			<td colspan="3" class="text-center"><button type="button" id="updateBtn" class="btn btn-danger btn-block">수정</button></td>
 		</tr>
 	</table>
 </form>

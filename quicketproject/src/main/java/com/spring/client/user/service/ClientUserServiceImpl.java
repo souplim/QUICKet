@@ -19,7 +19,8 @@ public class ClientUserServiceImpl implements ClientUserService {
 	
 	@Override
 	public UserVO userLoginProcess(UserVO login) {
-		UserVO userLogin = clientUserDao.userLoginProcess(login);
+		UserVO userLogin = null;
+		userLogin = clientUserDao.userLoginProcess(login);
 		return userLogin;
 	}
 

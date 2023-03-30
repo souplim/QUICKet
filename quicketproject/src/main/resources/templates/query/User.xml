@@ -4,19 +4,20 @@
 
 	<!-- 로그인 -->
 	<select id="userLoginProcess" parameterType="user" resultType="user">
-		select u_num, u_id, u_name, u_state, to_char(u_pwddate,'YYYY-MM-DD') as u_pwddate, u_email
+		select u_num, u_id, u_pwd, u_name, u_gender, to_char(u_birth,'YYYY-MM-DD') as u_birth, u_email, u_phone, u_state,
+		to_char(u_regdate,'YYYY-MM-DD') as u_regdate, to_char(u_moddate,'YYYY-MM-DD') as u_moddate, to_char(u_pwddate,'YYYY-MM-DD') as u_pwddate 
 		from q_user 
 		where u_id = #{u_id} and u_pwd = #{u_pwd}
 	</select>
 
-	<!-- 회원정보 조회 -->
+	<!-- 회원정보 조회
 	<select id="userInfo" parameterType="user" resultType="user">
 		select u_num, u_id, u_pwd, u_name, u_gender, to_char(u_birth,'YYYY-MM-DD') as u_birth, u_email, u_phone,
 		to_char(u_regdate,'YYYY-MM-DD') as u_regdate, to_char(u_moddate,'YYYY-MM-DD') as u_moddate, to_char(u_pwddate,'YYYY-MM-DD') as u_pwddate 
 		from q_user
 		where u_num = #{u_num}
 		
-	</select>
+	</select> -->
 	
 	
 	<!-- 회원가입 처리 -->

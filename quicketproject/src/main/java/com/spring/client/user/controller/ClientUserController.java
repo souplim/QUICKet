@@ -92,46 +92,53 @@ public class ClientUserController {
 		String url = "";
 		log.info("client 로그인 처리 호출");
 		
-		UserVO userLogin = clientUserService.userLoginProcess(login);
+		UserVO userLogin = null;
+		userLogin = clientUserService.userLoginProcess(login);
 		
 		boolean dateResult = false;
 		try {
-			/* 시간 계산 */
-			// 비밀번호 변경 날짜 String -> Date 로 변경
-			SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
-			String u_pwddate = userLogin.getU_pwddate();
-			Date pwddate = sdformat.parse(u_pwddate);
-	        log.info("비밀번호 변경 날짜 :" + pwddate); // Sat Jun 19 21:05:07 KST 2021
-			// 오늘 날짜 계산
-			Date now = new Date();
-			Calendar today = Calendar.getInstance();
-			today.setTime(now);
-	        
-	        //String setPwdDate = "";
-	        Calendar setPwdDate = Calendar.getInstance();
-	        setPwdDate.setTime(pwddate);
-	        setPwdDate.add(Calendar.MONTH, 3);
-	        log.info("비밀번호 변경 주기 날짜 : " +  new Date(setPwdDate.getTimeInMillis()));
-	        
-	        // 날짜 비교
-	        dateResult = setPwdDate.before(today);
-	        ////////////////
-	        log.info("날짜 비교 결과 : " + dateResult);
+			if(userLogin != null)
+			{
+				/* 시간 계산 */
+				// 비밀번호 변경 날짜 String -> Date 로 변경
+				SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
+				String u_pwddate = userLogin.getU_pwddate();
+				Date pwddate = sdformat.parse(u_pwddate);
+		        log.info("비밀번호 변경 날짜 :" + pwddate); // Sat Jun 19 21:05:07 KST 2021
+				// 오늘 날짜 계산
+				Date now = new Date();
+				Calendar today = Calendar.getInstance();
+				today.setTime(now);
+		        
+		        //String setPwdDate = "";
+		        Calendar setPwdDate = Calendar.getInstance();
+		        setPwdDate.setTime(pwddate);
+		        setPwdDate.add(Calendar.MONTH, 3);
+		        log.info("비밀번호 변경 주기 날짜 : " +  new Date(setPwdDate.getTimeInMillis()));
+		        
+		        // 날짜 비교
+		        dateResult = setPwdDate.before(today);
+		        ////////////////
+		        log.info("날짜 비교 결과 : " + dateResult);
+			}
+			
 		} catch (ParseException ex){
 			ex.printStackTrace();
 		} 
-		
-		if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
+		if (userLogin == null) {
+			ras.addFlashAttribute("errorMsg", "로그인 실패");
+			url = "/user/login";
+		} else if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
 			model.addAttribute("userLogin", userLogin);
 			log.info("사용자 상태 : " + userLogin.getU_state());
-			url = "/user/userInfo?u_num=" + userLogin.getU_num(); 	// 메인페이지로 이동하도록 설정.
+			url = "/user/userInfo"; 	// 메인페이지로 이동하도록 설정.
 		} else if (userLogin.getU_state() == 0) {
 			ras.addFlashAttribute("errorMsg", "탈퇴 회원입니다.");
 			url = "/user/login";
-		}else if (dateResult == true) {
+		} else if (dateResult == true) {
 			ras.addFlashAttribute("errorMsg", "비밀번호 변경 주기가 지났습니다. 비밀번호를 변경해주세요.");
 			model.addAttribute("userLogin", userLogin);
-			url = "/user/setPwdForm?u_num=" + userLogin.getU_num();
+			url = "/user/setPwdForm";
 		} else {
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
 			url = "/user/login";
@@ -158,10 +165,10 @@ public class ClientUserController {
 	 *************************************************************/
 	@GetMapping("/userInfo")
 	public String userInfo(@ModelAttribute UserVO uvo, Model model) {
-		
+		/*
 		UserVO userinfo = clientUserService.userInfo(uvo);
 		model.addAttribute("userInfo",userinfo);
-		
+		*/
 		log.info("client 회원정보 화면 호출");
 		return "client/user/userInfo"; 	// views/client/userInfo.jsp
 	}
@@ -171,28 +178,31 @@ public class ClientUserController {
 	 * 요청 URL : http://localhost:8080/user/userUpdateForm 으로 요청
 	 *************************************************************/
 	@GetMapping("/userUpdateForm")
-	public String userUpdateForm(@ModelAttribute UserVO uvo, Model model) {
-		
+	public String userUpdateForm(@ModelAttribute("userLogin") UserVO uvo, Model model) {
+		/*
 		UserVO userinfo = clientUserService.userInfo(uvo);
 		model.addAttribute("userInfo",userinfo);
-		
+		*/
 		log.info("client 회원정보수정 화면 호출");
 		return "client/user/userUpdateForm"; 	// views/client/userUpdateForm.jsp
 	}
 	
 	@PostMapping("/userUpdate")
-	public String userUpdate(@ModelAttribute UserVO vo, Model model, RedirectAttributes ras) throws Exception {
+	public String userUpdate(@ModelAttribute("userLogin") UserVO vo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원정보 수정 처리 userUpdate() ");
 		
 		int result = 0;
 		String path = "";
 		
 		result = clientUserService.userUpdate(vo);
+		
+		
+		
 		if(result == 1) {
 			ras.addFlashAttribute("errorMsg", "회원 정보 수정이 완료되었습니다.");
-			path = "/user/userInfo?u_num=" + vo.getU_num();
+			path = "/user/userInfo";
 		} else {
-			path = "/user/userUpdateForm?u_num=" + vo.getU_num();
+			path = "/user/userUpdateForm";
 		}
 		return "redirect:" + path;
 	}
@@ -214,11 +224,7 @@ public class ClientUserController {
 	 * 비밀번호 재설정 폼 화면 
 	 */
 	@GetMapping("/setPwdForm")
-	public String setPwdForm(@ModelAttribute UserVO uvo, Model model) {
-		
-			UserVO userinfo = clientUserService.userInfo(uvo);
-			model.addAttribute("userInfo",userinfo);
-			
+	public String setPwdForm(@ModelAttribute("userLogin") UserVO uvo, Model model) {
 			log.info("client 회원정보 화면 호출");
 			return "client/user/setPwdForm"; 	// views/client/userInfo.jsp
 	}
@@ -227,19 +233,21 @@ public class ClientUserController {
 	 * 비밀번호 재설정 처리
 	 */
 	@PostMapping("/setNewPwd")
-	public String setNewPwd(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
+	public String setNewPwd(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("비밀번호 재설정 메소드 호출");
 		
 		int result = 0;
 		String path = "";
 		
 		result = clientUserService.setNewPwd(uvo);
+		
 		if(result == 1) {
 			ras.addFlashAttribute("errorMsg", "비밀번호가 변경되었습니다.");
-			path = "/user/userInfo?u_num=" + uvo.getU_num();
+			model.addAttribute("userLogin", uvo);
+			path = "/user/userInfo";
 		} else {
 			ras.addFlashAttribute("errorMsg", "오류 발생");
-			path = "/user/setPwdForm?u_num=" + uvo.getU_num();
+			path = "/user/setPwdForm";
 		}
 		return "redirect:" + path;
 	}
@@ -248,7 +256,7 @@ public class ClientUserController {
 	 * 회원 탈퇴 처리
 	*/
 	@GetMapping("/userDelete")
-	public String userDelete(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
+	public String userDelete(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원 탈퇴 처리 메소드 호출");
 	
 		int result = 0;
