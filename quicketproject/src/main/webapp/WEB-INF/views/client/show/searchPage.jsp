@@ -2,20 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
-#showBox_template{
-	display:none;
-}
 .showBox_search{
 	margin:10px 0px;
 	padding:20px 10px 10px 10px;
 	text-align:center;
 	border:1px solid #ccc;
 }
-.showBox_img{
+.showBox_search_img{
 	width:100%;
 	margin:0px 0px 10px 0px;
 }
-.showBox_thumbnail{
+.showBox_search_thumbnail{
 	display:inline-block;
 }
 .showBox_search_text{
@@ -42,13 +39,13 @@
 			$("#search").val("<c:out value='${showVO.search}' />");
 			
 			if($("#search").val()=="s_name"){
-				$("#list tr td.showname:contains('"+word+"')").each(function(){
+				$("#list .showBox_search_title:contains('"+word+"')").each(function(){
 					let regex = new RegExp(word,'gi');
 					$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
 				})
 			}
 			if($("#search").val()=="th_name"){
-				$("#list tr td.theatername:contains('"+word+"')").each(function(){
+				$("#list .showBox_search_theater:contains('"+word+"')").each(function(){
 					let regex = new RegExp(word,'gi');
 					$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
 				})
@@ -60,7 +57,10 @@
 		if(array!=""){
 			$("#s_array").val(array).prop("selected",true);
 		}
-		$("#s_genre").val("<c:out value='${showVO.s_genre}' />")
+		let s_genre = "<c:out value='${showVO.s_genre}' />";
+		if(s_genre!=""){
+			$("#s_genre").val(s_genre).prop("selected",true);;
+		}
 		let region = "<c:out value='${showVO.s_select_region}' />";
 		if(region!=""){
 			$("#s_select_region").val(region).prop("selected",true);
@@ -135,9 +135,11 @@
 
 		/* 달력 설정 및 입력 처리*/
 		let start_date="<c:out value='${showVO.start_date}' />";
-		
+		let end_date="<c:out value='${showVO.end_date}' />";
 		if(start_date!=""){
-			$("#datelabel").html("▼  <c:out value='${showVO.start_date}' />");
+			$("#datelabel").html("▼ "+start_date);
+			$("#start_date").val(start_date);
+			$("#end_date").val(end_date);
 		}
 		$("#start_date").datepicker({
 			language:"ko",
@@ -146,6 +148,10 @@
 			$("#start_date").focus();
 			$('.datepicker').css({'top':Math.floor($("#datelabel").offset().top+30)+'px', 'left':Math.floor($("#datelabel").offset().left-30)+'px'});
 		})
+		$(window).resize(function(){
+			$('.datepicker').css('display','none');
+		})
+		
 		$("#start_date").on("changeDate", function(){
 			$("#datelabel").html("▼  "+$("#start_date").datepicker("getFormattedDate"));
 			$("#end_date").val($("#start_date").val());
@@ -210,6 +216,7 @@
 						</select>						
 					</div>
 					<div class="col-sm-2">
+						<span class="glyphicon glyphicon-sort"></span>
 						<label for="s_sortorder" id="sortlabel" role="button">내림차순</label>
 						<input type="hidden" id="s_sortorder" name="s_sortorder" value="desc" />
 					</div>
@@ -220,7 +227,7 @@
 		<div id="list" class="row">
 			<c:forEach var="show" items="${showList}">
 				<div class="showBox_search col-xs-12" data-num="${show.s_num}">
-					<div class="showBox_thumbnail col-xs-3">
+					<div class="showBox_search_thumbnail col-xs-3">
 						<a href="/showDetail?s_num=${show.s_num}">
 							<img src=
 							<c:if test="${show.s_posterimg ne null}">
@@ -229,7 +236,7 @@
 							<c:if test="${show.s_posterimg eq null}">
 								"/uploadStorage/show/poster_default.jpg"
 							</c:if>
-							 class="showBox_img" />
+							 class="showBox_search_img" />
 						</a>
 					</div>
 					<div class="showBox_search_text col-xs-6 col-xs-offset-1 ">

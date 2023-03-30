@@ -177,6 +177,7 @@
 				<br/><br/>
 				<div class="form-group">
 					<div class="col-sm-2 col-sm-offset-10 text-right">
+						<span class="glyphicon glyphicon-sort"></span>
 						<label for="th_sortorder" id="sortlabel" role="button">내림차순</label>
 						<input type="hidden" id="th_sortorder" name="th_sortorder" value="desc" />
 					</div>

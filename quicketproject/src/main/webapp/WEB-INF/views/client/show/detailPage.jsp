@@ -2,14 +2,46 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
-th{
-	text-align:center;
-}
+th{text-align:center;}
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3dc7376a2cb1e4f12306eaaebe2593e4"></script>
+<script type="text/javascript" src="/resources/include/js/theaterMap.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$.ajax()
-		
+	$(function(){		
+		$("a[aria-controls='theaterBox']").on("shown.bs.tab", function(){
+			let th_num = Number("<c:out value='${detailData.th_num}' />");		
+			$.ajax({
+				url:"/theater/theaterOne",
+				type:"post",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				dataType:"text",
+				data: JSON.stringify({
+					th_num:th_num
+				}),
+				success:function(result){
+					let theater = JSON.parse(result);
+					
+					console.log(result)
+					console.log(theater)
+					$("#th_name").html(theater.th_name);
+					$("#th_seat").html("총 "+theater.th_seat+"석");
+					$("#th_addr").html(theater.th_addr);
+					$("#th_web").html(theater.th_web);
+					
+					let th_name = theater.th_name;
+					let th_map_lat = theater.th_map_lat;
+					let th_map_lng = theater.th_map_lng;
+					
+	
+					makemap("th_map", th_map_lat, th_map_lng, th_name, "100%", "500px");
+				},
+				error:function(xhr, textStatus, errorThrown){
+					alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				}
+			})
+		})
 		
 	})
 </script>
@@ -72,32 +104,31 @@ th{
 		<br/><br/>
 		<!-- 상세페이지 탭 기능 구현 -->
 		<div class="detail_tabBox row">
-			
-				<!-- Navi 형 탭리스트 -->
-				<ul class="nav nav-pills" role="tablist">
-					<li class="disabled">
-						<a href="#">WEEK RANKING</a>
-					</li>
-					<li role="presentation" class="active">
-						<a href="#detailimgBox" aria-controls="detailimgBox" role="tab" data-toggle="tab">공연 소개</a>
-					</li>
-					<li role="presentation">
-						<a href="#theaterBox" aria-controls="theaterBox" role="tab" data-toggle="tab">공연장 안내</a>
-					</li>
-					<li role="presentation">
-						<a href="#reviewBox" aria-controls="reviewBox" role="tab" data-toggle="tab">관람 후기</a>
-					</li>
-					<li role="presentation">
-						<a href="#expectBox" aria-controls="expectBox" role="tab" data-toggle="tab">기대평</a>
-					</li>
-					<li role="presentation">
-						<a href="#qnaBox" aria-controls="qnaBox" role="tab" data-toggle="tab">Q&A</a>
-					</li>
-					<li role="presentation">
-						<a href="#guideBox" aria-controls="guideBox" role="tab" data-toggle="tab">안내사항</a>
-					</li>					
-				</ul>
-				
+			<div class="row">
+				<div class="col-xs-10">
+					<!-- Navi 형 탭리스트 -->
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" class="active">
+							<a href="#detailimgBox" aria-controls="detailimgBox" role="tab" data-toggle="tab">공연 소개</a>
+						</li>
+						<li role="presentation">
+							<a href="#theaterBox" aria-controls="theaterBox" role="tab" data-toggle="tab">공연장 안내</a>
+						</li>
+						<li role="presentation">
+							<a href="#reviewBox" aria-controls="reviewBox" role="tab" data-toggle="tab">관람 후기</a>
+						</li>
+						<li role="presentation">
+							<a href="#expectBox" aria-controls="expectBox" role="tab" data-toggle="tab">기대평</a>
+						</li>
+						<li role="presentation">
+							<a href="#qnaBox" aria-controls="qnaBox" role="tab" data-toggle="tab">Q&A</a>
+						</li>
+						<li role="presentation">
+							<a href="#guideBox" aria-controls="guideBox" role="tab" data-toggle="tab">안내사항</a>
+						</li>					
+					</ul>
+				</div>
+			</div>	
 				<br/><br/>
 				
 				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
@@ -115,28 +146,30 @@ th{
 					<div role="tabpanel" class="tab-pane" id="theaterBox">
 						<div class="row">
 							<div class="row">
-								<h3>${detailData.th_name}</h3>
+								<h3 id="th_name"></h3>
 							</div>
 							<br />
 							<div class="row">
 								<table class="table table-bordered">
 									<tr>
 										<th class="col-xs-2">좌석수</th>
-										<td class="col-xs-10"></td>
+										<td class="col-xs-10" id="th_seat"></td>
 									</tr>
 									<tr>
 										<th>주소</th>
-										<td></td>
+										<td id="th_addr"></td>
 									</tr>
 									<tr>
 										<th>웹사이트</th>
-										<td></td>
+										<td id="th_web"></td>
 									</tr>
 									<tr>
 										<th colspan="2">공연장 지도</th>
 									</tr>
 									<tr>
-										<td colspan="2"></td>
+										<td colspan="2">
+											<div id="th_map"></div>
+										</td>
 									</tr>						
 								</table>
 							</div>

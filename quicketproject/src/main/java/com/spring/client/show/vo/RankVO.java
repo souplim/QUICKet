@@ -15,4 +15,7 @@ public class RankVO extends ShowVO{
 	private int rank_rank 		= 0;
 	private String rank_regdate = "";
 	private String rank_update 	= "";
+	
+	//랭킹 검색 결과를 반영하기 위한 변수 2개 추가
+	private int rank_changed	= 0;
 }

@@ -20,48 +20,6 @@ import lombok.Setter;
 public class ClientShowServiceImpl implements ClientShowService {	
 	@Setter(onMethod_=@Autowired)
 	private ClientShowDao clientShowDao; 
-
-	@Override
-	public List<ShowVO> showList(ShowVO vo) {
-		List<ShowVO> showList = clientShowDao.showList(vo);
-		if(showList!=null) {
-			for(ShowVO show : showList) {
-				ImgVO poster = clientShowDao.posterImg(show);
-				if(poster!=null) {
-					show.setS_posterimg(poster);
-				}
-			}
-		}
-		return showList;
-	}
-
-	@Override
-	public List<RankVO> rankList(RankVO vo) {
-		List<RankVO> showRankList = clientShowDao.rankList(vo);
-		if(showRankList!=null) {
-			for(RankVO rank : showRankList) {
-				ImgVO poster = clientShowDao.posterImg(rank);
-				if(poster!=null) {
-					rank.setS_posterimg(poster);
-				}
-			}
-		}
-		return showRankList;
-	}
-
-	@Override
-	public ShowVO showDetail(ShowVO vo) {
-		ShowVO result = clientShowDao.showDetail(vo);
-		ImgVO poster = clientShowDao.posterImg(vo);
-		if(poster!=null) {
-			result.setS_posterimg(poster);
-		}
-		List<ImgVO> detailImg = clientShowDao.detailImg(vo);
-		if(detailImg!=null) {
-			result.setS_detailimg(detailImg);
-		}
-		return result;
-	}
 	
 	@Override
 	public List<ShowVO> mainSlideList(ShowVO vo){
@@ -118,7 +76,6 @@ public class ClientShowServiceImpl implements ClientShowService {
 		
 		return mainSlideList;
 	}
-	
 	@Override
 	public List<ShowVO> pointRankList(ShowVO vo) {
 		vo.setS_array("s_point");
@@ -135,7 +92,6 @@ public class ClientShowServiceImpl implements ClientShowService {
 		}
 		return pointRankList;
 	}
-	
 	@Override
 	public List<RankVO> ticketRankList(RankVO vo){
 		List<RankVO> ticketRankList = null;
@@ -187,7 +143,6 @@ public class ClientShowServiceImpl implements ClientShowService {
 		
 		return ticketRankList;
 	}
-	
 	@Override
 	public List<ShowVO> newList(ShowVO vo){
 		List<ShowVO> newList = null;
@@ -247,9 +202,66 @@ public class ClientShowServiceImpl implements ClientShowService {
 	}
 	
 	@Override
+	public List<ShowVO> showList(ShowVO vo) {
+		List<ShowVO> showList = clientShowDao.showList(vo);
+		if(showList!=null) {
+			for(ShowVO show : showList) {
+				ImgVO poster = clientShowDao.posterImg(show);
+				if(poster!=null) {
+					show.setS_posterimg(poster);
+				}
+			}
+		}
+		return showList;
+	}
+	@Override
 	public int showListCnt(ShowVO vo) {
 		int result = clientShowDao.showListCnt(vo);
 		return result;
+	}
+	
+	@Override
+	public ShowVO showDetail(ShowVO vo) {
+		ShowVO result = clientShowDao.showDetail(vo);
+		ImgVO poster = clientShowDao.posterImg(vo);
+		if(poster!=null) {
+			result.setS_posterimg(poster);
+		}
+		List<ImgVO> detailImg = clientShowDao.detailImg(vo);
+		if(detailImg!=null) {
+			result.setS_detailimg(detailImg);
+		}
+		return result;
+	}
+
+	@Override
+	public List<RankVO> rankList(RankVO vo) {
+		List<RankVO> rankList = new ArrayList<RankVO>();
+		
+		String s_array = vo.getS_array();
+		if(s_array=="s_point") {
+			vo.setS_sortorder("desc");
+			List<ShowVO> showPointList = clientShowDao.showList(vo);
+			for(ShowVO show : showPointList) {
+				ImgVO poster = clientShowDao.posterImg(show);
+				if(poster!=null) {
+					show.setS_posterimg(poster);
+				}
+				RankVO rank = (RankVO)show;
+				rankList.add(rank);				
+			}
+		}else if(s_array=="rank_rank") {
+			List<RankVO> showRankList = clientShowDao.rankList(vo);
+			if(showRankList!=null) {
+				for(RankVO rank : showRankList) {
+					ImgVO poster = clientShowDao.posterImg(rank);
+					if(poster!=null) {
+						rank.setS_posterimg(poster);
+					}
+				}
+			}	
+		}
+		return rankList;
 	}
 	
 }

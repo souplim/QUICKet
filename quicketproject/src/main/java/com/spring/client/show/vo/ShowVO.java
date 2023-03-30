@@ -28,9 +28,11 @@ public class ShowVO extends CommonVO {
 	private int s_ticketcnt 	= 0; 	//공연총 예매횟수
 	private String s_guide 		= ""; 	//공연안내사항
 	
+	//공연장 정보 처리 변수
 	private int th_num			= 0;	//공연장번호
 	private String th_name		= "";	//공연장이름
 	
+	//데이터 등록일 변수
 	private String s_regdate	= "";	//공연데이터등록일
 	private String s_update		= "";	//공연데이터수정일
 	
@@ -48,4 +50,8 @@ public class ShowVO extends CommonVO {
 	private String s_array			= "";	//정렬이 필요할 경우 조건을 저장하는 변수
 	private String s_sortorder		= "";	//정렬이 필요할 경우 순서를 저장하는 변수
 	private String s_select_date	= "";	//날짜 검색 기준을 저장하는 변수
+	
+	//평점 랭킹 변수
+	private int s_point_rank		= 0;	//평점 랭킹을 저장하기 위한 변수
+	
 }

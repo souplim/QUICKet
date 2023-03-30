@@ -118,5 +118,14 @@ public class ClientShowController {
 		
 		return "client/show/detailPage";
 	}
+	
+	//랭킹페이지 관련 컨트롤러
+	@GetMapping("/ranking")
+	public String rankPage(@ModelAttribute RankVO vo, Model model) {
+		List<RankVO> rankList = clientShowService.rankList(vo);
+		model.addAttribute("rankList", rankList);
+		
+		return "client/show/rankingPage";
+	}
 
 }

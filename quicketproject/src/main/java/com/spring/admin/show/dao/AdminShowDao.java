@@ -18,4 +18,4 @@ public interface AdminShowDao {
 	public int showDelete(ShowVO vo);
 	
 	public int showListCnt(ShowVO vo);
-}
+} 

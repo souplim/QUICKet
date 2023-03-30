@@ -1,29 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-<style type="text/css">
-#showBox_template{
-	display:none;
-}
-.showBox{
-	padding:10px;
-	text-align:center
-}
-.showBox_img{
-	width:100%;
-	margin:0px 0px 10px 0px;
-}
-.showBox_thumbnail{
-	display:inline-block;
-}
-.showBox_text{
-	display:inline-block;
-	text-align:center;
-}
-</style>
+<script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 $(function(){
-	
 	$.getJSON("/mainSlideList",function(data){
 		let $indicators = $("#mainPage-slide").find(".carousel-indicators");
 		let $inner = $("#mainPage-slide").find(".carousel-inner");
@@ -85,58 +65,6 @@ $(function(){
 			makeShowBox(this, "#mainNewPanel", "s_opendate", "2");
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
-	
-	
-	function makeShowBox(vo, panel, sub, size){
-		let $panel = $(panel);
-		
-		let $showBox = $("#showBox_template").clone().removeAttr("id");
-		$showBox.addClass("col-xs-"+size);
-		let s_num = vo.s_num;
-		$showBox.attr("data-num", s_num);
-		
-		let s_name = vo.s_name;
-		
-		let subtxt ='';
-		if(sub=='rank_ticket'){
-			subtxt = vo.rank_ticket+"%";
-		}else if(sub=='s_opendate'){
-			subtxt = vo.s_opendate;
-		}else if(sub=='s_point'){
-			subtxt = vo.s_point;
-		}
-		
-		let $title = $("<p class='showBox_title'>"+s_name+"</p>");
-		let $subtxt = $("<p class='showBox_subtxt'>"+subtxt+"</p>");
-		$showBox.find(".showBox_text").append($title).append($subtxt);
-		
-		let $poster = $("<img />");
-		let poster_url="";
-		if(vo.s_posterimg!=null){
-			let poster_img = vo.s_posterimg;
-			let poster_dir = poster_img.img_dir;
-			let poster_name = poster_img.img_name;
-			let poster_type = poster_img.img_type;
-			
-			poster_url = "/uploadStorage/"+poster_dir+"/"+poster_name+"."+poster_type;
-		}
-		
-		$poster.addClass("showBox_img");
-		if(poster_url!=""){
-			$poster.attr("src", poster_url);
-		}else{
-			poster_url="/uploadStorage/show/poster_default.jpg"
-			$poster.attr("src", poster_url);
-		}
-		
-		let $link = $("<a href='/showDetail?s_num="+s_num+"'></a>");	
-		$link.append($poster);
-		
-		$showBox.find(".showBox_thumbnail").append($link);
-		
-		$panel.append($showBox);
-	}
-	
 })
 </script>
 </head>
@@ -217,17 +145,9 @@ $(function(){
 						</div>
 					</div>
 				</div>
-
+				
 			</div>
 			
-		</div>
-
-		<!-- 공연 박스 템플릿 -->
-		<div id="showBox_template" class="showBox">
-			<div class="showBox_thumbnail">
-			</div>
-			<div class="showBox_text"></div>
-		</div>
-		
+		</div>	
 	</body>
 </html>
