@@ -19,12 +19,9 @@ import lombok.Setter;
 @Service
 public class ClientShowServiceImpl implements ClientShowService {	
 	@Setter(onMethod_=@Autowired)
-	private ClientShowDao clientShowDao; 
+	private ClientShowDao clientShowDao;
 	
-	@Override
-	public List<ShowVO> mainSlideList(ShowVO vo){
-		List<ShowVO> mainSlideList = null;
-		
+	public ArrayList<String> getDate() {
 		//날짜 객체 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar now = Calendar.getInstance();
@@ -42,10 +39,21 @@ public class ClientShowServiceImpl implements ClientShowService {
 		}
 		
 		String monday = dateFormat.format(mon.getTime());
-		String sunday = dateFormat.format(sun.getTime());			
+		String sunday = dateFormat.format(sun.getTime());
 		
-		vo.setStart_date(monday);
-		vo.setEnd_date(sunday); 
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(monday);
+		list.add(sunday);
+		
+		return list;
+	}
+	
+	@Override
+	public List<ShowVO> mainSlideList(ShowVO vo){
+		List<ShowVO> mainSlideList = null;
+
+		vo.setStart_date(getDate().get(0));
+		vo.setEnd_date(getDate().get(1)); 
 		
 		int amount = vo.getAmount();
 		int total = clientShowDao.showListCnt(vo);
@@ -96,27 +104,8 @@ public class ClientShowServiceImpl implements ClientShowService {
 	public List<RankVO> ticketRankList(RankVO vo){
 		List<RankVO> ticketRankList = null;
 		
-		//날짜 객체 생성
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar now = Calendar.getInstance();
-		Calendar mon = (Calendar)now.clone();
-		Calendar sun = (Calendar)now.clone();
-		
-		//일~토 기준으로 월~일 기준으로 변환
-		int day_of_week = Calendar.DAY_OF_WEEK;
-		if(day_of_week==1) {
-			mon.add(Calendar.DAY_OF_WEEK,-6);
-		}else{
-			mon.set(Calendar.DAY_OF_WEEK,2);
-			sun.set(Calendar.DAY_OF_WEEK,1);
-			sun.add(Calendar.DAY_OF_MONTH,7);
-		}
-		
-		String monday = dateFormat.format(mon.getTime());
-		String sunday = dateFormat.format(sun.getTime());			
-		
-		vo.setStart_date(monday);
-		vo.setEnd_date(sunday);
+		vo.setStart_date(getDate().get(0));
+		vo.setEnd_date(getDate().get(1)); 
 		
 		int amount = vo.getAmount();
 		List<RankVO> resultList = clientShowDao.rankList(vo);
@@ -147,27 +136,8 @@ public class ClientShowServiceImpl implements ClientShowService {
 	public List<ShowVO> newList(ShowVO vo){
 		List<ShowVO> newList = null;
 		
-		//날짜 객체 생성
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar now = Calendar.getInstance();
-		Calendar mon = (Calendar)now.clone();
-		Calendar sun = (Calendar)now.clone();
-		
-		//일~토 기준으로 월~일 기준으로 변환
-		int day_of_week = Calendar.DAY_OF_WEEK;
-		if(day_of_week==1) {
-			mon.add(Calendar.DAY_OF_WEEK,-6);
-		}else{
-			mon.set(Calendar.DAY_OF_WEEK,2);
-			sun.set(Calendar.DAY_OF_WEEK,1);
-			sun.add(Calendar.DAY_OF_MONTH,7);
-		}
-		
-		String monday = dateFormat.format(mon.getTime());
-		String sunday = dateFormat.format(sun.getTime());			
-		
-		vo.setStart_date(monday);
-		vo.setEnd_date(sunday);
+		vo.setStart_date(getDate().get(0));
+		vo.setEnd_date(getDate().get(1)); 
 		vo.setS_select_date("open");
 		
 		
@@ -236,30 +206,14 @@ public class ClientShowServiceImpl implements ClientShowService {
 
 	@Override
 	public List<RankVO> rankList(RankVO vo) {
-		List<RankVO> rankList = new ArrayList<RankVO>();
-		
-		String s_array = vo.getS_array();
-		if(s_array=="s_point") {
-			vo.setS_sortorder("desc");
-			List<ShowVO> showPointList = clientShowDao.showList(vo);
-			for(ShowVO show : showPointList) {
-				ImgVO poster = clientShowDao.posterImg(show);
+		List<RankVO> rankList = clientShowDao.rankList(vo);
+		if(rankList!=null) {
+			for(RankVO rank : rankList) {
+				ImgVO poster = clientShowDao.posterImg(rank);
 				if(poster!=null) {
-					show.setS_posterimg(poster);
+					rank.setS_posterimg(poster);
 				}
-				RankVO rank = (RankVO)show;
-				rankList.add(rank);				
 			}
-		}else if(s_array=="rank_rank") {
-			List<RankVO> showRankList = clientShowDao.rankList(vo);
-			if(showRankList!=null) {
-				for(RankVO rank : showRankList) {
-					ImgVO poster = clientShowDao.posterImg(rank);
-					if(poster!=null) {
-						rank.setS_posterimg(poster);
-					}
-				}
-			}	
 		}
 		return rankList;
 	}

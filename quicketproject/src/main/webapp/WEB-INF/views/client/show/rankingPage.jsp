@@ -14,9 +14,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#start_date").datepicker({
-			language:"ko",
-		});
+		//화면 시작시에 필요없는 컴포넌트 숨김 처리
+		let s_array ="<c:out value='${rankVO.s_array}' />"
+		if(s_array=='s_point'){
+			$("#dateSelect").hide();
+			$("#periodNav").hide();
+		}
+		
+		
+		
 	})
 </script>
 </head>
@@ -47,12 +53,12 @@
 						<option value="s_point">평점순</option>							
 					</select>						
 				</div>	
-				<div class="col-sm-4 col-sm-offset-2 text-center">
+				<div id="dateSelect" class="col-sm-4 col-sm-offset-2 text-center">
 					<label for="start_date" id="datelabel">▼ 날짜 입력하기</label>
 					<input type="date" id="start_date" name="start_date" />
 					<input type="date" id="end_date" name="end_date" />
 				</div>				
-				<div class="col-sm-3 col-sm-offset-1">
+				<div id="periodNav" class="col-sm-3 col-sm-offset-1">
 					<ul class="nav nav-pills">
 						<li role="presentation" ><a href="#">일간</a></li>
 						<li role="presentation" class="active"><a href="#">주간</a></li>

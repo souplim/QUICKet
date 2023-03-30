@@ -1,6 +1,7 @@
 package com.spring.client.show.controller;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.client.show.service.ClientShowService;
+import com.spring.client.show.vo.ImgVO;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
 import com.spring.common.vo.PageDTO;
@@ -122,9 +124,15 @@ public class ClientShowController {
 	//랭킹페이지 관련 컨트롤러
 	@GetMapping("/ranking")
 	public String rankPage(@ModelAttribute RankVO vo, Model model) {
-		List<RankVO> rankList = clientShowService.rankList(vo);
-		model.addAttribute("rankList", rankList);
-		
+		String s_array = vo.getS_array();
+		if(s_array==""){ s_array = "s_point"; vo.setS_array(s_array);}
+		if(s_array=="s_point") {
+			List<ShowVO> rankList = clientShowService.showList(vo);
+			model.addAttribute("rankList", rankList);
+		}else if(s_array=="rank_rank") {
+			List<RankVO> rankList = clientShowService.rankList(vo);
+			model.addAttribute("rankList", rankList);
+		}
 		return "client/show/rankingPage";
 	}
 
