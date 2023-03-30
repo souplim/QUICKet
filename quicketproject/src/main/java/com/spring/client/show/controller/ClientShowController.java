@@ -1,23 +1,25 @@
 package com.spring.client.show.controller;
 
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.client.show.service.ClientShowService;
-import com.spring.client.show.vo.ImgVO;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
+import com.spring.client.theater.vo.TheaterVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -52,7 +54,7 @@ public class ClientShowController {
 	@ResponseBody
 	@GetMapping(value="/mainTicketRankList", produces=MediaType.APPLICATION_JSON_VALUE)
 	public 	List<RankVO> mainTicketRankList(){
-		RankVO vo = new RankVO();
+		ShowVO vo = new ShowVO();
 		vo.setAmount(5);
 		List<RankVO> entity = clientShowService.ticketRankList(vo);
 		return entity;
@@ -91,7 +93,7 @@ public class ClientShowController {
 	@ResponseBody
 	@GetMapping(value="/genreTicketRankList", produces=MediaType.APPLICATION_JSON_VALUE)
 	public 	List<RankVO> genreTicketRankList(@RequestParam("s_genre") String s_genre) throws Exception{
-		RankVO vo = new RankVO();
+		ShowVO vo = new ShowVO();
 		String d_s_genre = URLDecoder.decode(s_genre,"UTF-8");		
 		vo.setS_genre(d_s_genre);
 		vo.setS_genre(s_genre);
@@ -123,17 +125,10 @@ public class ClientShowController {
 	
 	//랭킹페이지 관련 컨트롤러
 	@GetMapping("/ranking")
-	public String rankPage(@ModelAttribute RankVO vo, Model model) {
-		String s_array = vo.getS_array();
-		if(s_array==""){ s_array = "s_point"; vo.setS_array(s_array);}
-		if(s_array=="s_point") {
-			List<ShowVO> rankList = clientShowService.showList(vo);
-			model.addAttribute("rankList", rankList);
-		}else if(s_array=="rank_rank") {
-			List<RankVO> rankList = clientShowService.rankList(vo);
-			model.addAttribute("rankList", rankList);
-		}
+	public String rankingPage(@ModelAttribute ShowVO vo, Model model) {
+		List<RankVO> rankList = clientShowService.rankList(vo);
+		model.addAttribute("rankList", rankList);
 		return "client/show/rankingPage";
 	}
-
+	
 }

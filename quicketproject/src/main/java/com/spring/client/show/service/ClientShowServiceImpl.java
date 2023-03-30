@@ -101,7 +101,7 @@ public class ClientShowServiceImpl implements ClientShowService {
 		return pointRankList;
 	}
 	@Override
-	public List<RankVO> ticketRankList(RankVO vo){
+	public List<RankVO> ticketRankList(ShowVO vo){
 		List<RankVO> ticketRankList = null;
 		
 		vo.setStart_date(getDate().get(0));
@@ -205,7 +205,14 @@ public class ClientShowServiceImpl implements ClientShowService {
 	}
 
 	@Override
-	public List<RankVO> rankList(RankVO vo) {
+	public List<RankVO> rankList(ShowVO vo) {
+		if(vo.getRank_period()=="") {
+			vo.setRank_period("week");
+		}
+		if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
+				vo.setStart_date(getDate().get(0));
+				vo.setEnd_date(getDate().get(1)); 
+		}
 		List<RankVO> rankList = clientShowDao.rankList(vo);
 		if(rankList!=null) {
 			for(RankVO rank : rankList) {

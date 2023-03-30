@@ -54,4 +54,6 @@ public class ShowVO extends CommonVO {
 	//평점 랭킹 변수
 	private int s_point_rank		= 0;	//평점 랭킹을 저장하기 위한 변수
 	
+	//랭킹 기간 검색용 변수
+	private String rank_period		= "";	//랭킹 검색시 기간을 체크하기 위한 변수
 }

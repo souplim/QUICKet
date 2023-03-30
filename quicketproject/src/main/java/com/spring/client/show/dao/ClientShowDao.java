@@ -11,7 +11,7 @@ import com.spring.client.show.vo.ShowVO;
 @Mapper
 public interface ClientShowDao {
 	public List<ShowVO> showList(ShowVO vo);
-	public List<RankVO> rankList(RankVO vo);
+	public List<RankVO> rankList(ShowVO vo);
 	public ShowVO showDetail(ShowVO vo);
 	
 	public List<ImgVO> detailImg(ShowVO vo);

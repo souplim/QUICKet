@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class RankVO extends ShowVO{
@@ -19,5 +18,6 @@ public class RankVO extends ShowVO{
 	private String rank_update 	= "";
 	
 	//랭킹 검색 결과를 반영하기 위한 변수 2개 추가
-	private int rank_changed	= 0;
+	private String rank_change	= "";
+	
 }

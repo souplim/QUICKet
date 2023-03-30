@@ -51,3 +51,24 @@ function makeShowBox(vo, panel, sub, size){
 	$showBox.append($showBox_thumbnail).append($showBox_text);
 	$panel.append($showBox);
 }
+
+
+function makeStar(item, point){
+	let $star = $("<span>★★★★★</span>")
+	$star.css({
+		"position":"relative",
+		"fontSize":"2rem",
+		"color":"#ccc"
+	})
+	let $starpaint = $("<span>★★★★★</span>")
+	$starpaint.css({
+		"width":point*10+"%",
+		"position":"absolute",
+		"left":"0",
+		"color":"#f90",
+		"overflow":"hidden",
+		"pointer-events":"none"
+	})
+	$star.append($starpaint);
+	$(item).prepend($star);
+}
