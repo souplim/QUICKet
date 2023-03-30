@@ -6,7 +6,7 @@
 
 <script>
 
-	$(function(){
+	$(function(){/////////////////
 		let click = 0;
 		
 		// 전화번호로 찾기 입력값이 입력되어있는 상태라면 확인 버튼에 
@@ -161,7 +161,11 @@
 								"email":email, "id":$("#pw-id").val()
 							},
 							success:function(data){
-								alert("해당 이메일로 임시 비밀번호가 발급되었습니다.<br>임시 비밀번호로 로그인해주세요.");
+								
+								$("#pwdSendBtn").attr("disabled", "disabled");
+								$("#goLoginArea").css("display","table-row");
+								alert("해당 이메일로 임시 비밀번호가 발급되었습니다. 임시 비밀번호로 로그인해주세요.");
+								
 							},
 							error: function (xhr, status, error) { alert("실패"); }
 						});
@@ -193,13 +197,17 @@
 				//location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
 			});
 			*/
+			
+			$('#goLoginBtn').click(function(){
+				location.href="/user/login";
+			});
 		});
 		
 		
 		
 		/******************/
 	
-	});
+	}); 	///////////////////////////////
 		/*
 	  function chkEmailConfirm(data) {
 		  $("#chkKey").on("keyup",function(){
@@ -229,6 +237,7 @@
 	#pwdBtnArea{display: none;}
 	#chkKeyArea{display:none;}
 	#sendBtnArea{display:none;}
+	#goLoginArea{display:none;}
 </style>
 
 </head>
@@ -386,6 +395,10 @@
 					<tr class="form-group" id="sendBtnArea">
 						<td></td>
 						<td colspan="4"><button type="button" id="pwdSendBtn" class="btn btn-default btn-block">임시 비밀번호 전송</button></td>
+					</tr>
+					<tr class="form-group" id="goLoginArea">
+						<td></td>
+						<td colspan="4"><button type="button" id="goLoginBtn" class="btn btn-warning btn-block">로그인 페이지로 이동</button></td>
 					</tr>
 					<!-- 
 					<tr class="form-group" id="chkKeyArea">

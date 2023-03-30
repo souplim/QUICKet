@@ -4,6 +4,10 @@
 <script type="text/javascript">
   $(function() {
 	  
+	    let nameReg = /^[가-힣]{2,5}$/ 	// 이름 : 한글 2-5자
+		let idReg = /^[A-Za-z0-9]{5,15}$/ // 아이디 : 영문자 숫자 조합 5-15자
+		let pwdReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8-20}$/
+		let phoneReg = /^\d{9,11}$/	// 전화번호 : 숫자 9-11자
 	  
 		// 인증번호 전송 버튼 클릭 시
 		$("#keySendBtn").click(function(){
@@ -11,7 +15,24 @@
 			let email = $("#email").val() + "@" + $("#email_address").val();
 			$("#u_email").val(email);
 			
-
+			// 입력값 변수에 담기
+			/*$('#u_name').val($('#u_name').val().trim());
+			$("#u_id").val($("#u_id").val().trim());
+			$("#pwd").val($("#pwd").val().trim());
+			$("#u_phone").val($("#u_phone").val().trim());
+			
+			let name = $('#u_name').val();
+			let id = $("#u_id").val();
+			let pwd = $("#pwd").val();
+			let phone = $("u_phone").val();
+			*/
+			/*** 정규표현식 
+			const nameReg = /^[가-힣]{2,5}$/ 	// 이름 : 한글 2-5자
+			const idReg = /^[A-Za-z0-9]{5,15}$/ // 아이디 : 영문자 숫자 조합 5-15자
+			const pwdReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8-20}$/
+			const phoneReg = /^\d{9,11}$/	// 전화번호 : 숫자 9-11자
+			*****************/
+			
 			
 			$("#keyForm").css("display", "contents");
 			
@@ -35,27 +56,10 @@
 		// 회원가입 버튼 클릭
 		$("#regBtn").click(function(){
 			
-			// 이메일 도메인 값과 합치기
-			/*
-			let email = $("#email").val() + "@" + $("#email_address").val();
-			$("#u_email").val(email);
-			*/
-			
 			console.log("gender : " + $("input[name=u_gender]:checked").val());
 			console.log("email : " + $("#u_email").val());
 			console.log("birth : " + $("#u_birth").val());
-			// 입력값 유효 체크
-			/*
-			if(!chkData("#u_name","이름을")) return;
-			else if (!chkData("#u_id","아이디를")) return;
-			else if (!chkData("#u_pwd","비밀번호를")) return;
-			else if (!chkData("#u_pwdChk","비밀번호 확인을")) return;
-			else if (!chkData("#u_gender","성별을")) return;
-			else if (!chkData("#u_birth","생년월일을")) return;
-			else if (!chkData("#email","이메일을")) return;
-			else if (!chkData("#email_address","이메일 도메인을")) return;
-			else if (!chkData("#chkKey","이메일 본인 인증번호를")) return;
-			else if (!chkData("#u_phone","전화번호를")) return;*/
+		
 			
 			// 회원가입 폼 전송
 			if($("#emailConfirmChk").html() == "인증번호가 확인되었습니다.") {
@@ -77,6 +81,57 @@
 			let domain = $("#emaildomain").val();
 			$("#email_address").val(domain);
 		});//
+		
+		
+		// 이름 확인
+		$("#u_name").on("keyup", function(){
+			$('#u_name').val($('#u_name').val().trim());
+			if(!nameReg.test($('#u_name').val())) {
+				$('#nameDiv').removeClass("has-success");
+				$("#nameicon").removeClass("glyphicon-ok");
+				$('#nameDiv').addClass("has-error");
+				$("#nameicon").addClass("glyphicon-remove");
+			} else {
+				$('#nameDiv').removeClass("has-error");
+				$("#nameicon").removeClass("glyphicon-remove");
+				$('#nameDiv').addClass("has-success");
+				$("#nameicon").addClass("glyphicon-ok");
+			}
+		});
+		
+		// 아이디 확인
+		$("#u_id").on("keyup", function(){
+			$('#u_id').val($('#u_id').val().trim());
+			if(!idReg.test($('#u_id').val())) {
+				$('#idDiv').removeClass("has-success");
+				$("#idicon").removeClass("glyphicon-ok");
+				$('#idDiv').addClass("has-error");
+				$("#idicon").addClass("glyphicon-remove");
+			} else {
+				$('#idDiv').removeClass("has-error");
+				$("#idicon").removeClass("glyphicon-remove");
+				$('#idDiv').addClass("has-success");
+				$("#idicon").addClass("glyphicon-ok");
+			}
+		});
+		
+		// 비밀번호 확인
+		/*
+		$("#pwd").on("keyup", function(){
+			$('#pwd').val($('#pwd').val().trim());
+			if(!pwdReg.test($('#pwd').val())) {
+				$('#nameDiv').removeClass("has-success");
+				$("#nameicon").removeClass("glyphicon-ok");
+				$('#nameDiv').addClass("has-error");
+				$("#nameicon").addClass("glyphicon-remove");
+			} else {
+				$('#nameDiv').removeClass("has-error");
+				$("#nameicon").removeClass("glyphicon-remove");
+				$('#nameDiv').addClass("has-success");
+				$("#nameicon").addClass("glyphicon-ok");
+			}
+		});
+		*/
 		
   });
   
@@ -112,11 +167,21 @@
 				<table class="table">
 					<tr class="form-group"> 
 						<td class="text-center">이름</td>
-						<td colspan="4"><input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름을 입력해주세요." required/></td>
+						<td colspan="4">
+							<div id="nameDiv" class="has-feedback">
+							<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름을 입력해주세요."/>
+							<span id="nameicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+							</div>
+						</td>
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">아이디</td>
-						<td colspan="3"><input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디를 입력해주세요. (영문자 + 숫자 조합, 5-15자)" required/></td>
+						<td colspan="3">
+						<div id="idDiv" class="has-feedback">
+							<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디를 입력해주세요. (영문자 + 숫자 조합, 5-15자)"/>
+							<span id="idicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
+						</td>
 						<td><button type="button" id="idChkBtn" class="btn btn-default">중복 확인</button></td>
 					</tr>
 					<tr>
@@ -125,11 +190,11 @@
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">비밀번호</td>
-						<td colspan="4"><input type="password" class="form-control" id="u_pwd" name="u_pwd" placeholder="비밀번호를 입력해주세요. (영문자 + 숫자 조합, 대문자 포함 8-20자)" required/></td>
+						<td colspan="4"><input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요. (영문자 + 숫자 조합, 대문자 포함 8-20자)" required/></td>
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">비밀번호 확인</td>
-						<td colspan="4"><input type="password" class="form-control" id="u_pwdChk" name="u_pwdChk" placeholder="비밀번호를 한번 더 입력해주세요." required /></td>
+						<td colspan="4"><input type="password" class="form-control" id="u_pwd" name="u_pwd" placeholder="비밀번호를 한번 더 입력해주세요." required /></td>
 					</tr>
 					<tr>
 						<td></td>
