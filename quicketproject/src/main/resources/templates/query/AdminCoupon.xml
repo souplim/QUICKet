@@ -8,6 +8,11 @@
 		to_char(c_enddate,'YYYY-MM-DD') as c_enddate,
 		c_img, to_char(c_regdate,'YYYY-MM-DD') as c_regdate
 		from admin_coupon
+		order by c_regdate desc
 	</select>
 	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="couponListCnt" parameterType="coupon" resultType="int">
+ 		SELECT count(*) FROM admin_coupon
+	</select>
 </mapper>

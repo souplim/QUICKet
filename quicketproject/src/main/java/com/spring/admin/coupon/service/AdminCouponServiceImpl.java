@@ -23,4 +23,13 @@ public class AdminCouponServiceImpl implements AdminCouponService {
 		return list;
 	}
 
+	@Override
+	public int couponListCnt(AdminCouponVO vo) {
+		int count = 0;
+		count = adminCouponDao.couponListCnt(vo);
+		return count;
+	}
+	
+	
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -164,11 +165,13 @@ public class ClientUserController {
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
 	@GetMapping("/userInfo")
-	public String userInfo(@ModelAttribute UserVO uvo, Model model) {
+	public String userInfo(@SessionAttribute("userLogin") UserVO uvo, Model model) {
 		/*
 		UserVO userinfo = clientUserService.userInfo(uvo);
 		model.addAttribute("userInfo",userinfo);
 		*/
+		
+		log.info(uvo.getU_pwddate());
 		log.info("client 회원정보 화면 호출");
 		return "client/user/userInfo"; 	// views/client/userInfo.jsp
 	}
@@ -234,7 +237,7 @@ public class ClientUserController {
 	 * 비밀번호 재설정 처리
 	 */
 	@PostMapping("/setNewPwd")
-	public String setNewPwd(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
+	public String setNewPwd(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras, SessionStatus sessionStatus) throws Exception {
 		log.info("비밀번호 재설정 메소드 호출");
 		
 		int result = 0;
@@ -243,9 +246,10 @@ public class ClientUserController {
 		result = clientUserService.setNewPwd(uvo);
 		
 		if(result == 1) {
-			ras.addFlashAttribute("errorMsg", "비밀번호가 변경되었습니다.");
-			model.addAttribute("userLogin", uvo);
-			path = "/user/userInfo";
+			ras.addFlashAttribute("errorMsg", "변경된 비밀번호로 다시 로그인해주세요.");
+			//model.addAttribute("userLogin", uvo);
+			sessionStatus.setComplete();
+			path = "/user/login";
 		} else {
 			ras.addFlashAttribute("errorMsg", "오류 발생");
 			path = "/user/setPwdForm";
