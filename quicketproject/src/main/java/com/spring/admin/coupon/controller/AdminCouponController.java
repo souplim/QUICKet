@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.admin.coupon.service.AdminCouponService;
 import com.spring.admin.coupon.vo.AdminCouponVO;
+import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,12 @@ public class AdminCouponController {
 		
 		List<AdminCouponVO> couponList = adminCouponService.couponList(vo);
 		model.addAttribute("couponList", couponList);
+		
+		int total = adminCouponService.couponListCnt(vo);
+		model.addAttribute("pageMaker", new PageDTO(vo, total));
+		
+		int count = total - (vo.getPageNum() - 1) * vo.getAmount();
+		model.addAttribute("count", count);
 		
 		return "admin/coupon/main";
 	}

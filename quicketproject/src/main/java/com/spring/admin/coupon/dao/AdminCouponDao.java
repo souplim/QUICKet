@@ -9,4 +9,5 @@ import com.spring.admin.coupon.vo.AdminCouponVO;
 @Mapper
 public interface AdminCouponDao {
 	public List<AdminCouponVO> couponList(AdminCouponVO vo);
+	public int couponListCnt(AdminCouponVO vo);
 }
