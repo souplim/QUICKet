@@ -2,9 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.spring.client.expect.vo.ExpectVO" alias="expect" />
 		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna" />
-		<!--  <typeAlias type="com.spring.client.reply.vo.ReplyVO" alias="reply" />
-		
-		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> -->
+		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply" />
+		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" />
+		<!-- <typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> -->
 	</typeAliases>
 </configuration>
