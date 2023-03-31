@@ -15,7 +15,7 @@
 	<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
 	<li class="nav-item"><a class="nav-link" href="#">1:1 문의</a></li>
 	<li class="nav-item"><a class="nav-link" href="#">이벤트 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">쿠폰 관리</a></li>
+	<li class="nav-item"><a class="nav-link" href="/admin/coupon/main">쿠폰 관리</a></li>
 	<li class="nav-item"><a class="nav-link" href="/admin/comm/main">커뮤니티 관리</a></li>	
 	<li class="nav-item"><a class="nav-link" href="#">통계 관리</a></li>
 </ul>
