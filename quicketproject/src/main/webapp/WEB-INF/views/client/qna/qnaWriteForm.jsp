@@ -47,7 +47,7 @@
 				 	<tbody>
 				 		<tr>
 				 			<td>작성자</td>
-				 			<td class="text-left">${qna.u_id}</td>
+				 			<td class="text-left">${userLogin.u_id}</td>
 				 		</tr>
 				 		<tr>
 				 			<td>제목</td>

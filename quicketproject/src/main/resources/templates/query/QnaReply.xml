@@ -4,7 +4,7 @@
 	
 	<!-- 댓글 리스트 조회 -->
 	<select id="qnaReplyList" parameterType="qnaReply" resultType="qnaReply">
-		SELECT q_no, q_r_no, q_r_content, u_id, to_char(q_r_regdate, 'YYYY-MM-DD') as q_r_redgate
+		SELECT q_no, q_r_no, q_r_content, u_id, to_char(q_r_regdate, 'YYYY-MM-DD') as q_r_regdate
 		FROM qna_reply
 		WHERE q_no = #{q_no}
 		ORDER BY q_r_no desc

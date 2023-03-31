@@ -14,41 +14,52 @@
 			let q_no = ${detail.q_no};	
 			listAll(q_no);
 			
+			let u_id = ${detail.q_no};
+			
 
 			/** 글 입력을 위한 Ajax 연동 처리 */
 			$(document).on("click", "#replyInsertBtn", function(){	//  입력화면이 수정화면이 될수 있고 수정form으로 쓸수 있어서, 동적으로 요소 만들다 보니 on 이라는 구문으로 정의
-				let insertUrl = "/qnaReply/qnaReplyInsert";
+				let id ="${userLogin.u_id}";
 				
-				let value = JSON.stringify({	
-					q_no:q_no,
-					q_r_content:$("#q_r_content").val()
-				});
-				
-				$.ajax({
-					url: insertUrl,		
-					type: "post",		
-					headers : {
-						"Content-Type":"application/json"
-					},
-					dataType:"text",
-					data: value,
-					//data : $("#frm").serialize(),
-					error: function(xhr, textStatus, errorThrown){	
-						alert(textStatus + "(HTTP-"+xhr.status + "/" +errorThrown+")");
-						
-					},
-					beforeSend: function(){	
-						if(!checkForm("#q_r_content", "댓글 내용을")) return false;
-						
-					},
-					success : function(result){	
-						if(result =="SUCCESS"){
-							alert("댓글 등록이 완료되었습니다");
-							dataReset();
-							listAll(q_no);
+				if(id != ""){
+					let insertUrl = "/qnaReply/qnaReplyInsert";
+					
+					let value = JSON.stringify({	
+						q_no:q_no,
+						q_r_content:$("#q_r_content").val()
+					});
+					
+					$.ajax({
+						url: insertUrl,		
+						type: "post",		
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data: value,
+						//data : $("#frm").serialize(),
+						error: function(xhr, textStatus, errorThrown){	
+							alert(textStatus + "(HTTP-"+xhr.status + "/" +errorThrown+")");
+							
+						},
+						beforeSend: function(){	
+							if(!checkForm("#q_r_content", "댓글 내용을")) return false;
+							
+						},
+						success : function(result){	
+							if(result =="SUCCESS"){
+								alert("댓글 등록이 완료되었습니다");
+								dataReset();
+								listAll(q_no);
+							}
 						}
-					}
-				});
+					});
+				} else {
+					alert("로그인 후 서비스를 이용하실 수 있습니다.");
+					location.href = "/user/login"; 
+				}
+				
+				
 			});	
 			
 			/** 수정 클릭  */
@@ -141,7 +152,7 @@
 				let q_r_no = this.q_r_no;
 				let u_id = this.u_id;
 				let q_r_content = this.q_r_content;
-				let q_r_regdate = this.q_r_date;
+				let q_r_regdate = this.q_r_regdate;
 				q_r_content = q_r_content.replace(/(\r\n|\r|\n)/g, "<br />");
 				template(q_r_no, u_id, q_r_content, q_r_regdate);
 			
@@ -221,9 +232,9 @@
 					<table class="table">
 						<tbody>
 							<tr>
-								<td class="col-md-1">작성자</td>
+								<td class="col-md-2">작성자</td>
 								<td class="col-md-3 text-left">
-									${detail.u_id}
+									${userLogin.u_id}
 								</td>
 									
 									<td class="col-md-4-btnArea">
@@ -231,7 +242,7 @@
 									</td>
 							</tr>
 							<tr>
-								<td class="col-md-1">내용</td>
+								<td class="col-md-2">내용</td>
 								<td colspan="4" class="col-md-11 text-left">
 									<textarea name="q_r_content" id="q_r_content" class="form-control" rows="3"></textarea>
 								</td>
@@ -250,9 +261,10 @@
 							<span class="id"></span>
 							<span class="date"></span>
 							
+							<c:if test="${userLogin.u_id == entity.u_id }">
 								<button type="button" data-btn="upBtn" class="btn btn-default gap upBtn">수정하기</button>
 								<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="btn btn-default gap delBtn">삭제하기</button>
-							<!--  <c:if test=""></c:if> 로 id 일치, 불일치에 따라 수정삭제 버튼 뜨는 조건 넣어야 --> 
+							</c:if>
 						</h3>
 					</div>
 					<div class="panel-body"></div>

@@ -7,6 +7,9 @@
 			/* 검색 후 검색 대상과 검색 단어출력*/
 			let word = "<c:out value='${qnaVO.keyword}' />";	// qnaVO는 컨트롤러에서 받아온것. 처음에 modelAttribute에 "data"라고 이름을 줘서 못 받아옴 (이경우 ${data.keyword}라고 했어야)
 			let value = "";
+			let start_date = "";
+			let end_date = "";
+			
 			if(word != ""){
 				$("#keyword").val("<c:out value='${qnaVO.keyword}' />");	//keyword 입력창에 입력한 qnaVo.keyword 단어가 출력
 				$("#search").val("<c:out value='${qnaVO.search}' />");

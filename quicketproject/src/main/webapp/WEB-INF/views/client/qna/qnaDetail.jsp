@@ -4,6 +4,7 @@
 
 	<style type="text/css">
 	tr.table-tr-height { height: 200px;}
+	div.container{width: 700px;}
 	</style>
 
 	<script type="text/javascript">
@@ -58,40 +59,41 @@
 			</form>
 			
 			
-				<div class="btnArea col-md-4 text-right">
-					<c:if test = "${userLogin.u_id} == ${detail.u_id}">
-						<input type="button" value="수정" id="qnaUpdateBtn" class="btn btn-primary"/>
-						<input type="button" value="삭제" id="qnaDeleteBtn" class="btn btn-primary"/>
-					</c:if>
-
-						<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
-				</div>
-		
-			
 			<%-- 상세페이지 --%>
 			<div class="contentTB text-center">
 				<table class="table table-bordered">
 					<tbody>
 						<tr>
-							<td class="col-md-3">작성자</td>
+							<td class="col-md-2">작성자</td>
 							<td class="col-md-3 text-left">${detail.u_id}</td>
-							<td class="col-md-3">작성일</td>
+							<td class="col-md-2">작성일</td>
 							<td class="col-md-3 text-left">${detail.q_regdate}</td>
 						</tr>
 						<tr>
-							<td class="col-md-4">제목</td>
+							<td class="col-md-2">제목</td>
 							<td colspan="3" class="col-md-8 text-left">${detail.q_title}</td>							
 						</tr>
 						<tr class="table-tr-height">
-							<td class="col-md-4">내용</td>
+							<td class="col-md-2">내용</td>
 							<td colspan="3" class="col-md-8 text-left">${detail.q_content}</td>
 						</tr>
 					
 					</tbody>
 				</table>
 			</div>
+				<div class="btnArea text-right">
+					<c:if test = "${userLogin.u_id == detail.u_id}">
+						<input type="button" value="수정" id="qnaUpdateBtn" class="btn btn-primary"/>
+						<input type="button" value="삭제" id="qnaDeleteBtn" class="btn btn-primary"/>
+						
+					</c:if>
+					
+						<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+				</div>
+			
+			
 			
 			<jsp:include page="qnaReply.jsp" />
-		</div>
+			</div>
 </body>
 </html>

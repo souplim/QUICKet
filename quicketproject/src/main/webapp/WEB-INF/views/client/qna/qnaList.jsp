@@ -14,8 +14,18 @@
 		$(function(){
 			/* 글쓰기 버튼 클릭시 처리 이벤트 */
 			$("#q_insertBtn").click(function(){
-				location.href = "/qna/qnaWriteForm"; 
-			});
+				let id ="${userLogin.u_id}";
+				if(id != ""){
+					location.href = "/qna/qnaWriteForm"; 
+					
+				} else{
+					alert("로그인 후 서비스를 이용하실 수 있습니다.");
+					location.href = "/user/login"; 
+				}
+				
+				//location.href = "/qna/qnaWriteForm"; 
+				
+				});
 			
 			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
 			$(".goDetail").click(function(){
@@ -72,7 +82,7 @@
 			</div>
 			<%-- 글쓰기 버튼 --%>
 				<div class="topArea">
-					<div class="countArea col-md-8">총 ${count}개의 문의글이 등록되었습니다. </div>
+					<div class="countArea col-md-8">총 ${count}개의 문의글이 등록되었습니다.</div>
 					<div class="insertBtn text-right col-md-4"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
 				</div>
 			

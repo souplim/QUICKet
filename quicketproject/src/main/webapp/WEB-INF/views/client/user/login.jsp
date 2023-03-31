@@ -12,6 +12,8 @@
 
     <title>로그인</title>
 
+
+	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,7 +30,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+	
+	
 	<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
 	
