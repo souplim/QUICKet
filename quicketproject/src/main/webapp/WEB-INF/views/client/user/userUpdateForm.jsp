@@ -6,8 +6,10 @@
 
 <script>
 	
+	//$(function(){ 시작
 	$(function(){
 		
+		let emailKey = "";
 		
 		// 이메일과 도메인 분리
 		let emailStr = $("#u_email").val();
@@ -33,8 +35,9 @@
 				$("#btnArea").css("display", "none");
 				emailChk = 0;
 			}
-		});
+		}); //------------------------------------
 		
+		// 이메일 도메인 값 변경
 		$("#emaildomain").on("change",function(){
 			if($("#emaildomain").val() != emails[1]) {
 				$("#btnArea").css("display", "contents");
@@ -47,7 +50,7 @@
 				$("#btnArea").css("display", "none");
 				emailChk = 0;
 			}
-		});
+		}); //------------------------------------------
 		
 		// 인증번호 전송 버튼 클릭 시
 		$("#keySendBtn").click(function(){
@@ -70,65 +73,71 @@
 				success:function(data){
 					alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n인증번호를 입력해주세요.");
 					$("#chkKey").focus();
-					chkEmailConfirm(data);
-				}
-			});
+					console.log(data);
+				  	emailKey = data;
+				  	console.log("emailKey -> " + emailKey);
+				}// ----success-----------
 			
-		});//
+			});//---------ajax------------
+		});// ------------ 인증키 전송 버튼 클릭 이벤트 종료 ---------------
 		
+		$("#chkKey").on("keyup",function(){	//인증키 확인
+	  		if ($("#chkKey").val() == emailKey) {
+				$('#chkDiv').removeClass("has-error");
+				$("#chkicon").removeClass("glyphicon-remove");
+				$('#chkDiv').addClass("has-success");
+				$("#chkicon").addClass("glyphicon-ok");
+	  		} else if ( $("#chkKey").val() == "" ) {
+			 	$('#chkDiv').removeClass("has-success");
+				$("#chkicon").removeClass("glyphicon-ok");
+				$('#chkDiv').removeClass("has-error");
+				$("#chkicon").removeClass("glyphicon-remove");
+			} else if ($("#chkKey").val() != emailKey || $("#chkKey").val() != "") {
+				$('#chkDiv').removeClass("has-success");
+				$("#chkicon").removeClass("glyphicon-ok");
+				$('#chkDiv').addClass("has-error");
+				$("#chkicon").addClass("glyphicon-remove");
+			} 
+		}); // 인증키 확인
 		
 		// 비밀번호 변경 버튼
 		$("#updatePwdBtn").click(function(){
 			location.href="/user/setPwdForm";
-		});
+		});//----------------------
 		
 
 		
 		// 수정 버튼 클릭
 		$("#updateBtn").click(function(){
 			
-			// 이메일 도메인 값과 합치기
-			/*
-			let email = $("#email").val() + "@" + $("#email_address").val();
-			$("#u_email").val(email);
-			*/
-			
-			console.log("gender : " + $("input[name=u_gender]:checked").val());
-			console.log("email : " + $("#u_email").val());
-			console.log("birth : " + $("#u_birth").val());
-			// 입력값 유효 체크
-			/*
-			if(!chkData("#u_name","이름을")) return;
-			else if (!chkData("#u_id","아이디를")) return;
-			else if (!chkData("#u_pwd","비밀번호를")) return;
-			else if (!chkData("#u_pwdChk","비밀번호 확인을")) return;
-			else if (!chkData("#u_gender","성별을")) return;
-			else if (!chkData("#u_birth","생년월일을")) return;
-			else if (!chkData("#email","이메일을")) return;
-			else if (!chkData("#email_address","이메일 도메인을")) return;
-			else if (!chkData("#chkKey","이메일 본인 인증번호를")) return;
-			else if (!chkData("#u_phone","전화번호를")) return;*/
-			
 			// 수정 버튼 클릭 시 
-			if(emailChk == 0 || $("#emailConfirmChk").html() == "인증번호가 확인되었습니다.") {
+			if(emailChk == 0 && $("#u_phone").val() == ${userLogin.u_phone}) {	// 변경된 값이 없다면
+				location.href="/user/userInfo";
+			} else if (emailChk == 1 && $("#chkKey").val() == "") {	// 이메일 인증이 안됐다면
+				alert("이메일 인증키를 입력해주세요.");
+				$("#chkKey").focus();
+			} else if ($("#chkDiv.has-error").length) {	// 이메일 인증이 안됐다면
+				alert("이메일 인증이 필요합니다.");
+				$("#chkKey").focus();
+			}else {
+			
 				$("#userUpdateForm").attr({
 					"method" : "post",
 					"enctype" : "multipart/form-data",
 					"action" : "/user/userUpdate"
 				});
 				$("#userUpdateForm").submit();
-			} else {
-				alert("이메일을 인증해주세요.");
 			}
 			
 			
-		});//
+		});//------------수정버튼클릭이벤트종료
 		
 		
+		// 이메일 도메인 option 변경되면 input 값도 같게 변경
 		$("#emaildomain").change(function(){
 			let domain = $("#emaildomain").val();
 			$("#email_address").val(domain);
-		});//
+		});//-------------------------------------
 		
 		
 		// 탈퇴 버튼 클릭 시
@@ -136,8 +145,9 @@
 			alert("탈퇴를 위해 비밀번호를 입력해주세요.");
 			$("#pwdChkArea").css("visibility", "visible");
 			$("#DelChk").focus();
-		});
+		});//---------------------------
 		
+		//------------탈퇴 -> 비밀번호 확인
 		$("#DelChkBtn").click(function(){
 			if($("#DelChk").val() == "${userInfo.u_pwd}") {
 				location.href="/user/userDelete";
@@ -149,19 +159,12 @@
 				$("#DelChk").val("");
 				$("#DelChk").focus();
 			}
-		});
+		});//----------------------------------
 		
-  });
+  });//$(function() 종료)
   
-  function chkEmailConfirm(data) {
-	  $("#chkKey").on("keyup",function(){
-		  if(data != $("#chkKey").val() ) {
-				$("#emailConfirmChk").html("인증번호가 잘못되었습니다.");
-			} else {
-				$("#emailConfirmChk").html("인증번호가 확인되었습니다.");
-			} 
-	  });
-  }
+
+
  
 </script>
 
@@ -230,8 +233,12 @@
 					</tr>
 					<tr id="keyForm"  class="form-group">
 						<td></td>
-						<td colspan="4"><input type="text" id="chkKey" name="chkKey" class="form-control" placeholder="인증번호를 입력해주세요."></td>
-						<td><div id="emailConfirmChk"></div></td>
+						<td colspan="5">
+						<div id="chkDiv" class="has-feedback">
+							<input type="text" id="chkKey" name="chkKey" class="form-control" placeholder="인증번호를 입력해주세요.">
+							<span id="chkicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
+						</td>
 					</tr>
 		<tr class="form-group">
 			<td>전화번호</td>

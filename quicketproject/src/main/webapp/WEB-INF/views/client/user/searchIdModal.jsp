@@ -15,8 +15,8 @@
             <div class="close-area">X</div>
             	<table id="id-table">
             		<tr id="result-id" class="result">
-            			<td class="r-id">ㅇ</td>
-            			<td class="r-regdate">ㅇ</td>
+            			<td class="r-id"></td>
+            			<td class="r-regdate"></td>
             		</tr>
             	</table>
         </div>

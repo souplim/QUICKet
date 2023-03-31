@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.admin.comm.dao.AdminCommDao">
 
-	<!-- 검색 처리 위한 코드 
+	<!-- 검색 처리 위한 코드 -->
 	<sql id="showSearch">
 		<if test="search=='s_name'">
 		<![CDATA[s_name like '%'||#{keyword}||'%']]>
@@ -19,9 +19,9 @@
 			<![CDATA[(to_char(s_closedate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
 			</if>
 		</if>
-	</sql>-->
+	</sql>
 	
-	<!-- 검색내용 정렬하는 구문 
+	<!-- 검색내용 정렬하는 구문 -->
 	<sql id="showArray">
 		<![CDATA[/*+ ]]>
 			<if test="s_array=='' or s_sortorder==''"><![CDATA[index_desc(show pk_show)]]></if>
@@ -43,7 +43,7 @@
 				<![CDATA[)]]>
 			</if>
 		<![CDATA[*/]]>
-	</sql>-->
+	</sql>
 	
 	
 <!-- 공연 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->
@@ -54,13 +54,14 @@
 		(select count(*) from reviewboard where s_num = show.s_num) rcount,
 		(select count(*) from qna where s_num = show.s_num) qcount
 		from show
+		order by s_num desc
 	</select> 
 	
-		<!-- 검색된 공연 수 조회 
+		<!-- 검색된 공연 수 조회 -->
 	<select id="showListCnt" parameterType="showVO" resultType="int">
 		select count(*) from show
 		<trim prefix=" where (" suffix=")">
 			<include refid="showSearch"></include>
 		</trim>
-	</select>-->
+	</select>
 </mapper>

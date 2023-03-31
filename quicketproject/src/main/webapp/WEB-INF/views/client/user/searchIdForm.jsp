@@ -47,20 +47,21 @@
 			
 			if(!chkData("#p-name","이름을")) return;
 			else if (!chkData("#p-phone","전화번호를")) return;
-			else if (click == 0){
+			else {
 				$.ajax({
 					type:"POST",
 					url:"/user/searchIdPhone",
 					data : {
 						"u_name":$("#p-name").val(), "u_phone":$("#p-phone").val(),
 					},
-					success:function(data){
-						if(data == null) {
+					success:function(resultData){
+						if(resultData=="") {
 							$("#result-id").text("조회된 아이디가 없습니다.");
+							$("#result-id").css("display", "block" );
 							$("#p-name").val("");
 							$("#p-phone").val("");
 						} else {
-							$.each(data, function(index, item){ // 데이터 =item
+							$.each(resultData, function(index, item){ // 데이터 =item
 
 								let $table = $('#id-table');
 								
@@ -70,8 +71,7 @@
 							    $element.find('.r-regdate').html(item.u_regdate);
 							    
 							    $table.append($element); 
-							});
-							click = 1;
+							});							
 						}
 					}, error:function(){
 						alert("에러 발생");
@@ -88,20 +88,21 @@
 			if(!chkData("#e-name","이름을")) return;
 			else if (!chkData("#e-email","이메일을")) return;
 			else if (!chkData("#emailaddress", "이메일 도메인을")) return;
-			else if (click == 0){
+			else {
 				$.ajax({
 					type:"POST",
 					url:"/user/searchIdEmail",
 					data : {
 						"u_name":$("#e-name").val(), "u_email":email,
 					},
-					success:function(data){
-						if(data == "") {
+					success:function(resultData){
+						if(resultData=="") {
 							$("#result-id").text("조회된 아이디가 없습니다.");
+							$("#result-id").css("display", "block" );
 							$("#e-name").val("");
 							$("#e-email").val("");
 						} else {
-							$.each(data, function(index, item){ // 데이터 =item
+							$.each(resultData, function(index, item){ // 데이터 =item
 
 								let $table = $('#id-table');
 								
@@ -112,8 +113,6 @@
 							    
 							    $table.append($element); 
 							});
-							click = 1;
-							
 						}
 					}, error:function(){
 						alert("에러 발생");
@@ -121,10 +120,21 @@
 				});
 			}
 		});
+		
 	
 		// 모달창의 로그인 버튼 클릭하면 로그인 페이지로 이동
 		$("#goLogin").click(function(){
 			location.href="/user/login";
+		});
+		
+		
+		$('#closeBtn').click(function(){
+			location.href="/user/searchIdForm";
+		});
+		
+		$("#modalCloseBtn").click(function(){
+			console.log("클릭");
+			location.href="/user/searchIdForm";
 		});
 		
 		// 비밀번호 찾기 폼
@@ -173,6 +183,14 @@
 					}
 				}
 			});
+		
+		$("#goLoginBtn").click(function(){
+			location.href="/user/login";
+		});
+		
+		
+
+		 
 			// ----
 			
 			$("#chkKey").change(function(){
@@ -197,10 +215,8 @@
 				//location.href="/user/setNewPwdForm?u_id="+$("#pw-id").val();
 			});
 			*/
-			
-			$('#goLoginBtn').click(function(){
-				location.href="/user/login";
-			});
+
+
 		});
 		
 		
@@ -208,6 +224,7 @@
 		/******************/
 	
 	}); 	///////////////////////////////
+
 		/*
 	  function chkEmailConfirm(data) {
 		  $("#chkKey").on("keyup",function(){
@@ -246,7 +263,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeBtn"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">아이디 찾기 결과</h4>
       </div>
       <div class="modal-body">
@@ -260,7 +277,7 @@
        	</table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-default" id="modalCloseBtn">닫기</button>
         <button type="button" class="btn btn-primary" id="goLogin">로그인</button>
       </div>
       

@@ -225,9 +225,10 @@ public class ClientUserController {
 	 */
 	@GetMapping("/setPwdForm")
 	public String setPwdForm(@ModelAttribute("userLogin") UserVO uvo, Model model) {
-			log.info("client 회원정보 화면 호출");
+			log.info("client 비밀번호 변경 폼 호출");
 			return "client/user/setPwdForm"; 	// views/client/userInfo.jsp
 	}
+	
 	
 	/**
 	 * 비밀번호 재설정 처리
@@ -290,8 +291,14 @@ public class ClientUserController {
 	public List<UserVO> searchIdPhone(@RequestParam("u_name") String u_name, @RequestParam("u_phone") String u_phone, Model model) {
 		log.info("전화번호로 아이디 찾기 메소드 실행");
 		
-		List<UserVO> list = clientUserService.searchIdPhone(u_name, u_phone);
-		model.addAttribute("list",list);
+		List<UserVO> list = null;
+		list = clientUserService.searchIdPhone(u_name, u_phone);
+		if(list.isEmpty()) {
+			log.info("결과 없음"+ list);
+		} else {
+			model.addAttribute("list",list);
+			log.info("결과 : " + list);
+		}
 		
 		return list;
 	}
@@ -301,8 +308,14 @@ public class ClientUserController {
 	public List<UserVO> searchIdEmail(@RequestParam("u_name") String u_name, @RequestParam("u_email") String u_email, Model model) {
 		log.info("전화번호로 아이디 찾기 메소드 실행");
 		
-		List<UserVO> list = clientUserService.searchIdEmail(u_name, u_email);
-		model.addAttribute("list",list);
+		List<UserVO> list = null;
+		list = clientUserService.searchIdEmail(u_name, u_email);
+		if(list.isEmpty()) {
+			log.info("결과 없음" + list);
+		} else {
+			model.addAttribute("list",list);
+			log.info("결과 : " + list);
+		}
 		
 		return list;
 	}
@@ -320,11 +333,6 @@ public class ClientUserController {
 		return result;
 	}
 	
-	@PostMapping("/setNewPwdForm")
-	public String setNewPwdForm(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) {
-		model.addAttribute("user", uvo);
-		return "client/user/setNewPwdForm";
-	}
 	
 
 	
