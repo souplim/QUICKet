@@ -108,13 +108,20 @@ public class MypageController {
 	 * 현재 요청 URL : http://localhost:8080/mypage/myTicketDelete
 	 ***********************************************************/
 	@GetMapping(value="/myTicketDelete")
-	public String myTicketDelete(@RequestParam("ti_num") int ti_num, MypageVO mypageVO, Model model) {
+	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("ti_num") int ti_num, MypageVO mypageVO, Model model) {
 		log.info("예매내역 취소화면");
+		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
 		
 		String url = "";
 		
 		int result = mypageService.myTicketDelete(ti_num);
 
+		mypageVO.setTi_num(ti_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		
 		if(result == 1) {
@@ -265,6 +272,64 @@ public class MypageController {
 		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
 		
 		return "client/mypage/myReviewList"; // /WEB-INF/views/client/mypage/myReviewList.jsp
+	}
+	
+	/***********************************************************
+	 * 나의 발급쿠폰 리스트 조회하기(사용가능)
+	 * 요청 주소 : http://localhost:8080/mypage/myCouponList
+	 ***********************************************************/
+	@GetMapping(value="/myCouponList")
+	public String myCouponList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("사용가능 발급쿠폰 화면");
+		
+		// 회원 아이디 임의로 지정
+		//mypageVO.setU_id("user02");
+		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
+		
+		// 발급쿠폰 리스트 조회
+		List<MypageVO> couponList = null;
+		couponList = mypageService.couponList(mypageVO);
+		model.addAttribute("couponList", couponList);
+		
+		// 발급쿠폰 페이징 처리
+		int total = mypageService.couponListCnt(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+		
+		return "client/mypage/myCouponList"; // /WEB-INF/views/client/mypage/myCouponList.jsp
+	}
+	
+	/***********************************************************
+	 * 나의 발급쿠폰 리스트 조회하기(사용완료)
+	 * 요청 주소 : http://localhost:8080/mypage/myCouponListN
+	 ***********************************************************/
+	@GetMapping(value="/myCouponListN")
+	public String myCouponListN(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("사용가능 발급쿠폰 화면");
+		
+		// 회원 아이디 임의로 지정
+		//mypageVO.setU_id("user02");
+		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
+		
+		// 사용완료 쿠폰 리스트 조회
+		List<MypageVO> couponListN = null;
+		couponListN = mypageService.couponListN(mypageVO);
+		model.addAttribute("couponListN", couponListN);
+		
+		// 사용완료 쿠폰 페이징 처리
+		int total = mypageService.couponListCntN(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+		
+		return "client/mypage/myCouponListN"; // /WEB-INF/views/client/mypage/myCouponListN.jsp
 	}
 	
 }

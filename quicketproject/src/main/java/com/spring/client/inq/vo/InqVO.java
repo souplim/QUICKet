@@ -22,7 +22,7 @@ public class InqVO extends CommonVO {
 	private String i_content = ""; // 문의글 내용
 	private String i_regidate; // 등록일
 	private String i_update; // 수정일
-	private int ti_num = 0; // 예매번호
+	private int ti_num; // 예매번호
 	
 	private String u_name = ""; // 회원 이름
 }

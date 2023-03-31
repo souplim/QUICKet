@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class MypageVO extends CommonVO {
 	private int ti_num = 0; // 예매번호
-	private String seat_date; // 예매한 시간/날짜
 	private String ti_status = ""; // 예매상태
 	private String u_id =""; // 회원 아이디
 	private String ti_regdate; // 예매 데이터 등록일
@@ -48,4 +47,13 @@ public class MypageVO extends CommonVO {
 	private String f_category =""; // faq 유형
 	private String f_title=""; // faq 질문
 	private String f_content=""; // faq 답변
+	
+	private String c_num=""; // 쿠폰 번호
+	private String c_name=""; // 쿠폰 이름
+	private int c_discount=0; // 쿠폰 할인율
+	private int uc_state=0; // 쿠폰사용여부(0:미사용, 1:사용완료, -1:기간만료)
+	private String uc_date; // 쿠폰 발급일
+	private String c_regdate=""; // 쿠폰 시작일
+	private String c_enddate=""; // 쿠폰 만료일
+	private String c_remain=""; // 쿠폰 남은 기간
 }

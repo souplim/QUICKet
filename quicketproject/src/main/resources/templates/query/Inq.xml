@@ -35,8 +35,16 @@
 	
 	<!-- 문의글 등록 -->
 	<insert id="inqInsert" parameterType="inq">
-		INSERT INTO inquiry(i_num, u_id, i_category, i_cate_detail, i_title, i_content, ti_num)
-		VALUES(inquiry_seq.NEXTVAL, #{u_id}, #{i_category}, #{i_cate_detail}, #{i_title}, #{i_content}, #{ti_num})
+		INSERT INTO inquiry(i_num, u_id, i_category, i_cate_detail, i_title, i_content
+		<if test="ti_num != ''"> 
+		, ti_num
+		</if>
+		)
+		VALUES(inquiry_seq.NEXTVAL, #{u_id}, #{i_category}, #{i_cate_detail}, #{i_title}, #{i_content}
+		<if test="ti_num != ''"> 
+		, #{ti_num}
+		</if>
+		)
 	</insert>
 	
 	<!-- 문의내역 상세정보 조회 -->

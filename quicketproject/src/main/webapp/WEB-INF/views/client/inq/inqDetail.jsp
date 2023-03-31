@@ -143,8 +143,8 @@
 			<div class="contentTB text-center">
 				<table class="table table-bordered">
 					<tr class="dataNum" data-num="${inqDetail.i_num}">
-						<td class="col-md-3">예매번호</td>
-						<td class="col-md-3">${inqDetail.ti_num}</td>
+						<td class="col-md-3"></td>
+						<td class="col-md-3"></td>
 						<td class="col-md-3">작성자</td>
 						<td class="col-md-3">${inqDetail.u_name}</td>
 					</tr>
@@ -156,7 +156,11 @@
 					</tr>
 					<tr>
 						<td class="col-md-3">예매번호</td>
-						<td class="col-md-3">${inqDetail.ti_num}</td>
+						<td class="col-md-3">
+							<c:if test="${inqDetail.ti_num!=0}">
+								${inqDetail.ti_num}
+							</c:if>
+						</td>
 						<td class="col-md-3" style="vertical-align:middle">답변현황</td>
 						<td class="col-md-3" style="vertical-align:middle">
 							<c:if test="${inqDetail.i_reply==0}">답변 대기중</c:if>

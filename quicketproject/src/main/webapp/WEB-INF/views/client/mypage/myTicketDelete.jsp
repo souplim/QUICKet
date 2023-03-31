@@ -48,7 +48,7 @@
 				<table class="table table-bordered">
 					<tr>
 						<td class="col-md-4 gray">예매일</td>
-						<td class="col-md-8 text-left">${ticketDelete.ti_regdate}</td>
+						<td class="col-md-8 text-left">${ticketDelete.hall_date}</td>
 					</tr>
 					<tr>
 						<td class="col-md-4 gray">예매상태</td>

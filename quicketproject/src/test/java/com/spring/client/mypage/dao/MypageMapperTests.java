@@ -61,19 +61,19 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
 	public void testFaqList() {
 		log.info("faqList() 메서드 실행");
 		List<MypageVO> list = mypageDao.faqList("공연");
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	}
+	} */
 	
 	/* @Test
 	public void testMyTicketDelete() {
 		log.info("myTicketDeletele() 메서드 실행");
 		
-		int result = mypageDao.myTicketDelete(10025431);
+		int result = mypageDao.myTicketDelete(3);
 		log.info(String.valueOf(result));
 	} */ 
 	
@@ -169,5 +169,25 @@ public class MypageMapperTests {
 		mypageVO.setU_id("user02");
 		int count = mypageDao.reviewListCnt(mypageVO);
 		log.info(String.valueOf(count));
+	} */
+	
+	/* @Test
+	public void testCouponList() {
+		log.info("couponList() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		List<MypageVO> list = mypageDao.couponList(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	} */
+	
+	/* @Test
+	public void testCouponListN() {
+		log.info("couponListN() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("user02");
+		List<MypageVO> list = mypageDao.couponListN(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
 	} */
 }

@@ -47,7 +47,7 @@ public class InqMapperTests {
 		log.info(String.valueOf(result));
 	} */
 
-	/*@Test
+	@Test
 	 public void testInqInsert() {
 		log.info("inqInsert() 메서드 실행");
 		InqVO inqVO = inqDao.inqDetail(1);
@@ -56,9 +56,10 @@ public class InqMapperTests {
 		inqVO.setI_cate_detail("로그인");
 		inqVO.setI_title("예매오류");
 		inqVO.setI_content("예매오류");
+		inqVO.setTi_num(0);
 		int result = inqDao.inqInsert(inqVO);
 		log.info(String.valueOf(result));
-	} */
+	}
 	
 	/* @Test
 	public void testInqListCnt() {

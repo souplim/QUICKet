@@ -27,4 +27,10 @@ public interface MypageService {
 	List<MypageVO> reviewList(MypageVO mypageVO); /* 관람후기 리스트 조회*/
 	int reviewListCnt(MypageVO mypageVO); /* 관람후기 글 개수 */
 	
+	List<MypageVO> couponList(MypageVO mypageVO); /* 발급쿠폰 리스트 조회 */
+	int couponListCnt(MypageVO mypageVO); /* 발급쿠폰 개수 조회 */
+	
+	List<MypageVO> couponListN(MypageVO mypageVO); /* 사용완료 쿠폰 리스트 조회 */
+	int couponListCntN(MypageVO mypageVO); /* 사용완료 쿠폰 개수 */
+	
 }

@@ -69,19 +69,25 @@
 				let category = $("#i_category").val();
 				
 				let detail;
-				if(category == "회원정보") detail = 회원정보;
+				if(category == "회원정보") {
+					detail = 회원정보;
+					$("#reserveInfo").hide();
+				}
 				else if(category == "공연") {
 					detail = 공연;
 					$("#reserveInfo").show();
 					$("#accordion").show();
+					$("#reserveInfo").show();
 				} else if(category == "그 외") {
 					detail = 그외;
 					$("#reserveInfo").hide();
 					$("#accordion").show();
+					$("#reserveInfo").hide();
 				} else {
 					detail = opt;
 					$("#reserveInfo").hide();
 					$("#accordion").hide();
+					$("#reserveInfo").hide();
 				}
 				
 				let target = $("#i_cate_detail");
@@ -159,6 +165,16 @@
 				else if (!chkData("#i_title","제목을")) return false;
 				else if (!chkData("#i_content","내용을")) return false;
 				else {
+					// select option null값 제외 
+					/* if($("#ti_num option:selected").val()==0) {
+						$("#ti_num").val("");
+						//$("#ti_num").remove();
+					} */
+					/* for(var i = $("#ti_num").get(0).length-1 ; i>=1 ; i--){
+						$("#ti_num").get(0).options[i] =null;
+					} */
+					console.log($("#ti_num option:selected").val());
+					
 					$("#insertForm").attr({
 						"method" : "post",
 						"action" : "/inq/inqInsert"
@@ -220,17 +236,17 @@
 						<div class="col-md-1"><label for="ti_num">예매번호</label></div>
 						<div class="form-group col-md-5">
 							<select class="form-control" name="ti_num" id="ti_num">
-								<option value="ticketNum">선택</option>
-								<!-- 유형이 공연일 때만 조회 -->
-									<c:if test="${not empty ticketList}" >
-										<c:forEach var="ticket" items="${ticketList}" varStatus="status">
-											<option value="예매번호" >
-												${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-												${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-												${ticket.seat_date}
-											</option>
-										</c:forEach>
-									</c:if> 
+								<option value="0">선택</option>
+								<!-- 유형이 공연일 때만 선택 조회 -->
+								<c:if test="${not empty ticketList}" >
+									<c:forEach var="ticket" items="${ticketList}" varStatus="status">
+										<option value="${ticket.ti_num}" >
+											${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+											${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+											${ticket.hall_date}
+										</option>
+									</c:forEach>
+								</c:if>
 							</select>
 						</div>
 					

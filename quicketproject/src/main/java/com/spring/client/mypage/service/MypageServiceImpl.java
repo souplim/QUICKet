@@ -132,6 +132,34 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
+	// 발급쿠폰 리스트 조회
+	@Override
+	public List<MypageVO> couponList(MypageVO mypageVO) {
+		List<MypageVO> list = mypageDao.couponList(mypageVO);
+		return list;
+	}
+
+	// 발급쿠폰 개수
+	@Override
+	public int couponListCnt(MypageVO mypageVO) {
+		int couponListCnt = mypageDao.couponListCnt(mypageVO);
+		return couponListCnt;
+	}
+
+	// 사용완료 쿠폰 리스트 조회
+	@Override
+	public List<MypageVO> couponListN(MypageVO mypageVO) {
+		List<MypageVO> list = mypageDao.couponListN(mypageVO);
+		return list;
+	}
+
+	// 사용완료 쿠폰 개수
+	@Override
+	public int couponListCntN(MypageVO mypageVO) {
+		int couponListCntN = mypageDao.couponListCntN(mypageVO);
+		return couponListCntN;
+	}
+
 	
 	
 }
