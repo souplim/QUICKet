@@ -4,6 +4,8 @@
 	
 	<style type="text/css">
 		#inqReplyList { margin-bottom: 20px; }
+		#height { height: 150px; }
+		.panel-body { height: 200px; }
 	</style>
 	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -348,7 +350,7 @@
 						<td class="col-md-3">답변현황</td>
 						<td class="col-md-3" id="i_reply"></td>
 					</tr>
-					<tr>
+					<tr id="height">
 						<td colspan="4" class="col-md-12 text-left" id="i_content"></td>
 					</tr>
 				</table>

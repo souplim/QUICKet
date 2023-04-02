@@ -58,6 +58,8 @@
 			
 			/* 예매번호 숨기기 */
 			$("#reserveInfo").hide();
+			/* '선택' 유형 선택 시 faq 숨기기 */
+			$("#accordion").hide();
 			
 			/* 유형 선택시 세부유형 option 항목 처리, 유형 '공연' 선택시 예매번호 조회 이벤트 */
 			$("#i_category").on("change", function(){
@@ -72,22 +74,27 @@
 				if(category == "회원정보") {
 					detail = 회원정보;
 					$("#reserveInfo").hide();
+					$("#accordion").show();
+					
+					/* 유형 선택 시 아코디언 열기 */
+					if($("#faqBoxList").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
+						$("#confirmFaq").next("div").slideDown();
+					} else {
+						$("#confirmFaq").next("div").slideUp();
+					}
 				}
 				else if(category == "공연") {
 					detail = 공연;
 					$("#reserveInfo").show();
 					$("#accordion").show();
-					$("#reserveInfo").show();
 				} else if(category == "그 외") {
 					detail = 그외;
 					$("#reserveInfo").hide();
 					$("#accordion").show();
-					$("#reserveInfo").hide();
 				} else {
 					detail = opt;
 					$("#reserveInfo").hide();
 					$("#accordion").hide();
-					$("#reserveInfo").hide();
 				}
 				
 				let target = $("#i_cate_detail");
@@ -166,13 +173,6 @@
 				else if (!chkData("#i_content","내용을")) return false;
 				else {
 					// select option null값 제외 
-					/* if($("#ti_num option:selected").val()==0) {
-						$("#ti_num").val("");
-						//$("#ti_num").remove();
-					} */
-					/* for(var i = $("#ti_num").get(0).length-1 ; i>=1 ; i--){
-						$("#ti_num").get(0).options[i] =null;
-					} */
 					console.log($("#ti_num option:selected").val());
 					
 					$("#insertForm").attr({

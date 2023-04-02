@@ -226,7 +226,6 @@
 		FROM user_coupon U INNER JOIN admin_coupon A
 		                         ON U.c_num = A.c_num
 		WHERE u_id = #{u_id} AND uc_state=1
-		AND <![CDATA[ sysdate < c_enddate ]]>
 		ORDER BY c_num DESC
 	</select>
 	
@@ -235,7 +234,6 @@
 		SELECT COUNT(*)
 		FROM user_coupon U INNER JOIN admin_coupon A
 		                         ON U.c_num = A.c_num
-		WHERE u_id = #{u_id} AND uc_state=1
-		AND <![CDATA[ sysdate < c_enddate ]]>
+		WHERE u_id = #{u_id} AND uc_state=1	
 	</select>
 </mapper>
