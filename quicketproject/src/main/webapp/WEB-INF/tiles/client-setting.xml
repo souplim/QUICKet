@@ -23,32 +23,16 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<!-- 마이페이지 레이아웃 -->
-	<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
-		<put-attribute name="title" value=""/>
+	<!-- 쿠폰페이지 레이아웃 -->
+		<definition name="client/coupon/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value="QUICKet 쿠폰"/>
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/client/left.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/client/coupon/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
-	</definition>						
+	</definition>	
 	
-
-	<!-- 고객센터 레이아웃 -->
-	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
-		<put-attribute name="title" value=""/>
-		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
-		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
-		<put-attribute name="body" value=""/>
-		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
-	</definition>
-	
-	<!-- 1대1문의 -->
-	<definition name="client/inq/*" extends="cs">
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
-	</definition>
-	
-			<!-- Control 단에서 error/error_page 받아오면... -->
+	<!-- Control 단에서 error/error_page 받아오면... -->
 	<definition name="error/*" extends="content"> 
 		<put-attribute name="title" value="" /> <!-- 안 주면 기본값인 "나의 첫 스프링 사이트"가 나오기 때문에 공백으로 값 준다 -->
 		<put-attribute name="body" value="/WEB-INF/views/error/{1}.jsp" /> 

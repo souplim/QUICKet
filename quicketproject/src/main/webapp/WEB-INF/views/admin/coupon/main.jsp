@@ -8,12 +8,19 @@
 	keyword = "<c:out value='${data.keyword}' />";
 
 	$(function(){
+		
+		// 등록 클릭 시 폼으로 이동
+		$("#insertCouponBtn").click(function(){
+			location.href="/admin/coupon/insertForm";
+		});
+		
 		// 페이징 처리
 		$(".paginate_button a").click(function(e) {
 			 e.preventDefault();
 			 $("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
 			 goPage();
 		});
+		
 	});
 	
 	function goPage() {
@@ -28,6 +35,10 @@
 		$("#f_search").submit();
 	}
 </script>
+
+<style>
+	img{width:25px;}
+</style>
 </head>
 <body>
 <div class="">
@@ -59,7 +70,9 @@
 						<th class="text-center">번호</th>
 						<th class="text-center">쿠폰번호</th>
 						<th class="text-center">쿠폰명</th>
-						<th class="text-center">기간</th>
+						<th class="text-center">이미지</th>
+						<th class="text-center">발급기간</th>
+						<th class="text-center">유효기간</th>
 						<th class="text-center">할인율</th>
 						<th class="text-center">등록일</th>
 						<th class="text-center">발급횟수</th>
@@ -74,6 +87,8 @@
 									<td>${count - status.index}</td>
 									<td>${coupon.c_num}</td>
 									<td>${coupon.c_name}</td>
+									<td><img src="/uploadStorage/coupon/${coupon.c_img}"/></td>
+									<td><span>${coupon.c_startissue }</span>~<span>${coupon.c_endissue }</span></td>
 									<td><span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate}</span></td>
 									<td>${coupon.c_discount}%</td>
 									<td>${coupon.c_regdate}</td>

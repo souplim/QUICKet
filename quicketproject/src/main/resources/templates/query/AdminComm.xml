@@ -7,7 +7,7 @@
 		<if test="search=='s_name'">
 		<![CDATA[s_name like '%'||#{keyword}||'%']]>
 		</if>
-		<if test="start_date!='' and end_date!=''">
+		<!-- <if test="start_date!='' and end_date!=''">
 			<if test="search!=''"><![CDATA[and]]></if>
 			<if test="s_select_date==''">
 			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
@@ -18,10 +18,10 @@
 			<if test="s_select_date=='close'">
 			<![CDATA[(to_char(s_closedate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
 			</if>
-		</if>
+		</if> -->
 	</sql>
 	
-	<!-- 검색내용 정렬하는 구문 -->
+	<!-- 검색내용 정렬하는 구문
 	<sql id="showArray">
 		<![CDATA[/*+ ]]>
 			<if test="s_array=='' or s_sortorder==''"><![CDATA[index_desc(show pk_show)]]></if>
@@ -43,7 +43,7 @@
 				<![CDATA[)]]>
 			</if>
 		<![CDATA[*/]]>
-	</sql>
+	</sql> -->
 	
 	
 <!-- 공연 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->

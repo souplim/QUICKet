@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.admin.coupon.service.AdminCouponService;
 import com.spring.admin.coupon.vo.AdminCouponVO;
@@ -39,5 +41,30 @@ public class AdminCouponController {
 		
 		return "admin/coupon/main";
 	}
+	
+	@GetMapping("/insertForm")
+	public String insertForm() {
+		log.info("관리자 쿠폰 등록 폼 화면 호출");
+		return "admin/coupon/insertForm";
+	}
+	
+	@PostMapping("/insertCoupon")
+	public String insertCoupon(AdminCouponVO vo, Model model, RedirectAttributes ras) throws Exception {
+		log.info("쿠폰 추가 insertCoupon 호출");
+		
+		int result = 0;
+		String path = "";
+		
+		result = adminCouponService.insertCoupon(vo);
+		if(result == 1) {
+			ras.addFlashAttribute("errorMsg", "쿠폰 등록이 완료되었습니다.");
+			path = "/admin/coupon/main";
+		} else { 
+			ras.addFlashAttribute("errorMsg", "쿠폰 등록에 실패했습니다.");
+			path = "/admin/coupon/insertForm";
+		}
+		return "redirect:"+path;
+	}
+	
 }
 

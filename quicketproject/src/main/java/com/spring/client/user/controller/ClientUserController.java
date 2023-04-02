@@ -102,11 +102,12 @@ public class ClientUserController {
 			{
 				/* 시간 계산 */
 				// 비밀번호 변경 날짜 String -> Date 로 변경
-				SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
+				SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 				String u_pwddate = userLogin.getU_pwddate();
-				Date pwddate = sdformat.parse(u_pwddate);
-		        log.info("비밀번호 변경 날짜 :" + pwddate); // Sat Jun 19 21:05:07 KST 2021
-				// 오늘 날짜 계산
+				Date pwddate = dateformat.parse(u_pwddate);
+		        log.info("비밀번호 변경 날짜 :" + u_pwddate + " / " + pwddate); // Sat Jun 19 21:05:07 KST 2021
+		        log.info(">> " + dateformat.format(pwddate));
+		        // 오늘 날짜 계산
 				Date now = new Date();
 				Calendar today = Calendar.getInstance();
 				today.setTime(now);
@@ -121,6 +122,8 @@ public class ClientUserController {
 		        dateResult = setPwdDate.before(today);
 		        ////////////////
 		        log.info("날짜 비교 결과 : " + dateResult);
+		        
+		      
 			}
 			
 		} catch (ParseException ex){
