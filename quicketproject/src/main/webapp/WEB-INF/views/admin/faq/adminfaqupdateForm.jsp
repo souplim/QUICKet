@@ -13,7 +13,7 @@
 					$("#f_updateForm").attr({
 						"method":"post",
 						"enctype":"multipart/form-data", // enctype 속성의 기본 값은 "application/x-www-form-urlcencoded". POST방식 폼 전송에 기본 값으로 사용
-						"action":"/faq/adminfaqUpdate"
+						"action":"/admin/faq/adminfaqUpdate"
 						
 						
 					});
@@ -30,7 +30,7 @@
 			
 			/* 목록 버튼 클릭 시 처리 이벤트 */
 			$("#faqListBtn").click(function(){
-				location.href="/faq/adminfaqList"; 
+				location.href="/admin/faq/adminfaqList"; 
 			});
 		});
 	</script>

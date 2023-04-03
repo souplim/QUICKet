@@ -19,7 +19,7 @@
 			
 			$("#faqDeleteBtn").click(function(){
 				if(confirm("정말 삭제하시겠습니까?")){
-					goUrl = "/faq/adminfaqDelete";
+					goUrl = "/admin/faq/adminfaqDelete";
 					$("#f_data").attr("action",goUrl);
 					$("#f_data").submit();
 				}
@@ -28,12 +28,12 @@
 			
 			/* 글쓰기 버튼 클릭 시 처리 이벤트 */
 			$("#insertFormBtn").click(function(){
-				location.href = "/faq/adminfaqwriteForm"; 				
+				location.href = "/admin/faq/adminfaqwriteForm"; 				
 			});			
 			
 			/* 목록 버튼 클릭 시 처리 이벤트 */
 			$("#faqListBtn").click(function(){
-				location.href="/faq/adminfaqList"; 
+				location.href="/admin/faq/adminfaqList"; 
 			});
 			
 		});	

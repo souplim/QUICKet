@@ -10,7 +10,7 @@
 			
 			$("#reviewDeleteBtn").click(function(){
 				if(confirm("정말 삭제하시겠습니까?")){
-					goUrl = "/faq/adminreviewDelete";
+					goUrl = "/admin/review/adminreviewDelete";
 					$("#f_data").attr("action",goUrl);
 					$("#f_data").submit();
 				}
@@ -20,7 +20,7 @@
 			
 			/* 목록 버튼 클릭 시 처리 이벤트 */
 			$("#reviewListBtn").click(function(){
-				location.href="/faq/adminreviewList"; 
+				location.href="/admin/review/adminreviewList"; 
 			});
 			
 		});	
@@ -87,6 +87,6 @@
 			<hr>
 			<hr>
 			<hr>
-	     	<jsp:include page="reviewList.jsp"/>  
+	     	
 	</body>
 </html>

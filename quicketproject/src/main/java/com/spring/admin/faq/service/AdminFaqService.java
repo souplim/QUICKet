@@ -1,4 +1,4 @@
-package com.spring.client.faq.service;
+package com.spring.admin.faq.service;
 
 import java.util.List;
 

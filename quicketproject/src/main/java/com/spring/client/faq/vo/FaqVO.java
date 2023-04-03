@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class FaqVO extends CommonVO {
 
 	private int    f_no     =0;  //FAQ 글번호

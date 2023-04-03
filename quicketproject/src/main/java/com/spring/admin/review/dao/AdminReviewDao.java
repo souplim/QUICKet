@@ -1,4 +1,4 @@
-package com.spring.client.review.dao;
+package com.spring.admin.review.dao;
 
 import java.util.List;
 

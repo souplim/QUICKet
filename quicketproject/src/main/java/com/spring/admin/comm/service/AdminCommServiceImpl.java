@@ -14,7 +14,7 @@ import lombok.Setter;
 @Service
 public class AdminCommServiceImpl implements AdminCommService {
 	
-	@Setter(onMethod_=@Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private AdminCommDao adminCommDao;
 
 	@Override

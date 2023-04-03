@@ -1,4 +1,4 @@
-package com.spring.client.review.service;
+package com.spring.admin.review.service;
 
 
 import java.util.List;

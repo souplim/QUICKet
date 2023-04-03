@@ -1,4 +1,4 @@
-package com.spring.client.review.controller;
+package com.spring.admin.review.controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.spring.client.review.service.AdminReviewService;
+import com.spring.admin.review.service.AdminReviewService;
 import com.spring.client.review.vo.ReviewVO;
 import com.spring.common.vo.PageDTO;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
-@RequestMapping("/faq/*") //매핑 바꾸면 jsp 다 바꿔야 함
+@RequestMapping("admin/review/*") //매핑 바꾸면 jsp 다 바꿔야 함
 @Slf4j
 public class AdminReviewController {
 	
@@ -45,7 +45,7 @@ public class AdminReviewController {
 		int total = 10;
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(rvo, total));
-		return "client/faq/adminreviewList";   //리턴해 주는게 뷰의 정보
+		return "admin/review/adminreviewList";   //리턴해 주는게 뷰의 정보
 	}
 
 	
@@ -63,7 +63,7 @@ public class AdminReviewController {
 			ReviewVO detail = adminreviewService.adminreviewDetail(rvo);
 			model.addAttribute("detail", detail);
 			
-			return "client/faq/adminreviewDetail";
+			return "admin/review/adminreviewDetail";
 		}   
 		
 
@@ -84,9 +84,9 @@ public class AdminReviewController {
 			result = adminreviewService.adminrevewDelete(rvo);
 			
 			if(result == 1){
-				url="/faq/adminreviewList";
+				url="/adminreviewList";
 			}else{
-				url="adminreviewDetail?r_no="+rvo.getR_no();
+				url="/adminreviewDetail?r_no="+rvo.getR_no();
 				
 			}
 			return "redirect:"+url;

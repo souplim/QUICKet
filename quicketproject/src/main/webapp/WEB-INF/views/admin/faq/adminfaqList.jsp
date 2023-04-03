@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 
-
+<%-- 스크립트 정의 
+<script type="text/javascript" src="/resources/include/js/fag.js"></script> --%>
 <script type="text/javascript">	
 
 
 		let keyword = "", search = "", start_date = "", end_date = "";
 		$(function(){
-			if(search!="r_regdate"){
+			if(search!="f_regdate"){
 				$("#dateCheck").hide();
 				var date = getDateFormat(new Date())
 				$('#start_date').val(date);
@@ -27,9 +28,9 @@
 		
 			/* 검색 버튼 클릭 시 처리 이벤트 */
 			$("#searchBtn").click(function(){
-				if($("#search").val()!="r_regdate"){
+				if($("#search").val()!="f_regdate"){
 					if(!chkSubmit($('#keyword'),"검색어를")) return;
-				}else if($("#search").val()=="r_regdate"){
+				}else if($("#search").val()=="f_regdate"){
 					if(!chkSubmit($('#start_date'),"시작날자를")) return;
 					else if(!chkSubmit($('#end_date'),"종료날자를")) return;
 					else if($('#start_date').val()>$('#end_date').val()){
@@ -47,15 +48,15 @@
 				$("#start_date").val("");
 				$("#end_date").val("");
 				//goPage();
-				location.href="/faq/adminreviewList";
+				location.href="/admin/faq/adminfaqList";
 			});
 			
 			/* 검색 대상이 변경될 때마다 처리 이벤트 */
 			$("#search").change(function() {
-				if($("#search").val()!="r_regdate"){
+				if($("#search").val()!="f_regdate"){
 					$("#dateCheck").hide();						
 					$("#textCheck").show();	
-				}if($("#search").val()=="r_regdate"){
+				}if($("#search").val()=="f_regdate"){
 					$("#textCheck").hide();
 					$("#dateCheck").show();
 				}
@@ -71,47 +72,42 @@
 		function goPage(){
 			$("#f_search").attr({
 				"method":"get",
-				"action":"/faq/adminreviewList"
+				"action":"/faq/adminfaqList"
 			});
 			$("#f_search").submit();
 		}
-	
+
+
+
 		search = "<c:out value='${data.search}' />";
 		start_date = "<c:out value='${data.start_date}' />";	
 		end_date = "<c:out value='${data.end_date}' />";
 		keyword = "<c:out value='${data.keyword}' />";
-		
 		$(function() {
-			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */	
+			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */		
 			$(".goDetail").click(function(){
-				let r_no =  $(this).parents("tr").attr("data-num");	
-				$("#r_no").val(r_no);
-				console.log("글번호 : "+r_no);
+				let f_no =  $(this).parents("tr").attr("data-num");	
+				$("#f_no").val(f_no);
+				console.log("글번호 : "+f_no);
 				// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm) 
 				$("#detailForm").attr({
 					"method":"get",
-					"action":"/faq/adminreviewDetail"
-			//		"action":"/review/adminreviewDetail"
-
+					"action":"/admin/faq/adminfaqDetail"
 				});
 				$("#detailForm").submit(); 
 			});
 		});
-		
-
 </script> 
 </head>
 <body>
-<body>
 <!-- 	<h2 class="sub-header" >FAQ 관리</h2>  -->
-	<div class="contentTit page-header"><h3 class="text-center">관람후기 관리</h3></div>  
+	<div class="contentTit page-header"><h3 class="text-center">FAQ 관리</h3></div>  
 	
-
-	<form id="detailForm">
-			<input type="hidden" id="r_no" name="r_no" />
-	</form>
-
-	 		
+	
+		<form id="detailForm">
+				<input type="hidden" id="f_no" name="f_no" />
+		</form>
+			
 	<%-- 검색부분 정의 --%>
 	<div  class="well">
 		<form class="form-inline" id="f_search">
@@ -121,10 +117,10 @@
 	<!-- 		<h3><span class="label label-success">검색조건</span></h3> -->
 			<div class="form-group">
 				<select id="search" name="search" class="form-control">
-					<option value="s_name">공연명</option>
-					<option value="r_title">관람후기 제목</option>				
-					<option value="r_content">관람후기 내용</option>
-					<option value="r_regdate">작성일자</option>	
+					<option value="f_category">카테고리</option>
+					<option value="f_title">제목</option>				
+					<option value="f_content">내용</option>
+					<option value="f_regdate">작성일자</option>	
 				</select>		
 			</div>
 			<div class="form-group" id="textCheck">
@@ -144,27 +140,26 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th class="text-center">공연번호</th>
-			 		<th class="text-center">공연명</th>  
-					<th class="text-center">아이디</th>
-					<th class="text-center">고객명</th>
-					<th class="text-center">제목</th>
+					<th class="text-center">글번호</th>
+					<th class="text-center">카테고리</th>
+					<th class="text-center">제목</th>		
 					<th class="text-center">등록일</th>
+					<th class="text-center">수정일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!-- 데이터 출력 -->
 				<c:choose>
-					<c:when test="${not empty adminreviewList}" >
-						<c:forEach var="review" items="${adminreviewList}" varStatus="status">
-							<tr class="text-center" data-num="${review.r_no}">
-							<%--<td>${count - status.index}</td>--%>								
-								<td>${review.s_num}</td> 								
-								<td>${review.s_name}</td> 
-								<td class="name">${review.u_id}</td>
-								<td>${review.u_name}</td> 								
-								<td class="goDetail tal">${review.r_title}</td>
-								<td>${review.r_regdate}</td>
+					<c:when test="${not empty adminfaqList}" >
+						<c:forEach var="faq" items="${adminfaqList}" varStatus="status">
+							<tr class="text-center" data-num="${faq.f_no}">
+							<%--<td>${count - status.index}</td>--%>
+								<td>${faq.f_no}</td> 
+								<td class="name">${faq.f_category}</td>
+								<td class="goDetail tal">${faq.f_title}</td>
+								<td>${faq.f_regdate}</td>
+								<td>${faq.f_update}</td>
+								
 							</tr>
 						</c:forEach>
 					</c:when>
