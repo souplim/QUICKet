@@ -1,6 +1,8 @@
 package com.spring.client.qna.reply.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,13 @@ public class QnaReplyController {
 	 * QNAReply 댓글 목록 구현
 	 */
 	@GetMapping(value="/all/{q_no}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<QnaReplyVO> qnaReplyList(@PathVariable("q_no") Integer q_no, @ModelAttribute("userLogin") UserVO userVO) {
+	public List<QnaReplyVO> qnaReplyList(@PathVariable("q_no") Integer q_no, @ModelAttribute("userLogin") UserVO userVO, Model model) {
 		log.info("qnaReply List 호출 성공");
 		
 		// 전체 레코드 조회
 		List<QnaReplyVO> entity = null;
 		entity = qnaReplyService.qnaReplyList(q_no);
+		model.addAttribute("entity", entity);
 		
 		return entity;
 	}

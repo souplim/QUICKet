@@ -7,7 +7,8 @@
 			/* 수정 버튼 클릭 시 처리 이벤트 */
 			$("#qnaUpdateBtn").click(function(){
 				if(!chkData("#q_title", "제목을")) return;
-				else if (!chkData("#q_content", "작성할 내용을")) return;					else{
+				else if (!chkData("#q_content", "작성할 내용을")) return;					
+				else{
 					
 					
 					$("#q_updateForm").attr({

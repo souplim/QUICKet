@@ -165,6 +165,8 @@
 	
 	/** 새로운 글을 화면에 추가하기(보여주기) 위한 함수 */
 		function template(q_r_no, u_id, q_r_content, q_r_regdate){
+		
+			let id = "${userLogin.u_id}"
 			let $div = $('#reviewList');
 			
 			let $element = $('#item-template').clone().removeAttr('id');
@@ -172,7 +174,15 @@
 			$element.addClass("reply");
 			$element.find('.panel-heading > .panel-title > .id').html(u_id);	
 			$element.find('.panel-heading > .panel-title > .date').html(" / " + q_r_regdate);
-			$element.find('.panel-body').html(q_r_content);
+			
+			if(id == u_id){
+				$element.find('.panel-heading > .panel-title > button').show();
+			}else {
+				$element.find('.panel-heading > .panel-title > button').hide();
+			}
+			$el
+			
+			ement.find('.panel-body').html(q_r_content);
 			
 			$div.append($element);
 		
@@ -260,11 +270,8 @@
 						<h3 class="panel-title">
 							<span class="id"></span>
 							<span class="date"></span>
-							
-							<c:if test="${userLogin.u_id == entity.u_id }">
 								<button type="button" data-btn="upBtn" class="btn btn-default gap upBtn">수정하기</button>
 								<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="btn btn-default gap delBtn">삭제하기</button>
-							</c:if>
 						</h3>
 					</div>
 					<div class="panel-body"></div>

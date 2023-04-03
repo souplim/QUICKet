@@ -25,27 +25,32 @@
 				
 				/* 삭제 버튼 클릭 시 처리 이벤트 */
 				$("#qnaDeleteBtn").click(function(){
-					$.ajax({
-						url: "/qna/qnaReplyCnt",
-						type: "post",
-						data: "q_no="+$("#q_no").val(),
-						dataType: "text",
-						error: function(){
-							alert('시스템 오류, 관리자에게 문의하세요.');
-						},
-					success : function(resultData){
-						if(resultData==0){
-							goUrl = "/qna/qnaDelete";
-							$("#q_data").attr("action", goUrl);
-							$("#q_data").submit();
-							
-						} else {
-							alert("댓글이 존재하면 게시물을 삭제할 수 없습니다.\n댓글 삭제 후 다시 확인해주세요. ")
-							return;
+					if(confirm("댓글을 삭제하시겠습니까?")){
+						$.ajax({
+							url: "/qna/qnaReplyCnt",
+							type: "post",
+							data: "q_no="+$("#q_no").val(),
+							dataType: "text",
+							error: function(){
+								alert('시스템 오류, 관리자에게 문의하세요.');
+							},
+						success : function(resultData){
+							if(resultData==0){
+								goUrl = "/qna/qnaDelete";
+								
+								$("#q_data").attr("action", goUrl);
+								$("#q_data").submit();
+								
+							} else {
+								alert("댓글이 존재하면 게시물을 삭제할 수 없습니다.\n댓글 삭제 후 다시 확인해주세요. ")
+								return;
+								}
 							}
-						}
 
-					});
+						});
+						
+					}
+					
 				}); 
 			});
 	</script>
