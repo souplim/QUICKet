@@ -1,10 +1,13 @@
 package com.spring.common.vo;
 
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class PageDTO {
 	private int startPage; // 화면에서 보여지는 페이지의 시작 번호
 	private int endPage; // 화면에서 보여지는 페이지의 끝 번호
@@ -37,4 +40,6 @@ public class PageDTO {
 		/* 다음(next) 구하기 */
 		this.next = this.endPage < realEnd;
 	}
+
+
 }

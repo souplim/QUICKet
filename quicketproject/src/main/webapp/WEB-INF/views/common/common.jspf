@@ -20,7 +20,8 @@
 		<!--[if lt IE 9]>
 		<script src="/resources/include/js/html5shiv.js"></script>
 		<![endif]-->
-		
+		    <!-- Bootstrap core CSS -->
+   		<link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/resources/include/css/default.css" />
 		<!-- Bootstrap core CSS -->
 		<link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">	
