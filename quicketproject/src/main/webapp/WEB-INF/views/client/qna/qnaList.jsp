@@ -4,14 +4,27 @@
 
 <style type="text/css">
 	div.qnaNotice{height: 150px; background-color: #EAEAEA; margin-top: 10px;}
-	div.topArea{display:flex;}
 	div.countArea{margin-top: 30px;}
-	div.insertBtn{margin-top: 15px; margin-botton:0px;}
+	div.insertBtnArea{margin-top: 15px; margin-botton:0px;}
+	div#noticeText{float:left;}
+	div#modalArea{float:left;}
 </style>
 
+<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
 <script type = "text/javascript">
 		$(function(){
+			let open = () => {
+				document.querySelector(".modal").classList.remove("hidden");
+			}
+			let close = () => {
+				document.querySelector(".modal").classList.add("hidden");
+			}
+			
+			document.querySelector(".modalBtn").addEventListener("click", open);
+			document.querySelector(".closeBtn").addEventListener("click", close);
+			document.querySelector(".bg").addEventListener("click", close);
+		
 			/* 글쓰기 버튼 클릭시 처리 이벤트 */
 			$("#q_insertBtn").click(function(){
 				let id ="${userLogin.u_id}";
@@ -46,6 +59,7 @@
 				$("#page_form").find("input[name='pageNum']").val($(this).attr("href"));
 				goPage();
 			});
+			
 
 		}); // $함수 종료문	
 		
@@ -56,6 +70,10 @@
 			});
 			$("#page_form").submit();
 		}
+		
+		
+		
+		
 	</script>
 
 	</head>
@@ -79,11 +97,19 @@
 				게시판 운영 규정에 어긋난다고 판단되는 게시글은 사전 통보없이 블라인드 처리될 수 있습니다. <br/>
 				특히 티켓 매매 및 양도의 글은 발견 즉시 임의 삭제되며 전화번호, 이메일 등의 개인정보는 악용될 우려가 있으므로 게시를 삼가 주시기 바랍니다. <br/>
 				사전 경고에도 불구하고 불량 게시물을 계속적으로 게재한 게시자의 경우 인터파크 티켓 게시판 작성 권한이 제한됩니다. </div>
+				<div id="modalArea">
+				<button type="button" class="modalBtn">운영원칙</button>
+				<div class="modal hidden">
+					<div class="bg"></div>
+					<div class="modalBox">
+					 운영원칙
+					</div>
+				</div>
+				</div>
 			</div>
 			<%-- 글쓰기 버튼 --%>
 				<div class="topArea">
-					<div class="countArea col-md-8">총 ${count}개의 문의글이 등록되었습니다.</div>
-					<div class="insertBtn text-right col-md-4"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
+					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
 				</div>
 			
 			<table summary="게시판 리스트" class="table table-striped table-hover active table-condensed">
@@ -121,7 +147,7 @@
 				</tbody>
 			</table>
 			
-				
+			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
 			</div>
 		
 			
@@ -151,4 +177,6 @@
 		</div>
 		
  	</body>
+ 	
+			
 </html>
