@@ -14,10 +14,12 @@
 		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
 		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
 		<typeAlias type="com.spring.client.faq.vo.FaqVO" alias="faq"/>	
-		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="review"/>	 
+		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="review"/>	
 		
-		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
-		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>
-		
+		<typeAlias type="com.spring.admin.ticket.vo.HallVO" alias="hall" />
+		<typeAlias type="com.spring.client.paypage.vo.PayPageVO" alias="paypage" />
+		<typeAlias type="com.spring.client.paypage.vo.CouponVO" alias="coupon" />
+		<typeAlias type="com.spring.client.paypage.vo.UserVO" alias="ticket_user" />
+		<typeAlias type="com.spring.client.pay.vo.PayVO" alias="pay" />     
 	</typeAliases>
 </configuration>
