@@ -98,7 +98,7 @@ public class ClientUserController {
 		try {
 			/* 시간 계산 */
 			// 비밀번호 변경 날짜 String -> Date 로 변경
-			SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
+			SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
 			String u_pwddate = userLogin.getU_pwddate();
 			Date pwddate = sdformat.parse(u_pwddate);
 	        log.info("비밀번호 변경 날짜 :" + pwddate); // Sat Jun 19 21:05:07 KST 2021
