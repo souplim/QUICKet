@@ -8,6 +8,9 @@
 		<typeAlias type="com.spring.client.mypage.vo.MypageVO" alias="mypage" />
 		<typeAlias type="com.spring.admin.statistics.vo.StatVO" alias="stat" />
 		
+		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
+		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>
+		
 		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
 		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
 		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
