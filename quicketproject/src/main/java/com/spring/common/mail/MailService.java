@@ -23,6 +23,7 @@ public class MailService {
 	private JavaMailSender javaMailSender;
 	
 	private String key;
+	private String pwd;
 	
 	
 	public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
@@ -32,17 +33,17 @@ public class MailService {
 		MimeMessage message = javaMailSender.createMimeMessage();
 
 		message.addRecipients(RecipientType.TO, to);// 보내는 대상
-		message.setSubject("QUICKet 회원가입 이메일 인증번호");// 제목
+		message.setSubject("QUICKet 이메일 본인 인증");// 제목
 
 		String msgg = "";
 		msgg += "<div style='margin:100px;'>";
 		msgg += "<h1>QUICKET 이메일 인증 번호</h1>";
 		msgg += "<h2>안녕하세요. QUICKet입니다.</h2>";
 		msgg += "<br>";
-		msgg += "<h4>인증번호 창에 다음 인증번호를 입력해주세요.</h4>";
+		msgg += "<h4>인증키 입력창에 다음 6자리 인증키를 입력해주세요.</h4>";
 		msgg += "<br>";
 		msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		msgg += "<h3 style='color:blue;'>회원가입 이메일 인증번호입니다.</h3>";
+		msgg += "<h3 style='color:blue;'>이메일 본인 인증 키입니다.</h3>";
 		msgg += "<div style='font-size:130%'>";
 		msgg += "CODE : <strong>";
 		msgg += key + "</strong><div><br/> "; // 메일에 인증번호 넣기
@@ -136,4 +137,73 @@ public class MailService {
 		
 		return result;
 	}
+	
+	
+	  public MimeMessage createMailAndChangePassword(String to) throws MessagingException, UnsupportedEncodingException{
+		  
+		  log.info("보내는 대상 : " + to);
+			log.info("임시 비밀 번호 : " + pwd);
+			
+			MimeMessage message = javaMailSender.createMimeMessage();
+
+			message.addRecipients(RecipientType.TO, to);// 보내는 대상
+			message.setSubject("QUICKet 임시 비밀번호");// 제목
+
+			String msgg = "";
+			msgg += "<div style='margin:100px;'>";
+			msgg += "<h1>QUICKET 임시 비밀번호</h1>";
+			msgg += "<h2>안녕하세요. QUICKet입니다.</h2>";
+			msgg += "<br>";
+			msgg += "<h4>임시 비밀번호 안내 이메일입니다.</h4>";
+			msgg += "<br>";
+			msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+			msgg += "<h3 style='color:blue;'>변경된 임시 비밀번호입니다.<br>임시 비밀번호로 로그인을 하신 후, 비밀번호를 수정하시길 바랍니다.</h3>";
+			msgg += "<div style='font-size:130%'>";
+			msgg += "CODE : <strong>";
+			msgg += pwd + "</strong><div><br/> "; // 메일에 인증번호 넣기
+			msgg += "</div>";
+			message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+			// 보내는 사람의 이메일 주소, 보내는 사람 이름
+			message.setFrom(new InternetAddress("eeluynib902@gmail.com", "QUICKet 관리자"));// 보내는 사람
+
+			return message;
+
+	    }
+
+	   /* public void updatePassword(String str,String userEmail){
+	        String pw = EncryptionUtils.encryptMD5(str);
+	        int id = userRepository.findUserByUserId(userEmail).getId();
+	        userRepository.updateUserPassword(id,pw);
+	    } */
+	  
+		public String sendTempPwd(String to) throws Exception {
+			pwd = getTempPassword(); // 랜덤 인증번호 생성
+
+			// TODO Auto-generated method stub
+			MimeMessage message = createMailAndChangePassword(to); // 메일 발송
+			try {// 예외처리
+				javaMailSender.send(message);
+			} catch (MailException es) {
+				es.printStackTrace();
+				//throw new IllegalArgumentException();
+			}
+
+
+			return pwd; // 메일로 보냈던 인증 코드를 서버로 반환
+		}
+
+
+	    public String getTempPassword(){
+	        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+	                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+	        String str = "";
+
+	        int idx = 0;
+	        for (int i = 0; i < 10; i++) {
+	            idx = (int) (charSet.length * Math.random());
+	            str += charSet[idx];
+	        }
+	        return str;
+	    }
 }

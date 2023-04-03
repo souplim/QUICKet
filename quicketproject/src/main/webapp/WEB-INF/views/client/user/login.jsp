@@ -48,19 +48,29 @@
     		}
     		
     		$("#loginBtn").click(function(){
-    			if (!chkData("#u_id", "아이디를")) return;
-    			else if(!chkData("#u_pwd", "비밀번호를")) return;
-    			else {
-    				$("#loginForm").attr({
-    					"method" : "post",
-    					"action" : "/user/login"
-    				});
-    				$("#loginForm").submit();
+    			login();
+    		});
+    		
+    		$("#loginForm").keypress(function(e){
+    			if(e.keyCode === 13) {
+    				login();
     			}
     		});
     		
     		
     	});
+    	
+    	function login() {
+    		if (!chkData("#u_id", "아이디를")) return;
+			else if(!chkData("#u_pwd", "비밀번호를")) return;
+			else {
+				$("#loginForm").attr({
+					"method" : "post",
+					"action" : "/user/login"
+				});
+				$("#loginForm").submit();
+			}
+    	}
     </script>
   </head>
 
