@@ -93,11 +93,20 @@
 		    <artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 		
-		<!--메일-->
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+	    <!--메일-->
+	 	<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-mail</artifactId>
+	    </dependency>
+		   
+	    <!--  Gson: Java to JSON conversion 
+	    	Java 객체를 JSON 표현식으로 변환할 수 있게 하는 Java 라이브러리 -->
+	    <dependency>
+	      <groupId>com.google.code.gson</groupId>
+	      <artifactId>gson</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+
 	</dependencies>
 
 	<build>
