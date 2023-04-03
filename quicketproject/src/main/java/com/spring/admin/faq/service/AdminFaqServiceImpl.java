@@ -1,4 +1,4 @@
-package com.spring.client.faq.service;
+package com.spring.admin.faq.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.client.faq.dao.AdminFaqDao;
+import com.spring.admin.faq.dao.AdminFaqDao;
 import com.spring.client.faq.vo.FaqVO;
 
 import lombok.Setter;

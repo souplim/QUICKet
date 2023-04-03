@@ -1,4 +1,4 @@
-package com.spring.client.faq.controller;
+package com.spring.admin.faq.controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.spring.client.faq.service.AdminFaqService;
+import com.spring.admin.faq.service.AdminFaqService;
 import com.spring.client.faq.vo.FaqVO;
 import com.spring.common.vo.PageDTO;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
-@RequestMapping("/faq/*") //매핑 바꾸면 jsp 다 바꿔야 함
+@RequestMapping("admin/faq/*") //매핑 바꾸면 jsp 다 바꿔야 함
 @Slf4j
 public class AdminFaqController {
 	
@@ -45,7 +45,7 @@ public class AdminFaqController {
 		int total = 10;
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(fvo, total));
-		return "client/faq/adminfaqList";   //불러오는 jsp
+		return "admin/faq/adminfaqList";   //불러오는 jsp
 	}
 
 
@@ -61,7 +61,7 @@ public class AdminFaqController {
 		FaqVO detail = adminfaqService.adminfaqDetail(fvo);
 		model.addAttribute("detail", detail);
 		
-		return "client/faq/adminfaqDetail";
+		return "admin/faq/adminfaqDetail";
 	}   
 		
 		
@@ -71,7 +71,7 @@ public class AdminFaqController {
 	@RequestMapping(value="/adminfaqwriteForm", method = RequestMethod.GET)	
 	public String adminfaqwriteForm() {		
 		log.info("adminfaqwriteForm 호출 성공");
-		return "client/faq/adminfaqwriteForm";
+		return "admin/faq/adminfaqwriteForm";
 	}
 	
 	
@@ -91,9 +91,9 @@ public class AdminFaqController {
 		
 		result = adminfaqService.adminfaqInsert(fvo);
 		if(result == 1) {
-			url = "/faq/adminfaqList";  //매핑 주소 			
+			url = "adminfaqList";  //매핑 주소 			
 		}else {			
-			url = "/faq/adminfaqwriteForm";
+			url = "adminfaqwriteForm";
 		}
 		return "redirect:"+url;   //	"redirect:/faq/adminfaqList"; 메핑을 호출해서 다시 조회 
 			
@@ -115,7 +115,7 @@ public class AdminFaqController {
 			FaqVO updateData = adminfaqService.adminfaqupdateForm(fvo);
 
 			model.addAttribute("updateData", updateData);
-			return "client/faq/adminfaqupdateForm"; // 
+			return "admin/faq/adminfaqupdateForm"; // 
 		}  
 		
 		/**************************************************************
@@ -164,7 +164,7 @@ public class AdminFaqController {
 			result = adminfaqService.adminfaqDelete(fvo);
 			
 			if(result == 1){
-				url="/faq/adminfaqList";
+				url="adminfaqList";
 			}else{
 			//	url="/board/boardDetail?b_num="+bvo.getB_num();
 				url="adminfaqDetail?f_no="+fvo.getF_no();

@@ -1,12 +1,12 @@
 
-package com.spring.client.review.service;
+package com.spring.admin.review.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.client.review.dao.AdminReviewDao;
+import com.spring.admin.review.dao.AdminReviewDao;
 import com.spring.client.review.vo.ReviewVO;
 
 import lombok.Setter;

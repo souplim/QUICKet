@@ -1,4 +1,4 @@
-package com.spring.client.faq.dao;
+package com.spring.admin.faq.dao;
 
 import java.util.List;
 
