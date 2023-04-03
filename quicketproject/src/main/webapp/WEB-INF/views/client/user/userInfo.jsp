@@ -20,7 +20,9 @@
 <body>
 	회원 정보
 	<div class="container">
-	<form id="userNum"><input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/></form>
+	<form id="userNum">
+		<input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
+	</form>
 	<table class="table">
 		<tr>
 			<td class="text-center">이름</td>
