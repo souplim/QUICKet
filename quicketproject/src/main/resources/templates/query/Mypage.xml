@@ -201,7 +201,7 @@
 	
 	<!-- 발급쿠폰 리스트 조회(사용가능) -->
 	<select id="couponList" parameterType="mypage" resultType="mypage">
-		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_regdate,'yyyy-mm-dd') c_regdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
+		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_startdate,'yyyy-mm-dd') c_startdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
 			(TO_DATE(c_enddate, 'yyyy-mm-dd') - TO_DATE(sysdate,'yyyy-mm-dd')) AS c_remain
 		FROM user_coupon U INNER JOIN admin_coupon A
 		                         ON U.c_num = A.c_num
@@ -221,7 +221,7 @@
 	
 	<!-- 발급쿠폰 리스트 조회(사용완료) -->
 	<select id="couponListN" parameterType="mypage" resultType="mypage">
-		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_regdate,'yyyy-mm-dd') c_regdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
+		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_startdate,'yyyy-mm-dd') c_startdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
 			(TO_DATE(c_enddate, 'yyyy-mm-dd') - TO_DATE(sysdate,'yyyy-mm-dd')) AS c_remain
 		FROM user_coupon U INNER JOIN admin_coupon A
 		                         ON U.c_num = A.c_num

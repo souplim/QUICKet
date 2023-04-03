@@ -17,40 +17,33 @@
 		
 		$(".couponBtn").click(function(){
 			let num = $(this).parent("div").attr("data-num");
-			let couponChk = 0;
+
 			// 이미 갖고있는 쿠폰인지 확인
-			/*
-			$.ajax({
-				type:"POST",
-				url:"/user/couponChk",
-				data:{
-					"c_num" : num
-				},
-				success:function(data){
-					console.log(data);
-					if(data == 1) {
-						couponChk = 1;
-					} else {
-						couponChk = 0;
-					}
-				}
-			});*////
-			
 			if($("#u_id").val() == null) {
 				alert("로그인이 필요합니다.");
-			} else if (couponChk==1) {
-				alert("이미 발급받은 쿠폰입니다.\n쿠폰은 한 번만 발급 받을 수 있습니다.");
 			} else {
-				console.log(num);
-				
-				$("#c_num").val(num);
-				$("#couponForm").attr({
-					"method" : "post",
-					"action" : "/user/coupon/getCoupon"
-				});
-				$("#couponForm").submit();
+				$.ajax({
+					type:"POST",
+					url:"/user/coupon/couponChk",
+					data:{
+						"c_num" : num, "u_id" : $("#u_id").val()
+					},
+					success:function(data){
+						console.log(data);
+						if(data == 1) {
+							alert("이미 발급받은 쿠폰입니다.\n쿠폰은 한 번만 발급 받을 수 있습니다.");
+						} else {
+
+							$("#c_num").val(num);
+							$("#couponForm").attr({
+								"method" : "post",
+								"action" : "/user/coupon/getCoupon"
+							});
+							$("#couponForm").submit();
+						}
+					}
+				});	
 			}
-			
 			
 		});
 	});

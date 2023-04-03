@@ -59,7 +59,7 @@
 												<td class="text-center">${coupon.c_name}</td>
 												<td class="text-center">${coupon.c_num}</td>
 												<td class="text-center">${coupon.c_discount}%</td>
-												<td class="text-center">${coupon.c_regdate}~${coupon.c_enddate}</td>
+												<td class="text-center">${coupon.c_startdate}~${coupon.c_enddate}</td>
 												<td class="text-center">${coupon.c_remain}일</td>
 											</tr>
 										</c:forEach>

@@ -3,6 +3,8 @@ package com.spring.client.coupon.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,5 +76,14 @@ public class ClinetCouponController {
 		return "redirect:/user/coupon/";
 	}
 	
+	@PostMapping("/couponChk")
+	public ResponseEntity<String> couponChk(@ModelAttribute UserCouponVO vo, RedirectAttributes ras) throws Exception {
+		log.info("쿠폰 보유 여부 확인");
+		ResponseEntity<String> entity = null;
+		int result = 0;
+		result = clientCouponService.couponChk(vo);
+		entity = new ResponseEntity<String>(String.valueOf(result), HttpStatus.OK);
+		return entity;
+	}	
 
 }

@@ -33,6 +33,13 @@ public class ClientCouponServiceImpl implements ClientCouponService {
 		return result;
 	}
 
+	@Override
+	public int couponChk(UserCouponVO vo) throws Exception {
+		int result = 0;
+		result = clientCouponDao.couponChk(vo);
+		return result;
+	}
+
 
 	
 }
