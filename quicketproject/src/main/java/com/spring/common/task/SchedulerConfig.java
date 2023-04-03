@@ -11,13 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class SchedulerConfig implements SchedulingConfigurer {
 
+
+	private static final int POOL_SIZE = 5;
+	
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 		log.info("스케줄러 쓰레드 설정 로딩됨...");
 		
+		
 		ThreadPoolTaskScheduler taskSchduler = new ThreadPoolTaskScheduler();
 		
-		taskSchduler.setPoolSize(10);
+		taskSchduler.setPoolSize(POOL_SIZE);
 		taskSchduler.setThreadNamePrefix("rank-count-task-");
 		taskSchduler.initialize();
 		

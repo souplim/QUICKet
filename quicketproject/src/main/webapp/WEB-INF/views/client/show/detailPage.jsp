@@ -23,8 +23,6 @@ th{text-align:center;}
 				success:function(result){
 					let theater = JSON.parse(result);
 					
-					console.log(result)
-					console.log(theater)
 					$("#th_name").html(theater.th_name);
 					$("#th_seat").html("총 "+theater.th_seat+"석");
 					$("#th_addr").html(theater.th_addr);
@@ -179,7 +177,9 @@ th{text-align:center;}
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="reviewBox">
-						<div class="row"></div>
+						<div class="row">
+							<c:import url="/WEB-INF/views/client/review/reviewList.jsp" />
+						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="expectBox">
 						<div class="row"></div>

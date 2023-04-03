@@ -21,14 +21,12 @@
 		<script src="../js/html5shiv.js"></script>
 		<![endif]-->
 		
-		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css"/>
-		
 		<script type="text/javascript" src="/resources/include/js/jquery-3.6.2.min.js"></script>
 		<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 		
 		<!-- Bootstrap core CSS -->
-	    <link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css"/>
 	
 	    <!-- Custom styles for this template -->
 	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">
@@ -58,9 +56,9 @@
 		 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
-    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
-    <script src="/resources/include/dist/assets/js/docs.min.js"></script>
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->    
+    <!--<script src="/resources/include/dist/js/bootstrap.min.js"></script>-->
+    <!--<script src="/resources/include/dist/assets/js/docs.min.js"></script>-->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/resources/include/dist/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</body>
