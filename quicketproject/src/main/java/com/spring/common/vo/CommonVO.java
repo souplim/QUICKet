@@ -16,6 +16,8 @@ public class CommonVO {
 	private String search = "";
 	private String keyword = "";
 	
+	private String search_detail ="";
+	
 	// 관리자 페이지 - 날짜 검색 시 사용할 필드(시작일, 종료일)
 	private String start_date = "";
 	private String end_date = "";

@@ -15,13 +15,64 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
+<<<<<<< HEAD
 
 	<!-- tiles는 뷰단과 관련 name="Controller의 return값" 과 연결 -->
 	<definition name="client/board/*" extends="content"> <!-- content를 상속(title,header,footer 그대로 씀) -->
 		<put-attribute name="title" value="기본 게시판" /> <!-- 그대로 사용하지 않을 것만 오버라이딩 -->
 		<put-attribute name="body" value="/WEB-INF/views/client/board/{1}.jsp" /> 
 	</definition>							<!-- {1} -> * 에 오는 것과 동일한 텍스트 해당. 1은 인덱스(첫번째 별표) -->
+=======
 	
+	<definition name="client/user/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/user/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<!-- 고객센터 레이아웃 -->
+	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/user/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="client/inq/*" extends="content">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
+	</definition>
+	
+	<!-- 마이페이지 레이아웃 -->
+	<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/client/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<!-- 쿠폰페이지 레이아웃 -->
+		<definition name="client/coupon/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet 쿠폰"/>
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/coupon/{1}.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
+	</definition>	
+	
+	<!-- 쿠폰페이지 레이아웃 -->
+		<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value="QUICKet 쿠폰"/>
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/client/left.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
+	</definition>	
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
+	
+<<<<<<< HEAD
 	<definition name="data/*" extends="content"> 
 		<put-attribute name="title" value="" /> 
 		<put-attribute name="body" value="/WEB-INF/views/data/{1}.jsp" /> 
@@ -34,6 +85,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
 	</definition>						
+=======
+	
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 	<!-- Control 단에서 error/error_page 받아오면... -->
 	<definition name="error/*" extends="content"> 
 		<put-attribute name="title" value="" /> <!-- 안 주면 기본값인 "나의 첫 스프링 사이트"가 나오기 때문에 공백으로 값 준다 -->

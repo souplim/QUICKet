@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.mypage.dao.MypageDao">
+
+	<!-- 예매내역 조회 (날짜 검색 추가) -->
+	<select id="myTicketList" parameterType="mypage" resultType="mypage">
+		<![CDATA[
+			SELECT 
+			    rnum, ti_num, ti_regdate, seat_date, s_num, s_name, hall_date, hall_turn, hall_time, COUNT(seat_num) AS seat_num, u_id, ti_status  
+			FROM (
+			    SELECT 
+			        rnum, t.ti_num, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, to_char(seat_date,'yyyy-mm-dd') AS seat_date, s_num, s_name, hall_date, hall_turn, hall_time, se.seat_num, t.u_id, t.ti_status  
+			    FROM (
+			        SELECT 
+			            rownum AS rnum, ti_num, ti_regdate, seat_date, u_id, ti_status  
+			        FROM ticket
+			        WHERE u_id = #{u_id}
+			        ORDER BY ti_regdate desc
+			    ) t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
+			        JOIN seat se ON ts.seat_num = se.seat_num
+			        JOIN hall h ON se.hall_id = h.hall_id
+			        JOIN theater th ON h.th_num = th.th_num
+			        JOIN show s ON th.th_num = s.th_num
+			    WHERE
+			    ]]>
+		    <trim prefix="(" suffix=") AND" prefixOverrides="AND"> <!-- 아래 조건 만족하지 않으면 () AND <- AND 제거 -->
+				<if test="search=='hall_date'">
+					<![CDATA[hall_date between #{start_date} and #{end_date} ]]>
+				</if>
+				<if test="search=='ti_regdate'">
+					<![CDATA[to_char(ti_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
+				</if>
+			</trim>
+			<![CDATA[ rownum <= #{pageNum} * #{amount} 
+			) 
+			WHERE rnum > (#{pageNum} -1) * #{amount}
+			GROUP BY rnum, ti_num, ti_regdate, seat_date, s_num, s_name, hall_date, hall_turn, hall_time, u_id, ti_status
+		]]>
+	</select>
+	
+	<select id="ticketListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(ti_num) FROM ticket
+		WHERE u_id = #{u_id}
+	</select>
+	
+	<!-- 상세정보 조회(관심공연 추가) -->
+	<select id="myTicketDetail" parameterType="mypage" resultType="mypage">
+		SELECT 
+		    rnum, ti_num, RESULT.s_num, s_name, ti_regdate, seat_date, COUNT(seat_num) AS seat_num, u_id, ti_status, img_name, img_dir, 
+		    img_type, th_name, hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
+		FROM (
+		    SELECT 
+		        rnum, t.ti_num, s.s_num, s_name, ti_regdate, seat_date, ts.seat_num, t.u_id, t.ti_status, img_name, img_dir, img_type, 
+		        th.th_name, hall_date, hall_turn, hall_time, s.s_price, p.pay_name, p.pay_amount
+		    FROM (
+		        SELECT 
+		            rownum AS rnum, ti_num, ti_regdate, seat_date, u_id, ti_status  
+		        FROM ticket
+		    ) t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
+		        JOIN seat se ON ts.seat_num = se.seat_num
+		        JOIN hall h ON se.hall_id = h.hall_id
+		        JOIN theater th ON h.th_num = th.th_num
+		        JOIN show s ON th.th_num = s.th_num
+		        JOIN img i ON s.s_num = i.s_num
+		        JOIN pay p ON t.ti_num = p.ti_num
+		    WHERE ts.ti_num = #{ti_num} AND t.u_id = #{u_id} AND img_dir LIKE '%'||'poster'  
+		) RESULT LEFT JOIN (SELECT s_num, 1 is_likes FROM bookmark 
+							WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
+		  			  ON RESULT.s_num = B.s_num
+		GROUP BY rnum, ti_num, RESULT.s_num, s_name, ti_regdate, seat_date, u_id, ti_status, img_name, img_dir, img_type, th_name, 
+		hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
+	</select>
+	
+	<!-- 좌석번호 리스트 조회 -->
+	<select id="mySeatList" parameterType="int" resultType="mypage">
+		SELECT seat_num
+		FROM ticket t JOIN ticket_seat ts 
+						ON t.ti_num = ts.ti_num
+		WHERE t.ti_num = #{ti_num}
+	</select>
+	
+	<!-- 예매 취소 -->
+	<update id="myTicketDelete" parameterType="int">
+		UPDATE ticket
+		SET ti_status = 0
+		WHERE ti_num = #{ti_num}
+	</update>
+	
+	
+	<!-- 관심공연 등록 -->
+	<insert id="addlikes" parameterType="mypage">
+		INSERT INTO bookmark (u_id, s_num)
+		VALUES(#{u_id}, ${s_num})
+	</insert>
+	
+	<!-- 관심공연 취소 -->
+	<delete id="cancelLikes" parameterType="mypage">
+		DELETE bookmark
+		WHERE u_id = #{u_id} AND s_num = #{s_num}
+	</delete>
+	
+	<!-- (문의글 등록폼 페이지) 회원의 예매번호, 공연이름 조회 -->
+	<select id="ticketList" parameterType="String" resultType="mypage">
+		SELECT t.u_id, t.ti_num, s.s_name, seat_date
+		FROM ticket t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
+		              JOIN seat se ON ts.seat_num = se.seat_num
+		              JOIN hall h ON se.hall_id = h.hall_id
+		              JOIN theater th ON h.th_num = th.th_num
+		              JOIN show s ON th.th_num = s.th_num
+		WHERE u_id = #{u_id}
+		GROUP BY t.u_id, t.ti_num, s.s_name, seat_date
+	</select>
+	
+	<!-- 문의글 등록 폼에서 조회할 faq 리스트 -->
+	<select id="faqList" parameterType="String" resultType="mypage">
+		select * from (
+		    select * from faq 
+		    where f_category = #{f_category}
+		    order by DBMS_RANDOM.RANDOM
+		)
+		<![CDATA[ where rownum <= 5 ]]>
+	</select>
+	
+	
+	<!-- 관심공연 리스트 조회 -->
+	<select id="myLikeList" parameterType="mypage" resultType="mypage">
+		SELECT S.s_num, s_name, TO_CHAR(s_opendate,'yyyy-mm-dd') AS s_opendate, TO_CHAR(s_closedate,'yyyy-mm-dd') AS s_closedate, TO_CHAR(b_regidate,'yyyy-mm-dd') AS b_regidate
+		FROM bookmark B INNER JOIN show S
+		                        ON B.s_num = S.s_num
+		WHERE u_id = #{u_id}
+		ORDER BY b_regidate DESC
+	</select>
+	
+	<!-- 상세페이지 - 공연의 관심수 -->
+	<select id="likesCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) likesCount
+		FROM bookmark
+		WHERE s_num = ${s_num}
+	</select>
+	
+	<!-- 페이징 위한 나의 관심공연 수 -->
+	<select id="myLikesListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM bookmark
+		WHERE u_id = #{u_id}
+	</select>
+	
+	<!-- qna 리스트 조회 -->
+	<select id="qnaList" parameterType="mypage" resultType="mypage">
+		SELECT rnum, q_no, s_num, s_name, q_title, q_regdate
+		FROM ( 
+		    SELECT 
+		        rnum, q_no, Q.s_num, s_name, q_title, TO_CHAR(q_regdate,'yyyy-mm-dd') q_regdate
+		    FROM (
+		        SELECT /*+ INDEX_DESC(qna pk_qna) */
+		            rownum AS rnum, q_no, s_num, q_title, q_regdate, u_id
+		        FROM qna
+		        WHERE u_id = #{u_id}
+		        ORDER BY q_no DESC
+		    ) Q INNER JOIN show S ON Q.s_num = S.s_num
+		    WHERE 
+		    <![CDATA[ rownum <= (1 * 10)
+		)
+		WHERE (rnum > (1 - 1) * 10) 
+		]]>
+	</select>
+	
+	<!-- qna 리스트 개수 -->
+	<select id="qnaListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM qna
+		WHERE u_id = #{u_id}
+	</select>
+	
+	<!-- 관람후기 리스트 조회 -->
+	<select id="reviewList" parameterType="mypage" resultType="mypage">
+		SELECT rnum, r_no, s_num, s_name, r_title, r_point, r_regdate
+		FROM ( 
+		    SELECT 
+		        rnum, r_no, R.s_num, s_name, r_title, r_point, TO_CHAR(r_regdate,'yyyy-mm-dd') r_regdate
+		    FROM (
+		        SELECT 
+		            rownum AS rnum, r_no, s_num, r_title, r_point, r_regdate, u_id
+		        FROM reviewBoard
+		        WHERE u_id = 'user02'
+		        ORDER BY r_no DESC
+		    ) R INNER JOIN show S ON R.s_num = S.s_num
+		    WHERE
+			 <![CDATA[ rownum <= (1 * 10)
+		)
+		WHERE (rnum > (1 - 1) * 10) 
+		]]>
+	</select>
+	
+	<!-- 관람후기 리스트 개수 -->
+	<select id="reviewListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM reviewBoard
+		WHERE u_id = #{u_id}
+	</select>
+	
+	<!-- 발급쿠폰 리스트 조회(사용가능) -->
+	<select id="couponList" parameterType="mypage" resultType="mypage">
+		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_startdate,'yyyy-mm-dd') c_startdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
+			(TO_DATE(c_enddate, 'yyyy-mm-dd') - TO_DATE(sysdate,'yyyy-mm-dd')) AS c_remain
+		FROM user_coupon U INNER JOIN admin_coupon A
+		                         ON U.c_num = A.c_num
+		WHERE u_id = #{u_id} AND uc_state=0
+		AND <![CDATA[ sysdate < c_enddate ]]>
+		ORDER BY c_num DESC
+	</select>
+	
+	<!-- 발급쿠폰 개수(사용가능) -->
+	<select id="couponListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM user_coupon U INNER JOIN admin_coupon A
+		                         ON U.c_num = A.c_num
+		WHERE u_id = #{u_id} AND uc_state=0 
+		AND <![CDATA[ sysdate < c_enddate ]]>
+	</select>
+	
+	<!-- 발급쿠폰 리스트 조회(사용완료) -->
+	<select id="couponListN" parameterType="mypage" resultType="mypage">
+		SELECT u_id, U.c_num, c_name, c_discount, uc_state, uc_date, TO_CHAR(c_startdate,'yyyy-mm-dd') c_startdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
+			(TO_DATE(c_enddate, 'yyyy-mm-dd') - TO_DATE(sysdate,'yyyy-mm-dd')) AS c_remain
+		FROM user_coupon U INNER JOIN admin_coupon A
+		                         ON U.c_num = A.c_num
+		WHERE u_id = #{u_id} AND uc_state=1
+		ORDER BY c_num DESC
+	</select>
+	
+	<!-- 발급쿠폰 개수(사용완료) -->
+	<select id="couponListCntN" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM user_coupon U INNER JOIN admin_coupon A
+		                         ON U.c_num = A.c_num
+		WHERE u_id = #{u_id} AND uc_state=1	
+	</select>
+</mapper>

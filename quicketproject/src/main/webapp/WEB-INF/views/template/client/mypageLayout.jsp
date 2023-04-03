@@ -32,6 +32,7 @@
 	
 	    <!-- Custom styles for this template -->
 	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">
+<<<<<<< HEAD
 	
 	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -52,6 +53,33 @@
 		<div class="container-fluid">
 			<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
+=======
+		
+		
+	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
+	
+		<script type="text/javascript">
+			$("#menu-toggle").click(function (e) {
+			    e.preventDefault();
+			    $("#wrapper").toggleClass("toggled");
+			});
+		</script>
+		
+		<style>
+			.side-bar{ width : 180px; }
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<tiles:insertAttribute name="header"/>
+		</nav>
+		
+		<div class="container-fluid">
+			<div class="row">
+			<div class="sidebar side-bar">
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 				<tiles:insertAttribute name="left"/>
 			</div>
 			<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

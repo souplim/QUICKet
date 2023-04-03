@@ -7,13 +7,50 @@
 		<put-attribute name="title" value="관리자 페이지" />
 		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
-		<put-attribute name="sub" value="/WEB-INF/views/template/admin/sub.jsp" />
 		<put-attribute name="main" value="" />
 	</definition>
 					
+<<<<<<< HEAD
 	<definition name="admin/bb/*" extends="basic">
 		<put-attribute name="title" value="관리자 게시판 관리" />
+=======
+	<definition name="admin/user/*" extends="basic">
+		<put-attribute name="title" value="관리자 회원 관리" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/user/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/comm/*" extends="basic">
+		<put-attribute name="title" value="관리자 커뮤니티 관리" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/comm/{1}.jsp" />
+	</definition>
+	
+		<definition name="admin/coupon/*" extends="basic">
+		<put-attribute name="title" value="관리자 쿠폰 관리" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/coupon/{1}.jsp" />
+	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="admin/inq/*" extends="basic">
+		<put-attribute name="title" value="" />
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 		<put-attribute name="sub" value="" />
+<<<<<<< HEAD
 		<put-attribute name="main" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
+=======
+		<put-attribute name="main" value="/WEB-INF/views/admin/inq/{1}.jsp" />
+	</definition>
+	
+	<!-- 통계 -->
+	<definition name="admin/stat/*" extends="basic">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/stat/{1}.jsp" />
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 	</definition>
 </tiles-definitions>

@@ -142,10 +142,16 @@
             <li><a href="#">연극</a> </li>
             <li><a href="#">랭킹</a></li>
             <li><a href="#">지역</a></li>
+<<<<<<< HEAD
             <li> <a href="#">공지사항</a></li>
             <li> <a href="#">쿠폰/이벤트</a></li>
             <li> <a href="#">고객센터</a></li>
             <li> <a href="#">마이페이지</a></li>
+=======
+            <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
+            <li> <a href="#">고객센터</a></li>
+            <li> <a href="/mypage/">마이페이지</a></li>
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -184,7 +190,17 @@
             <li><a href="#">지역</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
             <li><a href="#">로그인</a></li>
+=======
+            <c:if test="${not empty userLogin}">
+            	<li><a>${userLogin.u_name }님 환영합니다.</a></li>
+		 		<li><a href="/user/logout">로그아웃</a></li>
+			</c:if>
+			<c:if test="${empty userLogin}">
+			 	<li><a href="/user/login">로그인</a></li>
+			</c:if>
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
             <li><a href="#">고객센터</a></li>
           </ul>
         </div>

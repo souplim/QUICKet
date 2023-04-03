@@ -44,11 +44,18 @@
 		
 		<div class="container-fluid">
 			<div class="row">
+<<<<<<< HEAD
 			<div class="col-sm-3 col-md-2 sidebar">
 				<tiles:insertAttribute name="left"/>
 			</div>
 			<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<tiles:insertAttribute name="sub"/>
+=======
+			<div class=" col-sm-3 col-md-2 sidebar">
+				<tiles:insertAttribute name="left"/>
+			</div>
+			<div id="mainContents" class="col-sm-offset-3 col-md-offset-2 main">
+>>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 				<tiles:insertAttribute name="main"/>
 			</div>
 		</div>

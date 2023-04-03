@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.review.dao.AdminReviewDao">
+	
+	   
+      <select id="adminreviewList" parameterType="review" resultType="review">
+			<![CDATA[ 
+			select r_no, u_id, r_title, r_content, r_point, r_hit, s_num,  r_regdate, r_update, s_name, u_name			    
+			 FROM (
+					 SELECT 
+					 rownum as rnum, r_no, u_id, r_title, r_content, r_point, r_hit,  s_num,
+					 to_char(r_regdate,'YYYY-MM-DD HH24:MI:SS') as r_regdate,  
+			         to_char(r_update,'YYYY-MM-DD HH24:MI:SS') as r_update,		
+			         (select s_name from show where s_num = REVIEWBOARD.s_num) as s_name,
+			         (select u_name from q_user where u_id = REVIEWBOARD.u_id) as u_name  
+					 FROM REVIEWBOARD 
+					 WHERE rownum <= #{pageNum} * #{amount} 
+				 ) REVIEWBOARD
+		 WHERE 	 ]]> 	  
+		  <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+					 <include refid="reviewSearch"></include>
+				 </trim> 
+		 <![CDATA[ rnum > (#{pageNum} - 1) * #{amount}
+		 ]]> 
+		</select>
+		
+		
+   	  <sql id="reviewSearch">
+			<if test="search=='s_name'">
+				<![CDATA[ s_name LIKE '%'|| #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='r_title'">
+				<![CDATA[ r_title LIKE '%'|| #{keyword} ||'%' ]]>	
+			</if>
+			<if test="search=='r_content'">
+				<![CDATA[ r_content LIKE '%'|| #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='r_regdate'">
+				<![CDATA[ to_char(r_regdate,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
+			</if>
+		</sql>		
+	
+	
+		<!-- 
+	    <select id="adminreviewList" parameterType="review" resultType="review">
+				<![CDATA[ 
+				select r_no, u_id, r_title, r_content, r_point, r_hit, s_num,  r_regdate, r_update, s_name			    
+				 FROM (
+						 SELECT 
+						 rownum as rnum, r_no, u_id, r_title, r_content, r_point, r_hit,  s_num,
+						 to_char(r_regdate,'YYYY-MM-DD HH24:MI:SS') as r_regdate,  
+				         to_char(r_update,'YYYY-MM-DD HH24:MI:SS') as r_update,		
+				         (select s_name from show where s_num = REVIEWBOARD.s_num) s_name 
+						 FROM REVIEWBOARD 
+						 WHERE ]]>   
+					 <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+						 <include refid="reviewSearch"></include>
+					 </trim> 
+					 <![CDATA[ rownum <= #{pageNum} * #{amount} 
+					 ) REVIEWBOARD
+			 WHERE rnum > (#{pageNum} - 1) * #{amount} 
+			 ]]>
+			</select>
+	   -->
+	   
+	   	<!--상세 구현   -->		
+		<select id="adminreviewDetail" parameterType="review" resultType="review">
+			SELECT	  
+				 r_no, u_id, r_title, r_content, r_point, r_hit, s_num, 
+				 to_char(r_regdate,'YYYY-MM-DD') as r_regdate, to_char(r_update,'YYYY-MM-DD') as r_update,
+				 (select s_name from show where s_num = REVIEWBOARD.s_num) as s_name,
+				 (select u_name from q_user where u_id = REVIEWBOARD.u_id) as u_name  
+			FROM REVIEWBOARD
+			WHERE r_no = #{r_no}
+		</select>			
+	  
+		 
+		 <!-- 게시물  삭제 -->
+		<delete id="adminreviewDelete" parameterType="review">
+			DELETE FROM REVIEWBOARD WHERE r_no = #{r_no}
+		</delete>
+			 
+	
+</mapper>

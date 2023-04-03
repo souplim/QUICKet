@@ -12,8 +12,8 @@
 		<title>QUICKet</title>
 		
 		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="/resources/images/common/icon.png" />
-		<link rel="apple-touch-icon" href="/resources/images/common/icon.png" />
+		<link rel="shortcut icon" href="/resources/static/image/icon.png" />
+		<link rel="apple-touch-icon" href="/resources/static/image/icon.png" />
 		<!-- 모바일 웹 페이지 설정 끝 -->
 		
 		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
@@ -27,3 +27,4 @@
 		
 		<script type="text/javascript" src="/resources/include/js/jquery-3.6.2.min.js"></script>
 		<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/resources/include/js/common.js"></script>
