@@ -15,4 +15,13 @@
 	values (#{u_id}, #{c_num})
 </insert>
 
+<!-- 쿠폰 보유 여부 확인 -->
+<select id="couponChk" parameterType="userCoupon" resultType="int">
+	select nvl((
+	select 1 from user_coupon
+	where u_id = #{u_id} and c_num = #{c_num}),0)
+	as state
+	from dual
+</select>
+
 </mapper>

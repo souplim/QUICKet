@@ -53,7 +53,7 @@ public class MypageVO extends CommonVO {
 	private int c_discount=0; // 쿠폰 할인율
 	private int uc_state=0; // 쿠폰사용여부(0:미사용, 1:사용완료, -1:기간만료)
 	private String uc_date; // 쿠폰 발급일
-	private String c_regdate=""; // 쿠폰 시작일
+	private String c_startdate=""; // 쿠폰 시작일	
 	private String c_enddate=""; // 쿠폰 만료일
 	private String c_remain=""; // 쿠폰 남은 기간
 }

@@ -193,6 +193,12 @@ public class ClientUserController {
 		return "client/user/userUpdateForm"; 	// views/client/userUpdateForm.jsp
 	}
 	
+	@GetMapping("/pwdConfirm")
+	public String pwdConfirm() {
+		log.info("비밀번호 확인 화면");
+		return "client/user/pwdConfirm";
+	}
+	
 	@PostMapping("/userUpdate")
 	public String userUpdate(@ModelAttribute("userLogin") UserVO vo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원정보 수정 처리 userUpdate() ");
@@ -363,7 +369,7 @@ public class ClientUserController {
 	// 아이디 중복 체크
 	@ResponseBody
 	@PostMapping("/idCheck")
-	public int idCheck(String u_id, Model model) {
+	public int idCheck(String u_id) {
 		log.info("아이디 중복 체크");
 		String value = "";
 		
