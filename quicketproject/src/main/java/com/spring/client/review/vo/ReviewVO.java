@@ -23,5 +23,3 @@ public class ReviewVO extends CommonVO {
 
 
 } ;
-
-

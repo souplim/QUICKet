@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="uri" value='${requestScope["javax.servlet.forward.request_uri"]}' />
 
-
 	<ul class="nav nav-sidebar">
 		<li class="nav-item"><a class="nav-link" href="#">공연 관리</a></li>
 		<li class="nav-item"><a class="nav-link" href="#">공연장 관리</a></li>
@@ -19,6 +18,5 @@
 		<li class="nav-item"><a class="nav-link" href="/admin/comm/main">커뮤니티 관리</a></li>	
 		<li class="nav-item"><a class="nav-link" href="/admin/stat/statList">통계 관리</a></li>
 	</ul>
-
 
 
