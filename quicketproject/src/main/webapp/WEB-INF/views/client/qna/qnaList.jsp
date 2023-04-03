@@ -14,17 +14,7 @@
 
 <script type = "text/javascript">
 		$(function(){
-			let open = () => {
-				document.querySelector(".modal").classList.remove("hidden");
-			}
-			let close = () => {
-				document.querySelector(".modal").classList.add("hidden");
-			}
 			
-			document.querySelector(".modalBtn").addEventListener("click", open);
-			document.querySelector(".closeBtn").addEventListener("click", close);
-			document.querySelector(".bg").addEventListener("click", close);
-		
 			/* 글쓰기 버튼 클릭시 처리 이벤트 */
 			$("#q_insertBtn").click(function(){
 				let id ="${userLogin.u_id}";
@@ -69,11 +59,7 @@
 				"action":"/qna/qnaList"
 			});
 			$("#page_form").submit();
-		}
-		
-		
-		
-		
+		}	
 	</script>
 
 	</head>
@@ -173,10 +159,7 @@
 					</c:if>
 				</ul>
 			</div>
-			
-		</div>
-		
+		</div>	
  	</body>
- 	
-			
+		
 </html>

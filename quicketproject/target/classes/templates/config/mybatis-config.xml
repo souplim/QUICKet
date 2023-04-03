@@ -13,8 +13,11 @@
 		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
 		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
 		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
+		<typeAlias type="com.spring.client.faq.vo.FaqVO" alias="faq"/>	
+		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="review"/>	 
 		
 		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
 		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>
+		
 	</typeAliases>
 </configuration>
