@@ -143,7 +143,7 @@
             <li><a href="#">랭킹</a></li>
             <li><a href="#">지역</a></li>
             <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
-            <li> <a href="#">고객센터</a></li>
+            <li> <a href="/faq/faqList">FAQ</a></li>
             <li> <a href="/mypage/">마이페이지</a></li>
         </ul>
     </div>

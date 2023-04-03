@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.paypage.dao.PayPageClientDao">
+
+	<!-- 예매상세페이지에서 th_num 값만 리턴하면됨 -->
+	 <select id="hall_th_num" parameterType="paypage" resultType="paypage">
+	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end,TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate
+		from theater t LEFT JOIN hall h
+		ON t.th_num = h.th_num
+		LEFT JOIN show s
+		ON t.th_num = s.th_num
+		where t.th_num = 1
+	</select> 
+	
+	<select id="hall_list" parameterType="Integer" resultType="paypage">
+	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,hall_date,hall_start,hall_end
+		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status 
+				from theater t LEFT JOIN hall h
+				ON t.th_num = h.th_num
+				LEFT JOIN show s
+				ON t.th_num = s.th_num
+		        LEFT JOIN seat se
+				ON h.hall_id = se.hall_id
+		        where t.th_num = #{th_num}
+		        order by h.hall_id)
+		where seat_status = 0
+		group by hall_id,s_name, hall_place, hall_turn,hall_time,hall_date,hall_start,hall_end
+	</select> 
+	
+	<!-- payPage Step2 list -->
+	 <select id="pay_step2_list" parameterType="paypage" resultType="paypage">
+	 	select th_num,hall_id, s_name, hall_place, hall_turn, hall_time,hall_date, TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate,hall_seatNum,s_price
+		from (select h.hall_id ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_date, hall_time, seat_num, seat_status, s_opendate,s_closedate,t.th_num,s_price
+				from theater t LEFT JOIN hall h
+				ON t.th_num = h.th_num
+				LEFT JOIN show s
+				ON t.th_num = s.th_num
+		        LEFT JOIN seat se
+				ON h.hall_id = se.hall_id
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        order by h.hall_id)
+		where seat_status = 0
+		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
+	</select> 
+	<!-- payPage Step2 seat -->
+	 <select id="pay_step2_seat" parameterType="paypage" resultType="paypage">
+	 	select seat_num,seat_name, seat_status  
+		from theater t LEFT JOIN hall h
+		ON t.th_num = h.th_num
+		LEFT JOIN show s
+		ON t.th_num = s.th_num
+		LEFT JOIN seat se
+		ON h.hall_id = se.hall_id
+		where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+	</select> 
+	
+	 <select id="pay_step3_list" parameterType="paypage" resultType="paypage">
+	 	select th_num,hall_id, s_name, hall_place, hall_turn, hall_time,hall_date, TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate,hall_seatNum,s_price
+		from (select h.hall_id ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_date, hall_time, seat_num, seat_status, s_opendate,s_closedate,t.th_num,s_price
+				from theater t LEFT JOIN hall h
+				ON t.th_num = h.th_num
+				LEFT JOIN show s
+				ON t.th_num = s.th_num
+		        LEFT JOIN seat se
+				ON h.hall_id = se.hall_id
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        order by h.hall_id)
+		where seat_status = 0
+		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
+	</select> 
+	
+	 <select id="pay_step3_coupon" parameterType="String" resultType="coupon">
+	 	SELECT a.c_num, c_name, c_discount, TO_CHAR(c_enddate,'YYYY-MM-DD') as c_enddate
+		FROM admin_coupon a LEFT JOIN user_coupon u
+		ON a.c_num = u.c_num
+		WHERE u.uc_state = 0 AND u.u_id= #{u_id}
+	</select> 
+	
+	<select id="pay_step4_list" parameterType="paypage" resultType="paypage">
+	 	select th_num,hall_id, s_name, hall_place, hall_turn, hall_time,hall_date, TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate,hall_seatNum,s_price
+		from (select h.hall_id ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_date, hall_time, seat_num, seat_status, s_opendate,s_closedate,t.th_num,s_price
+				from theater t LEFT JOIN hall h
+				ON t.th_num = h.th_num
+				LEFT JOIN show s
+				ON t.th_num = s.th_num
+		        LEFT JOIN seat se
+				ON h.hall_id = se.hall_id
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        order by h.hall_id)
+		where seat_status = 0
+		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
+	</select> 
+	
+	<select id="pay_step4_UserData" parameterType="ticket_user" resultType="ticket_user">
+		select u_name, u_email, u_phone, u_id
+		from q_user
+		where u_id=#{u_id}
+	</select> 
+	
+</mapper>
