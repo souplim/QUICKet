@@ -1,12 +1,8 @@
 package com.spring.common.file;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
-import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.client.show.vo.ImgVO;

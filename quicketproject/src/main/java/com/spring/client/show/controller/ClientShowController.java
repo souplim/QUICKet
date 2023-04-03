@@ -3,15 +3,12 @@ package com.spring.client.show.controller;
 import java.net.URLDecoder;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.client.show.service.ClientShowService;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
-import com.spring.client.theater.vo.TheaterVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;

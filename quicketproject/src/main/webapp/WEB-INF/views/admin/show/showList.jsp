@@ -10,6 +10,7 @@
 		width:100%;
 	}
 </style>
+<script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 	$(function(){
 		

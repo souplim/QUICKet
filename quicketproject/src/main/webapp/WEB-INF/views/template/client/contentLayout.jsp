@@ -24,11 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css"/>
 		
-<<<<<<< HEAD
-		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-=======
 		<script type="text/javascript" src="/resources/include/js/jquery-3.6.2.min.js"></script>
->>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 		<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 		
 		<!-- Bootstrap core CSS -->

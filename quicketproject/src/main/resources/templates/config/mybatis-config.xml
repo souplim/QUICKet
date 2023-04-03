@@ -2,13 +2,11 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-<<<<<<< HEAD
 		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" />
 		<typeAlias type="com.spring.client.show.vo.RankVO" alias="rankVO" />
 		<typeAlias type="com.spring.client.show.vo.ImgVO" alias="imgVO" />
 		<typeAlias type="com.spring.client.theater.vo.TheaterVO" alias="theaterVO" />
 		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="reviewVO" />
-=======
 		
 		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
 		<typeAlias type="com.spring.client.inq.reply.vo.InqReplyVO" alias="inqReply" />
@@ -17,11 +15,9 @@
 		
 		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
 		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
-		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
 		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
 		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
 		<typeAlias type="com.spring.client.faq.vo.FaqVO" alias="faq"/>	
 		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="review"/>	     
->>>>>>> branch 'develop' of https://github.com/eunja2/QUICKet.git
 	</typeAliases>
 </configuration>
