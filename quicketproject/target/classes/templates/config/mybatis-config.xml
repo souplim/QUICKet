@@ -4,7 +4,11 @@
 	<typeAliases>
 		<!-- <typeAlias type="com.spring.client.board.vo.BoardVO" alias="board" />
 		<typeAlias type="com.spring.client.reply.vo.ReplyVO" alias="reply" />
-		
-		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> -->
+		-->
+		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
+		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
+		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
+		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
+		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
 	</typeAliases>
 </configuration>

@@ -20,7 +20,7 @@
             <li><a href="#">지역</a></li>
           </ul>
            <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">로그아웃</a></li>
+            <li><a href="/admin/logout">로그아웃</a></li>
             <li><a href="#">홈페이지</a></li>
           </ul>
         </div>

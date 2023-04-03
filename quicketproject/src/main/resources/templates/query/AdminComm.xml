@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.comm.dao.AdminCommDao">
+
+	<!-- 검색 처리 위한 코드 -->
+	<sql id="showSearch">
+		<if test="search=='s_name'">
+		<![CDATA[s_name like '%'||#{keyword}||'%']]>
+		</if>
+		<!-- <if test="start_date!='' and end_date!=''">
+			<if test="search!=''"><![CDATA[and]]></if>
+			<if test="s_select_date==''">
+			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
+			</if>
+			<if test="s_select_date=='open'">
+			<![CDATA[(to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			</if>
+			<if test="s_select_date=='close'">
+			<![CDATA[(to_char(s_closedate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			</if>
+		</if> -->
+	</sql>
+	
+	<!-- 검색내용 정렬하는 구문
+	<sql id="showArray">
+		<![CDATA[/*+ ]]>
+			<if test="s_array=='' or s_sortorder==''"><![CDATA[index_desc(show pk_show)]]></if>
+			<if test="s_array!='' and s_sortorder!=''">
+				<if test="s_sortorder=='asc'"><![CDATA[index_asc(]]></if>
+				<if test="s_sortorder=='desc'"><![CDATA[index_desc(]]></if>
+				<if test="s_array=='s_num'">
+				<![CDATA[show pk_show]]>
+				</if>
+				<if test="s_array=='s_name'">
+				<![CDATA[show index_s_name]]>
+				</if>
+				<if test="s_array=='s_opendate'">
+				<![CDATA[show index_s_opendate]]>
+				</if>
+				<if test="s_array=='s_closedate'">
+				<![CDATA[show index_s_closedate]]>
+				</if>
+				<![CDATA[)]]>
+			</if>
+		<![CDATA[*/]]>
+	</sql> -->
+	
+	
+<!-- 공연 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->
+	<select id="showCommList" resultType="showVO">
+		select s_num, s_name, to_char(s_opendate,'YYYY-MM-DD') as s_opendate,
+		to_char(s_closedate,'YYYY-MM-DD') as s_closedate,
+		(select count(*) from expect where s_num = show.s_num) excount,
+		(select count(*) from reviewboard where s_num = show.s_num) rcount,
+		(select count(*) from qna where s_num = show.s_num) qcount
+		from show
+		order by s_num desc
+	</select> 
+	
+		<!-- 검색된 공연 수 조회 -->
+	<select id="showListCnt" parameterType="showVO" resultType="int">
+		select count(*) from show
+		<trim prefix=" where (" suffix=")">
+			<include refid="showSearch"></include>
+		</trim>
+	</select>
+</mapper>
