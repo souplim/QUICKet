@@ -23,4 +23,11 @@
 		<put-attribute name="sub" value="" />
 		<put-attribute name="main" value="/WEB-INF/views/admin/inq/{1}.jsp" />
 	</definition>
+	
+	<!-- 통계 -->
+	<definition name="admin/stat/*" extends="basic">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/stat/{1}.jsp" />
+	</definition>
 </tiles-definitions>
