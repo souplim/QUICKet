@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 
+	<style type="text/css">
+	tr.table-tr-height { height: 200px;}
+	div.container{width: 700px;}
+	</style>
 	<script type="text/javascript">
 			let buttonCheck = 0;
 			$(function(){
@@ -47,10 +51,6 @@
 			</form>
 			
 			
-				<div class="btnArea col-md-4 text-right">
-					<input type="button" value="삭제" id="qnaDeleteBtn" class="btn btn-primary"/>
-					<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
-				</div>
 		
 			
 			<%-- 상세페이지 --%>
@@ -75,6 +75,12 @@
 					
 					</tbody>
 				</table>
+				
+				
+				<div class="btnArea col-md-4 text-right">
+					<input type="button" value="삭제" id="qnaDeleteBtn" class="btn btn-primary"/>
+					<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+				</div>
 			</div>
 			
 			<jsp:include page="qnaAdminReply.jsp" />

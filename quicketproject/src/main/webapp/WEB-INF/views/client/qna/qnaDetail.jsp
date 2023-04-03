@@ -97,7 +97,6 @@
 				</div>
 			
 			
-			
 			<jsp:include page="qnaReply.jsp" />
 			</div>
 </body>

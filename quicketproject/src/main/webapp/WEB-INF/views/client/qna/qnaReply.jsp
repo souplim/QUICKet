@@ -180,9 +180,7 @@
 			}else {
 				$element.find('.panel-heading > .panel-title > button').hide();
 			}
-			$el
-			
-			ement.find('.panel-body').html(q_r_content);
+			$element.find('.panel-body').html(q_r_content);
 			
 			$div.append($element);
 		
