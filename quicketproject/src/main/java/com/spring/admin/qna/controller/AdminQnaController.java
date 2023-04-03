@@ -1,4 +1,4 @@
-package com.spring.client.qna.controller;
+package com.spring.admin.qna.controller;
 
 import java.util.List;
 
