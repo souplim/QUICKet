@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
 th{text-align:center;}
+div[role="tabpanel"]{min-height:30em;}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3dc7376a2cb1e4f12306eaaebe2593e4"></script>
 <script type="text/javascript" src="/resources/include/js/theaterMap.js"></script>

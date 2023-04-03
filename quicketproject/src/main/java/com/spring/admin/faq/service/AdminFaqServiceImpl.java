@@ -24,7 +24,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
 		List<FaqVO> list = null;
 		list = adminfaqDao.adminfaqList(fvo);
 		return list;
-		}
+	}
 
 	
 // 글상세 구현

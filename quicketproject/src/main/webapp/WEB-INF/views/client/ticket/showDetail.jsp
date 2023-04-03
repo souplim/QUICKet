@@ -4,7 +4,6 @@
 <!-- 달력 부트스트랩 -->
 <link rel="stylesheet" href="/resources/include/css/client/ticket/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- 
 <!-- 달력 부트스트랩 끝 -->
 	<style>
 	#body{
