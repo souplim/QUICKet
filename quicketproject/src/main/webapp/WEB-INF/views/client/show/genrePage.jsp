@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style type="text/css">
+.genreBox{
+	padding:10px;
+	text-align:center;
+}
+.genreBox_img{
+	width:100%;
+	margin-bottom:10px;
+}
+</style>
+<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -49,19 +58,26 @@
 			$("#searchData").click();
 		})
 		
-		
+		//달력기능 처리 이벤트
 		$("#datepicker").datepicker({
-			language:"ko"
+		    showOtherMonths: true,
+		    selectOtherMonths: true,
+			showMonthAfterYear:true,
+			yearSuffix:"년",
+			buttonText:"선택",
+			showMonthAfterYear:true,
+			yearSuffix:"년",
+			monthNamesShort:['1','2','3','4','5','6','7','8','9','10','11','12'],
+			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			dayNamesMin: ['일','월','화','수','목','금','토'],
+			dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+			dateFormat:"yy-mm-dd",
+			onSelect:function(){
+				$("#start_date").val($(this).val());
+				$("#end_date").val($(this).val());
+				$("#searchData").click();
+			}
 		});
-		$("#datepicker").on("changeDate", function(){
-			$("#start_date").val(
-				$("#datepicker").datepicker("getFormattedDate")
-			)
-			$("#end_date").val(
-				$("#datepicker").datepicker("getFormattedDate")
-			)
-			$("#searchData").click();
-		})
 		
 		//해당 장르 전체 평점 랭킹 3개 받아오기
 		$.getJSON("/genrePointRankList?s_genre="+param_genre,function(data){
@@ -76,6 +92,12 @@
 				makeShowBox(this, "#genreTicketRankPanel", "rank_ticket", "4");
 			})
 		}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})	
+		
+		//장르 박스 포인트란에 별 부여
+		$(".genreBox_subtxt_point").each(function(){
+			let point = $(this).data('point');
+			makeStar($(this), point);
+		})
 	})
 </script>
 	
@@ -101,7 +123,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2 col-sm-offset-2">
+					<div class="col-sm-2 col-sm-offset-1">
 						<div id="datepicker"></div>
 						<input type="hidden" id="start_date" name="start_date" />	
 						<input type="hidden" id="end_date" name="end_date" />	
@@ -112,7 +134,7 @@
 							<option value="경기">경기</option>							
 						</select>
 					</div>
-					<div class="col-sm-4 col-sm-offset-2">
+					<div class="col-sm-4 col-sm-offset-3">
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="disabled">
 								<a href="#">WEEK RANKING</a>
@@ -141,8 +163,8 @@
 		<div class="row">
 			<div id="genrelist" class="col-xs-10 col-xs-offset-1">		
 				<c:forEach var="show" items="${showList}">
-					<div class="showBox col-xs-3" data-num="${show.s_num}">
-						<div class="showBox_thumbnail">
+					<div class="genreBox col-xs-3" data-num="${show.s_num}">
+						<div class="genreBox_thumbnail">
 							<a href="/showDetail?s_num=${show.s_num}">
 								<img src=
 								<c:if test="${show.s_posterimg ne null}">
@@ -151,13 +173,13 @@
 								<c:if test="${show.s_posterimg eq null}">
 									"/uploadStorage/show/poster_default.jpg"
 								</c:if>
-								 class="showBox_img" />
+								 class="genreBox_img" />
 							</a>
 						</div>
-						<div class="showBox_text">
-							<p class="showBox_title">${show.s_name}</p>
-							<p class="showBox_subtxt">${show.s_opendate}</p>
-							<p class="showBox_subtxt">${show.s_point}</p>
+						<div class="genreBox_text">
+							<p class="genreBox_title">${show.s_name}</p>
+							<p class="genreBox_subtxt">${show.s_opendate}</p>
+							<span class="genreBox_subtxt_point" data-point="${show.s_point}">${show.s_point}</span>
 						</div>
 					</div>
 				</c:forEach>

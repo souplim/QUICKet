@@ -105,9 +105,6 @@
 #start_date, #end_date{
 	display:none;
 }
-#datelabel{
-	font-size:20px;
-}
 
 .rankup_icon{
 	display:inline-block;
@@ -125,33 +122,49 @@
 	border-right: 6px solid transparent;
 	border-top: 9px solid blue;
 }
-
+.ui-datepicker-trigger{
+	border:none;
+	background-color:transparent;
+	font-size:20px;
+}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<c:if test="${showVO.rank_period=='month' or showVO.rank_period=='year'}">
+<style type="text/css">
+.ui-datepicker-calendar{display:none;}
+.ui-datepicker-current{display:none;}
+#ui-datepicker-div{height:auto;}
+.ui-datepicker-year{text-align:center;border:none; appearance:none;}
+.ui-datepicker-month{text-align:center;border:none; appearance:none;}
+</style>
+</c:if>
+<c:if test="${showVO.rank_period=='year'}">
+<style type="text/css">.ui-datepicker-month{display:none;}</style>
+</c:if>
+<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 	$(function(){
-			
-		let s_array = "<c:out value='${param.s_array}' />"
-		
-		//조건변수 없이 접근했을 경우 강제 리다이렉트
-		if(s_array==''){
-			location.href=location.pathname+'?s_array=s_point'
-		}else{
-			if(s_array=='s_point'){
-				//화면 시작시에 필요없는 컴포넌트 숨김 처리	
-				$('#dateSelect').hide();
-				$('#periodNav').hide();
-			}
-			$("#s_array").val(s_array);
+		let s_array = "<c:out value='${showVO.s_array}' />"
+		//화면 시작시에 필요없는 컴포넌트 숨김 처리
+		if(s_array=='s_point'){
+			$('#dateSelect').hide();
+			$('#periodNav').hide();
 		}
+		
+		//점수 기준 input에 입력 처리
+		$("#s_array").val(s_array);
 		$("#s_array").change(function(){
-			$("#f_ranking").submit();
+			
+			//기준이 바뀌면 날짜 설정이 초기화되어야 한다
+			$("#start_date").val('');
+			$("#end_date").val('');
+			
+			rankingSubmit();
 		})
 		
-		let s_genre = "<c:out value='${param.s_genre}' />"
+		//장르 input에 입력하고 해당 버튼 활성화
+		let s_genre = "<c:out value='${showVO.s_genre}' />"
 		if(s_genre==''){
 			$($(".genreBtn")[0]).addClass('active');
 		}else if(s_genre=='뮤지컬'){
@@ -165,9 +178,174 @@
 			$(this).click(function(){
 				let genre_value = $(this).val();
 				$("#s_genre").val(genre_value);
+				
 				rankingSubmit();
 			})
 		})
+		
+		//기간 기준 input에 입력하고 해당하는 버튼 활성화
+		let rank_period = "<c:out value='${showVO.rank_period}' />"
+		$("#rank_period").val(rank_period);
+		$(".periodBtn[data-period='"+rank_period+"']").parents("li[role='presentation']").addClass("active");
+		$(".periodBtn").each(function(){
+			$(this).click(function(){
+				let period_value = $(this).data('period');
+				$("#rank_period").val(period_value);
+				
+				//기준이 바뀌면 날짜 설정이 초기화되어야 한다
+				$("#start_date").val('');
+				$("#end_date").val('');
+				
+				rankingSubmit();
+			})
+		})
+
+
+		if(s_array='rank_ticket'){
+			
+			//버튼에 표시할 검색 날짜를 저장하는 구문
+			let start_date="<c:out value='${showVO.start_date}' />";
+			let end_date="<c:out value='${showVO.end_date}' />";
+			$("#start_date").val(start_date);
+			$("#end_date").val(end_date);
+			
+			//선택기준이 날짜 또는 주간인 경우
+			if(rank_period=='day' || rank_period=='week'){
+				let maxdate_gap = 0;
+				let d = new Date();
+				if(rank_period=="week"){
+					maxdate_gap = -d.getDay();
+				}
+				let start_date_pick = new Date($("#start_date").val());
+				let end_date_pick = new Date($("#end_date").val());
+				$("#start_date").datepicker({
+					showOn:"button",
+					buttonText:()=>{
+						if(start_date==end_date || end_date==""){
+							return "▼ "+start_date;
+						}else{
+							return "▼ "+start_date+" ~ "+end_date;
+						}		
+					},
+					maxDate: maxdate_gap,
+				    showOtherMonths: true,
+				    selectOtherMonths: true,
+					showMonthAfterYear:true,
+					yearSuffix:"년",
+					monthNamesShort:['1','2','3','4','5','6','7','8','9','10','11','12'],
+					monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+					dayNamesMin: ['일','월','화','수','목','금','토'],
+					dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+					dateFormat:"yy-mm-dd",
+					onSelect: function(dateText, inst){
+						if(rank_period=='day'){
+							$("#start_date").val($(this).val());
+							$("#end_date").val($(this).val());
+							rankingSubmit();
+						}else if(rank_period=='week'){
+							let picked = $(this).datepicker("getDate");
+							start_date_pick = new Date(picked.getFullYear(), picked.getMonth(), picked.getDate()-picked.getDay()+1);
+							end_date_pick  = new Date(picked.getFullYear(), picked.getMonth(), picked.getDate()-picked.getDay()+7);
+							let dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+							$("#start_date").val($.datepicker.formatDate(dateFormat, start_date_pick, inst.settings))
+							$("#end_date").val($.datepicker.formatDate(dateFormat, end_date_pick, inst.settings));
+							rankingSubmit();
+						}
+					},
+					beforeShow:function(){
+						if(rank_period=='week'){
+							selectCurrentWeek();
+						}
+					},
+				    beforeShowDay: function(date) {
+						if(rank_period=='week'){
+					        let cssClass = "";
+					        if(date>=start_date_pick && date<=end_date_pick)
+					            cssClass = "ui-datepicker-current-day";
+					        return [true, cssClass];
+						}else{
+							return [true];
+						}
+				    },
+				    onChangeMonthYear: function(year, month, inst) {
+						if(rank_period=='week'){
+					        selectCurrentWeek();
+						}
+				    }
+				});
+				function selectCurrentWeek() {
+					window.setTimeout(function(){
+						 $("#ui-datepicker-div").find(".ui-datepicker-current-day a").addClass("ui-state-active");
+					}, 1);
+				}
+				
+
+			}
+			
+			//기준이 월이나 년인 경우
+			if(rank_period=='month' || rank_period=='year'){
+	            $("#start_date").datepicker({
+	            	showOn:"button",
+					buttonText: "▼ "+start_date+" ~ "+end_date,	
+					closeText: '선택',
+					yearSuffix:(rank_period=='year')?"년":"",
+					monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+					monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+					dateFormat: 'yy-mm-dd',
+					isRTL: false,
+					showMonthAfterYear: true,
+					changeMonth: true,
+					changeYear: true,
+					showButtonPanel: true,
+					yearRange: 'c-99:c+99',
+					onClose: function(dateText, inst){
+						let dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+						let year = Number($(".ui-datepicker-year option:selected").val());
+						if(rank_period=='month'){
+							let month = Number($(".ui-datepicker-month option:selected").val());
+							start_date_pick = new Date(year, month, 1);
+							end_date_pick  = new Date(year, month+1, 0);
+							$("#start_date").val($.datepicker.formatDate(dateFormat, start_date_pick, inst.settings))
+							$("#end_date").val($.datepicker.formatDate(dateFormat, end_date_pick, inst.settings));
+							rankingSubmit();  
+						}else if(rank_period=='year'){
+							start_date_pick = new Date(year, 0, 1);
+							end_date_pick  = new Date(year+1, 0, 0);
+							$("#start_date").val($.datepicker.formatDate(dateFormat, start_date_pick, inst.settings))
+							$("#end_date").val($.datepicker.formatDate(dateFormat, end_date_pick, inst.settings));
+							rankingSubmit(); 
+						}
+					},
+					beforShow:function(){
+							var selectDate = $("#start_date").val().split("-");
+							var year = Number(selectDate[0]);
+							var month = Number(selectDate[1]) - 1;
+							$(this).datepicker( "option", "defaultDate", new Date(year, month, 1) );
+					}
+	            });
+			}
+				
+			//공통
+			$(".ui-datepicker-trigger").click(function(){
+				if(rank_period=='day'){
+					$("#ui-datepicker-div").css({
+						'top':Math.floor($(this).offset().top+30)+'px',
+						'left':Math.floor($(this).offset().left-75)+'px'
+					});
+				}else{
+					$("#ui-datepicker-div").css({
+						'top':Math.floor($(this).offset().top+30)+'px',
+						'left':Math.floor($(this).offset().left-15)+'px'
+					});
+				}
+			})
+			$(window).resize(function(){
+				window.setTimeout(function () {
+					$("#ui-datepicker-div").css('display','none');
+				},1);
+			})
+			
+		}
 		
 		$('.topRankBox_point').each(function(){
 			let point = $(this).data('point');
@@ -185,7 +363,7 @@
 			})
 			$("#f_ranking").submit();
 		}
-	}) 
+	})
 </script>
 </head>
 <body>
@@ -218,17 +396,16 @@
 					</select>						
 				</div>	
 				<div id="dateSelect" class="col-sm-4 col-sm-offset-2 text-center">
-					<label for="start_date" id="datelabel">▼ 날짜 입력하기</label>
 					<input type="date" id="start_date" name="start_date" />
 					<input type="date" id="end_date" name="end_date" />
 				</div>				
 				<div id="periodNav" class="col-sm-3 col-sm-offset-1">
 					<input type="hidden" id="rank_period" name="rank_period" />
 					<ul class="nav nav-pills">
-						<li role="presentation"><a role="button" data-period="day">일간</a></li>
-						<li role="presentation"><a role="button" data-period="week">주간</a></li>
-						<li role="presentation"><a role="button" data-period="month">월간</a></li>
-						<li role="presentation"><a role="button" data-period="year">연간</a></li>
+						<li role="presentation"><a role="button" class="periodBtn" data-period="day">일간</a></li>
+						<li role="presentation"><a role="button" class="periodBtn" data-period="week">주간</a></li>
+						<li role="presentation"><a role="button" class="periodBtn" data-period="month">월간</a></li>
+						<li role="presentation"><a role="button" class="periodBtn" data-period="year">연간</a></li>
 					</ul>
 				</div>
 			</div>

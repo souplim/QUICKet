@@ -25,35 +25,70 @@ public class ClientShowServiceImpl implements ClientShowService {
 		//날짜 객체 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar now = Calendar.getInstance();
-		Calendar mon = (Calendar)now.clone();
-		Calendar sun = (Calendar)now.clone();
+		
+		Calendar day = (Calendar)now.clone();
+		day.add(Calendar.DAY_OF_MONTH, -1);
+		String yesterday = dateFormat.format(day.getTime());
 		
 		//일~토 기준으로 월~일 기준으로 변환
+		Calendar week = (Calendar)now.clone();
 		int day_of_week = Calendar.DAY_OF_WEEK;
 		if(day_of_week==1) {
-			mon.add(Calendar.DAY_OF_WEEK,-6);
+			week.add(Calendar.DAY_OF_WEEK,-6);
 		}else{
-			mon.set(Calendar.DAY_OF_WEEK,2);
-			sun.set(Calendar.DAY_OF_WEEK,1);
-			sun.add(Calendar.DAY_OF_MONTH,7);
+			week.set(Calendar.DAY_OF_WEEK,2);
 		}
+		//이번주 월요일
+		String monday = dateFormat.format(week.getTime());
+		week.add(Calendar.DAY_OF_MONTH, 6);
+		//이번주 일요일
+		String sunday = dateFormat.format(week.getTime());
+		//저번주 일요일
+		week.add(Calendar.DAY_OF_MONTH, -7);
+		String prev_sunday = dateFormat.format(week.getTime());
+		//저번주 월요일
+		week.add(Calendar.DAY_OF_MONTH, -6);
+		String prev_monday = dateFormat.format(week.getTime());
 		
-		String monday = dateFormat.format(mon.getTime());
-		String sunday = dateFormat.format(sun.getTime());
+		//저번달 1일~말일
+		Calendar month = (Calendar)now.clone();
+		month.add(Calendar.MONTH,-1);
+		month.set(Calendar.DAY_OF_MONTH, 1);
+		String prev_month_start = dateFormat.format(month.getTime());
+		month.set(Calendar.DAY_OF_MONTH, month.getActualMaximum(Calendar.DAY_OF_MONTH));
+		String prev_month_end = dateFormat.format(month.getTime());
+		
+		//작년 1일~말일
+		Calendar year = (Calendar)now.clone();
+		year.add(Calendar.YEAR, -1);
+		year.set(Calendar.DAY_OF_YEAR, 1);
+		String prev_year_start = dateFormat.format(year.getTime());
+		year.set(Calendar.DAY_OF_YEAR, year.getActualMaximum(Calendar.DAY_OF_YEAR));
+		String prev_year_end = dateFormat.format(year.getTime());
 		
 		ArrayList<String> list = new ArrayList<String>();
-		list.add(monday);
-		list.add(sunday);
+		list.add(monday);			//[0]: 이번주 월요일
+		list.add(sunday);			//[1]: 이번주 일요일
+		list.add(yesterday);		//[2]: 어제
+		list.add(prev_monday);		//[3]: 저번주 월요일
+		list.add(prev_sunday);		//[4]: 저번주 일요일
+		list.add(prev_month_start);	//[5]: 저번달 1일
+		list.add(prev_month_end);	//[6]: 저번달 말일
+		list.add(prev_year_start);	//[7]: 작년 1일
+		list.add(prev_year_end);	//[8]: 작년 말일
 		
 		return list;
 	}
+	
+	//위의 메서드를 통해서 날짜를 미리 받아둔다
+	ArrayList<String> datelist = getDate();
 	
 	@Override
 	public List<ShowVO> mainSlideList(ShowVO vo){
 		List<ShowVO> mainSlideList = null;
 
-		vo.setStart_date(getDate().get(0));
-		vo.setEnd_date(getDate().get(1)); 
+		vo.setStart_date(datelist.get(0));
+		vo.setEnd_date(datelist.get(1)); 
 		
 		int amount = vo.getAmount();
 		int total = clientShowDao.showListCnt(vo);
@@ -104,8 +139,8 @@ public class ClientShowServiceImpl implements ClientShowService {
 	public List<RankVO> ticketRankList(ShowVO vo){
 		List<RankVO> ticketRankList = null;
 		
-		vo.setStart_date(getDate().get(0));
-		vo.setEnd_date(getDate().get(1)); 
+		vo.setStart_date(datelist.get(0));
+		vo.setEnd_date(datelist.get(1)); 
 		
 		int amount = vo.getAmount();
 		List<RankVO> resultList = clientShowDao.rankList(vo);
@@ -136,8 +171,8 @@ public class ClientShowServiceImpl implements ClientShowService {
 	public List<ShowVO> newList(ShowVO vo){
 		List<ShowVO> newList = null;
 		
-		vo.setStart_date(getDate().get(0));
-		vo.setEnd_date(getDate().get(1)); 
+		vo.setStart_date(datelist.get(0));
+		vo.setEnd_date(datelist.get(1)); 
 		vo.setS_select_date("open");
 		
 		
@@ -206,12 +241,30 @@ public class ClientShowServiceImpl implements ClientShowService {
 
 	@Override
 	public List<RankVO> rankList(ShowVO vo) {
-		if(vo.getRank_period()=="") {
+		if(vo.getS_array().equals("s_point") || vo.getRank_period().isEmpty()) {
 			vo.setRank_period("week");
 		}
-		if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
-				vo.setStart_date(getDate().get(0));
-				vo.setEnd_date(getDate().get(1)); 
+		if(vo.getRank_period().equals("day")) {
+			if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
+				vo.setStart_date(datelist.get(2));
+				vo.setEnd_date(datelist.get(2)); 
+			}
+		}
+		if(vo.getRank_period().equals("week")) {
+			if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
+				vo.setStart_date(datelist.get(3));
+				vo.setEnd_date(datelist.get(4)); 
+			}
+		}else if(vo.getRank_period().equals("month")) {
+			if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
+				vo.setStart_date(datelist.get(5));
+				vo.setEnd_date(datelist.get(6)); 
+			}
+		}else if(vo.getRank_period().equals("year")) {
+			if(vo.getStart_date()=="" && vo.getEnd_date()=="") {
+				vo.setStart_date(datelist.get(7));
+				vo.setEnd_date(datelist.get(8)); 
+			}
 		}
 		List<RankVO> rankList = clientShowDao.rankList(vo);
 		if(rankList!=null) {
@@ -221,7 +274,7 @@ public class ClientShowServiceImpl implements ClientShowService {
 					rank.setS_posterimg(poster);
 				}
 			}
-		}
+		} 
 		return rankList;
 	}
 	

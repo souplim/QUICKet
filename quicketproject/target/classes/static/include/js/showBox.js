@@ -44,7 +44,13 @@ function makeShowBox(vo, panel, sub, size){
 		subtxt = vo.s_point;
 	}
 	let $title = $("<p class='showBox_title'>"+s_name+"</p>");
-	let $subtxt = $("<p class='showBox_subtxt'>"+subtxt+"</p>");
+	let $subtxt = $("<span class='showBox_subtxt'>"+subtxt+"</span>");
+	if(sub=='s_point'){
+		$subtxt.prepend("<br/>")
+		makeStar($subtxt, vo.s_point)
+	}else{
+		$subtxt.append("<br/>")
+	}
 	$showBox_text.append($title).append($subtxt);
 	$showBox_text.css({"display":"inline-block","textAlign":"center"})
 	
@@ -62,7 +68,7 @@ function makeStar(item, point){
 	})
 	let $starpaint = $("<span>★★★★★</span>")
 	$starpaint.css({
-		"width":point*10+"%",
+		"width":point*20+"%",
 		"position":"absolute",
 		"left":"0",
 		"color":"#f90",

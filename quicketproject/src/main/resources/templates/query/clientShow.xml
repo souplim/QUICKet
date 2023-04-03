@@ -86,14 +86,18 @@
 	<!-- RankVO 객체에 장르(생략가능), 랭킹 시작일, 종료일, 페이지수, 갯수를 입력하면 해당되는 장르의 랭킹 숫자만큼 공연 데이터를 뽑아온다. -->
 	<select id="rankList" parameterType="showVO" resultType="rankVO">
 		<![CDATA[
-		select s_num, s_name, th_num, th_name, s_genre, to_char(s_opendate,'yyyy-MM-dd') s_opendate, to_char(s_closedate,'yyyy-MM-dd') s_closedate, s_price, s_point, rank_rank, rank_ticket]]>	
+		select s_num, s_name, th_num, th_name, s_genre, s_price, s_point, rank_rank, rank_ticket,
+		to_char(s_opendate,'yyyy-MM-dd') s_opendate, to_char(s_closedate,'yyyy-MM-dd') s_closedate,
+		to_char(rank_start,'yyyy-MM-dd') rank_start, to_char(rank_end,'yyyy-MM-dd') rank_end 
+		]]>	
 		<if test="s_array=='s_point'">
 			<![CDATA[, s_point_rank]]>
 		</if> 
 		<if test="s_array=='rank_ticket' and rank_period!=''">
 			<![CDATA[, decode(rank_prev, 0, 'new', to_char(rank_prev - rank_rank)) rank_change]]>
 		</if>
-		<![CDATA[from(select rownum as rnum, s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, rank_rank, rank_ticket,]]>
+		<![CDATA[from(select rownum as rnum, s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
+		rank_start, rank_end as rank_end, rank_rank, rank_ticket,]]>
 		<if test="s_array=='s_point'">
 			<![CDATA[(dense_rank() over (order by s_point desc)) s_point_rank,]]>
 		</if>
@@ -116,16 +120,16 @@
 	<sql id="getRankPrev">
 		<![CDATA[(nvl((select rank_rank from rank where ]]>
 		<if test="rank_period=='day'">
-			rank_start = #{start_date}-1 and rank_end = #{end_date}-1
+			rank_start = to_date(#{start_date})-1 and rank_end = to_date(#{end_date})-1
 		</if>
 		<if test="rank_period=='week'">
 			rank_start = to_date(#{start_date})-7 and rank_end = to_date(#{end_date})-7
 		</if>
 		<if test="rank_period=='month'">
-			rank_start = add_months(#{start_date},-1) and rank_end = last_day(add_months(#{start_date},-1))
+			rank_start = add_months(to_date(#{start_date}),-1) and rank_end = last_day(add_months(to_date(#{start_date}),-1))
 		</if>
 		<if test="rank_period=='year'">
-			rank_start = add_years(#{start_date},-1) and rank_end = add_years(#{end_date},-1)
+			rank_start = add_months(to_date(#{start_date}),-12) and rank_end = add_months(to_date(#{end_date}),-12)
 		</if>
 		<![CDATA[and s_num = r.s_num),0)) as rank_prev,]]>
 	</sql>

@@ -126,6 +126,9 @@ public class ClientShowController {
 	//랭킹페이지 관련 컨트롤러
 	@GetMapping("/ranking")
 	public String rankingPage(@ModelAttribute ShowVO vo, Model model) {
+		if(vo.getS_array().isEmpty()) {
+			vo.setS_array("s_point");
+		}
 		List<RankVO> rankList = clientShowService.rankList(vo);
 		model.addAttribute("rankList", rankList);
 		return "client/show/rankingPage";

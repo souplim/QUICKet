@@ -25,10 +25,14 @@
 #start_date, #end_date{
 	display:none;
 }
+.ui-datepicker-trigger{
+	border:none;
+	background-color:transparent;
+	font-size:20px;
+}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(function(){
 		
@@ -137,25 +141,42 @@
 		let start_date="<c:out value='${showVO.start_date}' />";
 		let end_date="<c:out value='${showVO.end_date}' />";
 		if(start_date!=""){
-			$("#datelabel").html("▼ "+start_date);
 			$("#start_date").val(start_date);
 			$("#end_date").val(end_date);
 		}
 		$("#start_date").datepicker({
-			language:"ko",
+			showOn:"button",
+			buttonText:()=>{
+				if(start_date==""){
+					return "▼ 날짜 선택하기";
+				}else{
+					return "▼ "+start_date;
+				}		
+			},
+		    showOtherMonths: true,
+		    selectOtherMonths: true,
+			showMonthAfterYear:true,
+			yearSuffix:"년",
+			monthNamesShort:['1','2','3','4','5','6','7','8','9','10','11','12'],
+			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			dayNamesMin: ['일','월','화','수','목','금','토'],
+			dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+			dateFormat:"yy-mm-dd",
+			onSelect:function(){
+				$("#end_date").val($(this).val());
+				$("#searchData").click();
+			}
 		});
-		$("#datelabel").click(function(){
-			$("#start_date").focus();
-			$('.datepicker').css({'top':Math.floor($("#datelabel").offset().top+30)+'px', 'left':Math.floor($("#datelabel").offset().left-30)+'px'});
+		$(".ui-datepicker-trigger").click(function(){
+			$("#ui-datepicker-div").css({
+				'top':Math.floor($(this).offset().top+30)+'px',
+				'left':Math.floor($(this).offset().left-75)+'px'
+			});
 		})
 		$(window).resize(function(){
-			$('.datepicker').css('display','none');
-		})
-		
-		$("#start_date").on("changeDate", function(){
-			$("#datelabel").html("▼  "+$("#start_date").datepicker("getFormattedDate"));
-			$("#end_date").val($("#start_date").val());
-			$("#searchData").click();
+			window.setTimeout(function () {
+				$("#ui-datepicker-div").css('display','none');
+			},1);
 		})
 		
 	})
@@ -204,7 +225,6 @@
 						</select>
 					</div>		
 					<div class="col-sm-4 text-center">
-						<label for="start_date" id="datelabel">▼ 날짜 입력하기</label>
 						<input type="date" id="start_date" name="start_date" />
 						<input type="date" id="end_date" name="end_date" />
 					</div>				
