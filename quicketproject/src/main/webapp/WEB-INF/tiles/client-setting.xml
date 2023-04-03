@@ -23,6 +23,29 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
+	<!-- 고객센터 레이아웃 -->
+	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/user/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="client/inq/*" extends="content">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
+	</definition>
+	
+	<!-- 마이페이지 레이아웃 -->
+	<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/client/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
 	<!-- 쿠폰페이지 레이아웃 -->
 		<definition name="client/coupon/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
 		<put-attribute name="title" value="QUICKet 쿠폰"/>
