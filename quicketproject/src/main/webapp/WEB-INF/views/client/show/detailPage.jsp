@@ -100,7 +100,9 @@ th{text-align:center;}
 		</div>
 		<br/><br/>
 		<!-- 예매기능 박스 -->
-		<div class="ticketBox row">예매기능이<br/>들어갈<br/>박스입니다.</div>
+		<div class="ticketBox row">
+			<c:import url="/WEB-INF/views/client/ticket/showDetail.jsp" />
+		</div>
 		<br/><br/>
 		<!-- 상세페이지 탭 기능 구현 -->
 		<div class="detail_tabBox row">
