@@ -154,4 +154,13 @@
 		<![CDATA[select * from img where s_num = #{s_num} and img_dir like '%/detail']]>
 	</select>
 	
+	<!-- 공연의 리뷰가 업데이트 될 때마다 평균평점을 자동으로 업데이트 하는 sql -->
+	<update id="showPointUpdate" parameterType="reviewVO">
+		<![CDATA[
+		 update show 
+		 set s_point = (select avg(nvl(r_point, 0)) from reviewboard where s_num = #{s_num}) 
+		 where s_num = #{s_num}
+		]]>
+	</update>
+	
 </mapper>

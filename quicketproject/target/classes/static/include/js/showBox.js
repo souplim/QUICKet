@@ -41,13 +41,13 @@ function makeShowBox(vo, panel, sub, size){
 	}else if(sub=='s_opendate'){
 		subtxt = vo.s_opendate;
 	}else if(sub=='s_point'){
-		subtxt = vo.s_point;
+		subtxt = Math.round(vo.s_point*100)/100;
 	}
 	let $title = $("<p class='showBox_title'>"+s_name+"</p>");
 	let $subtxt = $("<span class='showBox_subtxt'>"+subtxt+"</span>");
 	if(sub=='s_point'){
-		$subtxt.prepend("<br/>")
-		makeStar($subtxt, vo.s_point)
+		$subtxt.prepend("<br/>");
+		makeStar($subtxt, Math.round(vo.s_point*100)/100);
 	}else{
 		$subtxt.append("<br/>")
 	}

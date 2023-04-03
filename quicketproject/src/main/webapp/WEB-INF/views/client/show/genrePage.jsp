@@ -179,7 +179,8 @@
 						<div class="genreBox_text">
 							<p class="genreBox_title">${show.s_name}</p>
 							<p class="genreBox_subtxt">${show.s_opendate}</p>
-							<span class="genreBox_subtxt_point" data-point="${show.s_point}">${show.s_point}</span>
+							<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
+							<span class="genreBox_subtxt_point" data-point="${s_point}">${s_point}</span>
 						</div>
 					</div>
 				</c:forEach>

@@ -6,5 +6,6 @@
 		<typeAlias type="com.spring.client.show.vo.RankVO" alias="rankVO" />
 		<typeAlias type="com.spring.client.show.vo.ImgVO" alias="imgVO" />
 		<typeAlias type="com.spring.client.theater.vo.TheaterVO" alias="theaterVO" />
+		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="reviewVO" />
 	</typeAliases>
 </configuration>

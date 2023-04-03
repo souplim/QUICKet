@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.spring.client.review.vo.ReviewVO;
 import com.spring.client.show.vo.ImgVO;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
@@ -17,4 +18,6 @@ public interface ClientShowDao {
 	public int showListCnt(ShowVO vo);
 	
 	public List<RankVO> rankList(ShowVO vo);
+	
+	public int showPointUpdate(ReviewVO vo);
 }

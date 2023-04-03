@@ -128,6 +128,12 @@
 		inputDatePlaceholder("#start_date","시작일자");
 		inputDatePlaceholder("#end_date","종료일자");
 		
+		//공연리스트 포인트란에 별 부여
+		$(".showlist_point").each(function(){
+			let point = $(this).data('point');
+			makeStar($(this), point);
+		})
+		
 	})
 </script>
 
@@ -213,7 +219,8 @@
 									</tr>
 									<tr>
 										<td>평점</td>
-										<td>${show.s_point}</td>
+										<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
+										<td class="showlist_point" data-point="${s_point}">${s_point}</td>
 									</tr>
 									<tr>
 										<td>등록일</td>

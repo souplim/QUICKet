@@ -466,7 +466,8 @@
 						<p class="topRankBox_theater">${rank.th_name}</p>
 						<br/>
 						<div class="topRankBox_ticket">${rank.rank_ticket}%</div>
-						<div class="topRankBox_point" data-point="${rank.s_point}">${rank.s_point}</div>
+						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
+						<div class="topRankBox_point" data-point="${s_point}">${s_point}</div>
 					</div>
 				</div>
 			</div>	
@@ -524,7 +525,8 @@
 					</div>
 					<div class="otherRankBox_ticket_point col-xs-2">
 						<div class="row"><span class="otherRankBox_ticket">${rank.rank_ticket}%</span></div>
-						<div class="row otherRankBox_pointBox" data-point="${rank.s_point}">${rank.s_point}</div>
+						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
+						<div class="row otherRankBox_pointBox" data-point="${s_point}">${s_point}</div>
 					</div>
 				</div>
 			</c:forEach>
