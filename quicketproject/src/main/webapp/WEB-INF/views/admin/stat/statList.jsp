@@ -11,6 +11,7 @@
 			
 			// 구글 차트 Load the Visualization API and the piechart package.
 			google.charts.load('current', { 'packages' : [ 'corechart' ] }); // 차트 스타일
+			google.charts.load('current', { 'packages' : [ 'bar' ] }); // 차트 스타일
 			// Set a callback to run when the Google Visualization API is loaded.
 			google.charts.setOnLoadCallback(drawChartTicketCnt);
 			google.charts.setOnLoadCallback(drawChartShowSales);
@@ -92,12 +93,11 @@
 						var data = new google.visualization.DataTable(result);
 						
 						// 차트 상단 제목 설정
-						var options = { title : '주별 매출액' };
+						var options = { title : '월별 매출액' };
 						
 						// 입력값 화면에 뿌려주기
-						var chart = new google.visualization.LineChart(document.getElementById('weeklySales_div'));
-						chart.draw(data, options);
-						//chart.draw(result, options);
+						var chart = new google.charts.Bar(document.getElementById('weeklySales_div'));
+						chart.draw(data, google.charts.Bar.convertOptions(options));
 					},
 					async: false
 				}).responseText;
@@ -111,6 +111,6 @@
     <!--Div that will hold the pie chart-->
     <div id="ticketCnt_div"></div>
     <div id="showSales_div"></div>
-    <div id="weeklySales_div"></div>
+    <div id="weeklySales_div" style="width: 800px; height: 500px;"></div>
   </body>
 </html>

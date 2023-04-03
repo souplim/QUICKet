@@ -103,7 +103,7 @@ public class StatController {
 	 * 주별 매출액 조회하기
 	 * 현재 요청 URL : http://localhoast:8080/admin/stat/weeklySales
 	 ***********************************************************/
-	@ResponseBody
+	/* @ResponseBody
 	@PostMapping(value="/weeklySales", produces=MediaType.APPLICATION_JSON_VALUE)
 	public String weeklySales(){
 		log.info("weeklySales 조회");
@@ -121,6 +121,39 @@ public class StatController {
 		for(StatVO vo : list) { 
 			gChart.addCell(count, vo.getStat_date());
 			gChart.addCell(count, vo.getStat_sales());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	} */
+	
+	/***********************************************************
+	 * 월별 매출액 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/weeklySales
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/weeklySales", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String weeklySales(){
+		log.info("weeklySales 조회");
+		
+		List<StatVO> list = statService.weeklySales();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("월별", "string");
+		gChart.addColumn("베토벤", "number");
+		gChart.addColumn("인터뷰", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, "2023/"+vo.getStat_date(), vo.getStat_date()+"월");
+			gChart.addCell(count, vo.get베토벤());
+			gChart.addCell(count, vo.get인터뷰());
 			count++;
 		} 
 		
