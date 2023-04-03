@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.review.dao.ReviewDao">
+	
+	<!-- 댓글 전체 조회(해당 게시물번호에 대해) -->
+	<select id="reviewList" parameterType="review" resultType="review">
+		select r_no, u_id, r_title, r_content, r_point, r_hit, s_num,
+			    to_char(r_regdate,'YYYY-MM-DD') as r_regdate 
+		from REVIEWBOARD 
+		where s_num = #{s_num}
+		order by r_no desc        
+	</select>
+	
+	
+	<!-- 댓글  등록 -->
+	<insert id="reviewInsert" parameterType="review">
+		/* review - reviewInsert */
+		
+		<selectKey keyProperty="r_no" resultType="int" order="BEFORE">
+		    select reviewboard_seq.nextval from dual        
+		</selectKey>
+			insert into reviewboard(
+				r_no, u_id, r_title, r_content, r_point, r_hit, s_num
+			)values(
+				#{r_no}, #{u_id}, #{r_title}, #{r_content}, #{r_point}, #{r_hit}, #{s_num}
+			)
+	 </insert>
+
+	
+
+	 <!-- 댓글  수정 -->
+	 <update id="reviewUpdate" parameterType="review">
+	 	/* review - reviewUpdate */
+	 	update reviewboard 
+	 	set r_content = #{r_content}
+			,r_update = sysdate		 	
+		where r_no = #{r_no}
+	</update>
+
+	<!-- 댓글  삭제 -->
+	<delete id="reviewDelete" parameterType="review"> 
+		/* review - reviewDelete */
+		delete from reviewboard where r_no = #{r_no}
+	</delete>
+	
+	
+	
+</mapper>
