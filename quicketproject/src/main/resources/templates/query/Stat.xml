@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.statistics.dao.StatDao">
+	
+	<select id="showTicketCnt" resultType="stat">
+		select s_name, s_ticketcnt
+		from show
+	</select>
+
+	<select id="showSales" resultType="stat">
+		select s_name, s_price, s_ticketcnt, s_price*s_ticketcnt AS s_sales
+		from show
+	</select>
+	
+	<select id="weeklySales" resultType="stat">
+		select stat_date, stat_sales  
+		from stat
+	</select>
+</mapper>

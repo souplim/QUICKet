@@ -29,7 +29,7 @@
 	</li>
 	<li><small>1:1문의</small>
 	<ul class="nav nav-sidebar">
-		<li ><a href="#">1:1문의하기</a></li>
+		<li ><a href="/inq/inqList">1:1문의하기</a></li>
 	</ul>
 	</li>
 </ul>

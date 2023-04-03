@@ -30,4 +30,18 @@
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
 		<put-attribute name="main" value="/WEB-INF/views/admin/coupon/{1}.jsp" />
 	</definition>
+	
+	<!-- 1대1문의 -->
+	<definition name="admin/inq/*" extends="basic">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/inq/{1}.jsp" />
+	</definition>
+	
+	<!-- 통계 -->
+	<definition name="admin/stat/*" extends="basic">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/stat/{1}.jsp" />
+	</definition>
 </tiles-definitions>

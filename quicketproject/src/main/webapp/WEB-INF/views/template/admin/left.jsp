@@ -7,18 +7,18 @@
 
 
 	<ul class="nav nav-sidebar">
-	<li class="nav-item"><a class="nav-link" href="#">공연 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">공연장 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="/admin/user/userList">회원 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">예매 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">1:1 문의</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">이벤트 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="/admin/coupon/main">쿠폰 관리</a></li>
-	<li class="nav-item"><a class="nav-link" href="/admin/comm/main">커뮤니티 관리</a></li>	
-	<li class="nav-item"><a class="nav-link" href="#">통계 관리</a></li>
-</ul>
+		<li class="nav-item"><a class="nav-link" href="#">공연 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">공연장 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="/admin/user/userList">회원 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">예매 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+		<li class="nav-item"><a class="nav-link" href="/admin/inq/inqList">1:1 문의</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">이벤트 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="/admin/coupon/main">쿠폰 관리</a></li>
+		<li class="nav-item"><a class="nav-link" href="/admin/comm/main">커뮤니티 관리</a></li>	
+		<li class="nav-item"><a class="nav-link" href="/admin/stat/statList">통계 관리</a></li>
+	</ul>
 
 
 
