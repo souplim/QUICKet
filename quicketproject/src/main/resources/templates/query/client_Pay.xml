@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.pay.dao.PayClientDao">
+
+	<!-- 결제 테이블 insert -->
+	<insert id="payInsert" parameterType="pay">
+		INSERT INTO PAY(pay_num, pay_name, pay_phone, pay_email, pay_amount, u_id, pay_update)
+		VALUES(TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(PAY_SEQ.nextval)), #{pay_name},#{pay_phone},#{pay_email},#{pay_amount},#{u_id},SYSDATE)
+	</insert>
+		
+	<!-- 결제 테이블 insert -->
+	<!-- <select id="paySelectPay_num" resultType="int">
+		select pay_num from pay
+	</select>  -->
+</mapper>

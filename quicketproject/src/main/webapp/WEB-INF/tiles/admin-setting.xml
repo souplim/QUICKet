@@ -45,15 +45,9 @@
 		<put-attribute name="main" value="/WEB-INF/views/admin/stat/{1}.jsp" />
 	</definition>
 	
-	<!-- FAQ -->
-	<definition name="admin/faq/*" extends="basic">
-		<put-attribute name="title" value="관리자 FAQ" />
-		<put-attribute name="main" value="/WEB-INF/views/admin/faq/{1}.jsp" />
-	</definition>
-		
-	<!-- 관람후기 -->
-	<definition name="admin/review/*" extends="basic">
-		<put-attribute name="title" value="관리자 관람후기" />
-		<put-attribute name="main" value="/WEB-INF/views/review/faq/{1}.jsp" />
+	<definition name="admin/ticket/*" extends="basic">
+		<put-attribute name="title" value="관리자 게시판 관리" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/ticket/{1}.jsp" />
 	</definition>
 </tiles-definitions>
