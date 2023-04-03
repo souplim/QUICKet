@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	
 	<typeAliases>
+		
 		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
 		<typeAlias type="com.spring.client.inq.reply.vo.InqReplyVO" alias="inqReply" />
 		<typeAlias type="com.spring.client.mypage.vo.MypageVO" alias="mypage" />
-		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" />
 		<typeAlias type="com.spring.admin.statistics.vo.StatVO" alias="stat" />
+		
+		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
+		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
+		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
+		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
+		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
 	</typeAliases>
 </configuration>

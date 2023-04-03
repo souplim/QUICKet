@@ -18,7 +18,7 @@ function chkData(item, msg){
  */
 function dataCheck(item, area, msg){
 	if($(item).val().replace(/s/g,"")==""){
-		$(area).text(msg+"입력해 주세요.").css("color","red");
+		$(area).text(msg+" 입력해 주세요.").css("color","red");
 		$(item).select();
 		return false;
 	} else

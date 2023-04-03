@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-///import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,17 +61,17 @@ public class ClientUserController {
 	 * 회원가입 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
-	/*
+	
 	@GetMapping("/join")
 	public String joinForm() {
 		log.info("client 회원가입 화면 호출");
 		return "client/user/join"; 	// views/client/login.jsp
-	}*/
+	}
 	
 	/*************
 	 * 회원가입 처리 메서드
 	 */
-	/*@PostMapping("/userJoin")
+	@PostMapping("/userJoin")
 	public String userJoin(UserVO user, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원가입 처리 메소드 호출 userJoin() ");
 		
@@ -86,52 +87,62 @@ public class ClientUserController {
 		}
 		return "redirect:" + path;
 	}
-	*/
+	
 	@PostMapping("/login")
 	public String userLoginProcess(UserVO login, Model model, RedirectAttributes ras, HttpSession session) {
 		String url = "";
 		log.info("client 로그인 처리 호출");
 		
-		UserVO userLogin = clientUserService.userLoginProcess(login);
+		UserVO userLogin = null;
+		userLogin = clientUserService.userLoginProcess(login);
 		
 		boolean dateResult = false;
 		try {
-			/* 시간 계산 */
-			// 비밀번호 변경 날짜 String -> Date 로 변경
-			SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-			String u_pwddate = userLogin.getU_pwddate();
-			Date pwddate = sdformat.parse(u_pwddate);
-	        log.info("비밀번호 변경 날짜 :" + pwddate); // Sat Jun 19 21:05:07 KST 2021
-			// 오늘 날짜 계산
-			Date now = new Date();
-			Calendar today = Calendar.getInstance();
-			today.setTime(now);
-	        
-	        //String setPwdDate = "";
-	        Calendar setPwdDate = Calendar.getInstance();
-	        setPwdDate.setTime(pwddate);
-	        setPwdDate.add(Calendar.MONTH, 3);
-	        log.info("비밀번호 변경 주기 날짜 : " +  new Date(setPwdDate.getTimeInMillis()));
-	        
-	        // 날짜 비교
-	        dateResult = setPwdDate.before(today);
-	        ////////////////
-	        log.info("날짜 비교 결과 : " + dateResult);
+			if(userLogin != null)
+			{
+				/* 시간 계산 */
+				// 비밀번호 변경 날짜 String -> Date 로 변경
+				SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+				String u_pwddate = userLogin.getU_pwddate();
+				Date pwddate = dateformat.parse(u_pwddate);
+		        log.info("비밀번호 변경 날짜 :" + u_pwddate + " / " + pwddate); // Sat Jun 19 21:05:07 KST 2021
+		        log.info(">> " + dateformat.format(pwddate));
+		        // 오늘 날짜 계산
+				Date now = new Date();
+				Calendar today = Calendar.getInstance();
+				today.setTime(now);
+		        
+		        //String setPwdDate = "";
+		        Calendar setPwdDate = Calendar.getInstance();
+		        setPwdDate.setTime(pwddate);
+		        setPwdDate.add(Calendar.MONTH, 3);
+		        log.info("비밀번호 변경 주기 날짜 : " +  new Date(setPwdDate.getTimeInMillis()));
+		        
+		        // 날짜 비교
+		        dateResult = setPwdDate.before(today);
+		        ////////////////
+		        log.info("날짜 비교 결과 : " + dateResult);
+		        
+		      
+			}
+			
 		} catch (ParseException ex){
 			ex.printStackTrace();
 		} 
-		
-		if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
+		if (userLogin == null) {
+			ras.addFlashAttribute("errorMsg", "로그인 실패");
+			url = "/user/login";
+		} else if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
 			model.addAttribute("userLogin", userLogin);
 			log.info("사용자 상태 : " + userLogin.getU_state());
-			url = "/user/userInfo?u_num=" + userLogin.getU_num(); 	// 메인페이지로 이동하도록 설정.
+			url = "/user/userInfo"; 	// 메인페이지로 이동하도록 설정.
 		} else if (userLogin.getU_state() == 0) {
 			ras.addFlashAttribute("errorMsg", "탈퇴 회원입니다.");
 			url = "/user/login";
-		}else if (dateResult == true) {
+		} else if (dateResult == true) {
 			ras.addFlashAttribute("errorMsg", "비밀번호 변경 주기가 지났습니다. 비밀번호를 변경해주세요.");
 			model.addAttribute("userLogin", userLogin);
-			url = "/user/setPwdForm?u_num=" + userLogin.getU_num();
+			url = "/user/setPwdForm";
 		} else {
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
 			url = "/user/login";
@@ -157,11 +168,13 @@ public class ClientUserController {
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
 	@GetMapping("/userInfo")
-	public String userInfo(@ModelAttribute UserVO uvo, Model model) {
-		
+	public String userInfo(@SessionAttribute("userLogin") UserVO uvo, Model model) {
+		/*
 		UserVO userinfo = clientUserService.userInfo(uvo);
 		model.addAttribute("userInfo",userinfo);
+		*/
 		
+		log.info(uvo.getU_pwddate());
 		log.info("client 회원정보 화면 호출");
 		return "client/user/userInfo"; 	// views/client/userInfo.jsp
 	}
@@ -170,84 +183,88 @@ public class ClientUserController {
 	 * 회원 정보 수정 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/userUpdateForm 으로 요청
 	 *************************************************************/
-	/*@GetMapping("/userUpdateForm")
-	public String userUpdateForm(@ModelAttribute UserVO uvo, Model model) {
-		
+	@GetMapping("/userUpdateForm")
+	public String userUpdateForm(@ModelAttribute("userLogin") UserVO uvo, Model model) {
+		/*
 		UserVO userinfo = clientUserService.userInfo(uvo);
 		model.addAttribute("userInfo",userinfo);
-		
+		*/
 		log.info("client 회원정보수정 화면 호출");
 		return "client/user/userUpdateForm"; 	// views/client/userUpdateForm.jsp
 	}
 	
 	@PostMapping("/userUpdate")
-	public String userUpdate(@ModelAttribute UserVO vo, Model model, RedirectAttributes ras) throws Exception {
+	public String userUpdate(@ModelAttribute("userLogin") UserVO vo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원정보 수정 처리 userUpdate() ");
 		
 		int result = 0;
 		String path = "";
 		
 		result = clientUserService.userUpdate(vo);
+		
+		
+		
 		if(result == 1) {
 			ras.addFlashAttribute("errorMsg", "회원 정보 수정이 완료되었습니다.");
-			path = "/user/userInfo?u_num=" + vo.getU_num();
+			path = "/user/userInfo";
 		} else {
-			path = "/user/userUpdateForm?u_num=" + vo.getU_num();
+			path = "/user/userUpdateForm";
 		}
 		return "redirect:" + path;
 	}
-	*/
+	
 	
 	/****
 	 * 인증메일 전송 메소드
 	 */
-	/*@PostMapping("/mailConfirm")
+	@PostMapping("/mailConfirm")
 	@ResponseBody
 	public String mailConfirm(String email) throws Exception {
 	    String code = mailService.sendMessage(email);
 	    log.info("인증코드 : " + code);
 	    return code;
 	}
-	*/
+
+	
 	/**
 	 * 비밀번호 재설정 폼 화면 
 	 */
-	/*@GetMapping("/setPwdForm")
-	public String setPwdForm(@ModelAttribute UserVO uvo, Model model) {
-		
-			UserVO userinfo = clientUserService.userInfo(uvo);
-			model.addAttribute("userInfo",userinfo);
-			
-			log.info("client 회원정보 화면 호출");
+	@GetMapping("/setPwdForm")
+	public String setPwdForm(@ModelAttribute("userLogin") UserVO uvo, Model model) {
+			log.info("client 비밀번호 변경 폼 호출");
 			return "client/user/setPwdForm"; 	// views/client/userInfo.jsp
-	}*/
+	}
+	
 	
 	/**
 	 * 비밀번호 재설정 처리
-	 
+	 */
 	@PostMapping("/setNewPwd")
-	public String setNewPwd(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
+	public String setNewPwd(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras, SessionStatus sessionStatus) throws Exception {
 		log.info("비밀번호 재설정 메소드 호출");
 		
 		int result = 0;
 		String path = "";
 		
 		result = clientUserService.setNewPwd(uvo);
+		
 		if(result == 1) {
-			ras.addFlashAttribute("errorMsg", "비밀번호가 변경되었습니다.");
-			path = "/user/userInfo?u_num=" + uvo.getU_num();
+			ras.addFlashAttribute("errorMsg", "변경된 비밀번호로 다시 로그인해주세요.");
+			//model.addAttribute("userLogin", uvo);
+			sessionStatus.setComplete();
+			path = "/user/login";
 		} else {
 			ras.addFlashAttribute("errorMsg", "오류 발생");
-			path = "/user/setPwdForm?u_num=" + uvo.getU_num();
+			path = "/user/setPwdForm";
 		}
 		return "redirect:" + path;
-	}*/
+	}
 	
 	/**
 	 * 회원 탈퇴 처리
-	
+	*/
 	@GetMapping("/userDelete")
-	public String userDelete(@ModelAttribute UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
+	public String userDelete(@ModelAttribute("userLogin") UserVO uvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("회원 탈퇴 처리 메소드 호출");
 	
 		int result = 0;
@@ -265,12 +282,12 @@ public class ClientUserController {
 		
 		return "redirect:"+path;
 	}
-	 */
+	
 	/*************************************************************
 	 * 아이디 비밀번호 찾기 (아이디 찾기) 화면 구현 메서드
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
-	/*@GetMapping("/searchIdForm")
+	@GetMapping("/searchIdForm")
 	public String searchIdForm() {
 		log.info("아이디 찾기 화면 호출");
 		return "client/user/searchIdForm"; 	// views/client/login.jsp
@@ -281,8 +298,14 @@ public class ClientUserController {
 	public List<UserVO> searchIdPhone(@RequestParam("u_name") String u_name, @RequestParam("u_phone") String u_phone, Model model) {
 		log.info("전화번호로 아이디 찾기 메소드 실행");
 		
-		List<UserVO> list = clientUserService.searchIdPhone(u_name, u_phone);
-		model.addAttribute("list",list);
+		List<UserVO> list = null;
+		list = clientUserService.searchIdPhone(u_name, u_phone);
+		if(list.isEmpty()) {
+			log.info("결과 없음"+ list);
+		} else {
+			model.addAttribute("list",list);
+			log.info("결과 : " + list);
+		}
 		
 		return list;
 	}
@@ -292,8 +315,14 @@ public class ClientUserController {
 	public List<UserVO> searchIdEmail(@RequestParam("u_name") String u_name, @RequestParam("u_email") String u_email, Model model) {
 		log.info("전화번호로 아이디 찾기 메소드 실행");
 		
-		List<UserVO> list = clientUserService.searchIdEmail(u_name, u_email);
-		model.addAttribute("list",list);
+		List<UserVO> list = null;
+		list = clientUserService.searchIdEmail(u_name, u_email);
+		if(list.isEmpty()) {
+			log.info("결과 없음" + list);
+		} else {
+			model.addAttribute("list",list);
+			log.info("결과 : " + list);
+		}
 		
 		return list;
 	}
@@ -309,6 +338,43 @@ public class ClientUserController {
 		//model.addAttribute("data", result);
 		
 		return result;
-	}*/
+	}
+	
+	
+
+	
+	/**
+	 * 임시 비밀번호 전송 후 비밀번호 변경
+	 */
+	@PostMapping("/sendTempPwd")
+	public String sendTempPwd(String email, String id) throws Exception {
+		String pwd = mailService.sendTempPwd(email);
+		log.info("임시 비밀번호 전송 완료");
+		
+		UserVO user = new UserVO();
+		user.setU_id(id);
+		user.setU_pwd(pwd);
+		clientUserService.setNewPwd(user);
+		log.info("비밀번호 변경 완료 >> " + pwd );
+		
+		return "client/user/login";
+	}
+	
+	// 아이디 중복 체크
+	@ResponseBody
+	@PostMapping("/idCheck")
+	public int idCheck(String u_id, Model model) {
+		log.info("아이디 중복 체크");
+		String value = "";
+		
+		int result = clientUserService.idCheck(u_id);
+		if (result == 1) {
+			value = "결과 : 중복되는 아이디";
+		} else {
+			value = "결과 : 유일한 아이디";
+		}
+		log.info("result : " + result + ", value : " + value );
+		return result;
+	}
 
 }

@@ -1,6 +1,7 @@
 package com.spring.client.user.service;
 
-//import java.util.List;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class ClientUserServiceImpl implements ClientUserService {
 	
 	@Override
 	public UserVO userLoginProcess(UserVO login) {
-		UserVO userLogin = clientUserDao.userLoginProcess(login);
+		UserVO userLogin = null;
+		userLogin = clientUserDao.userLoginProcess(login);
 		return userLogin;
 	}
 
@@ -29,7 +31,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 		
 		return vo;
 	}
-/*
+
 	@Override
 	public int userJoin(UserVO user) throws Exception {
 		int result = 0; 
@@ -82,9 +84,23 @@ public class ClientUserServiceImpl implements ClientUserService {
 		int result = 0;
 		result = clientUserDao.userConfirm(u_name, u_id, u_email);
 		return result;
-	}*/
-	
-	
+	}
+
+	@Override
+	public int newPwd(UserVO user) throws Exception {
+		int result = 0;
+		result = clientUserDao.newPwd(user);
+		return result;
+	}
+
+	@Override
+	public int idCheck(String u_id) {
+		int result = 0;
+		result = clientUserDao.idCheck(u_id);
+		
+		return result;
+	}
+
 	
 	
 
