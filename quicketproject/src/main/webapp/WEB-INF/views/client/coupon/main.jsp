@@ -17,12 +17,29 @@
 		
 		$(".couponBtn").click(function(){
 			let num = $(this).parent("div").attr("data-num");
-			
+			let couponChk = 0;
+			// 이미 갖고있는 쿠폰인지 확인
+			/*
+			$.ajax({
+				type:"POST",
+				url:"/user/couponChk",
+				data:{
+					"c_num" : num
+				},
+				success:function(data){
+					console.log(data);
+					if(data == 1) {
+						couponChk = 1;
+					} else {
+						couponChk = 0;
+					}
+				}
+			});*////
 			
 			if($("#u_id").val() == null) {
 				alert("로그인이 필요합니다.");
-			} else if (${userCoupon.c_num} == num) {
-				alert("이미 발급받은 쿠폰입니다.");
+			} else if (couponChk==1) {
+				alert("이미 발급받은 쿠폰입니다.\n쿠폰은 한 번만 발급 받을 수 있습니다.");
 			} else {
 				console.log(num);
 				
@@ -42,11 +59,15 @@
 <style>
 	img {width : 100%;}
 	.coupon {width : 22%; }
+	.caption{height:110px;}
 </style>
 </head>
 <body>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
+<div class="container">
+
 
 <div class="row">
 	<form name="couponForm"id="couponForm">
@@ -61,8 +82,8 @@
 				        <img src="/uploadStorage/coupon/${coupon.c_img}"/>
 				        <div class="caption">
 				          <p><span>[${coupon.c_discount}%]</span>&nbsp;${coupon.c_name}</p>
-				          <p><small>발급기간 : <span>${coupon.c_startissue}</span>~<span>${coupon.c_endissue }</span></small></p>
-				          <p><small>유효기간 : <span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate }</span></small></p>
+				          <p><small>발급기간 : <span>${coupon.c_startissue}</span>~<span>${coupon.c_endissue }</span></small><br>
+						  <small>유효기간 : <span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate }</span></small></p>
 				        </div>
 				        <div class="btnArea" data-num="${coupon.c_num}">
 				        	<button type="button" class="btn btn-warning btn-block couponBtn" 
@@ -84,5 +105,8 @@
 
 
 </div>
+
+</div>
+
 </body>
 </html>
