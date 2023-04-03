@@ -64,5 +64,4 @@
 			<include refid="showSearch"></include>
 		</trim>
 	</select>
-	
 </mapper>
