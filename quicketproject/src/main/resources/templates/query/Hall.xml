@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.ticket.dao.HallDao">
+
+	<!-- 게시판 리스트 기본 조회 -->
+	<!-- <select id="boardList" resultType="board">
+		SELECT b_num, b_name, b_title, to_char(b_date,'YYYY-MM-DD') as b_date
+		FROM spring_board
+		ORDER BY b_num desc
+	</select> -->
+	
+	<!--  <sql id="boardSearch">
+		<if test="search=='b_title'">
+			<![CDATA[ b_title LIKE '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='b_content'">
+			<![CDATA[ b_content LIKE '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='b_name'">
+			<![CDATA[ b_name LIKE '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='b_date'">
+			<![CDATA[ to_char(b_date,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
+		</if>
+	</sql> 
+	
+	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+					<include refid="boardSearch"></include>
+				</trim>
+	-->
+	
+	 <select id="hall_list" parameterType="hall" resultType="hall">
+	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end,
+		TO_DATE(hall_end, 'YYYY-MM-DD') - TO_DATE(hall_start, 'YYYY-MM-DD') + 1 as date_gap, 
+		(select count(h.hall_id) from hall) as data_num 
+		from theater t LEFT JOIN hall h
+		ON t.th_num = h.th_num
+		LEFT JOIN show s
+		ON t.th_num = s.th_num
+	</select> 
+	
+	<select id="hallDetail" parameterType="hall" resultType="hall">
+		select hall_id, s_name ,th_name, h.hall_place as hall_place, h.hall_turn as hall_turn,
+		h.hall_seatNum as hall_seatNum, hall_start as hall_start,hall_end, hall_date, hall_time
+		from theater t LEFT JOIN hall h
+		ON t.th_num = h.th_num
+		LEFT JOIN show s
+		ON t.th_num = s.th_num
+		WHERE t.th_num= #{th_num}
+	</select>
+	<select id="hallDetail2" parameterType="hall" resultType="hall">
+		select *
+		from theater t LEFT JOIN hall h
+		ON t.th_num = h.th_num
+		LEFT JOIN show s
+		ON t.th_num = s.th_num
+		WHERE hall_id= #{hall_id}
+	</select>
+	 <!-- 전체 레코드 수 조회 
+   <select id="hall_listCnt" parameterType="hall" resultType="int">
+      SELECT count(*) FROM hall
+      <trim prefix=" where (" suffix=")" >
+         <include refid="hallSearch"></include>
+      </trim>
+   </select>-->
+   <!-- 게시판 리스트 쓰기 -->
+	<update id="hallUpdate" parameterType="hall">
+		UPDATE hall 
+		SET hall_place = #{hall_place},
+			hall_turn = #{hall_turn},
+			hall_time = #{hall_time},
+			hall_seatNum = #{hall_seatNum},
+			hall_date = #{hall_date}
+		WHERE hall_id = #{hall_id}
+	</update>
+	
+</mapper>
