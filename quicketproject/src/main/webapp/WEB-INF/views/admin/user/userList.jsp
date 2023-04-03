@@ -10,6 +10,18 @@
 			
 			$(function(){
 				
+				<!-- 회원 쿠폰내역 이동
+				$(".couponBtn").click(function(){
+					let num = $(this).parents("tr").attr("data-num");
+					
+					$("#u_num").val(num);
+					$("#outForm").attr({
+						"method" : "get",
+						"action" : "/admin/user/userCouponList"
+					});
+					$("#outForm").submit();
+				}); -->
+				
 				<!-- 회원 탈퇴 처리 -->
 				$(".outBtn").click(function(){
 					
@@ -159,8 +171,8 @@
 											<td>탈퇴회원</td>
 										</c:otherwise>
 									</c:choose>
-									<td><button type="button" class="btn btn-primary">예매내역</button></td>
-									<td><button type="button" class="btn btn-primary">쿠폰내역</button></td>
+									<td><button type="button" class="btn btn-primary ticketBtn">예매내역</button></td>
+									<td><button type="button" class="btn btn-primary couponBtn">쿠폰내역</button></td>
 									<c:choose>
 										<c:when test="${user.u_state == 1}">
 											<td><button type="button" class="btn btn-danger outBtn">탈퇴</button></td>

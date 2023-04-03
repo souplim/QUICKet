@@ -4,7 +4,7 @@
 
 <!-- 보유 쿠폰 불러오기 -->
 <select id="userCoupon" parameterType="String" resultType="userCoupon">
-	select u_id, c_num
+	select u_id, c_num, to_char(uc_date, 'yyyy-mm-dd') as uc_date, uc_state
 	from user_coupon
 	where u_id = #{u_id}
 </select>
