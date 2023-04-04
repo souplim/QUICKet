@@ -140,8 +140,8 @@ public class ClientShowServiceImpl implements ClientShowService {
 	public List<RankVO> ticketRankList(ShowVO vo){
 		List<RankVO> ticketRankList = null;
 		
-		vo.setStart_date(datelist.get(0));
-		vo.setEnd_date(datelist.get(1)); 
+		vo.setStart_date(datelist.get(3));
+		vo.setEnd_date(datelist.get(4)); 
 		
 		int amount = vo.getAmount();
 		List<RankVO> resultList = clientShowDao.rankList(vo);
