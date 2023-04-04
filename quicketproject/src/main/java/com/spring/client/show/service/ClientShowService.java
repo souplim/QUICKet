@@ -2,6 +2,7 @@ package com.spring.client.show.service;
 
 import java.util.List;
 
+import com.spring.client.review.vo.ReviewVO;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
 
@@ -21,5 +22,7 @@ public interface ClientShowService {
   
 	//랭킹 페이지의 랭킹 정보 관련 서비스
 	public List<RankVO> rankList(ShowVO vo);
+	
+	public int showPointUpdate(ReviewVO vo);
 	
 } 

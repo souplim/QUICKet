@@ -21,4 +21,8 @@
 		<script src="/resources/include/js/html5shiv.js"></script>
 		<![endif]-->
 
+		<!-- Bootstrap core CSS -->
+		<link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">	
+		<script type="text/javascript" src="/resources/include/js/jquery-3.6.2.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/resources/include/css/default.css" />
+		<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>

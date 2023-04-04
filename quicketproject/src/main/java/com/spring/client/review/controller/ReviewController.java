@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.client.review.service.ReviewService;
 import com.spring.client.review.vo.ReviewVO;
+import com.spring.client.show.service.ClientShowService;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,8 @@ public class ReviewController {
 		@Setter(onMethod_ = @Autowired)
 		private ReviewService reviewService;
 		
-		
+		@Setter(onMethod_ = @Autowired)
+		private ClientShowService clientShowService;
 		
 		/***************************************************************************************
 		 * 댓글 글목록 구현하기
@@ -58,13 +60,13 @@ public class ReviewController {
 	         log.info("reviewInsert 호출 성공");
 	         log.info("ReviewVO : "+rvo);
 	         int result = 0;
-	         
 	         result = reviewService.reviewInsert(rvo);
+	         
+	          
+	        if(result==1) {clientShowService.showPointUpdate(rvo);}
+	         
 	         return (result==1) ? "SUCCESS": "FAILURE";
 	      }
-	      
-	      
-	    
 	    
 	      
 	      /**************************************************************
