@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/admin/*")
+@RequestMapping("/admin/qna/*")
 @Slf4j
 public class AdminQnaController {
 	
@@ -30,11 +30,14 @@ public class AdminQnaController {
 	@GetMapping("/qnaAdminList")
 	public String qnaList(@ModelAttribute QnaVO qvo, Model model) {
 		log.info("admin qnaList 호출 성공");
+		int s_num = qvo.getS_num();
+		log.info("s_num : " + s_num);
+		
 		
 		// 리스트 조회
 		List<QnaVO> qnaList = adminQnaService.qnaList(qvo);
 		model.addAttribute("qnaList", qnaList);
-		
+		model.addAttribute("s_num", s_num);
 		// 전체 레코드수 구현
 		int total = adminQnaService.qnaListCnt(qvo);
 		model.addAttribute("pageMaker", new PageDTO(qvo, total));
@@ -49,6 +52,9 @@ public class AdminQnaController {
 	@GetMapping("/qnaAdminDetail")
 	public String qnaDetail(@ModelAttribute QnaVO qvo, Model model) {
 		log.info("admin qnaDetail 호출 성공");
+		int s_num = qvo.getS_num();
+		log.info("s_num : " + s_num);
+		model.addAttribute("s_num", s_num);
 		
 		QnaVO detail = adminQnaService.qnaDetail(qvo);
 		model.addAttribute("detail",detail);
@@ -60,6 +66,8 @@ public class AdminQnaController {
 	public String qnaDelete(@ModelAttribute QnaVO qvo) throws Exception{
 		log.info("admin qnaDelete 호출 성공");
 		log.info("삭제할 글 번호: "+qvo.getQ_no());
+		int s_num = qvo.getS_num();
+		log.info("s_num : " + s_num);
 		
 		int result = 0;
 		String url = "";
@@ -67,7 +75,7 @@ public class AdminQnaController {
 		result = adminQnaService.qnaAdminDelete(qvo.getQ_no());
 		
 		if(result == 1) {
-			url = "/admin/qnaAdminList";
+			url = "/admin/qna/qnaAdminList?s_num=" + s_num;
 		} 
 		return "redirect:"+url;
 	}

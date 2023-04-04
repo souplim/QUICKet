@@ -23,6 +23,7 @@
 		
 		<script type="text/javascript" src="/resources/include/js/jquery-3.6.2.min.js"></script>
 		<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/resources/include/js/common.js"></script>
 		
 		<!-- Bootstrap core CSS -->
 	    <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css"/>

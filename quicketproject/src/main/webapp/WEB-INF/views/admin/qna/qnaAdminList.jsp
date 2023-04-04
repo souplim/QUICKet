@@ -108,7 +108,7 @@
 					
 					$("#q_detailForm").attr({
 						"method":"get",
-						"action":"/admin/qnaAdminDetail"
+						"action":"/admin/qna/qnaAdminDetail"
 					});
 					$("#q_detailForm").submit();
 				}); 
@@ -120,7 +120,7 @@
 					
 					$("#q_detailForm").attr({
 						"method":"get",
-						"action":"/admin/qnaDelete"
+						"action":"/admin/qna/qnaDelete"
 					});
 					//console.log("q_no :"+$("#q_no").val());
 					$("#q_detailForm").submit();
@@ -142,7 +142,7 @@
 			
 			$("#q_search").attr({
 				"method":"get",
-				"action":"/admin/qnaAdminList"
+				"action":"/admin/qna/qnaAdminList"
 			});
 			$("#q_search").submit();
 		}
@@ -154,6 +154,7 @@
 
 		<form id="q_detailForm">
 			<input type="hidden" id="q_no" name="q_no"/>
+			<input type="hidden" id="s_num" name="s_num" value="${s_num}"/>
 		</form>
 		
 		
@@ -162,6 +163,7 @@
 			<form id="q_search" name="q_search" class="form-inline">
 				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 				<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount }">
+				<input type="hidden" name="s_num" id="s_num" value="${s_num}"/>
 				<div class="form-group">
 					<label>검색조건</label>
 					<select id="search" name="search" class="form-control">

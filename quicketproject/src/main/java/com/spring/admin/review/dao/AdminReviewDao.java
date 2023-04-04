@@ -11,6 +11,8 @@ public interface AdminReviewDao {
 
 	public List<ReviewVO> adminreviewList(ReviewVO rvo); /* 검색 포함 리스트 */
 
+	public int reviewCnt(ReviewVO rvo);
+	
 	public ReviewVO adminreviewDetail(ReviewVO rvo);
 
 	public int adminreviewDelete(int r_no);

@@ -17,8 +17,7 @@
 		from q_user
 		where u_num = #{u_num}
 		
-	</select> -->
-	
+	</select> -->	
 	
 	<!-- 회원가입 처리 -->
 
@@ -76,5 +75,13 @@
  	 	from dual
  	 </select>
  	 
-
+	<!--  비밀번호 확인  -->
+	<select id="pwdConfirm" parameterType="user" resultType="int">
+		select nvl((
+		select 1 from q_user
+		where u_id = #{u_id} and u_pwd = #{u_pwd}),0)
+		as state
+		from dual
+	</select>
+	
 </mapper>

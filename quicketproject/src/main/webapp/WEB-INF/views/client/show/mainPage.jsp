@@ -1,15 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<style type="text/css">
+.container{
+	margin-top:30px;
+}
+#mainPage-slide{
+	margin-bottom:100px;
+}
+.slide_Box{
+	width:100%;
+	height:600px;
+}
+.slide_img{
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
+	margin: 30px 0px 0px 50px;
+}
+.slide_txt{
+	position:absolute;
+	bottom:10%; 
+	right:15%;
+	text-align:right;
+}
+.slide_title{
+	color: #ccc;
+	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	font-weight:bold;
+	font-size:50px;
+}
+.slide_date{
+	color: #ccc;
+	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	font-size:16px;
+}
+.carousel-indicators li{
+	box-shadow:-1px -1px 2px 1px rgb(123,123,123,0.7) inset;
+	margin: 1px 5px;
+	width:15px;
+	height:15px;
+	border:1px solid rgb(220,220,220,0.7);
+}
+.carousel-indicators li.active{
+	background-color:rgb(220,220,220);
+	box-shadow:-1px -1px 2px 1px rgb(0,0,0,0.7) inset;
+	margin: 1px 5px;
+	width:15px;
+	height:15px;
+	border:1px solid rgb(220,220,220,0.7);
+}
+a[role='tab']{
+	font-weight:bold;
+	color:#ccc;
+}
+.tab-content{
+	height:400px;
+}
+</style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	let errorMsg = "${errorMsg}";
+	if(errorMsg!="") {
+		alert(errorMsg);
+		errorMsg = "";
+	}
+	
 	$.getJSON("/mainSlideList",function(data){
 		let $indicators = $("#mainPage-slide").find(".carousel-indicators");
 		let $inner = $("#mainPage-slide").find(".carousel-inner");
 		$(data).each(function(index){	
 			let $Link = $("<a href='/showDetail?s_num="+this.s_num+"'></a>")
-			let $imgBox = $("<div>");
+			let $Box = $("<div class='slide_Box'>");
 			let $img = $("<img />");
 			
 			let img_url="";
@@ -23,26 +85,28 @@ $(function(){
 				img_url="/uploadStorage/show/poster_default.jpg"
 				$img.attr("src", img_url);
 			}
-			$imgBox.css({
-				width:"100%",
-				height:"600px",
+			$Box.css({
 				backgroundImage:"url("+img_url+")",
-				backgroundSize:"cover"
+				backgroundSize:"cover",
 			})
+			
+			let $txt = $("<div class='slide_txt'><span class='slide_title'>"+this.s_name+"</span><br/><span class='slide_date'>"+this.s_opendate+" ~ "+this.s_closedate+"</span></div>");
 			
 			if(index==0){
 				let $item = $(".item")
-				$imgBox.append($img);
-				$Link.append($imgBox);
+				$Box.append($img)
+				$Box.append($txt)
+				$Link.append($Box);
 				$item.append($Link);
 				
 			}else{
 				let $item = $("<div class='item'></div>");
-				$imgBox.append($img);
-				$Link.append($imgBox);
+				$Box.append($img);
+				$Box.append($txt)
+				$Link.append($Box);
 				$item.append($Link);
 				$inner.append($item);
-				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'>")
+				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'></li>")
 				$indicators.append($idc)
 			}
 		})
@@ -74,14 +138,11 @@ $(function(){
 </head>
 	<body>
 		<div class="container">
-		
 			<div class="row">
 				<!-- 메인 페이지 슬라이드 기능 구현 -->
 				<div id="mainPage-slide" class="carousel slide" data-ride="carousel">
 					<!-- 인디케이터 -->
-					<ol class="carousel-indicators">
-						<li data-target="#mainPage-slide" data-slide-to="0" class="active"></li>
-					</ol>
+					<ol class="carousel-indicators"><li data-target="#mainPage-slide" data-slide-to="0" class="active"></li></ol>
 				
 					<!-- 내부에 들어갈 아이템 -->
 					<div class="carousel-inner" role="listbox">
@@ -99,8 +160,6 @@ $(function(){
 					</a>
 				</div>
 			</div>
-			
-			<br/><br/><br/>
 			
 			<!-- 랭킹박스 탭 기능 구현 -->
 			<div class="row">
@@ -123,16 +182,10 @@ $(function(){
 						<div id="mainPointRankPanel"></div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="ticketRank">
-						<div id="mainTicketRankPanel">
-							
-						</div>
+						<div id="mainTicketRankPanel"></div>
 					</div>
 				</div>
-
 			</div>
-			
-			<br/><br/><br/>
-			
 			<!-- 신작 박스 구현 -->
 			<div class="row">
 			
@@ -149,7 +202,6 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				
 			</div>
 			
 		</div>	
