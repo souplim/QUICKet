@@ -3,58 +3,55 @@
 <mapper namespace="com.spring.admin.statistics.dao.StatDao">
 	
 	<select id="showTicketCnt" resultType="stat">
-		select s_name, count(ti_num) as s_ticketcnt 
+		select s_name, COUNT(seat_num) AS s_ticketcnt
 		from (
-		    select s_num, s_name, s_price, s.th_num, u.u_id, u.u_gender, t.ti_num, h.hall_date, t.ti_regdate, ti_status 
+		    select s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
 		    from (
 		        select s_num, s_name, s_price, th_num 
 		        from show
 		        order by s_num
 		    ) s JOIN theater th ON s.th_num = th.th_num
 		        JOIN hall h ON th.th_num = h.th_num
-		        JOIN seat se ON h.hall_id = se.hall_id
-		        JOIN ticket_seat ts ON se.hall_id = ts.hall_id
-		        JOIN ticket t ON ts.ti_num = t.ti_num
+		        JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		        JOIN ticket t ON ts.pay_num = t.pay_num
 		        JOIN q_user u ON t.u_id = u.u_id
 		)
 		where ti_status = 1
-		group by s_name
+		group by s_name, pay_num 
 	</select>
 
 	<select id="showSales" resultType="stat">
-		select s_name, sum(s_ticketcnt*s_price) as s_sales
+		select s_name, seat_nums*s_price AS s_sales
 		from (
-		    select count(s_name) as s_ticketcnt, s_num, s_name, s_price, s.th_num, u.u_id, t.ti_num, ti_status 
+		    select s_name, COUNT(seat_num) AS seat_nums, s_price
 		    from (
-		        select s_num, s_name, s_price, th_num 
-		        from show
-		        order by s_num
-		    ) s JOIN theater th ON s.th_num = th.th_num
-		        JOIN hall h ON th.th_num = h.th_num
-		        JOIN seat se ON h.hall_id = se.hall_id
-		        JOIN ticket_seat ts ON se.hall_id = ts.hall_id
-		        JOIN ticket t ON ts.ti_num = t.ti_num
-		        JOIN q_user u ON t.u_id = u.u_id
-		        group by s_num, s_name, s_price, s.th_num, u.u_id, t.ti_num, ti_status
+		        select s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
+		        from (
+		            select s_num, s_name, s_price, th_num 
+		            from show
+		            order by s_num
+		        ) s JOIN theater th ON s.th_num = th.th_num
+		            JOIN hall h ON th.th_num = h.th_num
+		            JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		            JOIN ticket t ON ts.pay_num = t.pay_num
+		            JOIN q_user u ON t.u_id = u.u_id
+		    )
+		    where ti_status = 1
+		    group by s_name, s_price
 		)
-		where ti_status = 1
-		group by s_name
 	</select>
 	
 	<select id="weeklySales" resultType="stat">
-		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, SUM(DECODE(s_num, 1, s_price, 0)) 베토벤, 
-			SUM(DECODE(s_num, 2, s_price, 0)) 인터뷰
+		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, SUM(DECODE(s_num, 1, s_price, 0)) 베토벤, SUM(DECODE(s_num, 2, s_price, 0)) 인터뷰
 		from (
-		    select s_num, s_name, s_price, s.th_num, u.u_id, t.ti_num, 
-		    	t.ti_regdate, ti_status 
+		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
 		    from (
 		        select s_num, s_name, s_price, th_num 
 		        from show        
 		    ) s JOIN theater th ON s.th_num = th.th_num
 		        JOIN hall h ON th.th_num = h.th_num
-		        JOIN seat se ON h.hall_id = se.hall_id
-		        JOIN ticket_seat ts ON se.hall_id = ts.hall_id
-		        JOIN ticket t ON ts.ti_num = t.ti_num
+		        JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		        JOIN ticket t ON ts.pay_num = t.pay_num
 		        JOIN q_user u ON t.u_id = u.u_id
 		)
 		where ti_status = 1

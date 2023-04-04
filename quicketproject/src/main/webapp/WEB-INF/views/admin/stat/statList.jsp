@@ -10,8 +10,8 @@
 		$(function() {
 			
 			// 구글 차트 Load the Visualization API and the piechart package.
-			google.charts.load('current', { 'packages' : [ 'corechart' ] }); // 차트 스타일
-			google.charts.load('current', { 'packages' : [ 'bar' ] }); // 차트 스타일
+			google.charts.load('current', { 'packages' : [ 'bar' ] }); // 차트 스타일 - 막대
+			google.charts.load('current', { 'packages' : ['corechart', 'line'] }); // 차트 스타일 - 선
 			// Set a callback to run when the Google Visualization API is loaded.
 			google.charts.setOnLoadCallback(drawChartTicketCnt);
 			google.charts.setOnLoadCallback(drawChartShowSales);
@@ -38,9 +38,8 @@
 						var options = { title : '공연별 예매율' };
 						
 						// 입력값 화면에 뿌려주기
-						var chart = new google.visualization.PieChart(document.getElementById('ticketCnt_div'));
-						chart.draw(data, options);
-						//chart.draw(result, options);
+						var chart = new google.charts.Bar(document.getElementById('ticketCnt_div'));
+						chart.draw(data, google.charts.Bar.convertOptions(options));
 					},
 					async: false
 				}).responseText;
@@ -67,8 +66,8 @@
 						var options = { title : '공연별 매출 비율' };
 						
 						// 입력값 화면에 뿌려주기
-						var chart = new google.visualization.PieChart(document.getElementById('showSales_div'));
-						chart.draw(data, options);
+						var chart = new google.charts.Bar(document.getElementById('showSales_div'));
+						chart.draw(data, google.charts.Bar.convertOptions(options));
 					},
 					async: false
 				}).responseText;
@@ -96,8 +95,8 @@
 						var options = { title : '월별 매출액' };
 						
 						// 입력값 화면에 뿌려주기
-						var chart = new google.charts.Bar(document.getElementById('weeklySales_div'));
-						chart.draw(data, google.charts.Bar.convertOptions(options));
+						var chart = new google.visualization.LineChart(document.getElementById('weeklySales_div'));
+						chart.draw(data, options);
 					},
 					async: false
 				}).responseText;
