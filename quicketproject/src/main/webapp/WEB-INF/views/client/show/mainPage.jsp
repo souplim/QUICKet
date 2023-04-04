@@ -59,6 +59,13 @@ a[role='tab']{
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	let errorMsg = "${errorMsg}";
+	if(errorMsg!="") {
+		alert(errorMsg);
+		errorMsg = "";
+	}
+	
 	$.getJSON("/mainSlideList",function(data){
 		let $indicators = $("#mainPage-slide").find(".carousel-indicators");
 		let $inner = $("#mainPage-slide").find(".carousel-inner");

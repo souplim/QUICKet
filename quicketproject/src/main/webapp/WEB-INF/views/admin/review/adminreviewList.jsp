@@ -4,10 +4,16 @@
 
 
 <script type="text/javascript">	
-
-
 		let keyword = "", search = "", start_date = "", end_date = "";
+		search = "<c:out value='${data.search}' />";
+		start_date = "<c:out value='${data.start_date}' />";	
+		end_date = "<c:out value='${data.end_date}' />";
+		keyword = "<c:out value='${data.keyword}' />";
+		
+
 		$(function(){
+			
+			
 			if(search!="r_regdate"){
 				$("#dateCheck").hide();
 				var date = getDateFormat(new Date())
@@ -24,6 +30,21 @@
 				$("#search").val(search);
 				$("#keyword").val(keyword);
 			}
+			
+			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */	
+			$(".goDetail").click(function(){
+				let r_no =  $(this).parents("tr").attr("data-num");	
+				$("#r_no").val(r_no);
+				console.log("글번호 : "+r_no);
+				// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm) 
+				$("#detailForm").attr({
+					"method":"get",
+					"action":"/admin/review/adminreviewDetail"
+			//		"action":"/review/adminreviewDetail"
+
+				});
+				$("#detailForm").submit(); 
+			});
 		
 			/* 검색 버튼 클릭 시 처리 이벤트 */
 			$("#searchBtn").click(function(){
@@ -46,8 +67,8 @@
 				$("#keyword").val("");
 				$("#start_date").val("");
 				$("#end_date").val("");
-				//goPage();
-				location.href="/admin/review/adminreviewList";
+				goPage();
+				//location.href="/admin/review/adminreviewList";
 			});
 			
 			/* 검색 대상이 변경될 때마다 처리 이벤트 */
@@ -75,41 +96,20 @@
 			});
 			$("#f_search").submit();
 		}
-	
-		search = "<c:out value='${data.search}' />";
-		start_date = "<c:out value='${data.start_date}' />";	
-		end_date = "<c:out value='${data.end_date}' />";
-		keyword = "<c:out value='${data.keyword}' />";
 		
-		$(function() {
-			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */	
-			$(".goDetail").click(function(){
-				let r_no =  $(this).parents("tr").attr("data-num");	
-				$("#r_no").val(r_no);
-				console.log("글번호 : "+r_no);
-				// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm) 
-				$("#detailForm").attr({
-					"method":"get",
-					"action":"/admin/review/adminreviewDetail"
-			//		"action":"/review/adminreviewDetail"
 
-				});
-				$("#detailForm").submit(); 
-			});
-		});
-		
 
 </script> 
 </head>
 <body>
 <body>
 <!-- 	<h2 class="sub-header" >FAQ 관리</h2>  -->
-	<div class="contentTit page-header"><h3 class="text-center">관람후기 관리</h3></div>  
-	
+	<div class="contentTit page-header"><h3 class="text-center">관람후기 관리</h3></div> 
 
 	<form id="detailForm">
 			<input type="hidden" id="r_no" name="r_no" />
 	</form>
+
 
 	 		
 	<%-- 검색부분 정의 --%>
@@ -117,11 +117,10 @@
 		<form class="form-inline" id="f_search">
 			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
-						
+			<input type="hidden" name="s_num" id="s_num" value="${s_num}"/>
 	<!-- 		<h3><span class="label label-success">검색조건</span></h3> -->
 			<div class="form-group">
 				<select id="search" name="search" class="form-control">
-					<option value="s_name">공연명</option>
 					<option value="r_title">관람후기 제목</option>				
 					<option value="r_content">관람후기 내용</option>
 					<option value="r_regdate">작성일자</option>	
