@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.client.review.vo.ReviewVO;
 import com.spring.client.show.dao.ClientShowDao;
 import com.spring.client.show.vo.ImgVO;
 import com.spring.client.show.vo.RankVO;
@@ -277,5 +278,11 @@ public class ClientShowServiceImpl implements ClientShowService {
 		} 
 		return rankList;
 	}
+	
+	public int showPointUpdate(ReviewVO vo) {
+		int result = 0;
+		result = clientShowDao.showPointUpdate(vo);
+		return result;
+	};
 	
 }
