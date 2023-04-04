@@ -328,7 +328,7 @@
 									<textarea name="r_point" id="r_point" class="form-control" rows="1"></textarea>
 								</td>  -->					
 						
-							  <td name="myform" id="myform" method="post" action="./save">
+							  <td name="myform" id="myform" method="post" >
 							    <fieldset>
 							       	<input type="radio" name="r_point" value="5" id="rate1" checked="checked"><label for="rate1">⭐</label>
 							        <input type="radio" name="r_point" value="4" id="rate2"><label for="rate2">⭐</label>
