@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@EnableAsync
 public class RankScheduler {
 	@Setter(onMethod_=@Autowired)
 	private RankDao rankDao;
@@ -79,9 +82,11 @@ public class RankScheduler {
 		return list;
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 * * *")
 	public void countRateDay() {
 		log.info("일간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -108,9 +113,11 @@ public class RankScheduler {
 
 	} 
 	
+	@Async
 	@Scheduled(cron = "0 0 0 ? * MON")
 	public void countRateWeek() {
 		log.info("주간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -135,9 +142,11 @@ public class RankScheduler {
 		}
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 1 * ?")
 	public void countRateMonth() {
 		log.info("월간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -162,9 +171,11 @@ public class RankScheduler {
 		}
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 1 1 ?")
 	public void countRateYear() {
 		log.info("연간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
