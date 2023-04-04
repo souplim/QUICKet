@@ -36,6 +36,11 @@ public class ClinetCouponController {
 	@Setter(onMethod_ = @Autowired)
 	private AdminCouponService adminCouponService;
 	
+	@ModelAttribute("userLogin")
+	   public UserVO userLogin() {
+	      return new UserVO();
+	   }
+	
 	@GetMapping("/")
 	public String main(@ModelAttribute("userLogin") UserVO userLogin, AdminCouponVO avo, UserCouponVO uvo, Model model) {
 		log.info("사용자 쿠폰 메인 페이지 (쿠폰 리스트) 호출 및 실행");
