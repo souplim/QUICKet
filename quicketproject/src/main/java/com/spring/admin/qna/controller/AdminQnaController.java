@@ -72,6 +72,7 @@ public class AdminQnaController {
 		int result = 0;
 		String url = "";
 		
+
 		result = adminQnaService.qnaAdminDelete(qvo.getQ_no());
 		
 		if(result == 1) {
