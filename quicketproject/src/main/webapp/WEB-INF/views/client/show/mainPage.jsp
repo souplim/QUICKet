@@ -90,7 +90,7 @@ $(function(){
 				backgroundSize:"cover",
 			})
 			
-			let $txt = $("<div class='slide_txt'><span class='slide_title'>"+this.s_name+"</span><br/><span class='slide_date'>"+this.s_opendate+" ~ "+this.s_closedate+"</span></div>");
+			let $txt = $("<div class='slide_txt'><span class='slide_title'>《"+this.s_name+"》</span><br/><span class='slide_date'>"+this.s_opendate+" ~ "+this.s_closedate+"</span></div>");
 			
 			if(index==0){
 				let $item = $(".item")

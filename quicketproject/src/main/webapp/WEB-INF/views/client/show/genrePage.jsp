@@ -10,6 +10,10 @@
 	width:100%;
 	margin-bottom:10px;
 }
+a[role='tab']{
+	font-weight:bold;
+	color:#ccc;
+}
 </style>
 <link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
