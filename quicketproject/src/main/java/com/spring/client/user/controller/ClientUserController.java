@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -389,6 +391,17 @@ public class ClientUserController {
 		}
 		log.info("result : " + result + ", value : " + value );
 		return result;
+	}
+	
+	// 비밀번호 일치 여부 확인
+	@PostMapping("/pwdConfirm")
+	public ResponseEntity<String> pwdConfirm(@ModelAttribute UserVO vo, RedirectAttributes ras) {
+		log.info("비밀번호 일치 여부 확인");
+		ResponseEntity<String> entity = null;
+		int result = 0;
+		result = clientUserService.pwdConfirm(vo);
+		entity = new ResponseEntity<String>(String.valueOf(result), HttpStatus.OK);
+		return entity;
 	}
 
 }

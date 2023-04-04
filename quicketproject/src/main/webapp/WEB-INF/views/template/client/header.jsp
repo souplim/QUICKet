@@ -178,14 +178,15 @@
           <ul class="nav navbar-nav">
             <li><a href="/">홈</a></li>
             <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+            <li><a href="/genre?s_genre=연극">연극</a></li>
             <li><a href="/ranking">랭킹</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <c:if test="${not empty userLogin}">
+            <c:if test="${not empty userLogin.u_name}">
             	<li><a>${userLogin.u_name }님 환영합니다.</a></li>
 		 		<li><a href="/user/logout">로그아웃</a></li>
 			</c:if>
-			<c:if test="${empty userLogin}">
+			<c:if test="${empty userLogin.u_name}">
 			 	<li><a href="/user/login">로그인</a></li>
 			</c:if>
             <li><a href="#">고객센터</a></li>

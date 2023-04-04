@@ -12,7 +12,8 @@
 				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
 				$("#qnaListBtn").click(function(){
-					location.href = "/qna/qnaList";
+					history.back(); 
+					//location.href = "/admin/qna/qnaList";
 				});
 				
 				/* 삭제 버튼 클릭 시 처리 이벤트 */
@@ -20,14 +21,13 @@
 					$.ajax({
 						url: "/qna/qnaReplyCnt",
 						type: "post",
-						data: "q_no="+$("#q_no").val(),
-						dataType: "text",
+						data: {q_no:$("#q_no").val(),s_num:$("s_num").val()},
 						error: function(){
 							alert('시스템 오류, 관리자에게 문의하세요.');
 						},
 					success : function(resultData){
 						if(resultData==0){
-							goUrl = "/qna/qnaDelete";
+							goUrl = "/admin/qna/qnaDelete";
 							$("#q_data").attr("action", goUrl);
 							$("#q_data").submit();
 							
@@ -48,6 +48,7 @@
 		
 			<form name ="q_data" id="q_data" method="post">
 				<input type="hidden" id="q_no" name="q_no" value="${detail.q_no}"/>
+				<input type="hidden" id="s_num" name="s_num" value="${s_num}"/>
 			</form>
 			
 			

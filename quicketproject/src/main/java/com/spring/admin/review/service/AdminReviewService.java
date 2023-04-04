@@ -8,6 +8,8 @@ import com.spring.client.review.vo.ReviewVO;
 public interface AdminReviewService {
 
 	public List<ReviewVO> adminreviewList(ReviewVO rvo);
+	
+	public int reviewCnt(ReviewVO rvo);
 
 	public ReviewVO adminreviewDetail(ReviewVO rvo);
 
