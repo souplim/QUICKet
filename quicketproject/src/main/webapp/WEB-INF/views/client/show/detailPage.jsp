@@ -43,45 +43,55 @@ div[role="tabpanel"]{min-height:30em;}
 		})
 		
 		/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
-			$(".likes").on("click", function(){
-			let likes = "";
+		$(".likes").on("click", function(){
+			let u_id = "${userLogin.u_id}";
 			
-			if($(this).hasClass("addLikes")){
-				likes = "on";
+			if( u_id == "") {
+				alert("로그인 후 이용해주세요.");
+				let s_num = $("#s_num").val();
+				location.href="/showDetail?s_num="+s_num;
+				
 			} else {
-				likes = "off";
-			}
-			
-			const data = {
-				s_num : $("#s_num").val(),
-				likes : likes
-			}
-			
-			$.ajax({
-				url : "/mypage/likes",
-				type : "POST",
-				data : data,
-				error : function(xhr, textStatus, errorThrown){
-					alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
-				},
-				success : function(result){
-					console.log(result);
-					if(result=="SUCCESS"){
-						if(likes=="on"){
-							/* 관심공연담기 버튼 클릭시 관심공연등록 처리후 관심공연페이지로 이동할지 물어보는 모달창 */
-							$('#myLikesModal').on('shown.bs.modal', function () {
-							  $('#myInput').focus();
-							});
-						} else {
-							/* 관심공연 해제 버튼 클릭시 뜨는 모달창 */
-							$('#myCancelLikesModal').on('shown.bs.modal', function () {
-							  $('#myInput').focus();
-							});
-							
+				let likes = "";
+				
+				if($(this).hasClass("addLikes")){
+					likes = "on";
+				} else {
+					likes = "off";
+				}
+				
+				const data = {
+					s_num : $("#s_num").val(),
+					likes : likes
+				}
+				
+				$.ajax({
+					url : "/mypage/likes",
+					type : "POST",
+					data : data,
+					error : function(xhr, textStatus, errorThrown){
+						alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
+					},
+					success : function(result){
+						console.log(result);
+						if(result=="SUCCESS"){
+							if(likes=="on"){
+								/* 관심공연담기 버튼 클릭시 관심공연등록 처리후 관심공연페이지로 이동할지 물어보는 모달창 */
+								$('#myLikesModal').on('shown.bs.modal', function () {
+								  $('#myInput').focus();
+								});
+							} else {
+								/* 관심공연 해제 버튼 클릭시 뜨는 모달창 */
+								$('#myCancelLikesModal').on('shown.bs.modal', function () {
+								  $('#myInput').focus();
+								});
+								
+							}
 						}
 					}
-				}
-			});
+				});
+			}
+			
 		}); 
 			
 		
@@ -204,7 +214,7 @@ div[role="tabpanel"]{min-height:30em;}
 								</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
+								<button type="button" class="btn btn-danger likes addLikes" data-toggle="modal" data-target="#myLikesModal">
 									<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
 										<span class="badge">${mypageVO.likesCount}</span>
 								</button>
