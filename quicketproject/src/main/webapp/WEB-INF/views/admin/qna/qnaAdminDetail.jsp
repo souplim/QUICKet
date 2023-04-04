@@ -12,7 +12,7 @@
 				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
 				$("#qnaListBtn").click(function(){
-					location.href = "/qna/qnaList";
+					location.href = "/admin/qna/qnaList";
 				});
 				
 				/* 삭제 버튼 클릭 시 처리 이벤트 */
@@ -27,7 +27,7 @@
 						},
 					success : function(resultData){
 						if(resultData==0){
-							goUrl = "/qna/qnaDelete";
+							goUrl = "/admin/qna/qnaDelete";
 							$("#q_data").attr("action", goUrl);
 							$("#q_data").submit();
 							
