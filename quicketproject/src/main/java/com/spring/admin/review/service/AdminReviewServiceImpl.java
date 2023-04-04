@@ -48,6 +48,13 @@ public class AdminReviewServiceImpl implements AdminReviewService {
 		result = adminreviewDao.adminreviewDelete(rvo.getR_no());
 		return result;
 	}
+
+	@Override
+	public int reviewCnt(ReviewVO rvo) {
+		int total = 0;
+		total = adminreviewDao.reviewCnt(rvo);
+		return total;
+	}
 	
 
 

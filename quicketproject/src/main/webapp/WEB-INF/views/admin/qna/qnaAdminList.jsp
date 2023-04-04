@@ -108,7 +108,7 @@
 					
 					$("#q_detailForm").attr({
 						"method":"get",
-						"action":"/admin/qnaAdminDetail"
+						"action":"/admin/qna/qnaAdminDetail"
 					});
 					$("#q_detailForm").submit();
 				}); 
@@ -120,7 +120,7 @@
 					
 					$("#q_detailForm").attr({
 						"method":"get",
-						"action":"/admin/qnaDelete"
+						"action":"/admin/qna/qnaDelete"
 					});
 					//console.log("q_no :"+$("#q_no").val());
 					$("#q_detailForm").submit();
@@ -142,7 +142,7 @@
 			
 			$("#q_search").attr({
 				"method":"get",
-				"action":"/admin/qnaAdminList"
+				"action":"/admin/qna/qnaAdminList"
 			});
 			$("#q_search").submit();
 		}

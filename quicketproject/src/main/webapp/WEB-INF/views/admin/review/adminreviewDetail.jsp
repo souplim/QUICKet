@@ -20,7 +20,8 @@
 			
 			/* 목록 버튼 클릭 시 처리 이벤트 */
 			$("#reviewListBtn").click(function(){
-				location.href="/admin/review/adminreviewList"; 
+				history.back(); 
+				//location.href="/admin/review/adminreviewList"; 
 			});
 			
 		});	

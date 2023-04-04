@@ -33,7 +33,7 @@
 		<trim prefix="(" suffix=") AND " prefixOverrides ="AND">
 			<include refid="boardSearch"></include>
 		</trim>
-	<![CDATA[	rownum <= #{pageNum} * #{amount}
+	<![CDATA[	rownum <= #{pageNum} * #{amount} and s_num = #{s_num}
 		) qnalist
 		WHERE rnum > (#{pageNum} -1 ) * #{amount}
 		]]>
