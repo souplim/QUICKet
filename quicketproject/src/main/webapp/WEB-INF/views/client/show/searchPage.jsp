@@ -172,6 +172,7 @@
 			dateFormat:"yy-mm-dd",
 			onSelect:function(){
 				$("#end_date").val($(this).val());
+				$("#s_select_date").val("");	//달력으로 검색하는 건 무조건 상영일로 고정
 				$("#searchData").click();
 			}
 		});
