@@ -27,6 +27,8 @@ public class MypageVO extends CommonVO {
 	private String hall_turn = ""; // 공연회차
 	private String hall_time = ""; // 공연시간
 	private int s_price = 0; // 공연 가격
+	
+	private double pay_num = 0; // 결제번호
 	private String pay_name = ""; // 결제자 이름
 	private int pay_amount = 0; // 총결제가격
 	

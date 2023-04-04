@@ -41,8 +41,8 @@ public class MypageServiceImpl implements MypageService {
 
 	// 예매내역 취소
 	@Override
-	public Integer myTicketDelete(Integer ti_num) {
-		int result = mypageDao.myTicketDelete(ti_num);
+	public Integer myTicketDelete(double pay_num) {
+		int result = mypageDao.myTicketDelete(pay_num);
 		return result;
 	}
 

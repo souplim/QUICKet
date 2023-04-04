@@ -16,8 +16,12 @@
 			margin: 0 10px; 
 			width: 200px;
 		}
+		#img img {
+			height: 200px;
+			weith: 150px;
+		}
 		.table-ticket { width: 900px; }
-		.contentBtn { margin: 10px; }
+		.contentBtn { margin: 5px 20px 10px 30px; }
 		
 		#payment { margin-bottom: 30px; }
 		
@@ -110,8 +114,8 @@
 			
 			/* 예매취소 -> 확인 버튼 클릭시 이벤트 처리 */
 			$("#cancelConfirmBtn").on("click", function(){
-				let ti_num = $(".dataNum").attr("data-num");
-				location.href="/mypage/myTicketDelete?ti_num="+ti_num;
+				let pay_num = $(".dataNum").attr("data-num");
+				location.href="/mypage/myTicketDelete?pay_num="+pay_num;
 			});
 			
 		});
@@ -200,11 +204,13 @@
 				</div>
 				<div class="contentTB text-center flex">
 					<div id="img">
-						${ticketDetail.img_dir}/${ticketDetail.img_name}.${ticketDetail.img_type}
+						<c:if test="${ticketDetail.img_dir ne null}">
+							<img class="poster" src="/uploadStorage/${ticketDetail.img_dir}/${ticketDetail.img_name}.${ticketDetail.img_type}"/>
+						</c:if>
 					</div>
 					<div>
 						<table class="table table-bordered table-ticket">
-							<tr class="dataNum" data-num="${ticketDetail.ti_num}">
+							<tr class="dataNum" data-num="${ticketDetail.pay_num}">
 								<td class="col-md-4 gray">예매번호</td>
 								<td class="col-md-8 text-left">${ticketDetail.ti_num}</td>
 							</tr>
@@ -244,13 +250,13 @@
 						<c:when test="${ticketDetail.is_likes == 1}">
 							<button type="button" class="btn btn-danger likes cancelLikes" data-toggle="modal" data-target="#myCancelLikesModal">
 								<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 
-									관심공연 해제
+									해제
 							</button>
 						</c:when>
 						<c:otherwise>
 							<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
 								<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
-									관심공연 담기
+									관심
 							</button>
 						</c:otherwise>
 					</c:choose> 

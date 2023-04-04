@@ -118,7 +118,7 @@ public class MypageController {
 	 * 현재 요청 URL : http://localhost:8080/mypage/myTicketDelete
 	 ***********************************************************/
 	@GetMapping(value="/myTicketDelete")
-	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("ti_num") int ti_num, MypageVO mypageVO, Model model) {
+	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("pay_num") double pay_num, MypageVO mypageVO, Model model) {
 		log.info("예매내역 취소화면");
 		
 		// 로그인한 회원 아이디 세션에서 얻어오기
@@ -129,9 +129,10 @@ public class MypageController {
 		
 		String url = "";
 		
-		int result = mypageService.myTicketDelete(ti_num);
+		int result = mypageService.myTicketDelete(pay_num);
 
-		mypageVO.setTi_num(ti_num);
+//		mypageVO.setTi_num(ti_num);
+		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		
 		if(result == 1) {

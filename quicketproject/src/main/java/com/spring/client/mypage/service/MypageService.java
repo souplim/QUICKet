@@ -9,7 +9,7 @@ public interface MypageService {
 	List<MypageVO> myTicketList(MypageVO mypageVO); /* 예매내역 조회 */
 	Integer ticketListCnt(MypageVO mypageVO); /* 예매내역 개수 */
 	MypageVO myTicketDetail(MypageVO mypageVO); /* 예매내역 상세정보 조회 */
-	Integer myTicketDelete(Integer ti_num); /* 예매내역 취소 */
+	Integer myTicketDelete(double pay_num); /* 예매내역 취소 */
 
 	int likes(MypageVO mypageVO, String likes); /* 관심공연 등록 */
 	
