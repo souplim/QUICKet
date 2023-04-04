@@ -42,10 +42,13 @@ div[role="tabpanel"]{min-height:30em;}
 			})
 		})
 		
+		let u_id = "${userLogin.u_id}";
+		console.log(u_id);
+	
 		/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
 		$(".likes").on("click", function(){
 			let u_id = "${userLogin.u_id}";
-			
+			console.log(u_id);
 			if( u_id == "") {
 				alert("로그인 후 이용해주세요.");
 				let s_num = $("#s_num").val();
@@ -59,7 +62,7 @@ div[role="tabpanel"]{min-height:30em;}
 				} else {
 					likes = "off";
 				}
-				
+				console.log(likes);
 				const data = {
 					s_num : $("#s_num").val(),
 					likes : likes
@@ -76,12 +79,12 @@ div[role="tabpanel"]{min-height:30em;}
 						console.log(result);
 						if(result=="SUCCESS"){
 							if(likes=="on"){
-								/* 관심공연담기 버튼 클릭시 관심공연등록 처리후 관심공연페이지로 이동할지 물어보는 모달창 */
+								// 관심공연담기 버튼 클릭시 관심공연등록 처리후 관심공연페이지로 이동할지 물어보는 모달창
 								$('#myLikesModal').on('shown.bs.modal', function () {
 								  $('#myInput').focus();
 								});
 							} else {
-								/* 관심공연 해제 버튼 클릭시 뜨는 모달창 */
+								// 관심공연 해제 버튼 클릭시 뜨는 모달창
 								$('#myCancelLikesModal').on('shown.bs.modal', function () {
 								  $('#myInput').focus();
 								});
@@ -92,7 +95,7 @@ div[role="tabpanel"]{min-height:30em;}
 				});
 			}
 			
-		}); 
+		});
 			
 		
 		/* 나의관심공연 버튼 클릭시 이벤트 처리 */
@@ -107,9 +110,10 @@ div[role="tabpanel"]{min-height:30em;}
 			
 			// 디테일 페이지 리로드
 			location.href="/showDetail?s_num="+s_num;
-		});
+		}); 
 		
-	})
+		
+	});
 </script>
 </head>
 <body>
@@ -221,6 +225,7 @@ div[role="tabpanel"]{min-height:30em;}
 							</c:otherwise>
 						</c:choose> 
 					</div>
+					
 				</div>
 				
 			</div>

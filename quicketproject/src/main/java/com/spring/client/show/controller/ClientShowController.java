@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.mypage.service.MypageService;
@@ -26,6 +27,7 @@ import com.spring.common.vo.PageDTO;
 import lombok.Setter;
 
 @Controller
+@SessionAttributes("userLogin")
 @RequestMapping("/*")
 public class ClientShowController {
 	@Setter(onMethod_=@Autowired)
@@ -36,6 +38,11 @@ public class ClientShowController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MypageService mypageService;
+	
+	@ModelAttribute("userLogin")
+	public UserVO userLogin() {
+		return new UserVO();
+	}
 	
 	//메인페이지 관련 컨트롤러
 	@GetMapping("/")
@@ -137,7 +144,7 @@ public class ClientShowController {
 //		mypageVO.setS_num(vo.getS_num());
 		if(userVO.getU_id()!=null)
 			mypageVO.setU_id(userVO.getU_id());
-
+		System.out.println(mypageVO.getIs_likes());
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		model.addAttribute("ticketDetail", ticketDetail);
 		// 공연 상세 페이지에 들어갈 공연 관심 수 조회
