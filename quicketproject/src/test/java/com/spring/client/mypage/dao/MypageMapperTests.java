@@ -19,7 +19,7 @@ public class MypageMapperTests {
 	@Setter(onMethod_=@Autowired)
 	private MypageDao mypageDao;
 	
-	/* @Test
+	@Test
 	public void testMyTicketList() {
 		log.info("myTicketList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
@@ -27,11 +27,11 @@ public class MypageMapperTests {
 //		mypageVO.setSearch("hall_date");
 		mypageVO.setSearch("ti_regdate");
 		mypageVO.setStart_date("2023-03-01");
-		mypageVO.setEnd_date("2023-03-30");
+		mypageVO.setEnd_date("2023-05-30");
 		List<MypageVO> list = mypageDao.myTicketList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	} */
+	}
 	
 	/* @Test
 	public void testTicketListCnt() {

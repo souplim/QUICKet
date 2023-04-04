@@ -6,21 +6,21 @@
 	<select id="myTicketList" parameterType="mypage" resultType="mypage">
 		<![CDATA[
 			SELECT 
-			    rnum, ti_num, ti_regdate, pay_num, hall_date, s_num, s_name, COUNT(seat_num) AS seat_num, u_id, ti_status, hall_id 
+			    rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status, COUNT(pay_num) AS pay_num_cnt
 			FROM (
 			    SELECT 
-			        rnum, t.ti_num, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, t.pay_num, h.hall_id, hall_date, s.s_num, s_name, se.seat_num, t.u_id, t.ti_status
+			        rnum, p.pay_num, h.hall_id, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, h.hall_date, s.s_num, s.s_name, t.u_id, t.ti_status, i.img_dir
 			    FROM (
 			        SELECT 
-			            rownum AS rnum, ti_num, ti_regdate, u_id, ti_status, pay_num  
+			            rownum AS rnum, pay_num, ti_regdate, u_id, ti_status  
 			        FROM ticket
 			        WHERE u_id = #{u_id}
-			        ORDER BY ti_regdate desc
-			    ) t INNER JOIN ticket_seat ts ON t.ti_num = ts.ti_num
+			    ) t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
 			        INNER JOIN seat se ON ts.seat_num = se.seat_num
 			        INNER JOIN hall h ON se.hall_id = h.hall_id
 			        INNER JOIN theater th ON h.th_num = th.th_num
 			        INNER JOIN show s ON th.th_num = s.th_num
+			        INNER JOIN img i ON s.s_num = i.s_num
 			        INNER JOIN pay p ON t.pay_num = p.pay_num
 			    WHERE
 			    ]]>
@@ -33,10 +33,11 @@
 				</if>
 			</trim>
 			<![CDATA[ rownum <= #{pageNum} * #{amount}
-			and (h.hall_id) IN (select hall_id from ticket_seat where t.u_id=#{u_id} and rownum<=1) 
+			and (h.hall_id) IN (select hall_id from ticket_seat where t.u_id = #{u_id} and rownum<=1) AND i.img_dir LIKE '%'||'poster'
 			) 
 			WHERE rnum > (#{pageNum} -1) * #{amount}
-			GROUP BY rnum, ti_num, ti_regdate, pay_num, hall_date, s_num, s_name, u_id, ti_status, hall_id
+			GROUP BY rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status
+			ORDER BY pay_num
 		]]>
 	</select>
 	
