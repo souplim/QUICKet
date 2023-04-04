@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ include file="/WEB-INF/views/common/popup.jspf" %>
 <style type="text/css">
  th{
  	text-align:center;

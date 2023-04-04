@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.show.service.ClientShowService;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
+import com.spring.client.ticket.service.ClientTicketService;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -25,6 +27,9 @@ import lombok.Setter;
 public class ClientShowController {
 	@Setter(onMethod_=@Autowired)
 	private ClientShowService clientShowService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private ClientTicketService clientTicketService;
 	
 	//메인페이지 관련 컨트롤러
 	@GetMapping("/")
@@ -115,6 +120,11 @@ public class ClientShowController {
 	public String detailPage(@ModelAttribute ShowVO vo, Model model) {
 		ShowVO detailData = clientShowService.showDetail(vo);
 		model.addAttribute("detailData", detailData);
+		
+		HallVO hvo = new HallVO();
+		hvo.setTh_num(detailData.getTh_num());
+		HallVO hall_list = clientTicketService.hall_th_num(hvo);
+		model.addAttribute("hall_list",hall_list);
 		
 		return "client/show/detailPage";
 	}

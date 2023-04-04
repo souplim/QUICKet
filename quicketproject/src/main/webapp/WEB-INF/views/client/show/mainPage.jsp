@@ -4,10 +4,18 @@
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	let errorMsg = "${errorMsg}";
+	if(errorMsg!="") {
+		alert(errorMsg);
+		errorMsg = "";
+	}
+	
 	$.getJSON("/mainSlideList",function(data){
 		let $indicators = $("#mainPage-slide").find(".carousel-indicators");
 		let $inner = $("#mainPage-slide").find(".carousel-inner");
-		$(data).each(function(index){			
+		$(data).each(function(index){	
+			let $Link = $("<a href='/showDetail?s_num="+this.s_num+"'></a>")
 			let $imgBox = $("<div>");
 			let $img = $("<img />");
 			
@@ -32,11 +40,14 @@ $(function(){
 			if(index==0){
 				let $item = $(".item")
 				$imgBox.append($img);
-				$item.append($imgBox);
+				$Link.append($imgBox);
+				$item.append($Link);
+				
 			}else{
 				let $item = $("<div class='item'></div>");
 				$imgBox.append($img);
-				$item.append($imgBox);
+				$Link.append($imgBox);
+				$item.append($Link);
 				$inner.append($item);
 				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'>")
 				$indicators.append($idc)

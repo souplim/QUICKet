@@ -90,16 +90,22 @@ public class RankScheduler {
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
 		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(2));
-			rank.setRank_end(datelist.get(2));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(2)+" : 일간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(2)+" : 일간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(2));
+				rank.setRank_end(datelist.get(2));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(2)+" : 일간 랭킹 입력 완료 (성공: "+suc+",실패: "+fal+")");
 		}
+
 	} 
 	
 	@Scheduled(cron = "0 0 0 ? * MON")
@@ -112,16 +118,20 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(4));	//저번주 일요일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(3));
-			rank.setRank_end(datelist.get(4));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(3));
+				rank.setRank_end(datelist.get(4));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	
@@ -135,16 +145,20 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(6));	//저번달 말일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(5));
-			rank.setRank_end(datelist.get(6));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {		
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(5));
+				rank.setRank_end(datelist.get(6));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	
@@ -158,16 +172,20 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(8));	//작년 말일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(7));
-			rank.setRank_end(datelist.get(8));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 월간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 월간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(7));
+				rank.setRank_end(datelist.get(8));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 연간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	

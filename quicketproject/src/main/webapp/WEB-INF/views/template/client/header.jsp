@@ -138,10 +138,9 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <button type="button" id="close-btn" class="btn btn-info">CLOSE</button>
-            <li><a href="#">뮤지컬</a> </li>
-            <li><a href="#">연극</a> </li>
-            <li><a href="#">랭킹</a></li>
-            <li><a href="#">지역</a></li>
+            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a> </li>
+            <li><a href="/genre?s_genre=연극">연극</a> </li>
+            <li><a href="/ranking">랭킹</a></li>
             <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
             <li> <a href="/faq/faqList">FAQ</a></li>
             <li> <a href="/mypage/">마이페이지</a></li>
@@ -177,10 +176,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">홈</a></li>
-            <li><a href="#">뮤지컬</a></li>
-            <li><a href="#">랭킹</a></li>
-            <li><a href="#">지역</a></li>
+            <li><a href="/">홈</a></li>
+            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+            <li><a href="/ranking">랭킹</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <c:if test="${not empty userLogin}">
