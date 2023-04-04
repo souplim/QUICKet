@@ -29,4 +29,4 @@ public class CommonVO {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
-}
+} 

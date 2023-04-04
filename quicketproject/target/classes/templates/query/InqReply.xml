@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.inq.reply.dao.InqReplyDao">
+
+	<select id="inqReplyList" parameterType="Integer" resultType="inqReply">
+		SELECT i_r_num, i_num, i_r_content, to_char(i_r_update, 'YYYY-MM-DD HH24:MI:SS') AS i_r_update
+		FROM inquiry_reply
+		WHERE i_num = #{i_num}
+		ORDER BY i_r_num DESC
+	</select>
+	
+	
+
+</mapper>

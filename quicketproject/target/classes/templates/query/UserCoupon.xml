@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.client.coupon.dao.ClientCouponDao">
+
+<!-- 보유 쿠폰 불러오기 -->
+<select id="userCoupon" parameterType="String" resultType="userCoupon">
+	select u_id, c_num, to_char(uc_date, 'yyyy-mm-dd') as uc_date, uc_state
+	from user_coupon
+	where u_id = #{u_id}
+</select>
+
+<!-- 쿠폰 발급 -->
+<insert id="getCoupon" parameterType="userCoupon">
+	insert into user_coupon (u_id, c_num)
+	values (#{u_id}, #{c_num})
+</insert>
+
+<!-- 쿠폰 보유 여부 확인 -->
+<select id="couponChk" parameterType="userCoupon" resultType="int">
+	select nvl((
+	select 1 from user_coupon
+	where u_id = #{u_id} and c_num = #{c_num}),0)
+	as state
+	from dual
+</select>
+
+</mapper>

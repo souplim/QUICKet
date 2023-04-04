@@ -48,7 +48,7 @@
 		$(function() {			
 			
 			/** 댓글 목록 보여주는 함수*/ 	
-			let s_num = ${detail.s_num};
+			let s_num = ${detailData.s_num};
 		
 		//	let r_no =  ${detail.r_no};	
 		//	let u_id =  ${detail.u_id};	

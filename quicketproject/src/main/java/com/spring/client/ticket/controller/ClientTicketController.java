@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClientTicketController {
 	
+	/*
 	@Setter(onMethod_ = @Autowired)
 	private ClientTicketService clientTicketService;
 	
@@ -44,7 +45,7 @@ public class ClientTicketController {
 		return "client/ticket/showDetail"; 
 		
 	}
-	
+	*/
 	
 	
 }
