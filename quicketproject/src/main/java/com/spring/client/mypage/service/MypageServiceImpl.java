@@ -41,7 +41,7 @@ public class MypageServiceImpl implements MypageService {
 
 	// 예매내역 취소
 	@Override
-	public Integer myTicketDelete(double pay_num) {
+	public Integer myTicketDelete(int pay_num) {
 		int result = mypageDao.myTicketDelete(pay_num);
 		return result;
 	}
@@ -71,8 +71,8 @@ public class MypageServiceImpl implements MypageService {
 
 	// 좌석번호 리스트 조회
 	@Override
-	public List<Integer> mySeatList(int ti_num) {
-		List<Integer> list = mypageDao.mySeatList(ti_num);
+	public List<Integer> mySeatList(int pay_num) {
+		List<Integer> list = mypageDao.mySeatList(pay_num);
 		return list;
 	}
 

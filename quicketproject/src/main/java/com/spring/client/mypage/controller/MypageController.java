@@ -118,7 +118,7 @@ public class MypageController {
 		model.addAttribute("ticketDetail", ticketDetail);
 		
 		// 좌석번호 리스트 조회
-		List<Integer> seatList = mypageService.mySeatList(mypageVO.getTi_num());
+		List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
 		model.addAttribute("seatList", seatList);
 				
 		return "client/mypage/myTicketDetail"; // /WEB-INF/views/client/mypage/myTicketDetail.jsp 
@@ -129,7 +129,7 @@ public class MypageController {
 	 * 현재 요청 URL : http://localhost:8080/mypage/myTicketDelete
 	 ***********************************************************/
 	@GetMapping(value="/myTicketDelete")
-	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("pay_num") double pay_num, MypageVO mypageVO, Model model) {
+	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("pay_num") int pay_num, MypageVO mypageVO, Model model) {
 		log.info("예매내역 취소화면");
 		
 		// 로그인한 회원 아이디 세션에서 얻어오기
@@ -142,7 +142,6 @@ public class MypageController {
 		
 		int result = mypageService.myTicketDelete(pay_num);
 
-//		mypageVO.setTi_num(ti_num);
 		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		

@@ -13,7 +13,7 @@ public interface MypageDao {
 	List<MypageVO> myTicketList(MypageVO mypageVO); /* 예매내역 조회 */
 	Integer ticketListCnt(MypageVO mypageVO); /* 예매내역 개수 */
 	MypageVO myTicketDetail(MypageVO mypageVO); /* 예매내역 상세정보 조회 */
-	Integer myTicketDelete(double pay_num); /* 예매내역 취소 */
+	Integer myTicketDelete(int pay_num); /* 예매내역 취소 */
 	
 	int addlikes(MypageVO mypageVO); /* 관심공연 등록 */
 	int cancelLikes(MypageVO mypageVO); /* 관심공연 취소 */
@@ -21,7 +21,7 @@ public interface MypageDao {
 	public List<MypageVO> ticketList(String u_id); /* 등록 폼에서 조회할 회원 예매번호, 공연이름 */
 	List<MypageVO> faqList(String f_category); /* 문의글 등록 폼에서 조회할 faq 리스트 */
 	
-	List<Integer> mySeatList(int ti_num); /* 좌석번호 리스트 조회 */
+	List<Integer> mySeatList(int pay_num); /* 좌석번호 리스트 조회 */
 	
 	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
 	

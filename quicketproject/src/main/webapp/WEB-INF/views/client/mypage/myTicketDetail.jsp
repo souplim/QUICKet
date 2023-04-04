@@ -31,7 +31,8 @@
 		$(function(){
 			/* 공연정보 버튼 클릭시 이벤트 처리 */
 			$("#showInfoBtn").on("click", function(){
-				location.href="";
+				let s_num = $("#s_num").val();
+				location.href="/showDetail?s_num="+s_num;
 			});
 			
 			/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
@@ -84,9 +85,9 @@
 			
 			/* 나의 관심공연 버튼 클릭시 뜨는 모달창에서 닫기 버튼 클릭시 처리 이벤트 */
 			$(".detailReload").on("click", function(){
-				let ti_num = $(".tiNum").text();
-				console.log(ti_num);
-				$("#ti_num").val(ti_num);
+				let pay_num = $(".tiNum").text();
+				console.log(pay_num);
+				$("#pay_num").val(pay_num);
 				
 				// 디테일 페이지 리로드
 				$("#dataForm").attr({
@@ -177,7 +178,7 @@
 		<%-- ================= 데이터 전달 폼 ================= --%>
 		<form name="dataForm" id="dataForm">
 			<input type="hidden" name="s_num" id="s_num" value="${ticketDetail.s_num}">
-			<input type="hidden" name="ti_num" id="ti_num">
+			<input type="hidden" name="pay_num" id="pay_num">
 		</form>
 			
 		<%-- ================= 페이지 시작 ================= --%>
@@ -206,7 +207,7 @@
 						<table class="table table-bordered table-ticket">
 							<tr class="dataNum" data-num="${ticketDetail.pay_num}">
 								<td class="col-md-4 gray">예매번호</td>
-								<td class="col-md-8 text-left tiNum">${ticketDetail.ti_num}</td>
+								<td class="col-md-8 text-left tiNum">${ticketDetail.pay_num}</td>
 							</tr>
 							<tr>
 								<td class="col-md-4 gray">예매자</td>
@@ -223,13 +224,14 @@
 							<tr>
 								<td class="col-md-4 gray" style="vertical-align:middle">좌석번호</td>
 								<td class="col-md-8 text-left">
-									<c:choose>
+									${ticketDetail.seat_nums}번
+									<%-- <c:choose>
 										<c:when test="${not empty seatList}">
 											<c:forEach var="seats" items="${seatList}" varStatus="status">
 												<p>${seats.seat_num}번</p>
 											</c:forEach>
 										</c:when>
-									</c:choose>
+									</c:choose> --%>
 								</td>
 							</tr>
 						</table>

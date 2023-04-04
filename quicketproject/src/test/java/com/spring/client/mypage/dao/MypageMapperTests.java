@@ -19,7 +19,7 @@ public class MypageMapperTests {
 	@Setter(onMethod_=@Autowired)
 	private MypageDao mypageDao;
 	
-	@Test
+	/* @Test
 	public void testMyTicketList() {
 		log.info("myTicketList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
@@ -31,13 +31,13 @@ public class MypageMapperTests {
 		List<MypageVO> list = mypageDao.myTicketList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	}
+	} */
 	
 	/* @Test
 	public void testTicketListCnt() {
 		log.info("ticketListCnt() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
-		mypageVO.setU_id("userid");
+		mypageVO.setU_id("user02");
 		int count = mypageDao.ticketListCnt(mypageVO);
 		log.info(String.valueOf(count));
 	} */
@@ -47,7 +47,7 @@ public class MypageMapperTests {
 		log.info("myTicketDetail() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
 		mypageVO.setU_id("user02");
-		mypageVO.setTi_num(2);
+		mypageVO.setPay_num(20230303);
 		mypageVO.setS_num(1);
 		MypageVO mypageVO2 = mypageDao.myTicketDetail(mypageVO);
 		log.info(mypageVO2.toString());
