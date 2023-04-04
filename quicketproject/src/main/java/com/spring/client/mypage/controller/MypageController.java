@@ -2,6 +2,8 @@ package com.spring.client.mypage.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.client.mypage.service.MypageService;
 import com.spring.client.mypage.vo.MypageVO;
@@ -49,9 +51,18 @@ public class MypageController {
 	 * 요청 주소 : http://localhost:8080/mypage/
 	 ***********************************************************/
 	@GetMapping("/")
-	public String main() {
+	public String main(@ModelAttribute("userLogin") UserVO uvo, RedirectAttributes ras, HttpServletRequest request) {
+		String url = "";
+		if(uvo.getU_id() == null) {
+			ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+	        url = "redirect:" + request.getHeader("Referer");
+		} else {		
+			log.info(uvo.getU_pwddate());
+			log.info("마이페이지 메인 화면 호출");
+			url = "client/mypage/main";
+		}
 		log.info("마이페이지 메인 화면 호출");
-		return "client/mypage/main";
+		return url;
 	}
 	
 	/***********************************************************
