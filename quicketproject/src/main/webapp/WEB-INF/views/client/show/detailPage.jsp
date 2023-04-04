@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
 th{text-align:center;}
+div[role="tabpanel"]{min-height:30em;}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3dc7376a2cb1e4f12306eaaebe2593e4"></script>
 <script type="text/javascript" src="/resources/include/js/theaterMap.js"></script>
@@ -23,8 +24,6 @@ th{text-align:center;}
 				success:function(result){
 					let theater = JSON.parse(result);
 					
-					console.log(result)
-					console.log(theater)
 					$("#th_name").html(theater.th_name);
 					$("#th_seat").html("총 "+theater.th_seat+"석");
 					$("#th_addr").html(theater.th_addr);
@@ -100,7 +99,9 @@ th{text-align:center;}
 		</div>
 		<br/><br/>
 		<!-- 예매기능 박스 -->
-		<div class="ticketBox row">예매기능이<br/>들어갈<br/>박스입니다.</div>
+		<div class="ticketBox row">
+			<c:import url="/WEB-INF/views/client/ticket/showDetail.jsp" />
+		</div>
 		<br/><br/>
 		<!-- 상세페이지 탭 기능 구현 -->
 		<div class="detail_tabBox row">
@@ -177,7 +178,9 @@ th{text-align:center;}
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="reviewBox">
-						<div class="row"></div>
+						<div class="row">
+							<c:import url="/WEB-INF/views/client/review/reviewList.jsp" />
+						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="expectBox">
 						<div class="row"></div>

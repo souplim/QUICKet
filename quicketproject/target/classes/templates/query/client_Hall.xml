@@ -9,7 +9,7 @@
 		ON t.th_num = h.th_num
 		LEFT JOIN show s
 		ON t.th_num = s.th_num
-		where t.th_num = 1
+		where t.th_num = #{th_num}
 	</select> 
 	
 	<select id="hall_list" parameterType="Integer" resultType="hall">
