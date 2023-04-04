@@ -19,7 +19,7 @@
 			let num = $(this).parent("div").attr("data-num");
 
 			// 이미 갖고있는 쿠폰인지 확인
-			if($("#u_id").val() == null) {
+			if($("#u_id").val() == "") {
 				alert("로그인이 필요합니다.");
 			} else {
 				$.ajax({
