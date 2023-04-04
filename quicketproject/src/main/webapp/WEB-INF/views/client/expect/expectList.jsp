@@ -133,6 +133,91 @@
 				});
 			});
 		});
+		
+		/** 댓글 목록 보여주는 함수 - 서버로부터 리스트 받아오기 위한 요청함수 */
+		function listAll(s_num){
+			$(".reply").detach();	//선택한 요소를 DOM트리에서 삭제
+			
+			let url = "/expect/all/"+ s_num;
+			
+			$.getJSON(url, function(data){
+				$(data).each(function(){
+					let ex_no = this.ex_no;
+					let ex_title = this.ex_title;
+					let u_id = this.u_id;
+					let ex_content = this.ex_content;
+					let ex_regdate = this.ex_regdate;
+					ex_content = ex_content.replace(/(\r\n|\r|\n)/g, "<br />");
+					template(ex_no, ex_title, u_id, ex_content, ex_regdate);
+				});
+			}).fail(function(){
+				alert("댓글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해주세요");
+			});
+		}
+		
+		/** 새로운 글을 화면에 추가하여 보여주기 위한 함수 **/
+		function template(ex_no, ex_title, u_id, ex_content, ex_regdate){
+			
+			let id = "${userLogin.u_id}";
+			let $div = $('#reviewList');
+			
+			let $element = $('#item-template').clone().removeAttr('id');
+			$element.attr("data-num", ex_no);
+			$element.addClass("reply");
+			$element.find('.panel-heading > .panel-title > .title').html(ex_title);
+			$element.find('.panel-heading > .panel-title > .id').html(" / " + u_id);
+			$element.find('.panel-heading > .panel-title > .date').html(" / " + ex_regdate);
+			
+			if(id == u_id){
+				$element.find('.panel-heading > .panel-title > button').show();
+				
+			} else {
+				
+				$element.find('.panel-heading > .panel-title > button').hide();
+			}
+			$element.find('.panel-body').html(ex_content);
+			
+			$div.append($element);
+		}
+		
+		/* 입력 폼 초기화 */
+		function dataReset(){
+			$("#replyForm").each(funtion(){
+				this.reset();
+			});
+			
+			$("#u_id").prop("readonly", false);
+			$("#replyForm button[type='button']").removeAttr("data-num");
+			$("#replyForm button[type='button']").attr("id", "replyInsertBtn");
+			$("#replyForm button[type='button'].sendBtn").html("등록");
+			$("#replyForm button[type='button'].resetBtn").detach();
+		}
+		
+		/** 글 삭제를 위한 Ajax 연동 처리 **/
+		function deleteBtn(s_num, ex_no){
+			if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
+				$.ajax({
+					url : '/expect/'+ex_no,
+					type: 'delete',
+					headers : {
+						"X-HTTP-Method-Override" : "DELETE"
+					},
+					dataType : 'text',
+					error> function(xhr, textStatus, errorThrown){
+						alert(textStatus + " (HTTP-" +xhr.status + "/ " + errorThrown + ")");
+					},
+					success : function(result){
+						console.log("result: "+result);
+						if(result == 'SUCCESS'){
+							alert("댓글 삭제가 완료되었습니다.");
+							listAll(s_num)
+						}
+					}
+				});
+			} else {
+				formHide();
+			}
+		}
 	</script>
 
 	</head>
@@ -150,13 +235,16 @@
 								<td class="col-md-3 text-left">
 									${userLogin.u_id}
 								</td>
-									
+								<td class="col-md-1">제목</td>
+								<td class="col-md-3">
+									<input type="text" name="ex_title" id="ex_title" class="form-control">
+								</td>
 									<td class="col-md-4-btnArea">
 										<button type="button" id="replyInsertBtn" class="btn btn-primary gap sendBtn">등록</button>
 									</td>
 							</tr>
 							<tr>
-								<td class="col-md-2">내용</td>
+								<td class="col-md-1">내용</td>
 								<td colspan="4" class="col-md-11 text-left">
 									<textarea name="ex_content" id="ex_content" class="form-control" rows="3"></textarea>
 								</td>
