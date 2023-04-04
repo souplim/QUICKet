@@ -178,6 +178,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">홈</a></li>
             <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+            <li><a href="/genre?s_genre=연극">연극</a></li>
             <li><a href="/ranking">랭킹</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
