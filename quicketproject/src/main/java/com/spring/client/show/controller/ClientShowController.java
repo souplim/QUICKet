@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.admin.ticket.vo.HallVO;
@@ -142,13 +143,19 @@ public class ClientShowController {
 		
 		// 관심 공연 버튼 제어하기 위한 세부정보 조회
 //		mypageVO.setS_num(vo.getS_num());
-		if(userVO.getU_id()!=null)
+		if(userVO.getU_id()!=null) {
 			mypageVO.setU_id(userVO.getU_id());
-		System.out.println(mypageVO.getIs_likes());
-		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
-		model.addAttribute("ticketDetail", ticketDetail);
+			mypageVO.setS_num(vo.getS_num());
+//			System.out.println(userVO.getU_id());
+			
+			MypageVO myShowLike = mypageService.myShowLike(mypageVO);
+			model.addAttribute("myShowLike", myShowLike);
+			System.out.println(myShowLike.getIs_likes());
+		}
+
 		// 공연 상세 페이지에 들어갈 공연 관심 수 조회
-		int likesCount = mypageService.likesCount(mypageVO.getS_num());
+		System.out.println(vo.getS_num());
+		int likesCount = mypageService.likesCount(vo.getS_num());
 		mypageVO.setLikesCount(likesCount);
 
 		return "client/show/detailPage";

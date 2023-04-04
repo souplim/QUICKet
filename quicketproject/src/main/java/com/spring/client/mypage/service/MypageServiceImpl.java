@@ -83,6 +83,13 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
+	// 상세페이지의 관심공연 등록 여부 조회
+	@Override
+	public MypageVO myShowLike(MypageVO mypageVO) {
+		MypageVO vo = mypageDao.myShowLike(mypageVO);
+		return vo;
+	}
+	
 	// 공연 상세페이지 공연의 관심 수 조회
 	@Override
 	public int likesCount(int s_num) {
@@ -159,6 +166,8 @@ public class MypageServiceImpl implements MypageService {
 		int couponListCntN = mypageDao.couponListCntN(mypageVO);
 		return couponListCntN;
 	}
+
+
 
 	
 	

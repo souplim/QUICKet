@@ -211,14 +211,14 @@ div[role="tabpanel"]{min-height:30em;}
 					<%-- ================= 공연 디테일 페이지에 들어갈 관심공연 버튼 ================= --%>
 					<div class="contentBtn text-left" >
 						<c:choose>
-							<c:when test="${ticketDetail.is_likes == 1}">
+							<c:when test="${myShowLike.is_likes == 1}">
 								<button type="button" class="btn btn-danger likes cancelLikes" data-toggle="modal" data-target="#myCancelLikesModal">
 									<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 
 										<span class="badge">${mypageVO.likesCount}</span>
 								</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" class="btn btn-danger likes addLikes" data-toggle="modal" data-target="#myLikesModal">
+								<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
 									<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
 										<span class="badge">${mypageVO.likesCount}</span>
 								</button>

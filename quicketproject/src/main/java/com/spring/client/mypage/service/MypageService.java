@@ -19,6 +19,7 @@ public interface MypageService {
 	List<Integer> mySeatList(int pay_num); /* 좌석번호 리스트 조회 */
 	
 	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
+	MypageVO myShowLike(MypageVO mypageVO); /* 상세페이지의 관심공연 등록 여부 조회 */
 	int likesCount(int s_num); /* 공연 상세페이지 공연의 관심 수 조회 */
 	int myLikesListCnt(MypageVO mypageVO); /* 페이징 위한 나의 관심공연 수 */
 	
