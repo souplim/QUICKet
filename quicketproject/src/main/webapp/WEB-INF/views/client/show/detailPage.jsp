@@ -42,10 +42,104 @@ div[role="tabpanel"]{min-height:30em;}
 			})
 		})
 		
+		/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
+			$(".likes").on("click", function(){
+			let likes = "";
+			
+			if($(this).hasClass("addLikes")){
+				likes = "on";
+			} else {
+				likes = "off";
+			}
+			
+			const data = {
+				s_num : $("#s_num").val(),
+				likes : likes
+			}
+			
+			$.ajax({
+				url : "/mypage/likes",
+				type : "POST",
+				data : data,
+				error : function(xhr, textStatus, errorThrown){
+					alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
+				},
+				success : function(result){
+					console.log(result);
+					if(result=="SUCCESS"){
+						if(likes=="on"){
+							/* 관심공연담기 버튼 클릭시 관심공연등록 처리후 관심공연페이지로 이동할지 물어보는 모달창 */
+							$('#myLikesModal').on('shown.bs.modal', function () {
+							  $('#myInput').focus();
+							});
+						} else {
+							/* 관심공연 해제 버튼 클릭시 뜨는 모달창 */
+							$('#myCancelLikesModal').on('shown.bs.modal', function () {
+							  $('#myInput').focus();
+							});
+							
+						}
+					}
+				}
+			});
+		}); 
+			
+		
+		/* 나의관심공연 버튼 클릭시 이벤트 처리 */
+		$("#myLikesBtn").on("click", function(){
+			location.href="/mypage/myLikeList";
+		});
+		
+		/* 나의 관심공연 버튼 클릭시 뜨는 모달창에서 닫기 버튼 클릭시 처리 이벤트 */
+		$(".detailReload").on("click", function(){
+			let s_num = $("#s_num").val();
+			console.log(s_num);
+			
+			// 디테일 페이지 리로드
+			location.href="/showDetail?s_num="+s_num;
+		});
+		
 	})
 </script>
 </head>
 <body>
+	<%-- ================= 관심공연 담기 버튼 클릭시 모달창 내용 ================= --%>
+	<div class="modal fade" id="myLikesModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">QUICKet 관심공연 담기</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>관심공연에 담겼습니다.<br/>나의 관심공연에서 확인해주세요.<br/>바로확인하시겠습니까?</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary" id="myLikesBtn">나의관심공연</button>
+	        <button type="button" class="btn btn-default detailReload">닫기</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<%-- ================= 관심공연 해제 버튼 클릭시 모달창 내용 ================= --%>
+	<div class="modal fade" id="myCancelLikesModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">QUICKet 관심공연 해제</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>관심공연에서 해제되었습니다.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary detailReload">확인</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+		
 	<br/><br/>
 	<div class="container">
 		<div class="showBox_detail row">
@@ -94,7 +188,31 @@ div[role="tabpanel"]{min-height:30em;}
 							<td>${detailData.s_price}원</td>
 						</tr>						
 					</table>
+					
+					<%-- ================= 데이터 전달 폼 ================= --%>
+					<form name="dataForm" id="dataForm">
+						<input type="hidden" name="s_num" id="s_num" value="${detailData.s_num}">
+					</form>
+					
+					<%-- ================= 공연 디테일 페이지에 들어갈 관심공연 버튼 ================= --%>
+					<div class="contentBtn text-left" >
+						<c:choose>
+							<c:when test="${ticketDetail.is_likes == 1}">
+								<button type="button" class="btn btn-danger likes cancelLikes" data-toggle="modal" data-target="#myCancelLikesModal">
+									<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 
+										<span class="badge">${mypageVO.likesCount}</span>
+								</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
+									<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
+										<span class="badge">${mypageVO.likesCount}</span>
+								</button>
+							</c:otherwise>
+						</c:choose> 
+					</div>
 				</div>
+				
 			</div>
 		</div>
 		<br/><br/>

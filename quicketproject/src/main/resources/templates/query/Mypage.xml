@@ -14,7 +14,7 @@
 			        SELECT 
 			            rownum AS rnum, ti_num, ti_regdate, u_id, ti_status, pay_num  
 			        FROM ticket
-			        WHERE u_id = 'user02'
+			        WHERE u_id = #{u_id}
 			        ORDER BY ti_regdate desc
 			    ) t INNER JOIN ticket_seat ts ON t.ti_num = ts.ti_num
 			        INNER JOIN seat se ON ts.seat_num = se.seat_num
@@ -32,7 +32,8 @@
 					<![CDATA[to_char(ti_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
 				</if>
 			</trim>
-			<![CDATA[ rownum <= #{pageNum} * #{amount} 
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+			and (h.hall_id) IN (select hall_id from ticket_seat where t.u_id=#{u_id} and rownum<=1) 
 			) 
 			WHERE rnum > (#{pageNum} -1) * #{amount}
 			GROUP BY rnum, ti_num, ti_regdate, pay_num, hall_date, s_num, s_name, u_id, ti_status, hall_id
