@@ -6,10 +6,10 @@
 	margin:10px 0px;
 	padding:20px 10px 10px 10px;
 	text-align:center;
-	border:1px solid #ccc;
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 }
 .showBox_search_img{
-	width:100%;
+	width:200px;
 	margin:0px 0px 10px 0px;
 }
 .showBox_search_thumbnail{
