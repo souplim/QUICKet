@@ -49,6 +49,13 @@ public class AdminUserServiceImpl implements AdminUserService {
 		return userCouponList;
 	}
 
+	@Override
+	public List<MypageVO> userTicketList(String u_id) {
+		List<MypageVO> userTicketList = null;
+		userTicketList = adminUserDao.userTicketList(u_id);
+		return userTicketList;
+	}
+
 	
 	
 

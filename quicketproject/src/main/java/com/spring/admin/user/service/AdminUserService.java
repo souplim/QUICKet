@@ -10,4 +10,5 @@ public interface AdminUserService {
 	public int userListCnt(UserVO vo);
 	public int userDelete(UserVO vo) throws Exception;
 	public List<MypageVO> userCouponList(String u_id);
+	public List<MypageVO> userTicketList(String u_id);
 }
