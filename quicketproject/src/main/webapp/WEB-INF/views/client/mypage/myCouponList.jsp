@@ -41,7 +41,7 @@
 			    
 			    	<%-- ================= 사용가능 쿠폰 리스트 시작 ================= --%>
 					<div id="qnaList" class="table-height">
-						<table summary="Q&A 리스트" class="table table-striped">
+						<table summary="사용가능 쿠폰 리스트" class="table table-striped">
 							<thead>
 								<tr>
 									<th class="text-center col-md-3">쿠폰이름</th>
