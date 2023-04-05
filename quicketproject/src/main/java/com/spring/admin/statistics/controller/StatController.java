@@ -85,7 +85,7 @@ public class StatController {
 		GoogleChartDTO gChart = new GoogleChartDTO();
 		gChart.addColumn("공연", "string");
 //		gChart.addColumn("매출", "number");
-		gChart.addColumn("매출배율", "number");
+		gChart.addColumn("매출비율", "number");
 		
 		gChart.createRows(list.size());
 		
