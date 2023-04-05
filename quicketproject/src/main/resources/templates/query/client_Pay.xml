@@ -8,8 +8,58 @@
 		VALUES(TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(PAY_SEQ.nextval)), #{pay_name},#{pay_phone},#{pay_email},#{pay_amount},#{u_id},SYSDATE)
 	</insert>
 		
-	<!-- 결제 테이블 insert -->
-	<!-- <select id="paySelectPay_num" resultType="int">
-		select pay_num from pay
-	</select>  -->
+	<!-- 결제 테이블 PAY_SEQ.currval pay_num 반환 -->
+	<select id="paySelectPay_num" resultType="int">
+		select TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDD')||TO_CHAR(PAY_SEQ.currval)) from dual
+	</select> 
+	
+	<!-- 결제 테이블 payinfo 반환 -->
+	<select id="payInfo" parameterType="Integer" resultType="pay">
+		select * from PAY where pay_num=#{pay_num}
+	</select> 
+
+	<!-- 결제 취소 시 결제 테이블 인서트한거 삭제 -->
+	<delete id="payDelete" parameterType="Integer"> 
+		delete from pay
+		where pay_num = #{pay_num}
+	</delete>
+	
+	<!-- 결제 테이블 상태값 변경 -->
+	 <update id="payStatusUpdate" parameterType="Integer">
+	 	update PAY
+		set pay_status = 1
+		where pay_num= #{pay_num}
+	</update>
+	
+	<!-- 좌석 테이블 상태값 변경 -->
+	 <update id="seatStatusUpdate" parameterType="java.util.List">
+	 	 <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE SEAT
+			SET seat_age = #{item.seat_age}, seat_status = 1
+			WHERE seat_num = #{item.seat_num} and hall_id = #{item.hall_id}
+	    </foreach>
+	</update>
+	
+	<!-- 쿠폰 테이블 상태값 변경 -->
+	 <update id="couponStatusUpdate" parameterType="coupon">
+		UPDATE USER_COUPON
+		SET uc_state= 1
+		WHERE u_id = #{u_id} and c_num = #{c_num}
+	</update>
+	
+
+
+	<!-- 예매 테이블 insert -->
+	<insert id="ticketInsert" parameterType="pay">
+		INSERT INTO TICKET(pay_num, ti_date, ti_status, u_id, ti_regdate, ti_update)
+		VALUES(#{pay_num},SYSDATE,1,#{u_id},SYSDATE,SYSDATE)
+	</insert>
+	
+	<!-- 예매좌석 테이블 Insert -->
+	 <insert id="ticketSeatInsert" parameterType="java.util.List">
+	 	 <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+			INSERT INTO TICKET_SEAT(seat_num, hall_id, pay_num)
+			VALUES(#{item.seat_num}, #{item.hall_id}, #{item.pay_num})
+	    </foreach>
+	</insert>
 </mapper>

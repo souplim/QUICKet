@@ -4,12 +4,12 @@
 
 	<!-- 예매상세페이지에서 th_num 값만 리턴하면됨 -->
 	 <select id="hall_th_num" parameterType="paypage" resultType="paypage">
-	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end,TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate
+	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end,TO_CHAR(s_opendate,'YYYY-MM-DD') s_opendate,TO_CHAR(s_closedate ,'YYYY-MM-DD') s_closedate,s_num
 		from theater t LEFT JOIN hall h
 		ON t.th_num = h.th_num
 		LEFT JOIN show s
 		ON t.th_num = s.th_num
-		where t.th_num = 1
+		where t.th_num = #{th_num}
 	</select> 
 	
 	<select id="hall_list" parameterType="Integer" resultType="paypage">
@@ -91,10 +91,41 @@
 		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
 	</select> 
 	
-	<select id="pay_step4_UserData" parameterType="ticket_user" resultType="ticket_user">
+	<select id="pay_step4_UserData" parameterType="user" resultType="user">
 		select u_name, u_email, u_phone, u_id
 		from q_user
 		where u_id=#{u_id}
+	</select> 
+	
+	<select id="ticketSuccessPage" parameterType="tSuccess" resultType="tSuccess">
+	<![CDATA[
+				select t.pay_num, s.s_name, t.ti_regdate, t.ti_date,h.hall_id,rownum,
+		        (select 
+		        ( select seat_num 
+		            from (
+		                select pay_num
+		                        , SUBSTR(
+		                        XMLAGG(
+		                            XMLELEMENT(COL ,',', SEAT_NUM) ORDER BY SEAT_NUM).EXTRACT('//text()'
+		                        ).GETSTRINGVAL()
+		                       , 2) SEAT_NUM
+		                  FROM TICKET_SEAT where pay_num= #{pay_num}
+		                 GROUP BY pay_num) 
+		            ) 
+		        from dual) seat_num,
+		        COUNT(se.seat_num) AS seat_num, t.u_id, t.ti_status, i.img_name, i.img_dir,
+		        i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, p.pay_name, p.pay_amount, p.pay_phone, p.pay_email,s_opendate, s_closedate
+		from ticket t 
+		        INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+		        INNER JOIN seat se ON ts.seat_num = se.seat_num
+		        INNER JOIN hall h ON se.hall_id = h.hall_id
+		        INNER JOIN theater th ON h.th_num = th.th_num
+		        INNER JOIN show s ON th.th_num = s.th_num
+		        INNER JOIN img i ON s.s_num = i.s_num
+		        INNER JOIN pay p ON t.pay_num = p.pay_num
+		where (se.seat_num, h.hall_id) IN (select seat_num, hall_id from ticket_seat where pay_num=#{pay_num} and rownum <=1) and rownum <=1 and pay_num=#{pay_num}
+		group by t.pay_num, s.s_name,h.hall_id, t.ti_regdate, t.ti_date, t.u_id, t.ti_status, i.img_name, i.img_dir, i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, p.pay_name, p.pay_amount,rownum, p.pay_phone, p.pay_email,s_opendate, s_closedate
+		 ]]>
 	</select> 
 	
 </mapper>

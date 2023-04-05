@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.client.paypage.vo.CouponVO;
 import com.spring.client.paypage.vo.PayPageVO;
-import com.spring.client.paypage.vo.UserVO;
+import com.spring.client.paypage.vo.ticketSuccessVO;
+import com.spring.client.user.vo.UserVO;
 
 @Mapper
 public interface PayPageClientDao {
@@ -24,4 +25,6 @@ public interface PayPageClientDao {
 	public PayPageVO pay_step4_list(PayPageVO pvo);
 	
 	public UserVO pay_step4_UserData(UserVO uvo);
+	
+	public ticketSuccessVO ticketSuccessPage(ticketSuccessVO tsvo);
 }

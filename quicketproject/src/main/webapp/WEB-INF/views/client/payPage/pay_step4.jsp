@@ -162,53 +162,57 @@
 	<script type="text/javascript">
 	$(function(){
 		
-		// 다음단계 버튼 //ㄴㅇㄴ
-		$("#nextBtn").click(function(){
-			<c:forEach var="list" items="${SeatMapData}" varStatus="status">
-				console.log(${list.seat_num});
-			</c:forEach>
-			})
 		// 이전단계 버튼
 		$("#prevBtn").click(function(){
 			window.history.back();
 		})
-		// 결제
-		/* $("#requestBtn").click(function(){
-	        	requestPay();
-			}); */
+		// 결제 메서드 (2.5번째 수행)
 		var IMP = window.IMP; 
         IMP.init("imp57026378");
-        function requestPay() {
+        function requestPay(pay_num, pay_name, pay_phone, pay_email, pay_amount, s_name) {
             IMP.request_pay({
                 pg : 'html5_inicis',
                 pay_method : 'card',
-                merchant_uid: String(Math.floor(Math.random()*10000+1)), 
-                name : '당근 10kg',
-                amount : 100,
-                buyer_email : 'Iamport@chai.finance',
-                buyer_name : '포트원 기술지원팀',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456'
+                merchant_uid: pay_num, 
+                name : s_name,
+                amount : pay_amount,
+                buyer_email : pay_email,
+                buyer_name : pay_name,
+                buyer_tel : pay_phone,
             }, function (rsp) { // callback
                 if (rsp.success) {
-                    alert("성공");
+                	// 결제 테이블 결제 상태 값 Update
+                	payStatusUpdate(pay_num);
+                	// 좌석 테이블 상태 값 Update
+                	seatStatusUpdate();
+                	// 쿠폰 테이블 상태값 Update
+                	couponStatusUpdate();
+                	// 예매 테이블 Insert
+                	ticketInsert(pay_num);
+                	// 예매 좌석 테이블 Insert
+                	ticketSeatInsert(pay_num);
+                    alert("결제 완료되었습니다.");
+                    location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num;
                 } else {
-                    alert("실패");
+                	//결제 중 창을 닫았을 때 취소 시 결제 테이블 데이터 삭제
+                	payDelete(pay_num);
+                	alert("결제를 취소하였습니다. 다시 시도해 주세요.");
+                    
                 }
             });
         }
         
-        //결제버튼 클릭 시 결제 테이블 Insert
+        //결제버튼 클릭 시 결제 테이블 Insert (1번 수행)
         $(document).on("click", "#requestBtn", function(){
-			 let insertUrl = "/client/pay/payInsert";
+			 let insertUrl = "/client/payJson/payInsert";
 			 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
 			 let value= JSON.stringify({
 				 u_id : "${pay_step4_UserData.u_id}",
 				 pay_name : $("#pay_name").val(),
 				 pay_phone : $("#pay_phone").val(),
 				 pay_email : $("#pay_email").val(),
-				 pay_amount : $("#totalAmountTd").text()
+				 pay_amount : 100
+				 /* pay_amount : $("#totalAmountTd").text() */
 			 });
 			 
 			 $.ajax({
@@ -228,54 +232,194 @@
 				    	else if(!checkForm("#pay_email", "이메일을")) return false; 
 				    },
 				    success : function(result){
-				    	if(result == "SUCCESS"){
-				    		console.log("결제테이블 insert 완료");
-				    	}
-				    	else{
+				    	if(result == "payInsertFail"){
 				    		alert("결제테이블 insert 실패");
+				    	}
+				    	else{/* 성공 */
+				    		SelectPayInfo(result);
 				    	}
 				    }
 				});
-			 
-			//결제버튼 클릭 시 결제 테이블 Insert
-		         function TicketSeatTableInsert(){
-					 let insertUrl = "/client/pay/ticketSeatInsert";
-					 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
-					 let value= JSON.stringify({
-						 u_id : "${pay_step4_UserData.u_id}",
-						 pay_name : $("#pay_name").val(),
-						 pay_phone : $("#pay_phone").val(),
-						 pay_email : $("#pay_email").val(),
-						 pay_amount : $("#totalAmountTd").text()
-					 });
-					 
-					 $.ajax({
-							url  : insertUrl,
-							type : "post",
-							headers : {
-								"Content-Type":"application/json"
-							},
-							dataType:"text",
-							data : value,
-							error 	: function(xhr, textStatus, errorThrown) {
-								alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
-						    },
-						    beforeSend	: function() {
-						    	 if(!checkForm("#pay_name", "이름을")) return false;
-						    	else if(!checkForm("#pay_phone", "전화번호를")) return false;
-						    	else if(!checkForm("#pay_email", "이메일을")) return false; 
-						    },
-						    success : function(result){
-						    	if(result == "SUCCESS"){
-						    		console.log("결제테이블 insert 완료");
-						    	}
-						    	else{
-						    		alert("결제테이블 insert 실패");
-						    	}
-						    }
+        });
+			// 결제할 데이터 가져오기 (2번 수행)
+				function SelectPayInfo(pay_num){
+					let url = "/client/payJson/payInfo/"+pay_num; 
+					$.ajaxSetup({
+						async:false
+					});
+					$.getJSON(url, function(data){
+						$(data).each(function(){
+							let pay_num = this.pay_num;
+							let pay_name = this.pay_name;
+							let pay_phone = this.pay_phone;
+							let pay_email = this.pay_email;
+							let pay_amount = this.pay_amount;
+							let s_name = "${pay_step4_list.s_name}";
+							requestPay(pay_num,pay_name,pay_phone,pay_email,pay_amount,s_name);
 						});
-				 };
-		 });
+					}).fail(function(){
+						alert("결제데이터 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.")				
+					})
+				}
+		//결제 진행 중 취소할 시 결제 테이블 인서트 삭제 (3번 수행)
+		 function payDelete(pay_num1){
+				let DeleteUrl = "/client/payJson/payDelete";
+				 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
+				 let data_val = JSON.stringify({pay_num : pay_num1});
+				 $.ajax({
+						url  : DeleteUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : data_val,
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("결제 테이블 delete 완료");
+					    	}
+					    }
+					});
+		 }
+		//결제 테이블 결제 상태 1로 변경 (4번 수행)
+		 function payStatusUpdate(pay_num1){
+				let UpdateUrl = "/client/payJson/payStatusUpdate";
+				 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
+				 let data_val = JSON.stringify({pay_num : pay_num1});
+				 $.ajax({
+						url  : UpdateUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : data_val,
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("결제 테이블 update 완료");
+					    	}
+					    }
+					});
+		 }
+		 
+		//좌석 테이블 결제 상태 1로 변경 (5번 수행)
+		 function seatStatusUpdate(){
+				let UpdateUrl = "/client/payJson/seatStatusUpdate";
+				let data_val_arr = [];
+				 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
+					 <c:forEach var="list" items="${SeatMapData}" varStatus="status">
+					 	data_val_arr.push("${list.seat_num}");
+					 	data_val_arr.push("${list.seat_age}");
+					 	data_val_arr.push("${pay_step4_list.hall_id}");
+					</c:forEach>
+					console.log(data_val_arr);
+					console.log(JSON.stringify(data_val_arr));
+				  $.ajax({
+						url  : UpdateUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : JSON.stringify(data_val_arr),
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("좌석 테이블 update 완료");
+					    	}
+					    }
+					}); 
+		 }
+		
+		//쿠폰 테이블 결제 상태 1로 변경 (6번 수행)
+		 function couponStatusUpdate(){
+				let UpdateUrl = "/client/payJson/couponStatusUpdate";
+				let data_val = JSON.stringify({c_num : "${CouponVOData.c_num}",
+												u_id : "${pay_step4_UserData.u_id}"
+				});
+				  $.ajax({
+						url  : UpdateUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : data_val,
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("쿠폰 테이블 update 완료");
+					    	}
+					    	else if(result == "NOCHOICE"){
+					    		console.log("쿠폰을 선택하지 않음.");
+					    	}
+					    }
+					}); 
+		 }
+		
+		// 예매 테이블 Insert (7번 수행)
+		 function ticketInsert(pay_num1){
+				let UpdateUrl = "/client/payJson/ticketInsert";
+				let data_val = JSON.stringify({pay_num : pay_num1,
+												u_id : "${pay_step4_UserData.u_id}"
+				});
+				  $.ajax({
+						url  : UpdateUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : data_val,
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("예매 테이블 Insert 완료");
+					    	}
+					    }
+					}); 
+		 }
+		
+		// 예매좌석 테이블 INSERT (8번 수행)
+		 function ticketSeatInsert(pay_num1){
+				let InsertUrl = "/client/payJson/ticketSeatInsert";
+				let data_val_arr = [];
+				 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
+					 <c:forEach var="list" items="${SeatMapData}" varStatus="status">
+					 	data_val_arr.push("${list.seat_num}");
+					 	data_val_arr.push("${pay_step4_list.hall_id}");
+					 	data_val_arr.push(pay_num1);
+					</c:forEach>
+				  $.ajax({
+						url  : InsertUrl,
+						type : "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : JSON.stringify(data_val_arr),
+						error 	: function(xhr, textStatus, errorThrown) {
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+					    },
+					    success : function(result){
+					    	if(result == "SUCCESS"){
+					    		console.log("예매좌석 테이블 insert 완료");
+					    	}
+					    }
+					}); 
+		 }
         
         
 	});
@@ -485,8 +629,6 @@
 			<div style="display:flex;">
 			<button id ="prevBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
 			margin:30px 0 0 35px;">이전단계</button>
-			<button id ="nextBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
-			margin:30px 0 0 25px;">다음단계</button>
 			</div>
 		</div>
 	</div>
