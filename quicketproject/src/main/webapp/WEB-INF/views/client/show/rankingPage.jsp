@@ -2,12 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+.btn-group-lg>.btn-default{
+	background-image:none;
+	background-color:transparent;
+	border:none;
+}
+.btn-group-lg>.btn-default.active{
+	background-color: #e0e0e0;
+    border-color: #dbdbdb;
+}
+.nav-pills>li>a{
+	text-shadow: 0 1px 0 #fff;
+	color:black;
+	box-shadow: 0 1px 1px rgba(0,0,0,.125);
+}
+.nav-pills>li:first-child>a{
+	border-top-right-radius:0px;
+	border-bottom-right-radius:0px;
+}
+.nav-pills>li:last-child>a{
+	border-top-left-radius:0px;
+	border-bottom-left-radius:0px;
+}
+.nav-pills>li:not(:first-child):not(:last-child)>a{border-radius:0px;}
+.nav-pills>li+li{margin:0px;}
+.nav-pills>li.active>a{
+	background-color:#ddd;
+	box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+.nav-pills>li.active>a:hover{background-color:#999;}
+.nav-pills>li.active>a:focus{background-color:#777;}
+
 .topRankBox_wrapper{
 	padding:10px;
 }
 .topRankBox{
 	padding:20px;
-	border: 1px solid #ccc
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 }
 .rankBox_thumbnail{
 	display:inline-block;
@@ -88,7 +119,7 @@
 	margin:10px 0px;
 	padding:15px;
 	text-align:center;
-	border:1px solid #ccc;
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 }
 .otherRankBox_ranking{
 	display:flex;
@@ -372,8 +403,8 @@
 	<form id="f_ranking">
 		<div class="row">
 			<div class="col-xs-4 col-xs-offset-4">
+			<input type="hidden" id="s_genre" name="s_genre" />
 			<div class="btn-group btn-group-justified">
-				<input type="hidden" id="s_genre" name="s_genre" />
 				<div class="btn-group btn-group-lg" role="group">
 					<button type="button" class="genreBtn btn btn-default" value="">전체</button>
 				</div>

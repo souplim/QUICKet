@@ -207,7 +207,7 @@ $(function(){
 				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="weekNew">
-						<div id="mainNewPanel" class="row">
+						<div id="mainNewPanel">
 						</div>
 					</div>
 				</div>
