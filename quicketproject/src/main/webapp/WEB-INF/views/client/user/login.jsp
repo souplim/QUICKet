@@ -77,12 +77,13 @@
   <body>
 
     <div class="container">
-
+	<div>
       <form class="form-signin" id="loginForm">
-        <h3 class="form-signin-heading">로그인</h3>
-        <label for="u_id" class="sr-only">아이디</label>
+        <h3 class="form-signin-heading text-center">로그인</h3>
+        <label for="u_id" class="">아이디</label>
         <input type="text" id="u_id" name="u_id" class="form-control" placeholder="아이디">
-        <label for="admin_pwd" class="sr-only">비밀번호</label>
+        <br>
+        <label for="admin_pwd" class="">비밀번호</label>
         <input type="password" id="u_pwd" name="u_pwd" class="form-control" placeholder="비밀번호">
 
         <button class="btn btn-lg btn-info btn-block" type="button" id="loginBtn">로그인</button>
@@ -94,7 +95,7 @@
        </div>
         
       </form>
-    
+    </div>
 
     </div> <!-- /container -->
 
