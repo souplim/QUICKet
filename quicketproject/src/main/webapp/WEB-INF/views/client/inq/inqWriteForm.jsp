@@ -173,7 +173,7 @@
 				else if (!chkData("#i_content","내용을")) return false;
 				else {
 					// select option null값 제외 
-					console.log($("#ti_num option:selected").val());
+					console.log($("#pay_num option:selected").val());
 					
 					$("#insertForm").attr({
 						"method" : "post",
@@ -193,7 +193,7 @@
 				target.empty(); 
 				target.append("<option>선택</option>");
 				
-				$("#ti_num").val("ticketNum").prop("selected", true);
+				$("#pay_num").val("ticketNum").prop("selected", true);
 				$("#i_title").val("");
 				$("#i_content").val("");
 			});
@@ -233,15 +233,15 @@
 					</div>
 					
 					<div id="reserveInfo">
-						<div class="col-md-1"><label for="ti_num">예매번호</label></div>
+						<div class="col-md-1"><label for="pay_num">예매번호</label></div>
 						<div class="form-group col-md-5">
-							<select class="form-control" name="ti_num" id="ti_num">
+							<select class="form-control" name="pay_num" id="pay_num">
 								<option value="0">선택</option>
 								<!-- 유형이 공연일 때만 선택 조회 -->
 								<c:if test="${not empty ticketList}" >
 									<c:forEach var="ticket" items="${ticketList}" varStatus="status">
-										<option value="${ticket.ti_num}" >
-											${ticket.ti_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+										<option value="${ticket.pay_num}" >
+											${ticket.pay_num}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 											${ticket.s_name}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 											${ticket.hall_date}
 										</option>

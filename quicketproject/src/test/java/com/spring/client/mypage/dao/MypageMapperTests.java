@@ -27,7 +27,7 @@ public class MypageMapperTests {
 //		mypageVO.setSearch("hall_date");
 		mypageVO.setSearch("ti_regdate");
 		mypageVO.setStart_date("2023-03-01");
-		mypageVO.setEnd_date("2023-03-30");
+		mypageVO.setEnd_date("2023-05-30");
 		List<MypageVO> list = mypageDao.myTicketList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
@@ -37,7 +37,7 @@ public class MypageMapperTests {
 	public void testTicketListCnt() {
 		log.info("ticketListCnt() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
-		mypageVO.setU_id("userid");
+		mypageVO.setU_id("user02");
 		int count = mypageDao.ticketListCnt(mypageVO);
 		log.info(String.valueOf(count));
 	} */
@@ -47,7 +47,7 @@ public class MypageMapperTests {
 		log.info("myTicketDetail() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
 		mypageVO.setU_id("user02");
-		mypageVO.setTi_num(2);
+		mypageVO.setPay_num(20230303);
 		mypageVO.setS_num(1);
 		MypageVO mypageVO2 = mypageDao.myTicketDetail(mypageVO);
 		log.info(mypageVO2.toString());

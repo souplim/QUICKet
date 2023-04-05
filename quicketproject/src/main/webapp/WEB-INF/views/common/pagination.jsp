@@ -2,6 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<style type="text/css">
+.pagination>li>a, .pagination>li>a:hover{
+	color:#999;
+}
+.pagination>.active>a{
+    background-color:#ccc;
+    border-color:#ccc;
+}
+.pagination>.active>a:hover{
+    background-color:#999;
+    border-color:#ccc;
+}
+.pagination>.active>a:focus{
+    background-color:#777;
+    border-color:#ccc;
+}
+</style>
 <script type="text/javascript">
 $(function(){
 	$(".paginate_btn a").click(function(e){
