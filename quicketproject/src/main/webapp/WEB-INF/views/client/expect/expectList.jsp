@@ -264,7 +264,7 @@
 							<span class="id"></span>
 							<span class="date"></span>
 								<button type="button" data-btn="upBtn" class="btn btn-default gap upBtn">수정하기</button>
-								<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="btn btn-default gap delBtn">삭제하기</button>
+								<button type="button" data-btn="delBtn" id="ex_replyDeleteBtn" class="btn btn-default gap delBtn">삭제하기</button>
 						</h3>
 					</div>
 					<div class="panel-body"></div>

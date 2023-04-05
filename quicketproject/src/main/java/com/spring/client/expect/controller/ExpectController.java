@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.client.expect.service.ExpectService;
@@ -24,7 +24,7 @@ import com.spring.client.user.vo.UserVO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @RequestMapping("/expect/*")
 @SessionAttributes("userLogin")
 @Slf4j
@@ -37,7 +37,7 @@ public class ExpectController {
 	 * 기대평 댓글목록 구현하기
 	 ***********************************/
 	@GetMapping(value="/all/{s_num}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ExpectVO> expectList(@RequestParam("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute ExpectVO evo, Model model) {
+	public List<ExpectVO> expectList(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute ExpectVO evo, Model model) {
 		log.info("expectList 호출 성공");
 		
 		/* 전체 레코드 조회
@@ -58,6 +58,7 @@ public class ExpectController {
 		
 		return entity; 
 	}
+	
 	
 	/********************************
 	 *  댓글 등록하기
