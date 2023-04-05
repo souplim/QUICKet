@@ -4,7 +4,7 @@
 	
 	<!-- 댓글 리스트 조회 -->
 	<select id="expectList" parameterType="expect" resultType="expect">
-		SELECT ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD') as ex_regdate, s_num
+		SELECT ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') as ex_regdate, s_num
 		FROM expect
 		WHERE s_num = #{s_num}
 		ORDER BY ex_no desc
@@ -12,12 +12,13 @@
 	
 	<!-- 댓글 등록 -->
 	<insert id = "expectInsert" parameterType="expect">
-		/* Expect - expectInsert */
 		<selectKey keyProperty = "ex_no" resultType="int" order="BEFORE">
 			select expect_seq.nextval from dual
-		</selectKey>
-			insert into expect(s_num, ex_no, ex_title, u_id, ex_content)
-			values(#{s_num}, #{ex_no}, #{ex_title}, #{u_id}, #{ex_content})
+		</selectKey> 
+			insert into expect(ex_no, s_num, ex_title, u_id, ex_content
+			)values(
+				#{ex_no}, #{s_num}, #{ex_title}, #{u_id}, #{ex_content}
+				)
 	</insert>
 	
 	
@@ -26,6 +27,7 @@
 		/* expect - expectUpdate */
 		UPDATE expect
 		SET ex_content = #{ex_content}
+			, ex_title = #{ex_title}
 			, ex_regdate = SYSDATE
 		WHERE ex_no = #{ex_no}
 	</update>

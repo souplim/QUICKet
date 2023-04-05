@@ -352,7 +352,9 @@ div[role="tabpanel"]{min-height:30em;}
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="expectBox">
-					<div class="row"></div>
+					<div class="row">
+						<c:import url="/WEB-INF/views/client/expect/expectList.jsp" />
+					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="qnaBox">
 					<div class="row"></div>

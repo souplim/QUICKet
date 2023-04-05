@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.client.expect.service.ExpectService;
@@ -24,8 +24,8 @@ import com.spring.client.user.vo.UserVO;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/expect/*")
+@Controller
+@RequestMapping("/expect")
 @SessionAttributes("userLogin")
 @Slf4j
 public class ExpectController {
@@ -33,9 +33,17 @@ public class ExpectController {
 	@Setter(onMethod_ = @Autowired)
 	private ExpectService expectService;
 	
+	@RequestMapping(value="/expectList")
+	public String expectView() {
+		log.info("기대평 리스트 화면");
+		
+		return "client/expect/expectList";
+	}
+	
 	/***********************************
 	 * 기대평 댓글목록 구현하기
 	 ***********************************/
+	@ResponseBody
 	@GetMapping(value="/all/{s_num}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<ExpectVO> expectList(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute ExpectVO evo, Model model) {
 		log.info("expectList 호출 성공");
@@ -63,14 +71,16 @@ public class ExpectController {
 	/********************************
 	 *  댓글 등록하기
 	 ***************************/
+	@ResponseBody
 	@PostMapping(value = "/expectInsert", consumes = "application/json", produces= MediaType.TEXT_PLAIN_VALUE)
 	public String expectInsert(@RequestBody ExpectVO evo, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
 		log.info("expectInsert 호출 성공");
 		log.info("ExpectVO: " + evo);
 		
 		int result = 0;
-		result = expectService.expectInsert(evo);
 		evo.setU_id(userVO.getU_id());
+		result = expectService.expectInsert(evo);
+		
 		//evo.setS_num(1);
 		
 
@@ -94,6 +104,7 @@ public class ExpectController {
 	/*********************************
 	 * 댓글 수정
 	 *****************/
+	@ResponseBody
 	@PutMapping(value = "/{ex_no}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String expectUpdate(@PathVariable("ex_no") int ex_no, @RequestBody ExpectVO evo, @ModelAttribute("userLogin") UserVO userVO) throws Exception {
 		log.info("expectUpdateForm 호출 성공");
@@ -108,6 +119,7 @@ public class ExpectController {
 	/***************************
 	 * 댓글 삭제
 	 *************************/
+	@ResponseBody
 	@DeleteMapping(value="/{ex_no}", produces= MediaType.TEXT_PLAIN_VALUE)
 	public String expectDelete(@PathVariable("ex_no") int ex_no, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
 		log.info("expectUpdate 호출 성공");

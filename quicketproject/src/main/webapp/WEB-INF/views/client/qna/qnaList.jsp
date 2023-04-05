@@ -98,6 +98,8 @@
 					</tr>
 				</thead>
 				<tbody id="list" class="table-striped">
+					<tr><td>테스트</td></tr>
+					
 					<!-- 데이터 출력 -->
 					<c:choose>
 						<c:when test="${not empty qnaList}">

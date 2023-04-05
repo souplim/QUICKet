@@ -30,6 +30,21 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
+	<definition name="client/expect/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/expect/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<definition name="client/qna/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/qna/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	 
+	
 	<!-- 고객센터 레이아웃 -->
 	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
 		<put-attribute name="title" value=""/>
@@ -50,6 +65,9 @@
 		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
 	</definition>
+	
+	<!-- qna 게시판 -->
+	
 	
 	<!-- 마이페이지 레이아웃 -->
 	<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
