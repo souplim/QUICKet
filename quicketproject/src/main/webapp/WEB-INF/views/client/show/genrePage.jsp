@@ -2,13 +2,29 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+#searchBox{
+	margin-bottom:80px;
+}
 .genreBox{
-	padding:10px;
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
+	margin-bottom:20px;
+	padding:15px 20px;
 	text-align:center;
 }
 .genreBox_img{
 	width:100%;
 	margin-bottom:10px;
+}
+.genreBox_title{
+	font-size:20px;
+	font-weight:bold;
+}
+a[role='tab']{
+	font-weight:bold;
+	color:#ccc;
+}
+.tab-content{
+	height:350px;
 }
 </style>
 <link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
@@ -82,14 +98,14 @@
 		//해당 장르 전체 평점 랭킹 3개 받아오기
 		$.getJSON("/genrePointRankList?s_genre="+param_genre,function(data){
 			$(data).each(function(){
-				makeShowBox(this, "#genrePointRankPanel", "s_point", "4");
+				makeShowBox(this, "#genrePointRankPanel", "s_point", "3");
 			})
 		}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 		
 		//해당 이번 주 예매율 랭킹 3개 받아오기
 		$.getJSON("/genreTicketRankList?s_genre="+param_genre,function(data){
 			$(data).each(function(){
-				makeShowBox(this, "#genreTicketRankPanel", "rank_ticket", "4");
+				makeShowBox(this, "#genreTicketRankPanel", "rank_ticket", "3");
 			})
 		}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})	
 		
@@ -108,7 +124,7 @@
 		<div class="row">
 			<form class="form-horizontal" id="f_search">
 				<input type="hidden" class="s_genre" name="s_genre" value="${ShowVO.s_genre}"/>
-				<div class="form-group">
+				<div id="searchBox" class="form-group">
 					<div class="col-sm-2 col-sm-offset-2">
 						<select id="search" name="search" class="form-control">
 							<option value="s_name">공연명</option>
@@ -127,14 +143,8 @@
 						<div id="datepicker"></div>
 						<input type="hidden" id="start_date" name="start_date" />	
 						<input type="hidden" id="end_date" name="end_date" />	
-						<br/>
-						<select name="s_select_region" id="s_select_region" class="form-control">
-							<option value="">지역</option>
-							<option value="서울">서울</option>
-							<option value="경기">경기</option>							
-						</select>
 					</div>
-					<div class="col-sm-4 col-sm-offset-3">
+					<div class="col-sm-7 col-sm-offset-2">
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="disabled">
 								<a href="#">WEEK RANKING</a>
@@ -157,13 +167,21 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group"><div class="col-sm-2 col-sm-offset-1">
+					<select name="s_select_region" id="s_select_region" class="form-control">
+						<option value="">지역</option>
+						<option value="서울">서울</option>
+						<option value="경기">경기</option>							
+					</select>
+				</div></div>
 			</form>
 		</div>
 		<br/><br/><br/>
 		<div class="row">
 			<div id="genrelist" class="col-xs-10 col-xs-offset-1">		
 				<c:forEach var="show" items="${showList}">
-					<div class="genreBox col-xs-3" data-num="${show.s_num}">
+					<div class="col-xs-3">
+					<div class="genreBox" data-num="${show.s_num}">
 						<div class="genreBox_thumbnail">
 							<a href="/showDetail?s_num=${show.s_num}">
 								<img src=
@@ -182,6 +200,7 @@
 							<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
 							<span class="genreBox_subtxt_point" data-point="${s_point}">${s_point}</span>
 						</div>
+					</div>
 					</div>
 				</c:forEach>
 			</div>

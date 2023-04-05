@@ -10,17 +10,17 @@
 			
 			$(function(){
 				
-				<!-- 회원 쿠폰내역 이동
+				<!-- 회원 쿠폰내역 이동-->
 				$(".couponBtn").click(function(){
-					let num = $(this).parents("tr").attr("data-num");
-					
-					$("#u_num").val(num);
-					$("#outForm").attr({
+					let id = $(this).parents("tr").attr("data-id");
+					console.log("회원아이디 : "  + id);
+					$("#u_id").val(id);
+					$("#idForm").attr({
 						"method" : "get",
 						"action" : "/admin/user/userCouponList"
 					});
-					$("#outForm").submit();
-				}); -->
+					$("#idForm").submit();
+				}); 
 				
 				<!-- 회원 탈퇴 처리 -->
 				$(".outBtn").click(function(){
@@ -94,8 +94,11 @@
 </head>
 <body>
 	<form name="outForm" id="outForm">
-				<input type="hidden"name="u_num"id="u_num"/>
+				<input type="hidden"name="u_num" id="u_num"/>
 				<input type="hidden"name="u_email" id="u_email"/>
+	</form>
+	<form name="idForm" id="idForm">
+		<input type="hidden" name="u_id" id="u_id"/>
 	</form>
 	
 	<div  class="well">
@@ -145,7 +148,7 @@
 					<c:choose>
 						<c:when test="${not empty userList}" >
 							<c:forEach var="user" items="${userList}" varStatus="status">
-								<tr class="text-center" data-num="${user.u_num}" data-email="${user.u_email}">
+								<tr class="text-center" data-num="${user.u_num}" data-email="${user.u_email}" data-id="${user.u_id}">
 									<td>${count - status.index}</td>
 									<td>${user.u_num}</td>
 									<td>${user.u_name}</td>
