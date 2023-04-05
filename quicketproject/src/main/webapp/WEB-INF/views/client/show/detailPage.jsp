@@ -314,7 +314,7 @@ div[role="tabpanel"]{min-height:30em;}
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="theaterBox">
-					<div class="row text-center">
+					<div class="row">
 						<div class="row">
 							<h3 id="th_name"></h3>
 						</div>
@@ -347,15 +347,15 @@ div[role="tabpanel"]{min-height:30em;}
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="reviewBox">
-					<div class="row text-center">
+					<div class="row">
 						<c:import url="/WEB-INF/views/client/review/reviewList.jsp" />
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="expectBox">
-					<div class="row text-center"></div>
+					<div class="row"></div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="qnaBox">
-					<div class="row text-center"></div>
+					<div class="row"></div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="guideBox">
 					<div class="row text-center">

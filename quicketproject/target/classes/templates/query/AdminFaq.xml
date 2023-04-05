@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.faq.dao.AdminFaqDao">
+
+	
+   <!--검색기능  -->
+    <select id="adminfaqList" parameterType="faq" resultType="faq">
+			<![CDATA[ 
+			SELECT 
+				 f_no,  f_category, f_title, f_content , to_char(f_regdate,'YYYY-MM-DD') as f_regdate, to_char(f_update,'YYYY-MM-DD') as f_update
+			 FROM (
+					 SELECT /*+ INDEX_DESC(faq pk_faq) */ 
+					 rownum as rnum, f_no,  f_category, f_title, f_content ,f_regdate, f_update
+					 FROM faq 
+					 WHERE ]]>   
+				 <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+					 <include refid="faqSearch"></include>
+				 </trim> 
+				 <![CDATA[ rownum <= #{pageNum} * #{amount} 
+				 ) faq
+		 WHERE rnum > (#{pageNum} - 1) * #{amount} 
+		 ]]>
+		</select>
+   	
+   	  <sql id="faqSearch">
+			<if test="search=='f_category'">
+				<![CDATA[ f_category LIKE '%'|| #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='f_title'">
+				<![CDATA[ f_title LIKE '%'|| #{keyword} ||'%' ]]>	
+			</if>
+			<if test="search=='f_content'">
+				<![CDATA[ f_content LIKE '%'|| #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='f_regdate'">
+				<![CDATA[ to_char(f_regdate,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
+			</if>
+		</sql>		
+		
+		<!--상세 구현   -->		
+		<select id="adminfaqDetail" parameterType="faq" resultType="faq">
+			SELECT	  
+				f_no,  f_category, f_title, f_content , to_char(f_regdate,'YYYY-MM-DD') as f_regdate, to_char(f_update,'YYYY-MM-DD') as f_update
+			FROM FAQ
+			WHERE f_no = #{f_no}
+		</select>
+			
+	    <!-- 게시물  등록 - 2 -->
+		 <insert id="adminfaqInsert" parameterType="faq">
+			
+			<selectKey keyProperty="f_no" resultType="int" order="BEFORE">
+				select faq_seq.nextval from dual
+			</selectKey>
+			
+			INSERT INTO faq(f_no,f_category,f_title,f_content) 
+			VALUES (#{f_no}, #{f_category}, #{f_title}, #{f_content})			
+		 </insert>
+		 
+		 
+			 
+	    <!-- 게시물  수정 -->
+		<update id="adminfaqUpdate" parameterType="faq">		
+			UPDATE faq
+			SET f_category = #{f_category}, 
+				f_title    =  #{f_title},  
+                f_content  =  #{f_content}, 
+                f_update   =   sysdate
+			WHERE f_no = #{f_no}	
+		</update>
+		 
+		 
+		 <!-- 게시물  삭제 -->
+		<delete id="adminfaqDelete" parameterType="faq">
+			DELETE FROM faq WHERE f_no = #{f_no}
+		</delete>
+			 
+
+</mapper>
+
