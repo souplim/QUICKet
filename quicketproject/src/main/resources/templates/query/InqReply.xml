@@ -8,7 +8,5 @@
 		WHERE i_num = #{i_num}
 		ORDER BY i_r_num DESC
 	</select>
-	
-	
 
 </mapper>

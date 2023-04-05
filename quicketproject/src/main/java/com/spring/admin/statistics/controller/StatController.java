@@ -100,37 +100,6 @@ public class StatController {
 	}
 	
 	/***********************************************************
-	 * 주별 매출액 조회하기
-	 * 현재 요청 URL : http://localhoast:8080/admin/stat/weeklySales
-	 ***********************************************************/
-	/* @ResponseBody
-	@PostMapping(value="/weeklySales", produces=MediaType.APPLICATION_JSON_VALUE)
-	public String weeklySales(){
-		log.info("weeklySales 조회");
-		
-		List<StatVO> list = statService.weeklySales();
-		System.out.println(list);
-		
-		GoogleChartDTO gChart = new GoogleChartDTO();
-		gChart.addColumn("주차", "string");
-		gChart.addColumn("매출", "number");
-		
-		gChart.createRows(list.size());
-		
-		int count = 0;
-		for(StatVO vo : list) { 
-			gChart.addCell(count, vo.getStat_date());
-			gChart.addCell(count, vo.getStat_sales());
-			count++;
-		} 
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(gChart.getResult());
-		
-		return json;
-	} */
-	
-	/***********************************************************
 	 * 월별 매출액 조회하기
 	 * 현재 요청 URL : http://localhoast:8080/admin/stat/weeklySales
 	 ***********************************************************/

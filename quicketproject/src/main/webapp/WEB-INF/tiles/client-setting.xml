@@ -33,13 +33,20 @@
 	<!-- 고객센터 레이아웃 -->
 	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
 		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/client/user/{1}.jsp" />
+		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
+	<!-- faq -->
+	<definition name="client/faq/*" extends="cs">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/client/faq/{1}.jsp" />
+	</definition>
+	
 	<!-- 1대1문의 -->
-	<definition name="client/inq/*" extends="content">
+	<definition name="client/inq/*" extends="cs">
 		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
 	</definition>
@@ -69,12 +76,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
 	</definition>	
-	
-	<!-- FAQ -->
-	<definition name="client/faq/*" extends="content">
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/client/faq/{1}.jsp" />
-	</definition>
 		
 	<!-- 관람후기 -->
 	<definition name="client/review/*" extends="content">
