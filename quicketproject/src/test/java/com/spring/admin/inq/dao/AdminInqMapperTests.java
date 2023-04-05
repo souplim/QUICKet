@@ -62,7 +62,7 @@ public class AdminInqMapperTests {
 	public void testInqReplyUpdate() {
 		log.info("inqReplyUpdate() 메서드 실행");
 		InqReplyVO inqReplyVO = new InqReplyVO();
-		inqReplyVO.setI_num(1);
+		inqReplyVO.setPay_num(1);
 		inqReplyVO.setI_r_content("홈버튼을 누르지 마세요");
 		int result = adminInqDao.inqReplyUpdate(inqReplyVO);
 		log.info(String.valueOf(result));
