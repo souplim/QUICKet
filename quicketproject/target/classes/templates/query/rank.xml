@@ -11,10 +11,10 @@
 		group by t.th_num) total
 		left join 
 		(select h.th_num, sum(ticketed) seat from hall h left join
-		(select ts.hall_id hall_id, count(t.ti_num) ticketed from ticket_seat ts left join (select * from ticket where ti_status=1 
+		(select ts.hall_id hall_id, count(t.pay_num) ticketed from ticket_seat ts left join (select * from ticket where ti_status=1 
 		and to_char(ti_date,'YYYY-MM-DD') between
 		#{rank_start} and #{rank_end}
-		) t on ts.ti_num = t.ti_num
+		) t on ts.pay_num = t.pay_num
 		group by ts.hall_id) td on h.hall_id = td.hall_id group by h.th_num) ticketed
 		on total.th_num = ticketed.th_num
 		left join show s

@@ -149,8 +149,10 @@ public class ClientShowController {
 //			System.out.println(userVO.getU_id());
 			
 			MypageVO myShowLike = mypageService.myShowLike(mypageVO);
-			model.addAttribute("myShowLike", myShowLike);
-			System.out.println(myShowLike.getIs_likes());
+			if(myShowLike!=null) {
+				model.addAttribute("myShowLike", myShowLike);
+				System.out.println(myShowLike.getIs_likes());
+			}
 		}
 
 		// 공연 상세 페이지에 들어갈 공연 관심 수 조회

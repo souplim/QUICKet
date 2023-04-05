@@ -8,7 +8,12 @@ function makeShowBox(vo, panel, sub, size){
 	$showBox.addClass("col-xs-"+size);
 	let s_num = vo.s_num;
 	$showBox.attr("data-num", s_num);
-	$showBox.css({"padding":"10px","textAlign":"center"});
+	$showBox.css({
+		"padding":"15px 20px",
+		"textAlign":"center",
+		"boxShadow":"10px 10px 20px 3px rgb(123,123,123,0.5)",
+		"margin":"10px"
+	});
 	
 	let $showBox_thumbnail = $("<div class='showBox_thumbnail'></div>")
 	let $poster = $("<img class='showBox_img' />");
@@ -44,6 +49,7 @@ function makeShowBox(vo, panel, sub, size){
 		subtxt = Math.round(vo.s_point*100)/100;
 	}
 	let $title = $("<p class='showBox_title'>"+s_name+"</p>");
+	$title.css({"fontSize":"16px","fontWeight":"bold"})
 	let $subtxt = $("<span class='showBox_subtxt'>"+subtxt+"</span>");
 	if(sub=='s_point'){
 		$subtxt.prepend("<br/>");

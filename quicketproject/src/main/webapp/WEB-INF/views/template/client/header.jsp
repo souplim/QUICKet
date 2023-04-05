@@ -189,7 +189,7 @@
 			<c:if test="${empty userLogin.u_name}">
 			 	<li><a href="/user/login">로그인</a></li>
 			</c:if>
-            <li><a href="#">고객센터</a></li>
+            <li><a href="/faq/faqList">고객센터</a></li>
           </ul>
         </div>
         

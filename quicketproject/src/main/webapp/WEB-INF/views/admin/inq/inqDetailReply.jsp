@@ -243,7 +243,7 @@
 						let i_content = this.i_content;
 						let i_regidate = this.i_regidate;
 						let i_update = this.i_update;
-						let ti_num = this.ti_num;
+						let pay_num = this.pay_num;
 						
 						console.log("i_num: " +i_num);
 						console.log("i_content: " +i_content);
@@ -255,8 +255,8 @@
 						$("#detail_i_num").html(i_num);
 						
 						// 예매번호 초기화 및 대입
-						$("#ti_num").html("");
-						if(ti_num != 0) { $("#ti_num").html(ti_num); }
+						$("#pay_num").html("");
+						if(pay_num != 0) { $("#pay_num").html(pay_num); }
 						
 						$("#u_id").html(u_id);
 						$("#i_category").html(i_category + " > " +i_cate_detail);
@@ -334,7 +334,7 @@
 					</tr>
 					<tr>	
 						<td class="col-md-3">예매번호</td>
-						<td class="col-md-3" id="ti_num"></td>
+						<td class="col-md-3" id="pay_num"></td>
 						<td class="col-md-3">작성자</td>
 						<td class="col-md-3" id="u_id"></td>
 					</tr>
