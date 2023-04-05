@@ -6,21 +6,21 @@
 	<select id="myTicketList" parameterType="mypage" resultType="mypage">
 		<![CDATA[
 			SELECT 
-			    rnum, ti_num, ti_regdate, seat_date, s_num, s_name, hall_date, hall_turn, hall_time, COUNT(seat_num) AS seat_num, u_id, ti_status  
+			    rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status, COUNT(pay_num) AS seat_num_cnt
 			FROM (
 			    SELECT 
-			        rnum, t.ti_num, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, to_char(seat_date,'yyyy-mm-dd') AS seat_date, s_num, s_name, hall_date, hall_turn, hall_time, se.seat_num, t.u_id, t.ti_status  
+			        rnum, p.pay_num, h.hall_id, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, h.hall_date, s.s_num, s.s_name, t.u_id, t.ti_status, i.img_dir
 			    FROM (
 			        SELECT 
-			            rownum AS rnum, ti_num, ti_regdate, seat_date, u_id, ti_status  
+			            rownum AS rnum, pay_num, ti_regdate, u_id, ti_status  
 			        FROM ticket
 			        WHERE u_id = #{u_id}
-			        ORDER BY ti_regdate desc
-			    ) t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
-			        JOIN seat se ON ts.seat_num = se.seat_num
-			        JOIN hall h ON se.hall_id = h.hall_id
-			        JOIN theater th ON h.th_num = th.th_num
-			        JOIN show s ON th.th_num = s.th_num
+			    ) t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+			        INNER JOIN hall h ON ts.hall_id = h.hall_id
+			        INNER JOIN theater th ON h.th_num = th.th_num
+			        INNER JOIN show s ON th.th_num = s.th_num
+			        INNER JOIN img i ON s.s_num = i.s_num
+			        INNER JOIN pay p ON t.pay_num = p.pay_num
 			    WHERE
 			    ]]>
 		    <trim prefix="(" suffix=") AND" prefixOverrides="AND"> <!-- 아래 조건 만족하지 않으면 () AND <- AND 제거 -->
@@ -31,59 +31,70 @@
 					<![CDATA[to_char(ti_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
 				</if>
 			</trim>
-			<![CDATA[ rownum <= #{pageNum} * #{amount} 
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+			and i.img_dir LIKE '%'||'poster'
 			) 
 			WHERE rnum > (#{pageNum} -1) * #{amount}
-			GROUP BY rnum, ti_num, ti_regdate, seat_date, s_num, s_name, hall_date, hall_turn, hall_time, u_id, ti_status
+			GROUP BY rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status
+			ORDER BY pay_num
 		]]>
 	</select>
 	
 	<select id="ticketListCnt" parameterType="mypage" resultType="int">
-		SELECT COUNT(ti_num) FROM ticket
+		SELECT COUNT(pay_num) FROM ticket
 		WHERE u_id = #{u_id}
 	</select>
 	
 	<!-- 상세정보 조회(관심공연 추가) -->
 	<select id="myTicketDetail" parameterType="mypage" resultType="mypage">
-		SELECT 
-		    rnum, ti_num, RESULT.s_num, s_name, ti_regdate, seat_date, COUNT(seat_num) AS seat_num, u_id, ti_status, img_name, img_dir, 
-		    img_type, th_name, hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
-		FROM (
-		    SELECT 
-		        rnum, t.ti_num, s.s_num, s_name, ti_regdate, seat_date, ts.seat_num, t.u_id, t.ti_status, img_name, img_dir, img_type, 
-		        th.th_name, hall_date, hall_turn, hall_time, s.s_price, p.pay_name, p.pay_amount
-		    FROM (
-		        SELECT 
-		            rownum AS rnum, ti_num, ti_regdate, seat_date, u_id, ti_status  
-		        FROM ticket
-		    ) t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
-		        JOIN seat se ON ts.seat_num = se.seat_num
-		        JOIN hall h ON se.hall_id = h.hall_id
-		        JOIN theater th ON h.th_num = th.th_num
-		        JOIN show s ON th.th_num = s.th_num
-		        JOIN img i ON s.s_num = i.s_num
-		        JOIN pay p ON t.ti_num = p.ti_num
-		    WHERE ts.ti_num = #{ti_num} AND t.u_id = #{u_id} AND img_dir LIKE '%'||'poster'  
+		select pay_num, RESULT.s_num, s_name, TO_CHAR(ti_regdate,'yyyymmdd') ti_regdate, hall_id, seat_nums, u_id, ti_status, img_name, img_dir, img_type, th_name, 
+				hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
+		from (
+		    select t.pay_num, s.s_num, s.s_name, t.ti_regdate, h.hall_id,
+		            (select 
+		                (select seat_num 
+		                    from (
+		                        select pay_num
+		                            , SUBSTR(
+		                                XMLAGG(
+		                                    XMLELEMENT(COL ,',', SEAT_NUM) ORDER BY SEAT_NUM).EXTRACT('//text()'
+		                                    ).GETSTRINGVAL()
+		                                , 2) SEAT_NUM
+		                        FROM TICKET_SEAT
+		                        where pay_num=#{pay_num}
+		                        GROUP BY pay_num) 
+		                ) SEAT_NUM
+		            from dual) AS seat_nums,
+		            t.u_id, t.ti_status, i.img_name, i.img_dir, i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, 
+		            p.pay_name, p.pay_amount
+		    from ticket t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+		                   INNER JOIN hall h ON ts.hall_id = h.hall_id
+		                   INNER JOIN theater th ON h.th_num = th.th_num
+		                   INNER JOIN show s ON th.th_num = s.th_num
+		                   INNER JOIN img i ON s.s_num = i.s_num
+		                   INNER JOIN pay p ON t.pay_num = p.pay_num
+		    where t.pay_num=#{pay_num}
+		    AND img_dir LIKE '%'||'poster' 
 		) RESULT LEFT JOIN (SELECT s_num, 1 is_likes FROM bookmark 
-							WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
-		  			  ON RESULT.s_num = B.s_num
-		GROUP BY rnum, ti_num, RESULT.s_num, s_name, ti_regdate, seat_date, u_id, ti_status, img_name, img_dir, img_type, th_name, 
-		hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
+		                    WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
+		         ON RESULT.s_num = B.s_num    
+		group by pay_num, RESULT.s_num, s_name, ti_regdate, hall_id, seat_nums, u_id, ti_status, img_name, img_dir, img_type, th_name, 
+				hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes
 	</select>
 	
 	<!-- 좌석번호 리스트 조회 -->
 	<select id="mySeatList" parameterType="int" resultType="mypage">
 		SELECT seat_num
 		FROM ticket t JOIN ticket_seat ts 
-						ON t.ti_num = ts.ti_num
-		WHERE t.ti_num = #{ti_num}
+						ON t.pay_num = ts.pay_num
+		WHERE t.pay_num = #{pay_num}
 	</select>
 	
 	<!-- 예매 취소 -->
 	<update id="myTicketDelete" parameterType="int">
 		UPDATE ticket
 		SET ti_status = 0
-		WHERE ti_num = #{ti_num}
+		WHERE ti_status = 1 AND pay_num = #{pay_num}
 	</update>
 	
 	
@@ -101,14 +112,26 @@
 	
 	<!-- (문의글 등록폼 페이지) 회원의 예매번호, 공연이름 조회 -->
 	<select id="ticketList" parameterType="String" resultType="mypage">
-		SELECT t.u_id, t.ti_num, s.s_name, seat_date
-		FROM ticket t JOIN ticket_seat ts ON t.ti_num = ts.ti_num
-		              JOIN seat se ON ts.seat_num = se.seat_num
-		              JOIN hall h ON se.hall_id = h.hall_id
-		              JOIN theater th ON h.th_num = th.th_num
-		              JOIN show s ON th.th_num = s.th_num
-		WHERE u_id = #{u_id}
-		GROUP BY t.u_id, t.ti_num, s.s_name, seat_date
+		SELECT 
+		    rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status
+		FROM (
+		    SELECT 
+		        rnum, p.pay_num, h.hall_id, to_char(t.ti_regdate,'yyyy-mm-dd') AS ti_regdate, h.hall_date, s.s_num, s.s_name, t.u_id, t.ti_status, i.img_dir
+		    FROM (
+		        SELECT 
+		            rownum AS rnum, pay_num, ti_regdate, u_id, ti_status  
+		        FROM ticket
+		        WHERE u_id = 'user02'
+		    ) t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+		        INNER JOIN hall h ON ts.hall_id = h.hall_id
+		        INNER JOIN theater th ON h.th_num = th.th_num
+		        INNER JOIN show s ON th.th_num = s.th_num
+		        INNER JOIN img i ON s.s_num = i.s_num
+		        INNER JOIN pay p ON t.pay_num = p.pay_num
+		    WHERE i.img_dir LIKE '%'||'poster'
+		) 
+		GROUP BY rnum, pay_num, hall_id, ti_regdate, hall_date, s_num, s_name, u_id, ti_status
+		ORDER BY pay_num
 	</select>
 	
 	<!-- 문의글 등록 폼에서 조회할 faq 리스트 -->
@@ -131,6 +154,22 @@
 		ORDER BY b_regidate DESC
 	</select>
 	
+	
+	<!-- 상세페이지의 관심공연 등록 여부 조회 -->
+	<select id="myShowLike" parameterType="mypage" resultType="mypage">
+		select t.u_id, s.s_num, B.is_likes
+		from (
+		    select pay_num, u_id
+		    from ticket) t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+		                   INNER JOIN hall h ON ts.hall_id = h.hall_id
+		                   INNER JOIN theater th ON h.th_num = th.th_num
+		                   INNER JOIN show s ON th.th_num = s.th_num
+		                   LEFT JOIN (SELECT s_num, 1 is_likes FROM bookmark 
+		                              WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
+		                   ON s.s_num = B.s_num 
+        where s.s_num = #{s_num}
+		group by t.u_id, s.s_num, B.is_likes   
+	</select>
 	<!-- 상세페이지 - 공연의 관심수 -->
 	<select id="likesCount" parameterType="int" resultType="int">
 		SELECT COUNT(*) likesCount
@@ -236,4 +275,6 @@
 		                         ON U.c_num = A.c_num
 		WHERE u_id = #{u_id} AND uc_state=1	
 	</select>
+	
+	
 </mapper>

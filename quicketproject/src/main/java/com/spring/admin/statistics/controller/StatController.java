@@ -51,14 +51,16 @@ public class StatController {
 		
 		GoogleChartDTO gChart = new GoogleChartDTO();
 		gChart.addColumn("공연", "string");
-		gChart.addColumn("예매횟수", "number");
+//		gChart.addColumn("예매횟수", "number");
+		gChart.addColumn("예매비율", "number");
 		
 		gChart.createRows(list.size());
 		
 		int count = 0;
 		for(StatVO vo : list) { 
 			gChart.addCell(count, vo.getS_name());
-			gChart.addCell(count, vo.getS_ticketcnt());
+//			gChart.addCell(count, vo.getS_ticketcnt());
+			gChart.addCell(count, vo.getS_ticketcntRatio(), String.valueOf(vo.getS_ticketcnt())+"회 ("+vo.getS_ticketcntRatio()+"%)");
 			count++;
 		} 
 		
@@ -82,14 +84,15 @@ public class StatController {
 		
 		GoogleChartDTO gChart = new GoogleChartDTO();
 		gChart.addColumn("공연", "string");
-		gChart.addColumn("매출", "number");
+//		gChart.addColumn("매출", "number");
+		gChart.addColumn("매출비율", "number");
 		
 		gChart.createRows(list.size());
 		
 		int count = 0;
 		for(StatVO vo : list) { 
 			gChart.addCell(count, vo.getS_name());
-			gChart.addCell(count, vo.getS_sales());
+			gChart.addCell(count, vo.getS_salesRatio(), vo.getS_sales()+"원 ("+vo.getS_salesRatio()+"%)");
 			count++;
 		} 
 		
@@ -100,7 +103,7 @@ public class StatController {
 	}
 	
 	/***********************************************************
-	 * 주별 매출액 조회하기
+	 * 월별 매출액 조회하기
 	 * 현재 요청 URL : http://localhoast:8080/admin/stat/weeklySales
 	 ***********************************************************/
 	@ResponseBody
@@ -112,15 +115,17 @@ public class StatController {
 		System.out.println(list);
 		
 		GoogleChartDTO gChart = new GoogleChartDTO();
-		gChart.addColumn("주차", "string");
-		gChart.addColumn("매출", "number");
+		gChart.addColumn("월별", "string");
+		gChart.addColumn("베토벤", "number");
+		gChart.addColumn("인터뷰", "number");
 		
 		gChart.createRows(list.size());
 		
 		int count = 0;
 		for(StatVO vo : list) { 
-			gChart.addCell(count, vo.getStat_date());
-			gChart.addCell(count, vo.getStat_sales());
+			gChart.addCell(count, "2023/"+vo.getStat_date(), vo.getStat_date()+"월");
+			gChart.addCell(count, vo.get베토벤());
+			gChart.addCell(count, vo.get인터뷰());
 			count++;
 		} 
 		

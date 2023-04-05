@@ -6,10 +6,10 @@
 	margin:10px 0px;
 	padding:20px 10px 10px 10px;
 	text-align:center;
-	border:1px solid #ccc;
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 }
 .showBox_search_img{
-	width:100%;
+	width:200px;
 	margin:0px 0px 10px 0px;
 }
 .showBox_search_thumbnail{
@@ -138,11 +138,15 @@
 		})
 
 		/* 달력 설정 및 입력 처리*/
+		let s_select_date="<c:out value='${showVO.s_select_date}' />";
 		let start_date="<c:out value='${showVO.start_date}' />";
 		let end_date="<c:out value='${showVO.end_date}' />";
 		if(start_date!=""){
 			$("#start_date").val(start_date);
 			$("#end_date").val(end_date);
+			if(s_select_date!=""){
+				$("#s_select_date").val(s_select_date);
+			}
 		}
 		$("#start_date").datepicker({
 			showOn:"button",
@@ -150,7 +154,11 @@
 				if(start_date==""){
 					return "▼ 날짜 선택하기";
 				}else{
-					return "▼ "+start_date;
+					if(start_date==end_date){
+						return "▼ "+start_date;
+					}else{
+						return "▼ "+start_date+" ~ "+end_date;
+					}
 				}		
 			},
 		    showOtherMonths: true,
@@ -164,6 +172,7 @@
 			dateFormat:"yy-mm-dd",
 			onSelect:function(){
 				$("#end_date").val($(this).val());
+				$("#s_select_date").val("");	//달력으로 검색하는 건 무조건 상영일로 고정
 				$("#searchData").click();
 			}
 		});
@@ -187,7 +196,12 @@
 	<div class="container">
 		<div class="row text-center">
 			<h1><c:if test="${showVO.keyword!=''}">"${showVO.keyword}"(으)로 검색한 </c:if>공연의 검색 결과입니다.</h1>
-			<p><c:if test="${showVO.start_date!=''}"><strong>상영일:</strong> ${showVO.start_date}</c:if></p>
+			<p>
+				<c:if test="${showVO.start_date!=''}">
+					<c:if test="${showVO.s_select_date=='open'}"><strong>개봉일:</strong> ${showVO.start_date} ~ ${showVO.end_date}</c:if>
+					<c:if test="${showVO.s_select_date==''}"><strong>상영일:</strong> ${showVO.start_date}</c:if>
+				</c:if>
+			</p>
 			<p><c:if test="${showVO.s_select_region!=''}"><strong>지역:</strong> ${showVO.s_select_region}</c:if></p>
 			<p><c:if test="${showVO.s_genre!=''}"><strong>장르:</strong> ${showVO.s_genre}</c:if></p>
 		</div>
@@ -225,6 +239,7 @@
 						</select>
 					</div>		
 					<div class="col-sm-4 text-center">
+						<input type="hidden" id="s_select_date" name="s_select_date" />
 						<input type="date" id="start_date" name="start_date" />
 						<input type="date" id="end_date" name="end_date" />
 					</div>				

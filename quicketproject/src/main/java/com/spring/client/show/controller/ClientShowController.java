@@ -12,17 +12,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.admin.ticket.vo.HallVO;
+import com.spring.client.mypage.service.MypageService;
+import com.spring.client.mypage.vo.MypageVO;
 import com.spring.client.show.service.ClientShowService;
 import com.spring.client.show.vo.RankVO;
 import com.spring.client.show.vo.ShowVO;
 import com.spring.client.ticket.service.ClientTicketService;
+import com.spring.client.user.vo.UserVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
 
 @Controller
+@SessionAttributes("userLogin")
 @RequestMapping("/*")
 public class ClientShowController {
 	@Setter(onMethod_=@Autowired)
@@ -30,6 +36,14 @@ public class ClientShowController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ClientTicketService clientTicketService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MypageService mypageService;
+	
+	@ModelAttribute("userLogin")
+	public UserVO userLogin() {
+		return new UserVO();
+	}
 	
 	//메인페이지 관련 컨트롤러
 	@GetMapping("/")
@@ -117,7 +131,7 @@ public class ClientShowController {
 	
 	//상세페이지 관련 컨트롤러
 	@GetMapping("/showDetail")
-	public String detailPage(@ModelAttribute ShowVO vo, Model model) {
+	public String detailPage(@ModelAttribute ShowVO vo, @ModelAttribute("userLogin") UserVO userVO, MypageVO mypageVO, Model model) {
 		ShowVO detailData = clientShowService.showDetail(vo);
 		model.addAttribute("detailData", detailData);
 		
@@ -126,6 +140,26 @@ public class ClientShowController {
 		HallVO hall_list = clientTicketService.hall_th_num(hvo);
 		model.addAttribute("hall_list",hall_list);
 		
+		
+		// 관심 공연 버튼 제어하기 위한 세부정보 조회
+//		mypageVO.setS_num(vo.getS_num());
+		if(userVO.getU_id()!=null) {
+			mypageVO.setU_id(userVO.getU_id());
+			mypageVO.setS_num(vo.getS_num());
+//			System.out.println(userVO.getU_id());
+			
+			MypageVO myShowLike = mypageService.myShowLike(mypageVO);
+			if(myShowLike!=null) {
+				model.addAttribute("myShowLike", myShowLike);
+				System.out.println(myShowLike.getIs_likes());
+			}
+		}
+
+		// 공연 상세 페이지에 들어갈 공연 관심 수 조회
+		System.out.println(vo.getS_num());
+		int likesCount = mypageService.likesCount(vo.getS_num());
+		mypageVO.setLikesCount(likesCount);
+
 		return "client/show/detailPage";
 	}
 	

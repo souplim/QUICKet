@@ -4,6 +4,7 @@
 <style type="text/css">
 .container{
 	margin-top:30px;
+	margin-bottom:50px;
 }
 #mainPage-slide{
 	margin-bottom:100px;
@@ -23,14 +24,14 @@
 	text-align:right;
 }
 .slide_title{
-	color: #ccc;
-	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-weight:bold;
 	font-size:50px;
 }
 .slide_date{
-	color: #ccc;
-	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-size:16px;
 }
 .carousel-indicators li{
@@ -53,7 +54,7 @@ a[role='tab']{
 	color:#ccc;
 }
 .tab-content{
-	height:400px;
+	height:350px;
 }
 </style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
@@ -133,6 +134,13 @@ $(function(){
 			makeShowBox(this, "#mainNewPanel", "s_opendate", "2");
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
+	
+	//날짜에 맞춰 동적 링크 생성하기
+	let now = new Date();
+	let mon = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+1).toISOString().substring(0, 10);
+	let sun = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+7).toISOString().substring(0, 10);
+	$("#moreNewLink").attr("href","/search?s_select_date=open&start_date="+mon+"&end_date="+sun);
+	
 })
 </script>
 </head>
@@ -185,6 +193,7 @@ $(function(){
 						<div id="mainTicketRankPanel"></div>
 					</div>
 				</div>
+				<div class="row text-right"><a href="/ranking">▶ 랭킹 더 보기</a></div>
 			</div>
 			<!-- 신작 박스 구현 -->
 			<div class="row">
@@ -198,10 +207,12 @@ $(function(){
 				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="weekNew">
-						<div id="mainNewPanel" class="row">
+						<div id="mainNewPanel">
 						</div>
 					</div>
 				</div>
+				<div class="row text-right"><a id="moreNewLink">▶ 이번 주 개봉작 더 보기</a></div>
+				
 			</div>
 			
 		</div>	

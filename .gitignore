@@ -127,3 +127,33 @@ $RECYCLE.BIN/
 /bin/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,windows
+quicketproject/target/classes/META-INF/maven/com.spring/quicketProject/pom.properties
+quicketproject/target/classes/META-INF/maven/com.spring/quicketProject/pom.xml
+quicketproject/target/classes/static/images/icon.png
+quicketproject/target/classes/static/include/css/chungnam.css
+quicketproject/target/classes/static/include/css/styles.css
+quicketproject/target/classes/static/include/css/client/ticket/jquery-ui.css
+quicketproject/target/classes/static/include/dist/css/styles.css
+quicketproject/target/classes/static/include/js/adminInq.js
+quicketproject/target/classes/static/include/js/jquery-1.12.4.min.js
+quicketproject/target/classes/templates/query/AdminComm.xml
+quicketproject/target/classes/templates/query/AdminCoupon.xml
+quicketproject/target/classes/templates/query/AdminFaq.xml
+quicketproject/target/classes/templates/query/AdminInq.xml
+quicketproject/target/classes/templates/query/AdminLogin.xml
+quicketproject/target/classes/templates/query/AdminReview.xml
+quicketproject/target/classes/templates/query/AdminUser.xml
+quicketproject/target/classes/templates/query/client_Hall.xml
+quicketproject/target/classes/templates/query/client_Pay.xml
+quicketproject/target/classes/templates/query/client_PayPage.xml
+quicketproject/target/classes/templates/query/Faq.xml
+quicketproject/target/classes/templates/query/Hall.xml
+quicketproject/target/classes/templates/query/Inq.xml
+quicketproject/target/classes/templates/query/InqReply.xml
+quicketproject/target/classes/templates/query/Mypage.xml
+quicketproject/target/classes/templates/query/Qna.xml
+quicketproject/target/classes/templates/query/QnaReply.xml
+quicketproject/target/classes/templates/query/Review.xml
+quicketproject/target/classes/templates/query/Stat.xml
+quicketproject/target/classes/templates/query/User.xml
+quicketproject/target/classes/templates/query/UserCoupon.xml

@@ -119,7 +119,7 @@
 						<option value="all">전체</option>
 						<option value="f_category">카테고리</option>
 						<option value="f_title">제목</option>
-						<option value="f_content">글내용</option>
+						<option value="f_content">글내용</option> 
 				<!-- 		<option value="f_regdate">등록일</option> -->
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" /> <!-- placeholder도가능 -->
@@ -139,8 +139,8 @@
 					<tr>
 						<th data-value="f_no" class="order text-center col-md-1" >글번호</th>
 						<th class="text-center col-md-1">카테고리</th>
-						<th class="text-center col-md-1">제목</th>
-						<th class="text-center col-md-4">내용</th>
+						<th class="text-center col-md-4">제목</th>
+		<!-- 			<th class="text-center col-md-4">내용</th> -->	
 						<th data-value="f_regdate" class="order col-md-1">등록일</th>
 					</tr>
 				</thead>
@@ -151,9 +151,9 @@
 							<c:forEach var="faq" items="${faqList}" varStatus="status">
 								<tr class="text-center" data-num="${faq.f_no}">
 									<td>${faq.f_no}</td>
-									<td class="goDetail text-left">${faq.f_category}</td>
+									<td class="goDetail text-center">${faq.f_category}</td>
 									<td class="goDetail text-center">${faq.f_title}</td>									
-									<td class="name">${faq.f_content}</td>
+				<!-- 					<td class="name">${faq.f_content}</td> -->
 									<td class="text-left">${faq.f_regdate}</td>	
 									<!--존재할때    db에 파일명만 들어감  							
 									<td>								
