@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@EnableAsync
 public class RankScheduler {
 	@Setter(onMethod_=@Autowired)
 	private RankDao rankDao;
@@ -79,9 +82,11 @@ public class RankScheduler {
 		return list;
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 * * *")
 	public void countRateDay() {
 		log.info("일간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -90,21 +95,29 @@ public class RankScheduler {
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
 		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(2));
-			rank.setRank_end(datelist.get(2));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(2)+" : 일간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(2)+" : 일간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(2));
+				rank.setRank_end(datelist.get(2));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(2)+" : 일간 랭킹 입력 완료 (성공: "+suc+",실패: "+fal+")");
 		}
+
 	} 
 	
+	@Async
 	@Scheduled(cron = "0 0 0 ? * MON")
 	public void countRateWeek() {
 		log.info("주간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -112,22 +125,28 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(4));	//저번주 일요일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(3));
-			rank.setRank_end(datelist.get(4));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(3));
+				rank.setRank_end(datelist.get(4));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(3)+" ~ "+datelist.get(4)+" : 주간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 1 * ?")
 	public void countRateMonth() {
 		log.info("월간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -135,22 +154,28 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(6));	//저번달 말일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(5));
-			rank.setRank_end(datelist.get(6));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {		
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(5));
+				rank.setRank_end(datelist.get(6));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(5)+" ~ "+datelist.get(6)+" : 월간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	
+	@Async
 	@Scheduled(cron = "0 0 0 1 1 ?")
 	public void countRateYear() {
 		log.info("연간 랭킹 집계 스케줄러 로드됨");
+		log.info(Thread.currentThread().getName()+" : 해당 쓰레드에서 실행");
 		ArrayList<String> datelist = getDate();	//날짜를 받아와야 데이터를 받아올 수 있음
 		
 		RankVO vo = new RankVO();
@@ -158,16 +183,20 @@ public class RankScheduler {
 		vo.setRank_end(datelist.get(8));	//작년 말일 날짜 입력
 		
 		List<RankVO> list = rankDao.getRankTicket(vo);
-		
-		for(RankVO rank : list) {
-			rank.setRank_start(datelist.get(7));
-			rank.setRank_end(datelist.get(8));
-			int result = rankDao.rankInsert(rank);
-			if(result==1) {
-				log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 월간 랭킹 입력 완료");
-			}else {
-				log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 월간 랭킹 입력 실패");
+		int suc = 0;
+		int fal = 0;
+		if(list != null && !list.isEmpty()) {
+			for(RankVO rank : list) {
+				rank.setRank_start(datelist.get(7));
+				rank.setRank_end(datelist.get(8));
+				int result = rankDao.rankInsert(rank);
+				if(result==1) {
+					suc++;
+				}else {
+					fal++;
+				}
 			}
+			log.info(datelist.get(7)+" ~ "+datelist.get(8)+" : 연간 랭킹 입력 완료(성공: "+suc+",실패: "+fal+")");
 		}
 	}
 	

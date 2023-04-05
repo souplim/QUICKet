@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.client.qna.dao.QnaDao">
 
 	<!-- 관리자 페이지 검색 기능 -->
-	<sql id="boardSearch">
+	<sql id="qnaSearch">
 		<if test="search=='q_title'">
 			<![CDATA[ q_title LIKE '%' || #{keyword} || '%' ]]>
 		</if>
@@ -31,11 +31,11 @@
 		FROM qna
 		WHERE ]]>	
 		<trim prefix="(" suffix=") AND " prefixOverrides ="AND">
-			<include refid="boardSearch"></include>
+			<include refid="qnaSearch"></include>
 		</trim>
-	<![CDATA[	rownum <= #{pageNum} * #{amount}
+	<![CDATA[	rownum <= #{pageNum} * #{amount} 
 		) qnalist
-		WHERE rnum > (#{pageNum} -1 ) * #{amount}
+		WHERE rnum > (#{pageNum} -1 ) * #{amount} and s_num = #{s_num}
 		]]>
 	</select>
 	
@@ -49,7 +49,7 @@
 	<select id="qnaDetail" parameterType="qna" resultType="qna">
 		/* Qna - qna Detail */
 		SELECT
-			q_no, u_id, q_title, q_content,
+			q_no, u_id, q_title, q_content, s_num,
 			TO_CHAR(q_regdate, 'YYYY-MM-DD') AS q_regdate
 		FROM qna
 		WHERE q_no = #{q_no}
@@ -58,8 +58,9 @@
 	<!-- 전체 레코드수 조회 -->
 	<select id="qnaListCnt" parameterType="qna" resultType="int">
 		SELECT count(*) FROM qna
-		<trim prefix=" where (" suffix=")">
-			<include refid="boardSearch"></include>
+		where s_num = #{s_num}
+		<trim prefix="AND ">
+			<include refid="qnaSearch"></include>
 		</trim> 
 	</select>
 	

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.client.review.dao.AdminReviewDao">
+<mapper namespace="com.spring.admin.review.dao.AdminReviewDao">
 	
 	   
       <select id="adminreviewList" parameterType="review" resultType="review">
@@ -20,15 +20,20 @@
 		  <trim prefix="(" suffix=") AND " prefixOverrides="AND">
 					 <include refid="reviewSearch"></include>
 				 </trim> 
-		 <![CDATA[ rnum > (#{pageNum} - 1) * #{amount}
+		 <![CDATA[ rnum > (#{pageNum} - 1) * #{amount} and s_num = #{s_num}
 		 ]]> 
 		</select>
 		
+	<!-- 공연 별 리뷰 개수 불러오기 -->
+	<select id="reviewCnt" parameterType="review" resultType="int">
+		select count(*) from REVIEWBOARD
+		where s_num = #{s_num}
+		<trim prefix="AND ">
+			 <include refid="reviewSearch"></include>
+	 	</trim> 
+	</select>
 		
    	  <sql id="reviewSearch">
-			<if test="search=='s_name'">
-				<![CDATA[ s_name LIKE '%'|| #{keyword} ||'%' ]]>
-			</if>
 			<if test="search=='r_title'">
 				<![CDATA[ r_title LIKE '%'|| #{keyword} ||'%' ]]>	
 			</if>

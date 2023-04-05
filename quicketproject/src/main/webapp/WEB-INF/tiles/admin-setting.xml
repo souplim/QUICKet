@@ -38,7 +38,26 @@
 		<put-attribute name="main" value="/WEB-INF/views/admin/comm/{1}.jsp" />
 	</definition>
 	
-		<definition name="admin/coupon/*" extends="basic">
+	<definition name="admin/qna/*" extends="basic">
+		<put-attribute name="title" value="관리자 QnA 관리" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/qna/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/review/*" extends="basic">
+		<put-attribute name="title" value="관리자 관람후기 관리" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/review/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/faq/*" extends="basic">
+		<put-attribute name="title" value="관리자 FAQ 관리" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/faq/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/coupon/*" extends="basic">
 		<put-attribute name="title" value="관리자 쿠폰 관리" />
 		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />

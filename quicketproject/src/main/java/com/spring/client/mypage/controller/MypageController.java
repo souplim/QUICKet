@@ -2,6 +2,8 @@ package com.spring.client.mypage.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.client.mypage.service.MypageService;
 import com.spring.client.mypage.vo.MypageVO;
@@ -49,9 +51,18 @@ public class MypageController {
 	 * 요청 주소 : http://localhost:8080/mypage/
 	 ***********************************************************/
 	@GetMapping("/")
-	public String main() {
+	public String main(@ModelAttribute("userLogin") UserVO uvo, RedirectAttributes ras, HttpServletRequest request) {
+		String url = "";
+		if(uvo.getU_id() == null) {
+			ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+	        url = "redirect:" + request.getHeader("Referer");
+		} else {		
+			log.info(uvo.getU_pwddate());
+			log.info("마이페이지 메인 화면 호출");
+			url = "client/mypage/main";
+		}
 		log.info("마이페이지 메인 화면 호출");
-		return "client/mypage/main";
+		return url;
 	}
 	
 	/***********************************************************
@@ -107,7 +118,7 @@ public class MypageController {
 		model.addAttribute("ticketDetail", ticketDetail);
 		
 		// 좌석번호 리스트 조회
-		List<Integer> seatList = mypageService.mySeatList(mypageVO.getTi_num());
+		List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
 		model.addAttribute("seatList", seatList);
 				
 		return "client/mypage/myTicketDetail"; // /WEB-INF/views/client/mypage/myTicketDetail.jsp 
@@ -118,7 +129,7 @@ public class MypageController {
 	 * 현재 요청 URL : http://localhost:8080/mypage/myTicketDelete
 	 ***********************************************************/
 	@GetMapping(value="/myTicketDelete")
-	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("ti_num") int ti_num, MypageVO mypageVO, Model model) {
+	public String myTicketDelete(@ModelAttribute("userLogin") UserVO userVO, @RequestParam("pay_num") int pay_num, MypageVO mypageVO, Model model) {
 		log.info("예매내역 취소화면");
 		
 		// 로그인한 회원 아이디 세션에서 얻어오기
@@ -129,9 +140,9 @@ public class MypageController {
 		
 		String url = "";
 		
-		int result = mypageService.myTicketDelete(ti_num);
+		int result = mypageService.myTicketDelete(pay_num);
 
-		mypageVO.setTi_num(ti_num);
+		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		
 		if(result == 1) {

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.admin.user.service.AdminUserService;
 import com.spring.client.coupon.service.ClientCouponService;
-import com.spring.client.coupon.vo.UserCouponVO;
+import com.spring.client.mypage.vo.MypageVO;
 import com.spring.client.user.vo.UserVO;
 import com.spring.common.mail.MailService;
 import com.spring.common.vo.PageDTO;
@@ -93,15 +93,15 @@ public class AdminUserController {
 		return result;
 	}
 	
-	/** 회원 쿠폰 내역 이동
+	/** 회원 쿠폰 내역 이동 */
 	@GetMapping("/userCouponList")
 	public String userCouponList(String u_id, Model model) {
 		log.info("회원 쿠폰 내역");
 		
-		List<UserCouponVO> userCouponList = clientCouponService.userCoupon(u_id);
-		model.addAttribute("userCouponList",userCouponList);
+		List<MypageVO> userCouponList = adminUserService.userCouponList(u_id);
+		model.addAttribute("couponList",userCouponList);
 		
-		return "/admin/user/couponList";
+		return "/admin/user/userCouponList";
 	}
- */
+ 
 }

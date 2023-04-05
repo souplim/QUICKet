@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class MypageVO extends CommonVO {
-	private int ti_num = 0; // 예매번호
+	private int pay_num = 0; // 결제번호
 	private String ti_status = ""; // 예매상태
 	private String u_id =""; // 회원 아이디
 	private String ti_regdate; // 예매 데이터 등록일
@@ -16,6 +16,8 @@ public class MypageVO extends CommonVO {
 	
 	private String s_name = ""; // 공연 이름
 	private int seat_num = 0; // 예매 좌석 번호
+	private String seat_nums = ""; // 예매 좌석 번호 한 행으로 반환
+	private int seat_num_cnt = 0; // 예매 좌석 개수
 	private String s_opendate; // 공연 시작일
 	private String s_closedate; // 공연 종료일
 	private String img_name = ""; // 이미지 파일
@@ -27,6 +29,7 @@ public class MypageVO extends CommonVO {
 	private String hall_turn = ""; // 공연회차
 	private String hall_time = ""; // 공연시간
 	private int s_price = 0; // 공연 가격
+	 
 	private String pay_name = ""; // 결제자 이름
 	private int pay_amount = 0; // 총결제가격
 	

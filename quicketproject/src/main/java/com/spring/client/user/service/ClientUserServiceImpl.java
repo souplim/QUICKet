@@ -95,6 +95,13 @@ public class ClientUserServiceImpl implements ClientUserService {
 		return result;
 	}
 
+	@Override
+	public int pwdConfirm(UserVO vo) {
+		int result = 0;
+		result = clientUserDao.pwdConfirm(vo);
+		return result;
+	}
+
 	
 	
 
