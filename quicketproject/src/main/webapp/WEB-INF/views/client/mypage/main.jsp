@@ -12,6 +12,55 @@
 		margin : 20px;
 		cursor: pointer;
 	}
+	
+	.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-outline {
+    position: relative;
+    
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-indigo {
+    background-color: dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline {
+    border: 3px solid dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline:hover {
+    color: #191970;
+    background: dodgerblue;
+}
+
+.w-btn-gray-outline {
+    border: 3px solid #a3a1a1;
+    color: #6e6e6e;
+}
+
+.w-btn-gray-outline:hover {
+    background-color: #a3a1a1;
+    color: #e3dede;
+}
 </style>
 
 <script>
@@ -76,7 +125,9 @@
 		<table class="table">
 			<tr>
 				<td class="text-center">아이디</td>
-				<td class="text-left" colspan="4"><input type="text" readonly="readonly" id="u_id" name="u_id" value="${userLogin.u_id}"/></td>
+				<td class="text-left" colspan="4">
+				<input type="text" class="form-control" readonly="readonly" id="u_id" name="u_id" value="${userLogin.u_id}"/>
+				</td>
 			</tr>
 			<tr>
 				<td class="text-center">비밀번호</td>
@@ -88,8 +139,8 @@
 		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="closeBtn" data-dismiss="modal" aria-label="Close">닫기</button>
-        <button type="button" class="btn btn-primary" id="okBtn">확인</button>
+        <button type="button" class="btn w-btn-outline w-btn-gray-outline" id="closeBtn" data-dismiss="modal" aria-label="Close">닫기</button>
+        <button type="button" class="btn w-btn-outline w-btn-indigo-outline" id="okBtn">확인</button>
       </div>
       
     </div><!-- /.modal-content -->

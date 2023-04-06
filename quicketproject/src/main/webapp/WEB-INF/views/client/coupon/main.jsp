@@ -51,7 +51,6 @@
 
 <style>
 	img {width : 100%;}
-	.coupon {width : 22%; }
 	.caption{height:110px;}
 	
 	    	

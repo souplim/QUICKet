@@ -116,8 +116,8 @@
     }
 }
 
-#close-btn{margin-left:170px; color:white;}
-#open-btn{color : white;}
+#close-btn{margin-left:170px; color:white; cursor:pointer;}
+#open-btn{color : white; cursor:pointer;}
 </style>
 
 <script>
