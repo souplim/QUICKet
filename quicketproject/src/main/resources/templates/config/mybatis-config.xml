@@ -30,8 +30,8 @@
 		<typeAlias type="com.spring.admin.ticket.vo.HallVO" alias="hall" />
 		<typeAlias type="com.spring.client.paypage.vo.PayPageVO" alias="paypage" />
 		<typeAlias type="com.spring.client.paypage.vo.CouponVO" alias="coupon" />
-		<typeAlias type="com.spring.client.paypage.vo.UserVO" alias="ticket_user" />
 		<typeAlias type="com.spring.client.pay.vo.PayVO" alias="pay" />
+		<typeAlias type="com.spring.client.paypage.vo.ticketSuccessVO" alias="tSuccess" />    
 		
 		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
       <typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>     

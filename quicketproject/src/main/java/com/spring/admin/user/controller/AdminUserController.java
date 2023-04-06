@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.admin.user.service.AdminUserService;
 import com.spring.client.coupon.service.ClientCouponService;
+import com.spring.client.mypage.service.MypageService;
 import com.spring.client.mypage.vo.MypageVO;
 import com.spring.client.user.vo.UserVO;
 import com.spring.common.mail.MailService;
@@ -38,6 +39,9 @@ public class AdminUserController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ClientCouponService clientCouponService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MypageService mypageService;
 	
 	/***
 	 * 회원관리 페이지
@@ -102,6 +106,25 @@ public class AdminUserController {
 		model.addAttribute("couponList",userCouponList);
 		
 		return "/admin/user/userCouponList";
+	}
+	
+	@GetMapping(value="/userTicketList")
+	public String userTicketList(String u_id, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("예매내역 화면");
+		
+		mypageVO.setU_id(u_id);
+		
+		// 회원 문의글 리스트 조회
+		List<MypageVO> ticketList = null;
+		ticketList = adminUserService.userTicketList(u_id);
+		model.addAttribute("ticketList", ticketList);
+		
+		// 페이징 처리
+		/*
+		int total = mypageService.ticketListCnt(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+			*/	
+		return "/admin/user/userTicketList"; // /WEB-INF/views/client/mypage/myTicketList.jsp
 	}
  
 }

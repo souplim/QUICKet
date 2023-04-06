@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.client.paypage.vo.UserVO;
 import com.spring.client.review.service.ReviewService;
 import com.spring.client.review.vo.ReviewVO;
 import com.spring.client.show.service.ClientShowService;
+import com.spring.client.user.vo.UserVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

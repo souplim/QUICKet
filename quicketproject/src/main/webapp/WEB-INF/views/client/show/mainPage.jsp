@@ -24,14 +24,14 @@
 	text-align:right;
 }
 .slide_title{
-	color: #ccc;
-	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-weight:bold;
 	font-size:50px;
 }
 .slide_date{
-	color: #ccc;
-	text-shadow: 1px 1px 1px 1px rgb(0,0,0,0.7);
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-size:16px;
 }
 .carousel-indicators li{
@@ -77,7 +77,7 @@ $(function(){
 			
 			let img_url="";
 			if(this.s_posterimg!=null){				
-				img_url = "/uploadStorage/"+this.s_posterimg.img_dir+"/"+this.s_posterimg.img_name+"."+this.s_posterimg.img_type;
+				img_url = "/uploadStorage"+this.s_posterimg.img_dir+"/"+this.s_posterimg.img_name+"."+this.s_posterimg.img_type;
 			}			
 			$img.addClass("slide_img");
 			if(img_url!=""){

@@ -51,8 +51,8 @@
 
 <style>
 	img {width : 100%;}
-	.coupon {width : 22%; }
 	.caption{height:110px;}
+	
 </style>
 </head>
 <body>
@@ -79,9 +79,9 @@
 						  <small>유효기간 : <span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate }</span></small></p>
 				        </div>
 				        <div class="btnArea" data-num="${coupon.c_num}">
-				        	<button type="button" class="btn btn-warning btn-block couponBtn" 
+				        	<button type="button" class="w-btn-outline w-btn-indigo-outline btn-block btn couponBtn" 
 				        	<c:if test="${coupon.c_startissue > today || coupon.c_endissue < today}">
-				        		disabled="disabled"
+				        		disabled="disabled" style="background-color: lightgray; cursor: no-drop;"
 				        	</c:if>
 				        	>발급 받기</button>
 				        </div>

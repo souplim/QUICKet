@@ -5,7 +5,7 @@
    <style>
       #item-template{display:none;}
       .inline{display:inline-block;} 
-      .panel-heading{backgroundcolor:green;}
+     /* .panel-heading{backgroundcolor:green;}*/
             
       #myform fieldset{
           display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
@@ -21,10 +21,10 @@
       }
       
       #myform label:hover{
-          text-shadow: 0 0 0 #a00; /* 마우스 호버 */
+          text-shadow: 0 0 0 #ffdc3b; /* 마우스 호버 */
       }
       #myform label:hover ~ label{
-          text-shadow: 0 0 0 #a00; /* 마우스 호버 뒤에오는 이모지들 */
+          text-shadow: 0 0 0 #ffdc3b; /* 마우스 호버 뒤에오는 이모지들 */
       }
    
       #myform fieldset{
@@ -38,7 +38,7 @@
       }
    
       #myform input[type=radio]:checked ~ label{
-       text-shadow: 0 0 0 #a00; /* 마우스 클릭 체크 */
+       text-shadow: 0 0 0 #ffdc3b; /* 마우스 클릭 체크 */
            
       }      
                
@@ -357,7 +357,7 @@
                         </td>
                                                 
                         <td class="col-md-4 btnArea">
-                           <button type="button" id="replyInsertBtn" class="btn btn-primary gap sendBtn">저장</button>
+                           <button type="button" id="replyInsertBtn" class="w-btn-outline w-btn-indigo-outline btn-block btn sendBtn">저장</button>
                         </td>
                      </tr>
                      <tr>
@@ -374,14 +374,19 @@
          
          <%-- 리스트 영역 --%>
          <div id="reviewList">
-            <div id="item-template" class="panel panel-success">
+            <div id="item-template" class="panel">
                <div class="panel-heading" style="background-color:#CCEEFF">
                   <h3 class="panel-title" >                  
-                     <span class="point" style="color:#8B0000"></span>            
-                     <span class="name"  style="text-align:left"></span>   
+                               
+                     <span class="name"  style="text-align:left"></span>
+                      &nbsp;   
                      <span class="date"></span>
-                     <button type="button" id="updateBtn" data-btn="upBtn" class="btn btn-default gap" style="float:right;" >수정</button>
-                     <button type="button" id="delBtn" class="btn btn-default gap" style="float:right;">삭제</button>
+                     &nbsp;
+                     <span class="point" style="color:#ffdc3b"></span>  
+                     <span>
+                     	<button type="button" id="updateBtn" data-btn="upBtn" class="btn w-btn w-btn-gray gap" style="float:right;" >수정</button>
+                     <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
+                     </span>
       <!--             <button type="button" id="delBtn" class="btn btn-default gap" style="float:right;">삭제</button>  -->                        
                                  
                   </h3>                  

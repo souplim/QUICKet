@@ -40,9 +40,25 @@ $(function(){
 	<form id="f_pagination">
 		<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}" />
 		<input type="hidden" name="amount" value="${pageMaker.cvo.amount}" />
-		<c:if test="${boardVO.keyword!=''}">
-			<input type="hidden" name="search" value="${boardVO.search}" />
-			<input type="hidden" name="keyword" value="${boardVO.keyword}" />	
+		<c:if test="${showVO.keyword!=''}">
+			<input type="hidden" name="search" value="${showVO.search}" />
+			<input type="hidden" name="keyword" value="${showVO.keyword}" />	
+		</c:if>
+		<c:if test="${showVO.s_array!=''}">
+			<input type="hidden" name="s_array" value="${showVO.s_array}" />
+			<input type="hidden" name="s_sortorder" value="${showVO.s_sortorder}" />	
+		</c:if>
+		<c:if test="${showVO.start_date!='' && showVO.end_date!=''}">
+			<input type="hidden" name="start_date" value="${showVO.start_date}" />
+			<input type="hidden" name="end_date" value="${showVO.end_date}" />	
+		</c:if>
+		<c:if test="${theaterVO.keyword!=''}">
+			<input type="hidden" name="search" value="${theaterVO.search}" />
+			<input type="hidden" name="keyword" value="${theaterVO.keyword}" />	
+		</c:if>
+		<c:if test="${theaterVO.th_array!=''}">
+			<input type="hidden" name="th_array" value="${theaterVO.th_array}" />
+			<input type="hidden" name="th_sortorder" value="${theaterVO.th_sortorder}" />	
 		</c:if>
 	</form>
 	<ul class="pagination">

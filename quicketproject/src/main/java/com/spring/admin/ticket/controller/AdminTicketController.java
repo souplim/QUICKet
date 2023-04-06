@@ -1,21 +1,37 @@
 package com.spring.admin.ticket.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.JsonObject;
 import com.spring.admin.ticket.service.AdminTicketService;
 import com.spring.admin.ticket.vo.HallVO;
+import com.spring.client.pay.service.PaymentService;
+import com.spring.client.pay.vo.PayVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -30,6 +46,11 @@ public class AdminTicketController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private AdminTicketService adminTicketService;
+	@Setter(onMethod_ = @Autowired)
+	private PaymentService paymentService;
+	/*
+	 * @Setter(onMethod_ = @Autowired) private PaymentService paymentService;
+	 */
 	
 	@RequestMapping("/hall_writeForm")
 	public String ticketWrite(Model model) {
@@ -38,12 +59,25 @@ public class AdminTicketController {
 		
 	}
 	
-	@RequestMapping("/cash")
+	@GetMapping("/cash")
 	public String cash(Model model) {
 		log.info("cash 호출 성공");
-		return "admin/ticket/cash"; // /WEB-INF/views/admin/ticket/ticket_writeForm.jsp
+		
+		
+		return "admin/ticket/testCash"; // /WEB-INF/views/admin/ticket/ticket_writeForm.jsp
 		
 	}
+	
+	// 카드 결제 성공 후
+	/*
+	 * @PostMapping("/api/order/payment/complete") public ResponseEntity<String>
+	 * paymentComplete(HttpSession session ) throws IOException {
+	 * 
+	 * String token = paymentService.getToken();
+	 * 
+	 * System.out.println("토큰 : " + token); return new
+	 * ResponseEntity<>("주문이 완료되었습니다.",HttpStatus.OK); }
+	 */
 	
 	@RequestMapping("/home")
 	public String home(Model model) {
@@ -118,4 +152,16 @@ public class AdminTicketController {
 		
 		return "redirect:" + url;		
 	}
+	
+	@RequestMapping(value="/payCancelPage")
+	public String payCancelPage(@ModelAttribute PayVO pvo, Model model) {
+		log.info("payCancelPage 호출 성공");
+		
+		List<PayVO> payList = adminTicketService.payCancelPage();
+		
+		model.addAttribute("payList", payList);
+		
+		return "admin/ticket/pay_cancel";
+	}
+	
 }

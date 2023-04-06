@@ -5,6 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="uri" value='${requestScope["javax.servlet.forward.request_uri"]}' />
 
+<style>
+small {color : gray;}
+a {color : mediumblue; }
+</style>
+
 <ul class="nav">
 	<li><small>공지</small>
 	<ul class="nav nav-sidebar">
