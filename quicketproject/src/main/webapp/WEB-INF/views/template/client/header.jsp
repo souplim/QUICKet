@@ -4,6 +4,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <style>
 
+.container-fluid { height: 100px; }
+
 #wrapper {
  	width : 100%;
     padding-left: 0;
@@ -42,6 +44,7 @@
     position: absolute;
     margin-right: -250px;
 }
+
 /* Sidebar Styles */
  .sidebar-nav {
     position: absolute;
@@ -137,54 +140,61 @@
 
 <div class="container-fluid">
 	<div id="wrapper" class="toggled">
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-     <ul class="sidebar-nav">
-       		<li><a><span class="glyphicon glyphicon-remove" id="close-btn"></span></a></li>
-            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a> </li>
-            <li><a href="/genre?s_genre=연극">연극</a> </li>
-            <li><a href="/ranking">랭킹</a></li>
-            <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
-            <li> <a href="/faq/faqList">FAQ</a></li>
-            <li> <a href="/mypage/">마이페이지</a></li>
-        </ul>
-    </div>
-</div>
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li>
+					<a>
+						<span class="glyphicon glyphicon-remove" id="close-btn"></span>
+					</a>
+				</li>
+				<li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+				<li><a href="/genre?s_genre=연극">연극</a></li>
+				<li><a href="/ranking">랭킹</a></li>
+				<li><a href="/user/coupon/">쿠폰/이벤트</a></li>
+				<li><a href="/faq/faqList">FAQ</a></li>
+				<li><a href="/mypage/">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
 
-        <div class="navbar-header">
-        
-     
-          
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-          	<li>    <a><span class="glyphicon glyphicon-menu-hamburger navbar-left" id="open-btn"></span></a></li>
-          	<li><a class="navbar-brand" href="/">QUICKet</a></li>
-          </ul>
-          
-          <ul class="nav navbar-nav">
-            <li><a href="/">홈</a></li>
-            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
-            <li><a href="/genre?s_genre=연극">연극</a></li>
-            <li><a href="/ranking">랭킹</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <c:if test="${not empty userLogin.u_name}">
-            	<li><a>${userLogin.u_name }님 환영합니다.</a></li>
-		 		<li><a href="/user/logout">로그아웃</a></li>
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed"
+			data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+			aria-controls="navbar">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+	</div>
+	
+	<div id="navbar" class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li><a><span
+					class="glyphicon glyphicon-menu-hamburger navbar-left"
+					id="open-btn"></span></a></li>
+			<li>
+				<a class="navbar-brand" href="/">
+					<img/>QUICKet
+				</a>
+			</li>
+		</ul>
+
+		<ul class="nav navbar-nav">
+			<li><a href="/">홈</a></li>
+			<li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+			<li><a href="/genre?s_genre=연극">연극</a></li>
+			<li><a href="/ranking">랭킹</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<c:if test="${not empty userLogin.u_name}">
+				<li><a>${userLogin.u_name }님 환영합니다.</a></li>
+				<li><a href="/user/logout">로그아웃</a></li>
 			</c:if>
 			<c:if test="${empty userLogin.u_name}">
-			 	<li><a href="/user/login">로그인</a></li>
+				<li><a href="/user/login">로그인</a></li>
 			</c:if>
-            <li><a href="/faq/faqList">고객센터</a></li>
-          </ul>
-        </div>
-        
-      </div>
-  
+			<li><a href="/faq/faqList">고객센터</a></li>
+		</ul>
+	</div>
+
+</div>
