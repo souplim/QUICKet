@@ -56,7 +56,7 @@ $(function(){
 			<input type="hidden" name="search" value="${theaterVO.search}" />
 			<input type="hidden" name="keyword" value="${theaterVO.keyword}" />	
 		</c:if>
-		<c:if test="${theaterVO.s_array!=''}">
+		<c:if test="${theaterVO.th_array!=''}">
 			<input type="hidden" name="th_array" value="${theaterVO.th_array}" />
 			<input type="hidden" name="th_sortorder" value="${theaterVO.th_sortorder}" />	
 		</c:if>

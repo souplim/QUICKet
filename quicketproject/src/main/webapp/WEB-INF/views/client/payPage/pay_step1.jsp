@@ -274,7 +274,7 @@
 			let num = $(".hidden_div").val();
 			if($(".hall_turn_div").length != 0){
 				location.href="/client/payPage/pay_step2?hall_date="+returnData[num].hall_date+
-						"&th_num="+${hall_list.th_num}+"&hall_id="+returnData[num].hall_id;
+						"&th_num="+${hall_list.th_num}+"&hall_id="+returnData[num].hall_id+"&s_num="+returnData[num].s_num;
 			}else{
 				alert("관람일/관/회차를 선택해주세요.");
 			}
@@ -366,12 +366,14 @@
 	<div id="side">
 		<div class="side_box side_box1">
 			<div id="side_box1_box1">
-				<%-- <c:if test="${detailData.s_detailimg ne null and not empty detailData.s_detailimg}"></c:if>
-							<c:forEach var="detailimg" items="${detailData.s_detailimg}">
-								<c:if test="${detailimg ne null}">
-									<img style="width:90%;height:200px;margin:5px 0 0 5px" src="/uploadStorage/${detailimg.img_dir}/${detailimg.img_name}.${detailimg.img_type}" />
-								</c:if>
-							</c:forEach> --%>
+				<img src=
+					<c:if test="${detailData.s_posterimg ne null}">
+						"/uploadStorage${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
+					</c:if>
+					<c:if test="${detailData.s_posterimg eq null}">
+						"/uploadStorage/show/poster_default.jpg"
+					</c:if>
+					style="width:90%;height:85%;margin:10px 0 0 5px"/>
 			</div>
 			<div id="side_box1_box2">
 				<table class="side_table">

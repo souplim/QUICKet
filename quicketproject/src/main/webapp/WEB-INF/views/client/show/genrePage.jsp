@@ -186,7 +186,7 @@ a[role='tab']{
 							<a href="/showDetail?s_num=${show.s_num}">
 								<img src=
 								<c:if test="${show.s_posterimg ne null}">
-									"/uploadStorage/${show.s_posterimg.img_dir}/${show.s_posterimg.img_name}.${show.s_posterimg.img_type}"
+									"/uploadStorage${show.s_posterimg.img_dir}/${show.s_posterimg.img_name}.${show.s_posterimg.img_type}"
 								</c:if>
 								<c:if test="${show.s_posterimg eq null}">
 									"/uploadStorage/show/poster_default.jpg"
