@@ -92,7 +92,6 @@ div[role="tabpanel"]{min-height:30em;}
 					let theater = JSON.parse(result);
 					
 					$("#th_name").html(theater.th_name);
-					$("#th_seat").html("총 "+theater.th_seat+"석");
 					$("#th_addr").html(theater.th_addr);
 					$("#th_web").html(theater.th_web);
 					
@@ -365,10 +364,6 @@ div[role="tabpanel"]{min-height:30em;}
 						<br />
 						<div class="row">
 							<table class="table table-bordered">
-								<tr>
-									<th class="col-xs-2">좌석수</th>
-									<td class="col-xs-10" id="th_seat"></td>
-								</tr>
 								<tr>
 									<th>주소</th>
 									<td id="th_addr"></td>
