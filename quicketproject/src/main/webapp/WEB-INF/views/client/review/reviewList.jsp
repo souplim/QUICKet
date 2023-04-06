@@ -383,8 +383,10 @@
                      <span class="date"></span>
                      &nbsp;
                      <span class="point" style="color:#ffdc3b"></span>  
-                     <button type="button" id="updateBtn" data-btn="upBtn" class="btn btn-default gap" style="float:right;" >수정</button>
-                     <button type="button" id="delBtn" class="btn btn-default gap" style="float:right;">삭제</button>
+                     <span>
+                     	<button type="button" id="updateBtn" data-btn="upBtn" class="btn w-btn w-btn-gray gap" style="float:right;" >수정</button>
+                     <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
+                     </span>
       <!--             <button type="button" id="delBtn" class="btn btn-default gap" style="float:right;">삭제</button>  -->                        
                                  
                   </h3>                  
