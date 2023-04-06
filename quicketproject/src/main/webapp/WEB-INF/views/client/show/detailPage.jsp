@@ -114,7 +114,7 @@ div[role="tabpanel"]{min-height:30em;}
 		$(".likes").on("click", function(){
 			let u_id = "${userLogin.u_id}";
 			console.log(u_id);
-			if( u_id == "") {
+			if(u_id == "") {
 				alert("로그인 후 이용해주세요.");
 				let s_num = $("#s_num").val();
 				location.href="/showDetail?s_num="+s_num;
