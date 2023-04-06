@@ -5,7 +5,8 @@ import java.util.List;
 import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.paypage.vo.CouponVO;
 import com.spring.client.paypage.vo.PayPageVO;
-import com.spring.client.paypage.vo.UserVO;
+import com.spring.client.paypage.vo.ticketSuccessVO;
+import com.spring.client.user.vo.UserVO;
 
 public interface ClientPayPageService {
 	public PayPageVO hall_th_num(PayPageVO pvo);
@@ -22,4 +23,6 @@ public interface ClientPayPageService {
 	public PayPageVO pay_step4_list(PayPageVO pvo);
 	
 	public UserVO pay_step4_UserData(UserVO uvo);
+	
+	public ticketSuccessVO ticketSuccessPage(ticketSuccessVO tsvo);
 }
