@@ -31,7 +31,7 @@ $(function(){
 	
 	//공연장 select 버튼 항목 불러오고 초기화하는 메소드
 	$.ajax({
-		url: "/admin/theater/theaterSelectList",
+		url: "/admin/theater/theaterSelectList?th_array=th_name&th_sortorder=asc",
 		type: "get",
 		success: function(data){
 			let init_th_num = Number("<c:out value='${updateData.th_num}' />");

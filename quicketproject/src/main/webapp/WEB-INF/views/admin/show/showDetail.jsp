@@ -8,6 +8,7 @@
 	th{
 		text-align:center;
 	}
+	.detailImgHolder>img{max-width:100%;}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -112,7 +113,7 @@
 						<th colspan="2" class="text-center">상세 이미지</th>
 					</tr>
 					<tr>
-						<td colspan="2" class="text-center">
+						<td colspan="2" class="text-center detailImgHolder">
 							<c:if test="${detail.s_detailimg ne null and not empty detail.s_detailimg}">
 								<c:forEach var="detailimg" items="${detail.s_detailimg}">
 									<img src="/uploadStorage/show/${detail.s_num}/detail/${detailimg.img_name}.${detailimg.img_type}" /><br/>
@@ -128,7 +129,7 @@
 		</div>
 		
 		<div class="col-xs-4">
-			<div class="text-center">
+			<div class="text-center detailImgHolder">
 				<c:if test="${detail.s_posterimg ne null}">
 					<img src="/uploadStorage/show/${detail.s_num}/poster/${detail.s_posterimg.img_name}.${detail.s_posterimg.img_type}" />
 				</c:if>
