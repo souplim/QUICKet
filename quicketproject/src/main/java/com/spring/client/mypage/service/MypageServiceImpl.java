@@ -41,8 +41,8 @@ public class MypageServiceImpl implements MypageService {
 
 	// 예매내역 취소
 	@Override
-	public Integer myTicketDelete(Integer ti_num) {
-		int result = mypageDao.myTicketDelete(ti_num);
+	public Integer myTicketDelete(int pay_num) {
+		int result = mypageDao.myTicketDelete(pay_num);
 		return result;
 	}
 
@@ -71,8 +71,8 @@ public class MypageServiceImpl implements MypageService {
 
 	// 좌석번호 리스트 조회
 	@Override
-	public List<Integer> mySeatList(int ti_num) {
-		List<Integer> list = mypageDao.mySeatList(ti_num);
+	public List<Integer> mySeatList(int pay_num) {
+		List<Integer> list = mypageDao.mySeatList(pay_num);
 		return list;
 	}
 
@@ -83,6 +83,13 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
+	// 상세페이지의 관심공연 등록 여부 조회
+	@Override
+	public MypageVO myShowLike(MypageVO mypageVO) {
+		MypageVO vo = mypageDao.myShowLike(mypageVO);
+		return vo;
+	}
+	
 	// 공연 상세페이지 공연의 관심 수 조회
 	@Override
 	public int likesCount(int s_num) {
@@ -159,6 +166,8 @@ public class MypageServiceImpl implements MypageService {
 		int couponListCntN = mypageDao.couponListCntN(mypageVO);
 		return couponListCntN;
 	}
+
+
 
 	
 	

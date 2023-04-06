@@ -7,9 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +57,7 @@ public class ClientUserController {
 	 *************************************************************/
 	@GetMapping("/login")
 	public String loginForm() {
-		log.info("client 로그인 화면 호출");
+		log.info("client 로그인 화면 호출");	
 		return "client/user/login"; 	// views/client/login.jsp
 	}
 	
@@ -90,7 +93,7 @@ public class ClientUserController {
 	}
 	
 	@PostMapping("/login")
-	public String userLoginProcess(UserVO login, Model model, RedirectAttributes ras, HttpSession session) {
+	public String userLoginProcess(UserVO login, Model model, RedirectAttributes ras, HttpSession session, HttpServletRequest request) {
 		String url = "";
 		log.info("client 로그인 처리 호출");
 		
@@ -136,7 +139,17 @@ public class ClientUserController {
 		} else if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
 			model.addAttribute("userLogin", userLogin);
 			log.info("사용자 상태 : " + userLogin.getU_state());
-			url = "/user/userInfo"; 	// 메인페이지로 이동하도록 설정.
+			
+			// 기존 요청 존재하는지 체크 후 원래 요청 페이지로 리다이렉트
+			String original_dest = (String) session.getAttribute("dest");
+			if(original_dest != null && original_dest.length() > 0) {
+				System.out.println("redirect:" + original_dest);
+			    url = "http://localhost:8080"+original_dest;
+			    session.removeAttribute("dest");
+			} else {
+				url = "http://localhost:8080/";	// 메인 페이지로 redirect
+			}
+			
 		} else if (userLogin.getU_state() == 0) {
 			ras.addFlashAttribute("errorMsg", "탈퇴 회원입니다.");
 			url = "/user/login";
@@ -169,15 +182,19 @@ public class ClientUserController {
 	 * 요청 URL : http://localhost:8080/user/join 으로 요청
 	 *************************************************************/
 	@GetMapping("/userInfo")
-	public String userInfo(@SessionAttribute("userLogin") UserVO uvo, Model model) {
-		/*
-		UserVO userinfo = clientUserService.userInfo(uvo);
-		model.addAttribute("userInfo",userinfo);
-		*/
+	public String userInfo(@SessionAttribute("userLogin") UserVO uvo, RedirectAttributes ras, HttpServletRequest request) {
+
+		String url = "";
 		
-		log.info(uvo.getU_pwddate());
-		log.info("client 회원정보 화면 호출");
-		return "client/user/userInfo"; 	// views/client/userInfo.jsp
+		if(uvo.getU_id() == null) {
+			ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+	        url = "redirect:" + request.getHeader("Referer");
+		} else {		
+			log.info(uvo.getU_pwddate());
+			log.info("client 회원정보 화면 호출");
+			url = "client/user/userInfo";
+		}
+		return url; 	// views/client/userInfo.jsp
 	}
 
 	/*************************************************************
@@ -194,11 +211,13 @@ public class ClientUserController {
 		return "client/user/userUpdateForm"; 	// views/client/userUpdateForm.jsp
 	}
 	
+	/*
 	@GetMapping("/pwdConfirm")
 	public String pwdConfirm() {
 		log.info("비밀번호 확인 화면");
 		return "client/user/pwdConfirm";
 	}
+	*/
 	
 	@PostMapping("/userUpdate")
 	public String userUpdate(@ModelAttribute("userLogin") UserVO vo, Model model, RedirectAttributes ras) throws Exception {
@@ -382,6 +401,17 @@ public class ClientUserController {
 		}
 		log.info("result : " + result + ", value : " + value );
 		return result;
+	}
+	
+	// 비밀번호 일치 여부 확인
+	@PostMapping("/pwdConfirm")
+	public ResponseEntity<String> pwdConfirm(@ModelAttribute UserVO vo, RedirectAttributes ras) {
+		log.info("비밀번호 일치 여부 확인");
+		ResponseEntity<String> entity = null;
+		int result = 0;
+		result = clientUserService.pwdConfirm(vo);
+		entity = new ResponseEntity<String>(String.valueOf(result), HttpStatus.OK);
+		return entity;
 	}
 
 }

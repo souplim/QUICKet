@@ -2,24 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
     <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
     <script>
+	    
 	    $(function(){
-	        var IMP = window.IMP; 
+	       /*   var IMP = window.IMP; 
 	        IMP.init("imp57026378"); 
 	    	
 	        $("#requestBtn").click(function(){
 	        	requestPay();
-			});
+			}); */
 	        $("#cancelBtn").click(function(){
 	        	cancelPay();
 			});
 	        
-	        function requestPay() {
+	       /*  function requestPay() {
 	            IMP.request_pay({
 	                pg : 'html5_inicis',
 	                pay_method : 'card',
-	                merchant_uid: "57008833-33003", 
+	                merchant_uid: "merchant_" + new Data().getTime(), 
 	                name : '당근 10kg',
 	                amount : 100,
 	                buyer_email : 'Iamport@chai.finance',
@@ -29,34 +32,92 @@
 	                buyer_postcode : '123-456'
 	            }, function (rsp) { // callback
 	                if (rsp.success) {
-	                    console.log(rsp);
+	                    console.log(rsp.imp_uid);
+	                    $.ajax({
+	                    	type:"post",
+	                    	url:"/admin/ticket/cash",
+	                    	data:{
+	                    		'imp_id':rsp.imp_uid
+	                    	}
+	                    }
 	                } else {
 	                    console.log(rsp);
 	                }
 	            });
-	        }
+	        }  */
 	    
         /* 결제취소 */
-        function cancelPay() {
+        /* function cancelPay() {
             jQuery.ajax({
               // 예: http://www.myservice.com/payments/cancel
-              "url": "{환불정보를 수신할 가맹점 서비스 URL}", 
+              "url": "https://api.iamport.kr/users/getToken"
               "type": "POST",
               "contentType": "application/json",
               "data": JSON.stringify({
-                "merchant_uid": "57008833-33004", // 예: ORD20180131-0000011
-                "cancel_request_amount": 100, // 환불금액
-                "reason": "테스트 결제 환불", // 환불사유
-                // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
-                "refund_holder": "홍길동", 
-                // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(예: KG이니시스의 경우 신한은행은 88번)
-                "refund_bank": "04" ,
-                // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
-                "refund_account": "94740200016308" 
+					"imp_key":"0431672717846216",
+					"imp_secret":"UJSeqJng4HP82G0pVr2sLQoDrghqOCKMHuopkIpppwLq9zcr6hCKUbg00kUbo0zroTnqRMPYdIVdUXt1"
               }),
-              "dataType": "json"
+              "dataType": "json",
+			    success : function(result){
+			    	console.log(result);
+			    }
             });
-          }
+          } */
+     // 주문번호 만들기
+       /*  function createOrderNum(){
+        	const date = new Date();
+        	const year = date.getFullYear();
+        	const month = String(date.getMonth() + 1).padStart(2, "0");
+        	const day = String(date.getDate()).padStart(2, "0");
+        	
+        	let orderNum = year + month + day;
+        	for(let i=0;i<10;i++) {
+        		orderNum += Math.floor(Math.random() * 8);	
+        	}
+        	return orderNum;
+        } */
+		var IMP = window.IMP; 
+        IMP.init("imp57026378"); 
+        $("#requestBtn").click(function(){
+        	console.log("결제요청");
+        	requestPay();
+        	function requestPay() {
+                
+
+                IMP.request_pay({ // param
+                	pg : 'html5_inicis',
+                    pay_method : 'card',
+                    merchant_uid: "ABCD1234",
+                    amount: "100",
+                    name: "길동홍"
+/*                     m_redirect_url: "/order/payment-result"
+ */
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+
+                        jQuery.ajax({
+                            url: "/api/v1/payment/complete", // 예: https://www.myservice.com/payments/complete
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            data: {
+                                imp_uid: rsp.imp_uid,
+                                merchant_uid: rsp.merchant_uid
+                            }
+                        }).done(function (data) {
+                        	alert("성공");
+                        	console.log(data);
+                        	var obj = JSON.parse(data);
+                        	console.log(obj);
+                        	console.log(obj.token);
+                        	
+                        })
+                    } else {
+                        alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                    }
+                });
+            }
+        });
+        // 계산 완료
 	    })
     </script>
     <meta charset="UTF-8">

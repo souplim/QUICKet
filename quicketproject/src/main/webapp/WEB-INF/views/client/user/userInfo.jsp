@@ -15,15 +15,27 @@
 		});
 	});
 </script>
+
+<style>
+  	#tableDiv {
+  	margin-top : 50px;
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    padding: 0 20px;
+  	}
+  	
+</style>
 		
 </head>
 <body>
-	회원 정보
 	<div class="container">
 	<form id="userNum">
 		<input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
 	</form>
-	<table class="table">
+	<br>
+	<h3 class="text-center">회원 정보</h3>
+	<div id="tableDiv">
+			<table class="table">
 		<tr>
 			<td class="text-center">이름</td>
 			<td colspan="3">${userLogin.u_name}</td>
@@ -34,8 +46,7 @@
 		</tr>
 		<tr>
 			<td class="text-center">비밀번호</td>
-			<td></td>
-			<td colspan="2">마지막 비밀번호 변경일 : ${userLogin.u_pwddate}</td>
+			<td colspan="3">마지막 비밀번호 변경일 : ${userLogin.u_pwddate}</td>
 		</tr>
 		<tr>
 			<td class="text-center">성별</td>
@@ -62,9 +73,10 @@
 		</tr>
 		<tr>
 			<td colspan="3"></td>
-			<td class="text-right"><button class="btn btn-warning" id="userUpdateBtn">회원정보 수정</button></td>
+			<td class="text-right"><button class="w-btn-outline w-btn-indigo-outline btn" id="userUpdateBtn">회원정보 수정</button></td>
 		</tr>
 	</table>
+	</div>
 	</div>
 </body>
 </html>

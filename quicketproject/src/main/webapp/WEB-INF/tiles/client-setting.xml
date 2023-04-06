@@ -16,6 +16,13 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
+	<definition name="client/show/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/show/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	 
 	<definition name="client/user/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
 		<put-attribute name="title" value="QUICKet" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
@@ -23,19 +30,44 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<!-- 고객센터 레이아웃 -->
-	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
-		<put-attribute name="title" value=""/>
-		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/client/user/{1}.jsp" />
+	<definition name="client/expect/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/expect/{1}.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
+	<definition name="client/qna/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="QUICKet" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/qna/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	 
+	
+	<!-- 고객센터 레이아웃 -->
+	<definition name="cs" template="/WEB-INF/views/template/client/mypageLayout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/template/client/leftCs.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<!-- faq -->
+	<definition name="client/faq/*" extends="cs">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/client/faq/{1}.jsp" />
+	</definition>
+	
 	<!-- 1대1문의 -->
-	<definition name="client/inq/*" extends="content">
+	<definition name="client/inq/*" extends="cs">
 		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/inq/{1}.jsp" />
 	</definition>
+	
+	<!-- qna 게시판 -->
+	
 	
 	<!-- 마이페이지 레이아웃 -->
 	<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
@@ -56,18 +88,12 @@
 	
 	<!-- 쿠폰페이지 레이아웃 -->
 		<definition name="client/mypage/*" template="/WEB-INF/views/template/client/mypageLayout.jsp">
-		<put-attribute name="title" value="QUICKet 쿠폰"/>
+		<put-attribute name="title" value="QUICKet 마이페이지"/>
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/views/template/client/left.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />	
 	</definition>	
-	
-	<!-- FAQ -->
-	<definition name="client/faq/*" extends="content">
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/client/faq/{1}.jsp" />
-	</definition>
 		
 	<!-- 관람후기 -->
 	<definition name="client/review/*" extends="content">

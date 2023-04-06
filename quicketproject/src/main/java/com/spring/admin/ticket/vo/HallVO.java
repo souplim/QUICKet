@@ -11,6 +11,7 @@ public class HallVO extends CommonVO {
 	private String hall_place   = ""; 	// 공연관
 	
 	private String s_name = ""; 		// 공연명
+	private int s_num = 0;				// 공연번호
 	private String th_name = "";		// 공연장
 	
 	private String hall_turn   	= ""; 	// 상영회차

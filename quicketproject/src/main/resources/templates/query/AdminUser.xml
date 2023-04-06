@@ -62,4 +62,24 @@
 		where u_num = #{u_num}
 	</update>
 	
+	
+	<!-- 회원 쿠폰 내역 조회 -->
+	<select id="userCouponList" parameterType="String" resultType="mypage">
+		SELECT u_id, U.c_num, c_name, c_discount, uc_state, TO_CHAR(c_startdate,'yyyy-mm-dd') c_startdate, TO_CHAR(c_enddate,'yyyy-mm-dd') c_enddate, 
+		TO_CHAR(uc_date,'yyyy-mm-dd') uc_date
+		FROM user_coupon U INNER JOIN admin_coupon A
+		                         ON U.c_num = A.c_num
+		WHERE u_id = #{u_id} 
+		ORDER BY c_num DESC
+	</select>
+	
+	<!-- 회원 예매 내역 조회 -->
+	<select id="userTicketList" parameterType="String" resultType="mypage">
+		select to_char(seat_date,'YYYY-MM-DD HH:mm:ss') as seat_date, ti_num, ti_status, u_id, 
+		to_char(ti_regdate,'YYYY-MM-DD HH:mm:ss') as ti_regdate,
+        to_char(ti_update,'YYYY-MM-DD HH:mm:ss') as ti_update
+        from ticket
+        where u_id = #{u_id}
+		order by ti_num desc
+	</select>
 </mapper>

@@ -115,6 +115,9 @@
         margin-right: 0;
     }
 }
+
+#close-btn{margin-left:170px; color:white; cursor:pointer;}
+#open-btn{color : white; cursor:pointer;}
 </style>
 
 <script>
@@ -136,36 +139,21 @@
 	<div id="wrapper" class="toggled">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <button type="button" id="close-btn" class="btn btn-info">CLOSE</button>
-            <li><a href="#">뮤지컬</a> </li>
-            <li><a href="#">연극</a> </li>
-            <li><a href="#">랭킹</a></li>
-            <li><a href="#">지역</a></li>
+     <ul class="sidebar-nav">
+       		<li><a><span class="glyphicon glyphicon-remove" id="close-btn"></span></a></li>
+            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a> </li>
+            <li><a href="/genre?s_genre=연극">연극</a> </li>
+            <li><a href="/ranking">랭킹</a></li>
             <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
             <li> <a href="/faq/faqList">FAQ</a></li>
             <li> <a href="/mypage/">마이페이지</a></li>
         </ul>
     </div>
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content
-    <div id="page-content-wrapper"> <a href="#" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-th-list"></span></a>
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                     <h1>KODI</h1>
-
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- /#page-content-wrapper -->
 </div>
 
         <div class="navbar-header">
         
-        <button type="button" id="open-btn" class="btn btn-info navbar-left">메뉴</button>
+     
           
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -173,24 +161,28 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">홈</a></li>
-            <li><a href="#">뮤지컬</a></li>
-            <li><a href="#">랭킹</a></li>
-            <li><a href="#">지역</a></li>
+          	<li>    <a><span class="glyphicon glyphicon-menu-hamburger navbar-left" id="open-btn"></span></a></li>
+          	<li><a class="navbar-brand" href="/">QUICKet</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav">
+            <li><a href="/">홈</a></li>
+            <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+            <li><a href="/genre?s_genre=연극">연극</a></li>
+            <li><a href="/ranking">랭킹</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <c:if test="${not empty userLogin}">
+            <c:if test="${not empty userLogin.u_name}">
             	<li><a>${userLogin.u_name }님 환영합니다.</a></li>
 		 		<li><a href="/user/logout">로그아웃</a></li>
 			</c:if>
-			<c:if test="${empty userLogin}">
+			<c:if test="${empty userLogin.u_name}">
 			 	<li><a href="/user/login">로그인</a></li>
 			</c:if>
-            <li><a href="#">고객센터</a></li>
+            <li><a href="/faq/faqList">고객센터</a></li>
           </ul>
         </div>
         

@@ -39,16 +39,14 @@ public class ShowVO extends CommonVO {
 	private String s_update		= "";	//공연데이터수정일
 	
 	//보유한 이미지파일의 정보 객체 및 리스트
-	/*
 	private ImgVO s_posterimg;			//포스터 이미지파일 데이터
 	private List<ImgVO> s_detailimg;	//상세정보 이미지파일 데이터
 	private String s_detail_str = "";	//상세정보 이미지파일 리스트를 가공하여 주고받는 필드
-	*/
+
 	//업로드로 받은 이미지파일 데이터
-	/*
 	private MultipartFile s_posterfile;			//업로드할 포스터 이미지파일
 	private List<MultipartFile> s_detailfile;	//업로드할 상세정보 이미지파일 리스트
-	*/
+	
 	//검색관련변수
 	private String s_select_region	= ""; 	//지역선택에 쓸 키워드를 저장하는 변수
 	private String s_array			= "";	//정렬이 필요할 경우 조건을 저장하는 변수
@@ -57,6 +55,7 @@ public class ShowVO extends CommonVO {
 	
 	//평점 랭킹 변수
 	private int s_point_rank		= 0;	//평점 랭킹을 저장하기 위한 변수
+	private String rank_period		= "";	//랭킹 검색 범위를 저장하기 위한 변수
 	
 	
 	// 이유빈 추가 (커뮤니티 - 기대평, 관람후기 ,qna 개수)

@@ -35,16 +35,22 @@ public class AdminReviewController {
 	//@GetMapping("/adminreviewList")
 	public String adminreviewList(@ModelAttribute("data") ReviewVO rvo, Model model) throws Exception {
 		log.info("adminreviewList 호출 성공");
+		int s_num = rvo.getS_num();
+		log.info("s_num : " + s_num);
 	// 전체 레코드 조회
 		List<ReviewVO> adminreviewList = adminreviewService.adminreviewList(rvo);
 		model.addAttribute("adminreviewList", adminreviewList);
+		model.addAttribute("s_num", s_num);
 		
 		// 전체 레코드수 구현
-	//	int total = boardService.boardListCnt(bvo);
+		int total = adminreviewService.reviewCnt(rvo);
 		
-		int total = 10;
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(rvo, total));
+		
+		int count = total - (rvo.getPageNum()-1) * rvo.getAmount();
+		model.addAttribute("count", count);
+		
 		return "admin/review/adminreviewList";   //리턴해 주는게 뷰의 정보
 	}
 
@@ -84,7 +90,7 @@ public class AdminReviewController {
 			result = adminreviewService.adminrevewDelete(rvo);
 			
 			if(result == 1){
-				url="/adminreviewList";
+				url="/admin/review/adminreviewList?s_num=" + rvo.getS_num();
 			}else{
 				url="/adminreviewDetail?r_no="+rvo.getR_no();
 				

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ include file="/WEB-INF/views/common/popup.jspf" %>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 
@@ -449,7 +449,7 @@
 		<input type="hidden" name="hall_date" id="hall_date" value="${pay_step2_list.hall_date}">
 		<input type="hidden" name="th_num" id="th_num" value="${pay_step2_list.th_num}">
 		<input type="hidden" name="hall_id" id="hall_id" value="${pay_step2_list.hall_id}">
-	
+		<input type="hidden" name="s_num" id="s_num" value="${detailData.s_num}">
 	</form>
 	<div id="main">
 		<div id="header">
@@ -611,7 +611,14 @@
 	<div id="side">
 		<div class="side_box side_box1">
 			<div id="side_box1_box1">
-				<img src="/resources/images/20230315-45326.jpg"  style="width:90%;height:200px;margin:5px 0 0 5px">
+				<img src=
+					<c:if test="${detailData.s_posterimg ne null}">
+						"/uploadStorage${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
+					</c:if>
+					<c:if test="${detailData.s_posterimg eq null}">
+						"/uploadStorage/show/poster_default.jpg"
+					</c:if>
+					style="width:90%;height:85%;margin:10px 0 0 5px"/>
 			</div>
 			<div id="side_box1_box2">
 				<table class="side_table">

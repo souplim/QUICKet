@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.theater.dao.AdminTheaterDao">
+
+	<!-- 공연장 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->
+	<select id="theaterList" resultType="theaterVO">
+		<![CDATA[select th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web, 
+		to_char(th_regdate,'yyyy-MM-dd') th_regdate, to_char(th_update,'yyyy-MM-dd') th_update
+		from(
+		select ]]>
+		<include refid="theaterArray"></include> 
+		<![CDATA[
+		rownum as rnum, th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web, th_regdate, th_update
+		from theater
+		where]]>
+		<trim prefix="(" suffix=") and" prefixOverrides="and">
+			<include refid="theaterSearch"></include> 
+		</trim>
+		<![CDATA[
+		rownum <= #{pageNum}*#{amount}
+		) theaterlist
+		where rnum>(#{pageNum}-1)*#{amount}
+		]]>
+	</select>
+	<!-- 검색조건 설정하는 구문 -->
+	<sql id="theaterSearch">
+		<if test="search=='th_name'">
+		<![CDATA[th_name like '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='th_addr'">
+		<![CDATA[th_addr like '%'||#{keyword}||'%']]>
+		</if>
+	</sql>
+	<!-- 검색내용 정렬하는 구문 -->
+	<sql id="theaterArray">
+		<![CDATA[/*+ ]]>
+			<if test="th_array=='' or th_sortorder==''"><![CDATA[index_desc(theater pk_theater)]]></if>
+			<if test="th_array!='' and th_sortorder!=''">
+				<if test="th_sortorder=='asc'"><![CDATA[index_asc(]]></if>
+				<if test="th_sortorder=='desc'"><![CDATA[index_desc(]]></if>
+				<if test="th_array=='th_num'">
+				<![CDATA[theater pk_theater]]>
+				</if>
+				<if test="th_array=='th_regdate'">
+				<![CDATA[theater index_th_regdate]]>
+				</if>
+				<if test="th_array=='th_addr'">
+				<![CDATA[theater index_th_addr]]>
+				</if>
+				<if test="th_array=='th_name'">
+				<![CDATA[theater index_th_name]]>
+				</if>
+				<![CDATA[)]]>
+			</if>
+		<![CDATA[*/]]>
+	</sql>
+	
+	<!-- 검색된 공연장 수 조회 -->
+	<select id="theaterListCnt" parameterType="theaterVO" resultType="int">
+	select count(*) from theater
+	<trim prefix=" where (" suffix=")">
+		<include refid="theaterSearch"></include>
+	</trim>
+	</select>
+	
+	<select id="theaterSelectList" resultType="theaterVO">
+		<![CDATA[select th_num, th_name from theater]]>
+	</select>
+	
+	<select id="theaterOne" resultType="theaterVO">
+		<![CDATA[select th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web 
+		from theater
+		where th_num=#{th_num}]]>
+	</select>
+	
+	<select id="showHasTheater" parameterType="theaterVO" resultType="Integer">
+		<![CDATA[select count(*) from show where th_num=#{th_num}]]>
+	</select>
+	
+	<insert id="theaterInsert" parameterType="theaterVO">
+		<![CDATA[insert into theater(th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web)
+		values(theater_seq.nextval, #{th_name}, #{th_addr}, #{th_map_lat}, #{th_map_lng}, #{th_web})]]>
+	</insert>
+	
+	<update id="theaterUpdate" parameterType="theaterVO">
+		update theater
+		set th_name = #{th_name}, 
+			th_addr = #{th_addr}, 
+			th_map_lat = #{th_map_lat},
+			th_map_lng = #{th_map_lng},
+			th_web = #{th_web},
+			th_update = SYSDATE
+		where th_num = #{th_num}
+	</update>
+	
+	<delete id="theaterDelete" parameterType="theaterVO">
+		delete from theater where th_num = #{th_num}
+	</delete>
+
+</mapper>

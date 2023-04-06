@@ -2,24 +2,36 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" />
+		<typeAlias type="com.spring.client.show.vo.RankVO" alias="rankVO" />
+		<typeAlias type="com.spring.client.show.vo.ImgVO" alias="imgVO" />
+		<typeAlias type="com.spring.client.theater.vo.TheaterVO" alias="theaterVO" />
+		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="reviewVO" />
 		
 		<typeAlias type="com.spring.client.inq.vo.InqVO" alias="inq" />
 		<typeAlias type="com.spring.client.inq.reply.vo.InqReplyVO" alias="inqReply" />
 		<typeAlias type="com.spring.client.mypage.vo.MypageVO" alias="mypage" />
 		<typeAlias type="com.spring.admin.statistics.vo.StatVO" alias="stat" />
 		
+		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
+		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>
+		<typeAlias type="com.spring.client.expect.vo.ExpectVO" alias="expect"/>
+		
 		<typeAlias type="com.spring.admin.login.vo.AdminLoginVO" alias="adminLogin" /> 
 		<typeAlias type="com.spring.client.user.vo.UserVO" alias="user" /> 
-		<typeAlias type="com.spring.client.show.vo.ShowVO" alias="showVO" /> 
 		<typeAlias type="com.spring.admin.coupon.vo.AdminCouponVO" alias="adminCoupon" />
 		<typeAlias type="com.spring.client.coupon.vo.UserCouponVO" alias="userCoupon" />
 		<typeAlias type="com.spring.client.faq.vo.FaqVO" alias="faq"/>	
 		<typeAlias type="com.spring.client.review.vo.ReviewVO" alias="review"/>	
 		
+	
 		<typeAlias type="com.spring.admin.ticket.vo.HallVO" alias="hall" />
 		<typeAlias type="com.spring.client.paypage.vo.PayPageVO" alias="paypage" />
 		<typeAlias type="com.spring.client.paypage.vo.CouponVO" alias="coupon" />
-		<typeAlias type="com.spring.client.paypage.vo.UserVO" alias="ticket_user" />
-		<typeAlias type="com.spring.client.pay.vo.PayVO" alias="pay" />     
+		<typeAlias type="com.spring.client.pay.vo.PayVO" alias="pay" />
+		<typeAlias type="com.spring.client.paypage.vo.ticketSuccessVO" alias="tSuccess" />    
+		
+		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna"/>
+      <typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply"/>     
 	</typeAliases>
 </configuration>

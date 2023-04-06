@@ -9,11 +9,11 @@
 	<script type="text/javascript">
 		$(function(){
 			
-			/* 제목 클릭시 qna게시판의 내 댓글 페이지로 이동? */
-			$(".goDetail").on("click", function(){
-				let q_no = $(this).parents("tr").attr("data-num");
-				//location.href="/mypage/myTicketList?q_no="+q_no;
-			});
+			/* 제목 클릭시 관람후기 게시판의 내 댓글 페이지로 이동? */
+			/* $(".goDetail").on("click", function(){
+				let r_no = $(this).parents("tr").attr("data-num");
+				let s_num = $(this).parents("tr").attr("data-snum");
+			}); */
 			
 			/* 페이징 처리 이벤트 */
 			$(".paginate_button a").click(function(e){
@@ -65,11 +65,13 @@
 						<c:choose>
 							<c:when test="${not empty reviewList}">
 								<c:forEach var="review" items="${reviewList}" varStatus="status">
-									<tr class="text-center" data-num="${review.r_no}">
+									<tr class="text-center" data-num="${review.r_no}" data-snum="${review.s_num}">
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
 										<%-- <td>${count - status.index}</td>  --%>
 										<td class="text-center">${review.s_name}</td>
-										<td class="goDetail">${review.r_title}</td>
+										<td class="goDetail">
+											<a href="/showDetail?s_num=${review.s_num}#reviewBox">${review.r_title}</a>
+										</td>
 										<td>
 											<c:forEach var="i" begin="0" end="${review.r_point-1}">
 												<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -87,7 +89,7 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="3" class="tac text-center">등록된 Q&A가 존재하지 않습니다.</td>
+									<td colspan="3" class="tac text-center">등록된 관람후기가 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

@@ -16,8 +16,12 @@
 			margin: 0 10px; 
 			width: 200px;
 		}
+		#img img {
+			height: 200px;
+			weith: 150px;
+		}
 		.table-ticket { width: 900px; }
-		.contentBtn { margin: 10px; }
+		.contentBtn { margin: 5px 20px 10px 30px; }
 		
 		#payment { margin-bottom: 30px; }
 		
@@ -27,7 +31,8 @@
 		$(function(){
 			/* 공연정보 버튼 클릭시 이벤트 처리 */
 			$("#showInfoBtn").on("click", function(){
-				location.href="";
+				let s_num = $("#s_num").val();
+				location.href="/showDetail?s_num="+s_num;
 			});
 			
 			/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
@@ -66,12 +71,6 @@
 								  $('#myInput').focus();
 								});
 								
-								// detail 페이지 post 방식으로 이동
-								/* $("#dataForm").attr({
-									"method" : "get",
-									"action" : "/mypage/myTicketDetail"
-								});
-								$("#dataForm").submit(); */
 							}
 						}
 					}
@@ -86,9 +85,9 @@
 			
 			/* 나의 관심공연 버튼 클릭시 뜨는 모달창에서 닫기 버튼 클릭시 처리 이벤트 */
 			$(".detailReload").on("click", function(){
-				let ti_num = $(".dataNum").attr("data-num");
-				console.log(ti_num);
-				$("#ti_num").val(ti_num);
+				let pay_num = $(".tiNum").text();
+				console.log(pay_num);
+				$("#pay_num").val(pay_num);
 				
 				// 디테일 페이지 리로드
 				$("#dataForm").attr({
@@ -110,8 +109,8 @@
 			
 			/* 예매취소 -> 확인 버튼 클릭시 이벤트 처리 */
 			$("#cancelConfirmBtn").on("click", function(){
-				let ti_num = $(".dataNum").attr("data-num");
-				location.href="/mypage/myTicketDelete?ti_num="+ti_num;
+				let pay_num = $(".dataNum").attr("data-num");
+				location.href="/mypage/myTicketDelete?pay_num="+pay_num;
 			});
 			
 		});
@@ -179,7 +178,7 @@
 		<%-- ================= 데이터 전달 폼 ================= --%>
 		<form name="dataForm" id="dataForm">
 			<input type="hidden" name="s_num" id="s_num" value="${ticketDetail.s_num}">
-			<input type="hidden" name="ti_num" id="ti_num">
+			<input type="hidden" name="pay_num" id="pay_num">
 		</form>
 			
 		<%-- ================= 페이지 시작 ================= --%>
@@ -200,13 +199,15 @@
 				</div>
 				<div class="contentTB text-center flex">
 					<div id="img">
-						${ticketDetail.img_dir}/${ticketDetail.img_name}.${ticketDetail.img_type}
+						<c:if test="${ticketDetail.img_dir ne null}">
+							<img class="poster" src="/uploadStorage/${ticketDetail.img_dir}/${ticketDetail.img_name}.${ticketDetail.img_type}"/>
+						</c:if>
 					</div>
 					<div>
 						<table class="table table-bordered table-ticket">
-							<tr class="dataNum" data-num="${ticketDetail.ti_num}">
+							<tr class="dataNum" data-num="${ticketDetail.pay_num}">
 								<td class="col-md-4 gray">예매번호</td>
-								<td class="col-md-8 text-left">${ticketDetail.ti_num}</td>
+								<td class="col-md-8 text-left tiNum">${ticketDetail.pay_num}</td>
 							</tr>
 							<tr>
 								<td class="col-md-4 gray">예매자</td>
@@ -223,13 +224,14 @@
 							<tr>
 								<td class="col-md-4 gray" style="vertical-align:middle">좌석번호</td>
 								<td class="col-md-8 text-left">
-									<c:choose>
+									${ticketDetail.seat_nums}번
+									<%-- <c:choose>
 										<c:when test="${not empty seatList}">
 											<c:forEach var="seats" items="${seatList}" varStatus="status">
 												<p>${seats.seat_num}번</p>
 											</c:forEach>
 										</c:when>
-									</c:choose>
+									</c:choose> --%>
 								</td>
 							</tr>
 						</table>
@@ -244,35 +246,18 @@
 						<c:when test="${ticketDetail.is_likes == 1}">
 							<button type="button" class="btn btn-danger likes cancelLikes" data-toggle="modal" data-target="#myCancelLikesModal">
 								<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 
-									관심공연 해제
+									해제
 							</button>
 						</c:when>
 						<c:otherwise>
 							<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
 								<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
-									관심공연 담기
+									관심
 							</button>
 						</c:otherwise>
 					</c:choose> 
 				</div>
 				
-				<%-- ================= 공연 디테일 페이지에 들어갈 관심공연 버튼 ================= --%>
-				<div class="contentBtn text-left">
-					<c:choose>
-						<c:when test="${ticketDetail.is_likes == 1}">
-							<button type="button" class="btn btn-danger likes cancelLikes" data-toggle="modal" data-target="#myCancelLikesModal">
-								<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 
-									<span class="badge">${mypageVO.likesCount}</span>
-							</button>
-						</c:when>
-						<c:otherwise>
-							<button type="button" class="btn btn-default likes addLikes" data-toggle="modal" data-target="#myLikesModal">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
-									<span class="badge">${mypageVO.likesCount}</span>
-							</button>
-						</c:otherwise>
-					</c:choose> 
-				</div>
 			</div>
 			
 			<%-- ================= 결제내역 ================= --%>
