@@ -105,7 +105,7 @@
 			<include refid="getRankPrev"></include> 
 		</if>
 		<![CDATA[(select theater.th_name from theater where theater.th_num = s.th_num) as th_name 
-		from show s, rank r 
+		from (select * from show order by s_point desc) s, rank r 
 		where s.s_num = r.s_num 
 		and r.rank_start = #{start_date}
 		and r.rank_end = #{end_date}
