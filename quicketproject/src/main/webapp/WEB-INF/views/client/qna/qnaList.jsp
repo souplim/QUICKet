@@ -6,7 +6,7 @@
 	div.qnaNotice{height: 150px; background-color: #EAEAEA; margin-top: 10px;}
 	div.countArea{margin-top: 30px;}
 	div.insertBtnArea{margin-top: 15px; margin-botton:0px;}
-	div#noticeText{float:left;}
+
 
 </style>
 
@@ -78,9 +78,14 @@
 	
 		<%-- ================= 리스트 시작 ================ --%>
 		<div id="qnaList" class="table-height">
-			<div class="qnaNotice">
+			<div class="expectNotice">
+				<div id="noticeHeader">
+				<h4>꼭 읽어주세요(운영규정)</h4>
+				</div>
 				<div id="noticeText">
-				게시판 운영 규정에 어긋난다고 판단되는 게시글은 사전 통보없이 블라인드 처리될 수 있습니다. 특히 티켓 매매 및 양도의 글은 발견 즉시 임의 삭제되며 전화번호, 이메일 등의 개인정보는 악용될 우려가 있으므로 게시를 삼가 주시기 바랍니다. 사전 경고에도 불구하고 불량 게시물을 계속적으로 게재한 게시자의 경우 인터파크 티켓 게시판 작성 권한이 제한됩니다. 
+				게시판 운영 규정에 어긋난다고 판단되는 게시글은 사전 통보없이 블라인드 처리될 수 있습니다.<br/>
+				특히 티켓 매매 및 양도의 글은 발견 즉시 임의 삭제되며 전화번호, 이메일 등의 개인정보는 악용될 우려가 있으므로 게시를 삼가 주시기 바랍니다.<br/>
+				사전 경고에도 불구하고 불량 게시물을 계속적으로 게재한 게시자의 경우 QUICKet 게시판 작성 권한이 제한됩니다. <br/>
 				</div>
 			</div>
 			<%-- 글쓰기 버튼 --%>
@@ -98,8 +103,7 @@
 					</tr>
 				</thead>
 				<tbody id="list" class="table-striped">
-					<tr><td>테스트</td></tr>
-					
+				
 					<!-- 데이터 출력 -->
 					<c:choose>
 						<c:when test="${not empty qnaList}">

@@ -24,7 +24,7 @@ public class AdminExpectServiceImpl implements AdminExpectService {
 		return list;
 	}
 
-
+	
 	@Override
 	public int adminExpectDelete(int ex_no) throws Exception {
 		int result = 0;

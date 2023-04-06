@@ -34,7 +34,7 @@
 		SELECT
 			ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') as ex_regdate, s_num
 		FROM (
-			SELECT 
+			SELECT /*+ INDEX_DESC(expect pk_expect) */ 
 				rownum as rnum, ex_no, ex_title, ex_content, u_id, ex_regdate, s_num
 			FROM expect
 			WHERE ]]>
