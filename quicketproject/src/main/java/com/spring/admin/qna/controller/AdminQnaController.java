@@ -1,4 +1,4 @@
-package com.spring.client.qna.controller;
+package com.spring.admin.qna.controller;
 
 import java.util.List;
 
@@ -72,6 +72,7 @@ public class AdminQnaController {
 		int result = 0;
 		String url = "";
 		
+
 		result = adminQnaService.qnaAdminDelete(qvo.getQ_no());
 		
 		if(result == 1) {

@@ -74,7 +74,7 @@
 				let q_r_no = this.q_r_no;
 				let u_id = this.u_id;
 				let q_r_content = this.q_r_content;
-				let q_r_regdate = this.q_r_date;
+				let q_r_regdate = this.q_r_regdate;
 				q_r_content = q_r_content.replace(/(\r\n|\r|\n)/g, "<br />");
 				template(q_r_no, u_id, q_r_content, q_r_regdate);
 			
