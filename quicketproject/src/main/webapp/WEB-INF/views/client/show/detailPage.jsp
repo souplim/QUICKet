@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+.detailImgHolder>img{max-width:100%;}
 .showBox_detail{
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 	padding:30px 50px 50px 50px;
@@ -230,7 +231,7 @@ div[role="tabpanel"]{min-height:30em;}
 			</div>
 			<br />
 			<div class="row">
-				<div class="showBox_thumbnail col-sm-3">
+				<div class="showBox_thumbnail detailImgHolder col-sm-3">
 					<img src=
 					<c:if test="${detailData.s_posterimg ne null}">
 						"/uploadStorage/${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
@@ -333,7 +334,7 @@ div[role="tabpanel"]{min-height:30em;}
 			<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="detailimgBox">
-					<div class="row text-center">
+					<div class="row text-center detailImgHolder">
 						<c:if test="${detailData.s_detailimg ne null and not empty detailData.s_detailimg}"></c:if>
 						<c:forEach var="detailimg" items="${detailData.s_detailimg}">
 							<c:if test="${detailimg ne null}">
