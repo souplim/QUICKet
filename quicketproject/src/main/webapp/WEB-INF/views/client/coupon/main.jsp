@@ -53,6 +53,46 @@
 	img {width : 100%;}
 	.coupon {width : 22%; }
 	.caption{height:110px;}
+	
+	    	
+.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-indigo {
+    background-color: dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline {
+    border: 3px solid dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline:hover {
+    color: #191970;
+    background: dodgerblue;
+}
 </style>
 </head>
 <body>
@@ -79,9 +119,9 @@
 						  <small>유효기간 : <span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate }</span></small></p>
 				        </div>
 				        <div class="btnArea" data-num="${coupon.c_num}">
-				        	<button type="button" class="btn btn-warning btn-block couponBtn" 
+				        	<button type="button" class="w-btn-outline w-btn-indigo-outline btn-block couponBtn" 
 				        	<c:if test="${coupon.c_startissue > today || coupon.c_endissue < today}">
-				        		disabled="disabled"
+				        		disabled="disabled" style="background-color: lightgray; cursor: no-drop;"
 				        	</c:if>
 				        	>발급 받기</button>
 				        </div>
