@@ -255,6 +255,7 @@
 	#chkKeyArea{display:none;}
 	#sendBtnArea{display:none;}
 	#goLoginArea{display:none;}
+	.container{margin-top : 40px;}
 </style>
 
 </head>
