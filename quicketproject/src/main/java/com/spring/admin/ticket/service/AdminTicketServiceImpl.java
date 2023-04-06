@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.admin.ticket.dao.HallDao;
 import com.spring.admin.ticket.vo.HallVO;
+import com.spring.client.pay.vo.PayVO;
 import com.spring.common.file.FileUploadUtil;
 
 import lombok.Setter;
@@ -59,6 +60,13 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		int result = 0;
 		result = hallDao.hallUpdate(hvo);
 		return result;
+	}
+	
+	@Override
+	public List<PayVO> payCancelPage() {
+		List<PayVO> updateData = null;
+		updateData = hallDao.payCancelPage();
+		return updateData;
 	}
 	
 }

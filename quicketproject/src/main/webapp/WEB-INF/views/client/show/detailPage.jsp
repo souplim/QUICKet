@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+.detailImgHolder>img{max-width:100%;}
 .showBox_detail{
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 	padding:30px 50px 50px 50px;
@@ -16,6 +17,19 @@
 #theaterBox th{text-align:center;}
 #theaterBox td{text-align:left;}
 div[role="tabpanel"]{min-height:30em;}
+#casting_box{
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
+	padding:20px 30px 30px 50px;
+	margin-top:30px;
+}
+#casting_box p{font-size:24px; font-weight:bold;}
+#casting_box table{
+	border-spacing:30px;
+	font-size:16px;
+}
+#casting_box th, td{
+	padding: 10px;
+}
 .nav-pills>li{
 	text-align:center;
 	width:150px;
@@ -46,7 +60,22 @@ div[role="tabpanel"]{min-height:30em;}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3dc7376a2cb1e4f12306eaaebe2593e4"></script>
 <script type="text/javascript" src="/resources/include/js/theaterMap.js"></script>
 <script type="text/javascript">
-	$(function(){		
+	$(function(){
+		let s_actor_str = "<c:out value='${detailData.s_actor}' />";
+		if(s_actor_str!=""){
+			let $txt = $("<textarea></textarea>");
+			$txt.html(s_actor_str)
+			let s_actor_txt = $txt.val();
+			let s_actor = JSON.parse(s_actor_txt);
+			let $castingTable = $("<table>");
+			$(s_actor).each(function(){
+				let $castingTr = $("<tr><th>"+this.role+"</th><td>"+this.actor+"</td></tr>")
+				$castingTable.append($castingTr);
+			})
+			$("#casting_box").append($("<p>캐스팅</p><br/>"))
+			$("#casting_box").append($castingTable);
+		}
+
 		$("a[aria-controls='theaterBox']").on("shown.bs.tab", function(){
 			let th_num = Number("<c:out value='${detailData.th_num}' />");		
 			$.ajax({
@@ -81,7 +110,6 @@ div[role="tabpanel"]{min-height:30em;}
 		})
 		
 		let u_id = "${userLogin.u_id}";
-		console.log(u_id);
 	
 		/* 관심공연 담기 버튼 클릭시 이벤트 처리 */
 		$(".likes").on("click", function(){
@@ -217,7 +245,7 @@ div[role="tabpanel"]{min-height:30em;}
 			</div>
 			<br />
 			<div class="row">
-				<div class="showBox_thumbnail col-sm-3">
+				<div class="showBox_thumbnail detailImgHolder col-sm-3">
 					<img src=
 					<c:if test="${detailData.s_posterimg ne null}">
 						"/uploadStorage/${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
@@ -282,7 +310,9 @@ div[role="tabpanel"]{min-height:30em;}
 				
 			</div>
 		</div>
-		<br/><br/>
+		<div class="row">
+			<div id="casting_box"></div>
+		</div>
 		<!-- 예매기능 박스 -->
 		<div class="ticketBox row">
 			<c:import url="/WEB-INF/views/client/ticket/showDetail.jsp" />
@@ -318,7 +348,7 @@ div[role="tabpanel"]{min-height:30em;}
 			<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="detailimgBox">
-					<div class="row text-center">
+					<div class="row text-center detailImgHolder">
 						<c:if test="${detailData.s_detailimg ne null and not empty detailData.s_detailimg}"></c:if>
 						<c:forEach var="detailimg" items="${detailData.s_detailimg}">
 							<c:if test="${detailimg ne null}">
