@@ -142,11 +142,15 @@ public class ClientPayPageController {
 	}
 	
 	@RequestMapping(value = "/ticketSuccessPage", method = RequestMethod.GET)
-	public String ticketSuccessPage(@ModelAttribute ticketSuccessVO tsvo , Model model) {
+	public String ticketSuccessPage(@ModelAttribute ticketSuccessVO tsvo,ShowVO vo, Model model) {
 		log.info("ticketSuccessPage 호출 성공");
 		
 		ticketSuccessVO ticketSuccessPage = clientPayPageService.ticketSuccessPage(tsvo);
 		model.addAttribute("ticketSuccessPage", ticketSuccessPage);
+		
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
 		return "/client/payPage/ticketSuccessPage";
 		
 	}

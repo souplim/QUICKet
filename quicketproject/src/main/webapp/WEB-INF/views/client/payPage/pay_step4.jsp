@@ -208,7 +208,7 @@
     	                    	// 예매 좌석 테이블 Insert
     	                    	ticketSeatInsert(pay_num);
     	                        alert("결제 완료되었습니다."); 
-    	                        location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num;
+    	                        location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num+"&s_num="+"${detailData.s_num}";
     				    	}
     				    },
     					error 	: function(xhr, textStatus, errorThrown) {
@@ -460,7 +460,7 @@
 		<input type="hidden" name="th_num" id="th_num" value="${pay_step4_list.th_num}">
 		<input type="hidden" name="hall_id" id="hall_id" value="${pay_step4_list.hall_id}">
 		<input type="hidden" name="c_num" id="c_num" value="${CouponVOData.c_num}">
-	
+		<input type="hidden" name="s_num" id="s_num" value="${detailData.s_num}">
 		<c:set var="countSeatFormData" value="0"/>
 		<c:set var="countSeatFormDataP" value="1"/>
 		<c:forEach var="list" items="${SeatMapData}" varStatus="status">
