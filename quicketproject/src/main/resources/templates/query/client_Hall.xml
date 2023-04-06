@@ -4,7 +4,7 @@
 
 	<!-- 예매상세페이지에서 th_num 값만 리턴하면됨 -->
 	 <select id="hall_th_num" parameterType="hall" resultType="hall">
-	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end
+	 	select distinct(t.th_num)
 		from theater t LEFT JOIN hall h
 		ON t.th_num = h.th_num
 		LEFT JOIN show s

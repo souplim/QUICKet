@@ -97,7 +97,7 @@
 			<![CDATA[, decode(rank_prev, 0, 'new', to_char(rank_prev - rank_rank)) rank_change]]>
 		</if>
 		<![CDATA[from(select rownum as rnum, s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
-		rank_start, rank_end as rank_end, rank_rank, rank_ticket,]]>
+		rank_start, rank_end, rank_rank, rank_ticket,]]>
 		<if test="s_array=='s_point'">
 			<![CDATA[(dense_rank() over (order by s_point desc)) s_point_rank,]]>
 		</if>
