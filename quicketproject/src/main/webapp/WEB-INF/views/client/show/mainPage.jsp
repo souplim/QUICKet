@@ -54,7 +54,7 @@ a[role='tab']{
 	color:#ccc;
 }
 .tab-content{
-	height:400px;
+	margin-bottom:50px;
 }
 </style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
@@ -117,28 +117,28 @@ $(function(){
 	//전체 평점 랭킹 5개 받아오기
 	$.getJSON("/mainPointRankList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainPointRankPanel", "s_point", "2");
+			makeShowBox(this, "#mainPointRankPanel", "s_point", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
 	//이번 주 예매율 랭킹 5개 받아오기
 	$.getJSON("/mainTicketRankList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainTicketRankPanel", "rank_ticket", "2");
+			makeShowBox(this, "#mainTicketRankPanel", "rank_ticket", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
 	//이번 주 개봉되는 공연 리스트 5개 받아오기
 	$.getJSON("/mainNewList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainNewPanel", "s_opendate", "2");
+			makeShowBox(this, "#mainNewPanel", "s_opendate", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
 	//현재 북마크 갯수가 상위권인 공연 리스트 5개 받아오기
 	$.getJSON("/mainHotList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainHotPanel", "b_count", "2");
+			makeShowBox(this, "#mainHotPanel", "b_count", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	

@@ -1,18 +1,21 @@
 /**
  * 
  */
-function makeShowBox(vo, panel, sub, size){
+function makeShowBox(vo, panel, sub, width, height){
 	let $panel = $(panel);
 	
 	let $showBox = $("<div class='showBox'></div>");
-	$showBox.addClass("col-xs-"+size);
 	let s_num = vo.s_num;
 	$showBox.attr("data-num", s_num);
 	$showBox.css({
+		"display":"inline-block",
+		"verticalAlign":"top",
 		"padding":"15px 20px",
 		"textAlign":"center",
 		"boxShadow":"10px 10px 20px 3px rgb(123,123,123,0.5)",
-		"margin":"10px"
+		"margin":"10px",
+		"width":width+"px",
+		"height":height+"px"
 	});
 	
 	let $showBox_thumbnail = $("<div class='showBox_thumbnail'></div>")
