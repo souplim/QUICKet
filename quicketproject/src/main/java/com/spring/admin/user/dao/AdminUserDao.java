@@ -13,4 +13,5 @@ public interface AdminUserDao {
 	public int userListCnt(UserVO vo);
 	public int userDelete(int u_num);
 	public List<MypageVO> userCouponList(String u_id);
+	public List<MypageVO> userTicketList(String u_id);
 }

@@ -57,7 +57,6 @@
     			}
     		});
     		
-    		
     	});
     	
     	function login() {
@@ -72,20 +71,64 @@
 			}
     	}
     </script>
+    
+    <style>
+    	body {background-color : white;}
+    	
+    	.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-indigo {
+    background-color: dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline {
+    border: 3px solid dodgerblue;
+    color: #191970;
+}
+
+.w-btn-indigo-outline:hover {
+    color: #191970;
+    background: dodgerblue;
+}
+    	
+#loginDiv {margin-top : 100px;}
+input {margin:20px 0;}
+    </style>
   </head>
 
   <body>
 
     <div class="container">
-
+	<div id="loginDiv">
       <form class="form-signin" id="loginForm">
-        <h3 class="form-signin-heading">로그인</h3>
-        <label for="u_id" class="sr-only">아이디</label>
+        <h4 class="form-signin-heading text-center">QUICKet 로그인</h4>
         <input type="text" id="u_id" name="u_id" class="form-control" placeholder="아이디">
-        <label for="admin_pwd" class="sr-only">비밀번호</label>
         <input type="password" id="u_pwd" name="u_pwd" class="form-control" placeholder="비밀번호">
 
-        <button class="btn btn-lg btn-info btn-block" type="button" id="loginBtn">로그인</button>
+        <button class="w-btn-outline w-btn-indigo-outline btn-block" type="button" id="loginBtn">로그인</button>
           
        <div class="footer text-center">
        <br>
@@ -94,7 +137,7 @@
        </div>
         
       </form>
-    
+    </div>
 
     </div> <!-- /container -->
 

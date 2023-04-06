@@ -32,7 +32,8 @@
 	
 	    <!-- Custom styles for this template -->
 	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">
-		
+	    
+		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/button.css"/>
 		
 	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->

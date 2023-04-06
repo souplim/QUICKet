@@ -22,6 +22,20 @@
 					$("#idForm").submit();
 				}); 
 				
+				
+
+				<!-- 회원 예매내역 이동-->
+				$(".ticketBtn").click(function(){
+					let id = $(this).parents("tr").attr("data-id");
+					console.log("회원아이디 : "  + id);
+					$("#u_id").val(id);
+					$("#idForm").attr({
+						"method" : "get",
+						"action" : "/admin/user/userTicketList"
+					});
+					$("#idForm").submit();
+				}); 
+				
 				<!-- 회원 탈퇴 처리 -->
 				$(".outBtn").click(function(){
 					

@@ -116,6 +116,10 @@
 			}
 		});
 		
+		// 취소 버튼 클릭
+		$("#cancelBtn").click(function(){
+			history.back();
+		});
 		
 	});
 
@@ -123,6 +127,14 @@
 
 <style>
 	.table>tbody>tr>td {border:none;}
+	#cancelBtn{width : 100%;}
+  	#pwdUpdateBtn{width : 100%;}
+	#pwdForm {
+  	margin-top : 50px;
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    padding: 20px;
+  	}
 </style>
 </head>
 <body>
@@ -134,7 +146,14 @@
       <input type="hidden" id="u_id" name="u_id" value="${userLogin.u_id}"/>
       <input type="hidden" id="u_pwddate" name="u_pwddate" value="${userLogin.u_pwddate}"/> 	
       <input type="hidden" id="password" value="${userLogin.u_pwd}"/>
+        	<h3 class="text-center">비밀번호 변경</h3>
         	<table class="table" id="table">
+        		<colgroup>
+				<col width="20%">
+				<col width="30%">
+				<col width="20%">
+				<col width="30%">
+				</colgroup>
 				<tr>
 					<td class="text-center">이름</td>
 					<td colspan="3">${userLogin.u_name}</td>
@@ -199,9 +218,10 @@
 					<td class="text-center">전화번호</td>
 					<td colspan="3">${userLogin.u_phone}</td>
 				</tr>
+				<tr><td></td><td></td></tr>
 				<tr class="text-center">
-					<td colspan="2"><button type="button" class="btn btn-info" id="cancelBtn">취소</button></td>
-					<td colspan="2"><button type="button" class="btn btn-info" id="pwdUpdateBtn">확인</button></td>
+					<td colspan="2"><button type="button" class="w-btn-outline w-btn-indigo-outline btn" id="cancelBtn">취소</button></td>
+					<td colspan="2"><button type="button" class="w-btn-outline w-btn-indigo-outline btn" id="pwdUpdateBtn">확인</button></td>
 				</tr>
 			</table>
       </form>
