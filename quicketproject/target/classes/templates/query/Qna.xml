@@ -14,7 +14,7 @@
 			<![CDATA[ u_id LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 		<if test="search=='q_regdate'">
-			<![CDATA[ to_char(q_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
+			<![CDATA[ to_char(q_regdate, 'YYYY-MM-DD HH24:MI') between #{start_date} and #{end_date} ]]>
 		</if>
 	</sql>
 
@@ -57,7 +57,7 @@
 		/* Qna - qna Detail */
 		SELECT
 			q_no, u_id, q_title, q_content, s_num,
-			TO_CHAR(q_regdate, 'YYYY-MM-DD') AS q_regdate
+			TO_CHAR(q_regdate, 'YYYY-MM-DD HH24:MI') AS q_regdate
 		FROM qna
 		WHERE q_no = #{q_no}
 	</select>

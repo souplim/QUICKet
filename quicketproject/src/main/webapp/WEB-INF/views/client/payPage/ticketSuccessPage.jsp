@@ -136,7 +136,14 @@
 	<div id="side">
 		<div class="side_box side_box1">
 			<div id="side_box1_box1">
-				<img src="/resources/images/20230315-45326.jpg"  style="width:90%;height:200px;margin:5px 0 0 5px">
+				<img src=
+						<c:if test="${detailData.s_posterimg ne null}">
+							"/uploadStorage${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
+						</c:if>
+						<c:if test="${detailData.s_posterimg eq null}">
+							"/uploadStorage/show/poster_default.jpg"
+						</c:if>
+						style="width:80%;height:85%;margin:10px 0 0 10px"/>
 			</div>
 			<div id="side_box1_box2">
 				<table class="side_table">
@@ -148,36 +155,9 @@
 		</div>
 		<div class="side_box side_box2">
 				<table class="side_table1">
-					<tr><td><h3 style="color:white;">예약내역</h3></td></tr>
-					<tr><td>예매번호</td>
-						<td>${ticketSuccessPage.pay_num}</td>
-					</tr>
-					<tr><td>공연관</td>
-						<td>${ticketSuccessPage.hall_place}</td>
-					</tr>
-					<tr><td>공연날짜</td>
-						<td>${ticketSuccessPage.hall_date}</td>
-					</tr>
-					<tr><td>공연회차</td>
-						<td>${ticketSuccessPage.hall_turn}</td>
-					</tr>
-					<tr><td>공연시간</td>
-						<td>${ticketSuccessPage.hall_time}</td>
-					</tr>
-					<tr><td>이름</td>
-						<td>${ticketSuccessPage.pay_name}</td>
-					</tr>
-					<tr><td>공연가격</td>
-						<td>${ticketSuccessPage.s_price}</td>
-					</tr>
-					<tr><td>예약날짜</td>
-						<td>${ticketSuccessPage.ti_date}</td>
 					<tr><td><h3 style="color:black;font-weight:bold;width:200px;">예약내역</h3></td></tr>
 					<tr><td>예매번호</td>
 						<td class="valTd" style="color:purple;">${ticketSuccessPage.pay_num}</td>
-					</tr>
-					<tr><td>공연관</td>
-						<td class="valTd">${ticketSuccessPage.hall_place}</td>
 					</tr>
 					<tr><td>공연날짜</td>
 						<td class="valTd">${ticketSuccessPage.hall_date}</td>

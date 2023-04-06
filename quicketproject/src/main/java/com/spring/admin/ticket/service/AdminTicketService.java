@@ -14,4 +14,7 @@ public interface AdminTicketService {
 	public List<HallVO> updateForm(HallVO hvo);
 	public HallVO updateForm2(HallVO hvo);
 	public int hallUpdate(HallVO hvo);
+	
+	public PayVO payToken(int pay_num);
+	public int payStatus(int pay_num);
 }
