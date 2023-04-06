@@ -70,7 +70,7 @@ public class ClientPayPageController {
 
 	// 공연상세페이지
 	@RequestMapping(value = "/pay_step2", method = RequestMethod.GET)
-	public String pay_step2(@ModelAttribute("data") PayPageVO pvo, Model model) {
+	public String pay_step2(@ModelAttribute("data") PayPageVO pvo,ShowVO vo, Model model) {
 		log.info("pay_step2 호출 성공");
 		
 		PayPageVO pay_step2_list = clientPayPageService.pay_step2_list(pvo);
@@ -79,6 +79,10 @@ public class ClientPayPageController {
 		List<PayPageVO> pay_step2_seat = clientPayPageService.pay_step2_seat(pvo);
 		model.addAttribute("pay_step2_seat", pay_step2_seat);
 
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
+		
 		return "/client/payPage/pay_step2";
 
 	}
@@ -86,7 +90,7 @@ public class ClientPayPageController {
 	// pay_step3 가기
 
 	@RequestMapping(value = "/pay_step3", method = RequestMethod.POST)
-	public String pay_step3(@ModelAttribute PayPageVO pvo, Model model,HttpSession session) {
+	public String pay_step3(@ModelAttribute PayPageVO pvo,ShowVO vo, Model model,HttpSession session) {
 		log.info("pay_step3 호출 성공");
 		
 		PayPageVO pay_step3_list = clientPayPageService.pay_step3_list(pvo);
@@ -101,7 +105,9 @@ public class ClientPayPageController {
 		pay_step3_coupon = clientPayPageService.pay_step3_coupon(sessionVal.getU_id());
 		model.addAttribute("pay_step3_coupon", pay_step3_coupon);
 		 
-		 
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
 		
 		return "/client/payPage/pay_step3";
 
@@ -109,7 +115,7 @@ public class ClientPayPageController {
 	// pay_step4 가기
 	
 	@RequestMapping(value = "/pay_step4", method = RequestMethod.POST)
-	public String pay_step4(@ModelAttribute PayPageVO pvo, CouponVO cvo, AmountVO avo, Model model, HttpSession session) {
+	public String pay_step4(@ModelAttribute PayPageVO pvo, CouponVO cvo,ShowVO vo, AmountVO avo, Model model, HttpSession session) {
 		log.info("pay_step4 호출 성공");
 		
 		PayPageVO pay_step4_list = clientPayPageService.pay_step4_list(pvo);
@@ -126,6 +132,10 @@ public class ClientPayPageController {
 		UserVO uvo = (UserVO)session.getAttribute("userLogin");
 		  
 		model.addAttribute("pay_step4_UserData", uvo);
+		
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
 		 
 		return "/client/payPage/pay_step4";
 		

@@ -544,8 +544,14 @@
 	<div id="side">
 		<div class="side_box side_box1">
 			<div id="side_box1_box1">
-				<img src="/resources/images/20230315-45326.jpg"  style="width:90%;height:200px;margin:5px 0 0 5px">
-			</div>
+				<img src=
+						<c:if test="${detailData.s_posterimg ne null}">
+							"/uploadStorage${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
+						</c:if>
+						<c:if test="${detailData.s_posterimg eq null}">
+							"/uploadStorage/show/poster_default.jpg"
+						</c:if>
+						style="width:90%;height:85%;margin:10px 0 0 5px"/>			</div>
 			<div id="side_box1_box2">
 				<table class="side_table">
 					<tr><td><h4>${pay_step4_list.s_name}</h4></td></tr>
