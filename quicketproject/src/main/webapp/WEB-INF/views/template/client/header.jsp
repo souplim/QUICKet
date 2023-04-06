@@ -144,7 +144,7 @@
             <li><a href="/genre?s_genre=뮤지컬">뮤지컬</a> </li>
             <li><a href="/genre?s_genre=연극">연극</a> </li>
             <li><a href="/ranking">랭킹</a></li>
-            <li> <a href="/user/coupon/">쿠폰/이벤트</a></li>
+            <li> <a href="/user/coupon/">쿠폰</a></li>
             <li> <a href="/faq/faqList">FAQ</a></li>
             <li> <a href="/mypage/">마이페이지</a></li>
         </ul>

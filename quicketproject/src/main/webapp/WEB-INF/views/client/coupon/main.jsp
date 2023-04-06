@@ -67,6 +67,9 @@
 		<input type="hidden" name="c_num" id="c_num"/>
 		<input type="hidden" name="u_id" id="u_id" value="${userLogin.u_id}"/>
 	</form>
+	<br>
+	<h3 class=""><b>쿠폰</b></h3>
+	<br>
 <c:choose>
 	<c:when test="${not empty couponList}" >
 		<c:forEach var="coupon" items="${couponList}" varStatus="status">
