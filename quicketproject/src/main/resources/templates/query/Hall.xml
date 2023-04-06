@@ -38,6 +38,17 @@
 		LEFT JOIN show s
 		ON t.th_num = s.th_num
 	</select> 
+	 <select id = "payCancelPage" resultType="pay">
+	 	select distinct(p.pay_num),TO_CHAR(ti_date, 'YYYY-MM-DD') ti_date, t.u_id, s.s_name
+				from ticket t 
+		        INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
+		        INNER JOIN seat se ON ts.seat_num = se.seat_num
+		        INNER JOIN hall h ON se.hall_id = h.hall_id
+		        INNER JOIN theater th ON h.th_num = th.th_num
+		        INNER JOIN show s ON th.th_num = s.th_num
+		        INNER JOIN img i ON s.s_num = i.s_num
+		        INNER JOIN pay p ON t.pay_num = p.pay_num
+	</select> 
 	
 	<select id="hallDetail" parameterType="hall" resultType="hall">
 		select hall_id, s_name ,th_name, h.hall_place as hall_place, h.hall_turn as hall_turn,

@@ -31,21 +31,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClientTicketController {
 	
-	/*
+	
 	@Setter(onMethod_ = @Autowired)
 	private ClientTicketService clientTicketService;
 	
 	// 공연상세페이지
-	@RequestMapping(value="/showDetail", method = RequestMethod.GET)
-	public String ticketDetail(@ModelAttribute("data") HallVO hvo, Model model) {
-		log.info("ticketDetail 호출 성공");
-		HallVO hall_list = clientTicketService.hall_th_num(hvo);
-		model.addAttribute("hall_list",hall_list);
-		
-		return "client/ticket/showDetail"; 
-		
-	}
-	*/
+	/*
+	 * @RequestMapping(value="/showDetail", method = RequestMethod.GET) public
+	 * String ticketDetail(@ModelAttribute("data") HallVO hvo, Model model) {
+	 * log.info("ticketDetail 호출 성공");
+	 * 
+	 * hvo.setTh_num(1); HallVO hall_list = clientTicketService.hall_th_num(hvo);
+	 * model.addAttribute("hall_list",hall_list);
+	 * 
+	 * return "client/ticket/showDetail";
+	 * 
+	 * }
+	 */
+	
 	
 	
 }

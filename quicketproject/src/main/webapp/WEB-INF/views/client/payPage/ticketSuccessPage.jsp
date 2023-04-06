@@ -17,6 +17,18 @@
 			height:915px;
 			display:flex;
 			flex-wrap:nowrap;
+			border: 1px solid gray;
+			justify-content:center;
+		}
+		/* side-------------------------------------------------------- */
+		#side{
+			width:400px;
+			height:100%;/* 915px */
+			background:#4A4A4A;
+		}
+		.side_box{
+			width:100%;
+			border-top:1px solid #262626;
 			justify-content:center;
 			/* background: rgba(0, 0, 0, 0.50); */
 			background:white;
@@ -50,6 +62,10 @@
 			display:flex;
 			justify-content:flex-start;
 			align-items:flex-start;
+		}
+		.side_table  tr td{
+			padding-top:10px;
+			color:white;
 			margin-bottom:10px;
 		}
 		.side_table  tr td{
@@ -60,6 +76,15 @@
 			height:30%;
 		}
 		.side_table1{
+			margin:0px 0 0 0px;
+		}
+		.side_table1  tr td{
+			padding-bottom:30px;
+			color:white;
+			font-size:13px;
+		}
+		.side_table1  tr td:nth-child(1){
+			color:#7F7F7F;
 		}
 		.side_table1  tr td{
 			padding-bottom:20px;
@@ -88,6 +113,7 @@
 			border:1px solid #262626;
 			width:80%;
 			height:40px;
+			background:#404040;
 			background:white;
 			margin:20px 0 0 30px;
 			display:flex;
@@ -99,6 +125,8 @@
 	</style>
 	
 	<script type="text/javascript">
+	$(function(){
+	}
 	</script>
 
 	</head>	
@@ -120,6 +148,30 @@
 		</div>
 		<div class="side_box side_box2">
 				<table class="side_table1">
+					<tr><td><h3 style="color:white;">예약내역</h3></td></tr>
+					<tr><td>예매번호</td>
+						<td>${ticketSuccessPage.pay_num}</td>
+					</tr>
+					<tr><td>공연관</td>
+						<td>${ticketSuccessPage.hall_place}</td>
+					</tr>
+					<tr><td>공연날짜</td>
+						<td>${ticketSuccessPage.hall_date}</td>
+					</tr>
+					<tr><td>공연회차</td>
+						<td>${ticketSuccessPage.hall_turn}</td>
+					</tr>
+					<tr><td>공연시간</td>
+						<td>${ticketSuccessPage.hall_time}</td>
+					</tr>
+					<tr><td>이름</td>
+						<td>${ticketSuccessPage.pay_name}</td>
+					</tr>
+					<tr><td>공연가격</td>
+						<td>${ticketSuccessPage.s_price}</td>
+					</tr>
+					<tr><td>예약날짜</td>
+						<td>${ticketSuccessPage.ti_date}</td>
 					<tr><td><h3 style="color:black;font-weight:bold;width:200px;">예약내역</h3></td></tr>
 					<tr><td>예매번호</td>
 						<td class="valTd" style="color:purple;">${ticketSuccessPage.pay_num}</td>

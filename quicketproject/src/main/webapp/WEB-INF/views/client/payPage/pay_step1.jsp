@@ -366,7 +366,12 @@
 	<div id="side">
 		<div class="side_box side_box1">
 			<div id="side_box1_box1">
-				<img src="/resources/images/20230315-45326.jpg"  style="width:90%;height:200px;margin:5px 0 0 5px">
+				<%-- <c:if test="${detailData.s_detailimg ne null and not empty detailData.s_detailimg}"></c:if>
+							<c:forEach var="detailimg" items="${detailData.s_detailimg}">
+								<c:if test="${detailimg ne null}">
+									<img style="width:90%;height:200px;margin:5px 0 0 5px" src="/uploadStorage/${detailimg.img_dir}/${detailimg.img_name}.${detailimg.img_type}" />
+								</c:if>
+							</c:forEach> --%>
 			</div>
 			<div id="side_box1_box2">
 				<table class="side_table">

@@ -4,7 +4,19 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
      <script>
-	    
+     /*	ABCD1234
+ 	ABCD1235 (위 두개는 취소됐을듯)
+ 	ABCD1236 token: 56f57932a5828feeac1495ad5c7c573477373e72 
+ 	{access_token=56f57932a5828feeac1495ad5c7c573477373e72, now=1.680705666E9, expired_at=1.680706302E9}
+ 	imp_uid=imp_605643400552&merchant_uid=ABCD1236
+ 	ABCD1237 token: 56f57932a5828feeac1495ad5c7c573477373e72
+ 	imp_uid=imp_097768504325&merchant_uid=ABCD1237
+ 	ABCD1238
+ 	imp_uid : imp_uid=imp_149690787513&merchant_uid=ABCD1238
+ 	{access_token=c1fef648085f974cc7c0ff608a95ed1687b1080c, now=1.680707723E9, expired_at=1.680709523E9}
+ 	token : c1fef648085f974cc7c0ff608a95ed1687b1080c
+ 	
+ */	    
 	    $(function(){
 	    	
 	    	var IMP = window.IMP; 
@@ -13,28 +25,12 @@
         	console.log("결제요청");
         	requestPay();
         	function requestPay() {
-                
-/*	ABCD1234
-	ABCD1235 (위 두개는 취소됐을듯)
-	ABCD1236 token: 56f57932a5828feeac1495ad5c7c573477373e72 
-	{access_token=56f57932a5828feeac1495ad5c7c573477373e72, now=1.680705666E9, expired_at=1.680706302E9}
-	imp_uid=imp_605643400552&merchant_uid=ABCD1236
-	ABCD1237 token: 56f57932a5828feeac1495ad5c7c573477373e72
-	imp_uid=imp_097768504325&merchant_uid=ABCD1237
-	ABCD1238
-	imp_uid : imp_uid=imp_149690787513&merchant_uid=ABCD1238
-	{access_token=c1fef648085f974cc7c0ff608a95ed1687b1080c, now=1.680707723E9, expired_at=1.680709523E9}
-	token : c1fef648085f974cc7c0ff608a95ed1687b1080c
-	
-*/
                 IMP.request_pay({ // param
                 	pg : 'html5_inicis',
                     pay_method : 'card',
                     merchant_uid: "ABCD1240",
                     amount: "100",
                     name: "길동"
-/*                     m_redirect_url: "/order/payment-result"
- */
                 }, function (rsp) { // callback
                     if (rsp.success) {
 
