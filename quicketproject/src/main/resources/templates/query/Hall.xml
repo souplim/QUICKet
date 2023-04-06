@@ -39,7 +39,7 @@
 		ON t.th_num = s.th_num
 	</select> 
 	 <select id = "payCancelPage" resultType="pay">
-	 	select distinct(p.pay_num),TO_CHAR(ti_date, 'YYYY-MM-DD') ti_date, t.u_id, s.s_name
+	 	select distinct(p.pay_num),TO_CHAR(ti_date, 'YYYY-MM-DD') ti_date, t.u_id, s.s_name, pay_status
 				from ticket t 
 		        INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
 		        INNER JOIN seat se ON ts.seat_num = se.seat_num
@@ -83,6 +83,18 @@
 			hall_seatNum = #{hall_seatNum},
 			hall_date = #{hall_date}
 		WHERE hall_id = #{hall_id}
+	</update>
+	
+	<!-- 결제 취소 테이블 반환 -->
+	<select id="payToken" parameterType="Integer" resultType="pay">
+		select * from PAY where pay_num=#{pay_num}
+	</select> 
+	
+	<!-- 게시판 리스트 쓰기 -->
+	<update id="payStatus" parameterType="Integer">
+		UPDATE pay 
+		SET pay_status = 0
+		WHERE pay_num = #{pay_num}
 	</update>
 	
 </mapper>
