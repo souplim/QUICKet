@@ -163,7 +163,7 @@ div[role="tabpanel"]{min-height:30em;}
 	          	// 부드럽게 이동
 	            $('html, body').animate({scrollTop: scrollTop-59}, 2000,'easeOutCubic');
 	        }
-		}
+		} 
 		
 	});
 </script>
