@@ -40,11 +40,11 @@ public class QnaController {
 	@GetMapping("/qnaList")
 	public String qnaList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
 		log.info("qnaList 호출 성공");
-		
+		qvo.setS_num(1);
 		// 전체 레코드 조회
 		List<QnaVO> qnaList = qnaService.qnaList(qvo);
 		model.addAttribute("qnaList", qnaList);
-		
+		System.out.println(qnaList);
 		// 전체 레코드 수
 		int total = qnaService.qnaListCnt(qvo);
 		model.addAttribute("pageMaker", new PageDTO(qvo, total));

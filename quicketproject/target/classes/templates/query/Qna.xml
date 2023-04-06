@@ -23,21 +23,28 @@
 	<select id="qnaList" parameterType="qna" resultType="qna">
 	<![CDATA[
 	SELECT
-		q_no, q_title, q_content, u_id, to_char(q_regdate, 'YYYY-MM-DD') as q_regdate, s_num,
-		(select count(q_r_no) from qna_reply where q_no = qnaList.q_no) as q_cnt
+		q_no, q_title, q_content, u_id, to_char(q_regdate, 'YYYY-MM-DD HH24:MI') as q_regdate, s_num
 	FROM (
-		SELECT /*+ INDEX_DESC(qna pk_qna) */
+		SELECT 
 			rownum as rnum, q_no, q_title, q_content, u_id, q_regdate, s_num
 		FROM qna
-		WHERE ]]>	
+		WHERE ]]>
 		<trim prefix="(" suffix=") AND " prefixOverrides ="AND">
 			<include refid="qnaSearch"></include>
 		</trim>
-	<![CDATA[	rownum <= #{pageNum} * #{amount} 
+	<![CDATA[ rownum <= #{pageNum} * #{amount}
 		) qnalist
-		WHERE rnum > (#{pageNum} -1 ) * #{amount} and s_num = #{s_num}
-		]]>
-	</select>
+		WHERE rnum > (#{pageNum} - 1) * #{amount} and s_num = #{s_num}
+	 ]]>
+	</select>  
+	
+	<!-- 사용자  
+	<select id="qnaList" parameterType="qna" resultType="qna">
+	SELECT
+		q_no, q_title, q_content, u_id, to_char(q_regdate, 'YYYY-MM-DD') as q_regdate, s_num
+	FROM qna
+	</select>  -->
+	
 	
 	<!-- 게시물 등록 -->
 	<insert id="qnaInsert" parameterType="qna">

@@ -44,6 +44,12 @@
 		<put-attribute name="main" value="/WEB-INF/views/admin/qna/{1}.jsp" />
 	</definition>
 	
+	<definition name="admin/expect/*" extends="basic">
+		<put-attribute name="title" value="관리자 기대평 관리" />
+		<put-attribute name="sub" value="" />
+		<put-attribute name="main" value="/WEB-INF/views/admin/expect/{1}.jsp" />
+	</definition>
+	
 	<definition name="admin/review/*" extends="basic">
 		<put-attribute name="title" value="관리자 관람후기 관리" />
 		<put-attribute name="sub" value="" />
