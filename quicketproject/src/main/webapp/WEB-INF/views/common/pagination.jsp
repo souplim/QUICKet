@@ -53,12 +53,12 @@ $(function(){
 			<input type="hidden" name="end_date" value="${showVO.end_date}" />	
 		</c:if>
 		<c:if test="${theaterVO.keyword!=''}">
-			<input type="hidden" name="search" value="${showVO.search}" />
-			<input type="hidden" name="keyword" value="${showVO.keyword}" />	
+			<input type="hidden" name="search" value="${theaterVO.search}" />
+			<input type="hidden" name="keyword" value="${theaterVO.keyword}" />	
 		</c:if>
 		<c:if test="${theaterVO.s_array!=''}">
-			<input type="hidden" name="th_array" value="${showVO.s_array}" />
-			<input type="hidden" name="th_sortorder" value="${showVO.s_sortorder}" />	
+			<input type="hidden" name="th_array" value="${theaterVO.th_array}" />
+			<input type="hidden" name="th_sortorder" value="${theaterVO.th_sortorder}" />	
 		</c:if>
 	</form>
 	<ul class="pagination">
