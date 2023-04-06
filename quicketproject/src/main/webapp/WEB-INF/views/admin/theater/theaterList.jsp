@@ -191,7 +191,6 @@
 						<th class="order text-center col-md-1">등록번호</th>
 						<th class="text-center col-md-2">이름</th>
 						<th class="text-center col-md-3">주소</th>
-						<th class="text-center col-md-1">좌석수</th>
 						<th class="text-center col-md-2">웹사이트</th>
 						<th class="text-center col-md-1">지도 정보</th>
 						<th class="text-center col-md-1">등록일/수정일</th>
@@ -204,7 +203,6 @@
 							<td class="text-center">${theater.th_num}</td>
 							<td>${theater.th_name}</td>
 							<td>${theater.th_addr}</td>
-							<td class="text-center">${theater.th_seat}</td>	
 							<td>${theater.th_web}</td>
 							<td class="text-center">
 								<button type="button" class="theaterMapBtn btn btn-default">지도 정보</button>

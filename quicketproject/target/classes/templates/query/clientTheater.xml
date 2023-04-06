@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.client.theater.dao.ClientTheaterDao">
 	
 	<select id="theaterOne" resultType="theaterVO">
-		<![CDATA[select th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web 
+		<![CDATA[select th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web 
 		from theater
 		where th_num=#{th_num}]]>
 	</select>
