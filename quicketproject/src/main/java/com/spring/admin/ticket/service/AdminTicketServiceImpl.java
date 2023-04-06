@@ -68,5 +68,18 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		updateData = hallDao.payCancelPage();
 		return updateData;
 	}
+	@Override
+	public PayVO payToken(int pay_num) {
+		PayVO payToken = null;
+		payToken = hallDao.payToken(pay_num);
+		return payToken;
+		
+	}
+	@Override
+	public int payStatus(int pay_num) {
+		int result = 0;
+		result = hallDao.payStatus(pay_num);
+		return result;
+	}
 	
 }
