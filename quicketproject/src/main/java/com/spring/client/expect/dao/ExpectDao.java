@@ -13,6 +13,10 @@ public interface ExpectDao {
 	public int expectUpdate(ExpectVO evo);
 	public int expectDelete(int s_num);
 	
-	//public int expectAdminDelete(int ex_no);
-	//public ExpectVO expectUpdateForm(ExpectVO evo);
+	public List<ExpectVO> adminExpectList(ExpectVO evo);
+	public ExpectVO adminExpectDetail(ExpectVO evo) throws Exception;
+	public int adminExpectListCnt(ExpectVO evo) throws Exception;
+	public int adminExpectDelete(int ex_no) throws Exception;
 }
+
+

@@ -26,7 +26,6 @@
 		
 		<typeAlias type="com.spring.client.qna.vo.QnaVO" alias="qna" />
 		<typeAlias type="com.spring.client.qna.reply.vo.QnaReplyVO" alias="qnaReply" />
-		<typeAlias type="com.spring.client.expect.vo.ExpectVO" alias="expect" />
 		
 		<typeAlias type="com.spring.admin.ticket.vo.HallVO" alias="hall" />
 		<typeAlias type="com.spring.client.paypage.vo.PayPageVO" alias="paypage" />

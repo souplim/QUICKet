@@ -13,7 +13,7 @@ public class ExpectVO extends CommonVO{
 	private String ex_content = "";
 	private String ex_regdate;
 	private String ex_update;
-	private int ex_hit 	= 0;
+	//private int ex_hit 	= 0;
 
 	private String u_id = "";
 	private int s_num = 0;

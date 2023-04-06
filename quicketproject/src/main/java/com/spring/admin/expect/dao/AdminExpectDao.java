@@ -8,8 +8,10 @@ import com.spring.client.expect.vo.ExpectVO;
 
 @Mapper
 public interface AdminExpectDao {
-	public List<ExpectVO> adminExpectList(Integer s_num);
-	//public ExpectVO expectDetail(ExpectVO evo);
-	//public int expectListCnt(ExpectVO evo) throws Exception;
-	public int adminExpectDelete(Integer s_num) throws Exception;
+	public List<ExpectVO> expectList(int s_num);
+	public ExpectVO adminExpectDetail(ExpectVO evo) throws Exception;
+	public int adminExpectListCnt(ExpectVO evo) throws Exception;
+	//public int expectInsert(ExpectVO evo);
+	//public int expectUpdate(ExpectVO evo);
+	public int expectDelete(int s_num);
 }

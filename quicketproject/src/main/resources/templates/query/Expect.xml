@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.client.expect.dao.ExpectDao">
+
+	<!-- 관리자 페이지 검색 기능 -->
+	<sql id="expectSearch">
+		<if test="search=='ex_title'">
+			<![CDATA[ ex_title LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search=='ex_content'">
+			<![CDATA[ ex_content LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search=='u_id'">
+			<![CDATA[ u_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search=='ex_regdate'">
+			<![CDATA[ to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') between #{start_date} and #{end_date} ]]>
+		</if>
+	</sql> 
+
 	
 	<!-- 댓글 리스트 조회 -->
 	<select id="expectList" parameterType="expect" resultType="expect">
@@ -8,7 +25,27 @@
 		FROM expect
 		WHERE s_num = #{s_num}
 		ORDER BY ex_no desc
-	</select>
+	</select> 
+	
+	<!-- 게시판 리스트 조회 / 검색기능 O -->
+	<select id="adminExpectList" parameterType="com.spring.client.expect.vo.ExpectVO" resultType="com.spring.client.expect.vo.ExpectVO">
+
+		<![CDATA[
+		SELECT
+			ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') as ex_regdate, s_num
+		FROM (
+			SELECT 
+				rownum as rnum, ex_no, ex_title, ex_content, u_id, ex_regdate, s_num
+			FROM expect
+			WHERE ]]>
+			<trim prefix="(" suffix=") AND " prefixOverrides ="AND">
+				<include refid="expectSearch"></include>
+			</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount} and s_num = #{s_num}
+			) expectList
+			WHERE rnum > (#{pageNum} - 1) * #{amount} 
+		 ]]>
+	</select>  
 	
 	<!-- 댓글 등록 -->
 	<insert id = "expectInsert" parameterType="expect">
@@ -38,13 +75,23 @@
 		DELETE FROM expect where ex_no = #{ex_no}
 	</delete>
 	
-	<!-- 댓글 개수 구하기 
-	<select id="qnaReplyCnt" parameterType="int" resultType="int">
-		/* Reply - replyCnt */
-		select count(q_r_no) from qna_reply where q_no = #{q_no}
+	<!-- 상세페이지 조회 -->
+	<select id="adminExpectDetail" parameterType="expect" resultType="expect">
+		/* Expect - expect Detail */
+		SELECT
+			ex_no, u_id, ex_title, ex_content, s_num,
+			TO_CHAR(ex_regdate, 'YYYY-MM-DD HH24:MI') AS ex_regdate
+		FROM expect
+		WHERE ex_no = #{ex_no}
 	</select>
 	
-	<delete id="qnaReplyAdminDelete" parameterType="int">
-		DELETE FROM qna_reply where q_no = #{q_no}
-	</delete> -->
+	
+	<!-- 댓글 개수 구하기 -->
+	<select id="adminExpectListCnt" parameterType="int" resultType="int">
+		/* Expect - listCnt */
+		select count(*) from expect where s_num = #{s_num}
+		<trim prefix="AND ">
+			<include refid="expectSearch"></include>
+		</trim>
+	</select> 
 </mapper>
