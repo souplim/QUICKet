@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class TheaterVO extends CommonVO {
 	private int th_num 			= 0; 	//공연장번호
 	private String th_name 		= "";	//공연장명
-	private int th_seat 		= 0; 	//공연장좌석수
 	private String th_addr 		= ""; 	//공연장 주소
 	private double th_map_lat 	= 0; 	//공연장 지도상 위도
 	private double th_map_lng 	= 0;  	//공연장 지도상 경도

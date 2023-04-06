@@ -39,14 +39,12 @@
 		$("#theaterInsertBtn").click(function(){
 			if(!checkForm("#th_name","공연장 이름을")) return;
 			if(!checkForm("#th_addr","주소를")) return;
-			if(!checkForm("#th_seat","총 좌석수를")) return;
 			
 			let value = JSON.stringify({
 				th_name:$("#th_name").val(),
 				th_addr:$("#th_addr").val(),
 				th_map_lat:$("#th_map_lat").val(),
 				th_map_lng:$("#th_map_lng").val(),
-				th_seat:$("#th_seat").val(),
 				th_web:$("#th_web").val()
 			});
 			
@@ -106,12 +104,6 @@
 						<div class="col-sm-4">
 							<input type="text" id="th_map_lng" name="th_map_lng" class="form-control" readonly />
 						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>좌석수</th>
-					<td>
-						<input type="text" id="th_seat" name="th_seat" class="form-control" />
 					</td>
 				</tr>
 				<tr>

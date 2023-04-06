@@ -234,7 +234,7 @@ div[role="tabpanel"]{min-height:30em;}
 				<div class="showBox_thumbnail detailImgHolder col-sm-3">
 					<img src=
 					<c:if test="${detailData.s_posterimg ne null}">
-						"/uploadStorage/${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
+						"/uploadStorage${detailData.s_posterimg.img_dir}/${detailData.s_posterimg.img_name}.${detailData.s_posterimg.img_type}"
 					</c:if>
 					<c:if test="${detailData.s_posterimg eq null}">
 						"/uploadStorage/show/poster_default.jpg"
@@ -338,7 +338,7 @@ div[role="tabpanel"]{min-height:30em;}
 						<c:if test="${detailData.s_detailimg ne null and not empty detailData.s_detailimg}"></c:if>
 						<c:forEach var="detailimg" items="${detailData.s_detailimg}">
 							<c:if test="${detailimg ne null}">
-								<img class="showBox_img" src="/uploadStorage/${detailimg.img_dir}/${detailimg.img_name}.${detailimg.img_type}" />
+								<img class="showBox_img" src="/uploadStorage${detailimg.img_dir}/${detailimg.img_name}.${detailimg.img_type}" />
 							</c:if>
 						</c:forEach>
 					</div>
