@@ -30,8 +30,7 @@
 		<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css"/>
 	
 	    <!-- Custom styles for this template -->
-	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">
-	    
+	    <link href="/resources/include/dist/css/dashboard.css" rel="stylesheet">    
 	    <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/button.css"/>
 	
 	    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
