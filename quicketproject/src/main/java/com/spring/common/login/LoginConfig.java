@@ -12,9 +12,9 @@ public class LoginConfig implements WebMvcConfigurer {
 		
 		registry.addInterceptor(new CertificationInterceptor())
 		.addPathPatterns(/* "/mypage/",*/ "/mypage/**", "/inq/**")
-		.excludePathPatterns("/", "/user/join", "/user/logout", "/user/mailConfirm","/user/searchIdForm",
-				"/user/searchIdForm", "/user/sendTempPwd", "/user/sendTempPwd", "/user/pwdConfirm",
-				"/show/**");
+		.excludePathPatterns("/", "/user/login", "/user/join", "/user/logout", "/user/mailConfirm","/user/searchIdForm",
+				"/user/searchIdForm", "/user/sendTempPwd", "/user/sendTempPwd", "/user/pwdConfirm", "/resources/**"
+				);
 		
 	}
 }

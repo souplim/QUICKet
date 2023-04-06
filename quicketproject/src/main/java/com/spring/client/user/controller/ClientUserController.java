@@ -145,6 +145,7 @@ public class ClientUserController {
 			if(original_dest != null && original_dest.length() > 0) {
 				System.out.println("redirect:" + original_dest);
 			    url = "http://localhost:8080"+original_dest;
+			    session.removeAttribute("dest");
 			} else {
 				url = "http://localhost:8080/";	// 메인 페이지로 redirect
 			}
