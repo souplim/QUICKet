@@ -34,7 +34,7 @@
 			
 		})
 		$("#cancelBtn").click(function(){
-			location.href=location.pathname;
+			location.reload();
 		})
 		$("#theaterUpdateBtn").click(function(){
 			if(!checkForm("#th_name","공연장 이름을")) return;
@@ -127,7 +127,7 @@
 		</div>
 		<div class="row"><div class="col-xs-10 col-xs-offset-1 text-right">
 			<button type="button" id="returnBtn" class="btn btn-default">돌아가기</button>
-			<button type="button" id="cancelBtn" class="btn btn-default">입력취소</button>
+			<button type="button" id="cancelBtn" class="btn btn-default">변경취소</button>
 			<button type="button" id="theaterUpdateBtn" class="btn btn-default">수정하기</button>
 		</div></div>
 	</div>

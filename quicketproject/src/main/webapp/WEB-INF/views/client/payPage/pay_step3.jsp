@@ -158,7 +158,9 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		
+		console.log("plz");
+		console.log("${pay_step3_coupon}");
+		console.log("${pay_step3_list}");
 		// 이전단계 버튼
 		$("#prevBtn").click(function(){
 			window.history.back();
@@ -298,9 +300,11 @@
 									</tr>
 								</thead>
 								<tbody id="list" class="table-striped">
+								
 									<!--데이터 출력 -->
 									<c:choose>
 										<c:when test="${not empty pay_step3_coupon}">
+											
 											<c:forEach var="coupon" items="${pay_step3_coupon}" varStatus="status">
 												<tr class="text-center" data-num="${coupon.c_num}">
 													<td class="c_num">${coupon.c_num}</td>

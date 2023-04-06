@@ -207,7 +207,7 @@ $(function(){
 	
 	//select 버튼 항목 불러오는 메소드
 	$.ajax({
-		url: "/admin/theater/theaterSelectList",
+		url: "/admin/theater/theaterSelectList?th_array=th_name&th_sortorder=asc",
 		type: "get",
 		success: function(data){
 			if(data!=null && data.length>0){
