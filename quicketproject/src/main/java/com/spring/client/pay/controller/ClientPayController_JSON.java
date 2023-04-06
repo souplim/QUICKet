@@ -63,6 +63,7 @@ public class ClientPayController_JSON {
 		return pvo;
 	}
 	 
+	
 	@PostMapping(value = "/payDelete", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String payDelete(@RequestBody PayVO pvo){
 		log.info("payInsert 호출 성공");
@@ -176,6 +177,6 @@ public class ClientPayController_JSON {
 		 
 		return (result != 0) ? "SUCCESS" : "FAILURE";
 	}
-	
+
 	
 }

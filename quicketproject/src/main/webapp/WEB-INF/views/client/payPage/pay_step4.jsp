@@ -194,13 +194,9 @@
     				    		alert("결제테이블 insert 실패");
     				    	}
     				    	else{/* 성공 */
-    				    		alert("성공");
-    	                    	console.log(result);
     	                    	const arr = result.split(",");
     	                    	imp_uid1 = arr[0];
     	                    	token1 = arr[1];
-    	                    	console.log(imp_uid1);
-    	                    	console.log(token1);
     	                     	// 결제 테이블 결제 상태 값 Update
     	                    	payStatusUpdate(pay_num, imp_uid1, token1);
     	                    	// 좌석 테이블 상태 값 Update
@@ -212,7 +208,7 @@
     	                    	// 예매 좌석 테이블 Insert
     	                    	ticketSeatInsert(pay_num);
     	                        alert("결제 완료되었습니다."); 
-    	                        /* location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num; */
+    	                        location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num;
     				    	}
     				    },
     					error 	: function(xhr, textStatus, errorThrown) {
