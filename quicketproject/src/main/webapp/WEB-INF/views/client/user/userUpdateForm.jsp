@@ -107,6 +107,11 @@
 		
 
 		
+		// 취소 버튼 클릭
+		$("#cancelBtn").click(function(){
+			history.back();
+		});
+		
 		// 수정 버튼 클릭
 		$("#updateBtn").click(function(){
 			
@@ -172,32 +177,52 @@
   	#keyForm{display:none;}
   	#btnArea{display:none;}
   	#pwdChkArea{visibility:hidden;}
+  	#cancelBtn{width : 100%;}
+  	#updateBtn{width : 100%;}
+  	#userUpdateForm {
+  	margin-top : 50px;
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    padding: 0 20px;
+  	}
+  	
 </style>
   
 		
 </head>
 <body>
-	회원 정보 수정
 	<div class="container">
+	<br>
+	<h3 class="text-center">회원정보 수정</h3>
 <form id="userUpdateForm" name="userUpdateForm">
 	<input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
 	<table class="table">
+	
+		<colgroup>
+		<col width="10%">
+		<col width="30%">
+		<col width="10%">
+		<col width="10%">
+		<col width="30%">
+		<col width="10%">
+		</colgroup>
+		
 		<tr class="form-group">
-			<td>이름</td>
+			<td class="Label">이름</td>
 			<td colspan="5">${userLogin.u_name}</td>
 		</tr>
 		<tr class="form-group">
-			<td>아이디</td>
+			<td class="Label">아이디</td>
 			<td colspan="5">${userLogin.u_id}</td>
 		</tr>
 		<tr class="form-group">
-			<td>비밀번호</td>
+			<td class="Label">비밀번호</td>
 			<td colspan="3" class="">마지막 비밀번호 변경일 : ${userLogin.u_pwddate}</td>
 			<td></td>
-			<td class="text-right"><button type="button" class="btn btn-warning " id="updatePwdBtn">비밀번호 변경</button></td>
+			<td class="text-right"><button type="button" class="btn w-btn-outline w-btn-indigo-outline" id="updatePwdBtn">비밀번호 변경</button></td>
 		</tr>
 		<tr class="form-group">
-			<td>성별</td>
+			<td class="Label">성별</td>
 			<td>
 				<c:choose>
 					<c:when test="${userLogin.u_gender == 'M'}">
@@ -209,11 +234,11 @@
 				</c:choose>
 			</td>
 			<td colspan="2"></td>
-			<td class="text-center">생년월일</td>
-			<td>${userLogin.u_birth }</td>
+			<td class="text-left" class="Label">생년월일</td>
+			<td class="text-left">${userLogin.u_birth }</td>
 		</tr>
 		<tr class="form-group">
-						<td>이메일</td>
+						<td class="Label">이메일</td>
 						<td colspan="2"><input type="text" id="email" class="form-control" required></td>
 						<td colspan="2"> <div class="input-group"><span class="input-group-addon">@</span><input type="text" id="email_address" class="form-control" required></div></td>
 						<td>
@@ -241,17 +266,17 @@
 						</td>
 					</tr>
 		<tr class="form-group">
-			<td>전화번호</td>
+			<td class="Label">전화번호</td>
 			<td colspan="5"><input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="전화번호를 입력해주세요. (- 제외)" value="${userLogin.u_phone}"/></td>
 		</tr>
 		<tr class="form-group">
 			<td colspan="2"></td>
 			<td colspan="3" class="form-inline text-right" id="pwdChkArea"><label>비밀번호 확인</label><input type="password" id="DelChk" name="DelChk" class="form-control"/><button type="button" id="DelChkBtn" class="btn btn-default">확인</button></td>
-			<td class="text-right"><button type="button" class="btn btn-warning btn-block" id="userDelBtn">회원 탈퇴</button></td>
+			<td class="text-right"><button type="button" class="btn w-btn-outline w-btn-indigo-outline block btn-block" id="userDelBtn">회원 탈퇴</button></td>
 		</tr>
 		<tr class="form-group">
-			<td colspan="3" class="text-center"><button type="button" id="cancelBtn" class="btn btn-danger btn-block">취소</button></td>
-			<td colspan="3" class="text-center"><button type="button" id="updateBtn" class="btn btn-danger btn-block">수정</button></td>
+			<td colspan="3"><button type="button" id="cancelBtn" class="w-btn-outline w-btn-indigo-outline btn">취소</button></td>
+			<td colspan="3"><button type="button" id="updateBtn" class="w-btn-outline w-btn-indigo-outline btn">수정</button></td>
 		</tr>
 	</table>
 </form>

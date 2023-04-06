@@ -483,7 +483,7 @@
 						<a href="/showDetail?s_num=${rank.s_num}">
 							<img src=
 							<c:if test="${rank.s_posterimg ne null}">
-								"/uploadStorage/${rank.s_posterimg.img_dir}/${rank.s_posterimg.img_name}.${rank.s_posterimg.img_type}"
+								"/uploadStorage${rank.s_posterimg.img_dir}/${rank.s_posterimg.img_name}.${rank.s_posterimg.img_type}"
 							</c:if>
 							<c:if test="${rank.s_posterimg eq null}">
 								"/uploadStorage/show/poster_default.jpg"
@@ -540,7 +540,7 @@
 						<a href="/showDetail?s_num=${rank.s_num}">
 							<img src=
 							<c:if test="${rank.s_posterimg ne null}">
-								"/uploadStorage/${rank.s_posterimg.img_dir}/${rank.s_posterimg.img_name}.${rank.s_posterimg.img_type}"
+								"/uploadStorage${rank.s_posterimg.img_dir}/${rank.s_posterimg.img_name}.${rank.s_posterimg.img_type}"
 							</c:if>
 							<c:if test="${rank.s_posterimg eq null}">
 								"/uploadStorage/show/poster_default.jpg"

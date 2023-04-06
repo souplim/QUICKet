@@ -13,8 +13,8 @@
 	</select> 
 	
 	<select id="hall_list" parameterType="Integer" resultType="paypage">
-	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,hall_date,hall_start,hall_end
-		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status 
+	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,hall_date,hall_start,hall_end,s_num
+		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status ,s_num
 				from theater t LEFT JOIN hall h
 				ON t.th_num = h.th_num
 				LEFT JOIN show s
@@ -24,7 +24,7 @@
 		        where t.th_num = #{th_num}
 		        order by h.hall_id)
 		where seat_status = 0
-		group by hall_id,s_name, hall_place, hall_turn,hall_time,hall_date,hall_start,hall_end
+		group by hall_id,s_name, hall_place, hall_turn,hall_time,hall_date,hall_start,hall_end,s_num
 	</select> 
 	
 	<!-- payPage Step2 list -->

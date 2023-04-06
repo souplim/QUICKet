@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 
+
 	<script type="text/javascript">
 		$(function(){
 			/* 검색 후 검색 대상과 검색 단어 출력 그래돌 단어가 남는다 */

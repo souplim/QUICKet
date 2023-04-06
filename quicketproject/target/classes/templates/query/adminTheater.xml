@@ -4,13 +4,13 @@
 
 	<!-- 공연장 일반조회 : 검색조건 설정, 정렬상태 설정 구문 따로 빼놓음 -->
 	<select id="theaterList" resultType="theaterVO">
-		<![CDATA[select th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web, 
+		<![CDATA[select th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web, 
 		to_char(th_regdate,'yyyy-MM-dd') th_regdate, to_char(th_update,'yyyy-MM-dd') th_update
 		from(
 		select ]]>
 		<include refid="theaterArray"></include> 
 		<![CDATA[
-		rownum as rnum, th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web, th_regdate, th_update
+		rownum as rnum, th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web, th_regdate, th_update
 		from theater
 		where]]>
 		<trim prefix="(" suffix=") and" prefixOverrides="and">
@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="theaterOne" resultType="theaterVO">
-		<![CDATA[select th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web 
+		<![CDATA[select th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web 
 		from theater
 		where th_num=#{th_num}]]>
 	</select>
@@ -78,14 +78,13 @@
 	</select>
 	
 	<insert id="theaterInsert" parameterType="theaterVO">
-		<![CDATA[insert into theater(th_num, th_name, th_seat, th_addr, th_map_lat, th_map_lng, th_web)
-		values(theater_seq.nextval, #{th_name}, #{th_seat}, #{th_addr}, #{th_map_lat}, #{th_map_lng}, #{th_web})]]>
+		<![CDATA[insert into theater(th_num, th_name, th_addr, th_map_lat, th_map_lng, th_web)
+		values(theater_seq.nextval, #{th_name}, #{th_addr}, #{th_map_lat}, #{th_map_lng}, #{th_web})]]>
 	</insert>
 	
 	<update id="theaterUpdate" parameterType="theaterVO">
 		update theater
 		set th_name = #{th_name}, 
-			th_seat = #{th_seat}, 
 			th_addr = #{th_addr}, 
 			th_map_lat = #{th_map_lat},
 			th_map_lng = #{th_map_lng},

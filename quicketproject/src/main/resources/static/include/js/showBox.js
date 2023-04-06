@@ -24,7 +24,7 @@ function makeShowBox(vo, panel, sub, size){
 		let poster_name = poster_img.img_name;
 		let poster_type = poster_img.img_type;
 		
-		poster_url = "/uploadStorage/"+poster_dir+"/"+poster_name+"."+poster_type;
+		poster_url = "/uploadStorage"+poster_dir+"/"+poster_name+"."+poster_type;
 	}
 	if(poster_url!=""){
 		$poster.attr("src", poster_url);

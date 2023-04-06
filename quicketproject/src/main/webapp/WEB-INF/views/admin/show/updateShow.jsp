@@ -284,20 +284,23 @@ $(function(){
 	//캐스팅 데이터 로딩
 	let s_actor_str = "<c:out value='${updateData.s_actor}' />";
 	//html로 decoding (안하면 따옴표를 제데로 못 읽어서 에러가 남)
-	let $txt = $("<textarea></textarea>");
-	$txt.html(s_actor_str)
-	let s_actor_txt = $txt.val();
-	let s_actor = JSON.parse(s_actor_txt);
-	if(s_actor!=null){
-		for(let act of s_actor){
-			let $table = $("#cast_table");
-			let $element = $("#cast_template").clone().removeAttr("id");
-			$element.find(".cast_role").val(act.role);
-			$element.find(".cast_actor").val(act.actor);				
-			
-			$table.append($element);
+	if(s_actor_str!=""){
+		let $txt = $("<textarea></textarea>");
+		$txt.html(s_actor_str)
+		let s_actor_txt = $txt.val();
+		let s_actor = JSON.parse(s_actor_txt);
+		if(s_actor!=null){
+			for(let act of s_actor){
+				let $table = $("#cast_table");
+				let $element = $("#cast_template").clone().removeAttr("id");
+				$element.find(".cast_role").val(act.role);
+				$element.find(".cast_actor").val(act.actor);				
+				
+				$table.append($element);
+			}
 		}
 	}
+
 	//캐스팅 데이터 추가 입력 폼 구현
 	function addCasting(){
 		let $table = $("#cast_table");

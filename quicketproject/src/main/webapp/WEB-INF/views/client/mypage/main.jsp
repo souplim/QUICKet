@@ -12,6 +12,8 @@
 		margin : 20px;
 		cursor: pointer;
 	}
+	
+
 </style>
 
 <script>
@@ -76,7 +78,9 @@
 		<table class="table">
 			<tr>
 				<td class="text-center">아이디</td>
-				<td class="text-left" colspan="4"><input type="text" readonly="readonly" id="u_id" name="u_id" value="${userLogin.u_id}"/></td>
+				<td class="text-left" colspan="4">
+				<input type="text" class="form-control" readonly="readonly" id="u_id" name="u_id" value="${userLogin.u_id}"/>
+				</td>
 			</tr>
 			<tr>
 				<td class="text-center">비밀번호</td>
@@ -88,8 +92,8 @@
 		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="closeBtn" data-dismiss="modal" aria-label="Close">닫기</button>
-        <button type="button" class="btn btn-primary" id="okBtn">확인</button>
+        <button type="button" class="btn w-btn-outline w-btn-gray-outline" id="closeBtn" data-dismiss="modal" aria-label="Close">닫기</button>
+        <button type="button" class="btn w-btn-outline w-btn-indigo-outline" id="okBtn">확인</button>
       </div>
       
     </div><!-- /.modal-content -->
