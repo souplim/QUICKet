@@ -14,7 +14,7 @@ public interface PayClientDao {
 	public int paySelectPay_num(); 
 	public PayVO payInfo(int pay_num); 
 	public int payDelete(int pay_num); 
-	public int payStatusUpdate(int pay_num); 
+	public int payStatusUpdate(PayVO pvo); 
 	public int seatStatusUpdate(List<SeatVO> sv); 
 	public int couponStatusUpdate(CouponVO cvo);
 	public int ticketInsert(PayVO pvo);

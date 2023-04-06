@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@ include file="/WEB-INF/views/common/common.jspf" %>
-=======
 <%@ include file="/WEB-INF/views/common/ticket_common.jspf" %>
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix= "fmt" uri= "http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,7 +17,6 @@
 			height:915px;
 			display:flex;
 			flex-wrap:nowrap;
-<<<<<<< HEAD
 			border: 1px solid gray;
 			justify-content:center;
 		}
@@ -34,7 +29,6 @@
 		.side_box{
 			width:100%;
 			border-top:1px solid #262626;
-=======
 			justify-content:center;
 			/* background: rgba(0, 0, 0, 0.50); */
 			background:white;
@@ -53,7 +47,6 @@
 			width:100%;
 			display:flex;
 			align-items:flex-start;
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 		}
 		.side_box1{
 			height:30%;
@@ -69,24 +62,20 @@
 			display:flex;
 			justify-content:flex-start;
 			align-items:flex-start;
-<<<<<<< HEAD
 		}
 		.side_table  tr td{
 			padding-top:10px;
 			color:white;
-=======
 			margin-bottom:10px;
 		}
 		.side_table  tr td{
 			padding-top:10px;
 			color:black;
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 		}
 		.side_box2{
 			height:30%;
 		}
 		.side_table1{
-<<<<<<< HEAD
 			margin:0px 0 0 0px;
 		}
 		.side_table1  tr td{
@@ -96,7 +85,6 @@
 		}
 		.side_table1  tr td:nth-child(1){
 			color:#7F7F7F;
-=======
 		}
 		.side_table1  tr td{
 			padding-bottom:20px;
@@ -113,7 +101,6 @@
 		}
 		.side_table1  tr td:nth-child(1){
 			color:#404040;
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 		}
 		.side_box3{
 			height:25%;
@@ -126,30 +113,20 @@
 			border:1px solid #262626;
 			width:80%;
 			height:40px;
-<<<<<<< HEAD
 			background:#404040;
-=======
 			background:white;
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 			margin:20px 0 0 30px;
 			display:flex;
 			align-items:center;
 			justify-content: space-around;
 		}
-<<<<<<< HEAD
-		
-=======
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 		/* -------------------------------------------------------- */
 		
 	</style>
 	
 	<script type="text/javascript">
-<<<<<<< HEAD
 	$(function(){
 	}
-=======
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 	</script>
 
 	</head>	
@@ -171,7 +148,6 @@
 		</div>
 		<div class="side_box side_box2">
 				<table class="side_table1">
-<<<<<<< HEAD
 					<tr><td><h3 style="color:white;">예약내역</h3></td></tr>
 					<tr><td>예매번호</td>
 						<td>${ticketSuccessPage.pay_num}</td>
@@ -196,7 +172,6 @@
 					</tr>
 					<tr><td>예약날짜</td>
 						<td>${ticketSuccessPage.ti_date}</td>
-=======
 					<tr><td><h3 style="color:black;font-weight:bold;width:200px;">예약내역</h3></td></tr>
 					<tr><td>예매번호</td>
 						<td class="valTd" style="color:purple;">${ticketSuccessPage.pay_num}</td>
@@ -227,7 +202,6 @@
 					</tr>
 					<tr><td>결제상태</td>
 						<td class="valTd" style="color:purple;">결제완료</td>
->>>>>>> 5a25acbd8505d5275527044ff3839d5729db50f7
 					</tr>
 				</table>
 		</div>

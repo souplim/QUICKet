@@ -2,6 +2,8 @@ package com.spring.admin.ticket.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonObject;
 import com.spring.admin.ticket.service.AdminTicketService;
 import com.spring.admin.ticket.vo.HallVO;
+import com.spring.client.pay.service.PaymentService;
+import com.spring.client.pay.vo.PayVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -41,7 +46,8 @@ public class AdminTicketController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private AdminTicketService adminTicketService;
-	
+	@Setter(onMethod_ = @Autowired)
+	private PaymentService paymentService;
 	/*
 	 * @Setter(onMethod_ = @Autowired) private PaymentService paymentService;
 	 */
@@ -146,4 +152,16 @@ public class AdminTicketController {
 		
 		return "redirect:" + url;		
 	}
+	
+	@RequestMapping(value="/payCancelPage")
+	public String payCancelPage(@ModelAttribute PayVO pvo, Model model) {
+		log.info("payCancelPage 호출 성공");
+		
+		List<PayVO> payList = adminTicketService.payCancelPage();
+		
+		model.addAttribute("payList", payList);
+		
+		return "admin/ticket/pay_cancel";
+	}
+	
 }

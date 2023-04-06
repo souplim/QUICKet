@@ -51,9 +51,9 @@ public class ClientPayServiceImpl implements ClientPayService {
 	}
 	
 	@Override
-	public int payStatusUpdate(int pay_num) {
+	public int payStatusUpdate(PayVO pvo) {
 		int result = 0;
-		result = payClientDao.payStatusUpdate(pay_num);
+		result = payClientDao.payStatusUpdate(pvo);
 		return result;
 	}
 

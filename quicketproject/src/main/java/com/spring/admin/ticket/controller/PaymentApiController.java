@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.client.pay.service.PaymentService;
-import com.spring.client.pay.vo.PayVO2;
+import com.spring.client.pay.vo.PayVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,11 +45,11 @@ public class PaymentApiController {
         while (matcher.find()) {
            matcherVal = matcher.group();
         }
-        return matcherVal;
+        return matcherVal+","+token;
     }
     
     @PostMapping("/cancel")
-    public String cancelResult(@RequestBody PayVO2 vo) throws IOException {
+    public String cancelResult(@RequestBody PayVO vo) throws IOException {
 
         String access_token = vo.getToken();
 		String imp_uid = vo.getImp_uid();

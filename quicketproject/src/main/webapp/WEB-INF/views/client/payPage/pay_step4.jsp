@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix= "fmt" uri= "http://java.sun.com/jsp/jstl/fmt" %>
-
+<script type="text/javascript" src="/resources/include/js/common.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     
@@ -180,25 +180,53 @@
                 buyer_name : pay_name,
                 buyer_tel : pay_phone,
             }, function (rsp) { // callback
+            	
                 if (rsp.success) {
-                	// 결제 테이블 결제 상태 값 Update
-                	payStatusUpdate(pay_num);
-                	// 좌석 테이블 상태 값 Update
-                	seatStatusUpdate();
-                	// 쿠폰 테이블 상태값 Update
-                	couponStatusUpdate();
-                	// 예매 테이블 Insert
-                	ticketInsert(pay_num);
-                	// 예매 좌석 테이블 Insert
-                	ticketSeatInsert(pay_num);
-                    alert("결제 완료되었습니다.");
-                    location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num;
+                	$.ajax({
+                        url: "/api/v1/payment/complete", // 예: https://www.myservice.com/payments/complete
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        data: {
+                            imp_uid: rsp.imp_uid,
+                            merchant_uid: rsp.merchant_uid
+                        },success : function(result){
+    				    	if(result == "payInsertFail"){
+    				    		alert("결제테이블 insert 실패");
+    				    	}
+    				    	else{/* 성공 */
+    				    		alert("성공");
+    	                    	console.log(result);
+    	                    	const arr = result.split(",");
+    	                    	imp_uid1 = arr[0];
+    	                    	token1 = arr[1];
+    	                    	console.log(imp_uid1);
+    	                    	console.log(token1);
+    	                     	// 결제 테이블 결제 상태 값 Update
+    	                    	payStatusUpdate(pay_num, imp_uid1, token1);
+    	                    	// 좌석 테이블 상태 값 Update
+    	                    	seatStatusUpdate();
+    	                    	// 쿠폰 테이블 상태값 Update
+    	                    	couponStatusUpdate();
+    	                    	// 예매 테이블 Insert
+    	                    	ticketInsert(pay_num);
+    	                    	// 예매 좌석 테이블 Insert
+    	                    	ticketSeatInsert(pay_num);
+    	                        alert("결제 완료되었습니다."); 
+    	                        /* location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num; */
+    				    	}
+    				    },
+    					error 	: function(xhr, textStatus, errorThrown) {
+    						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+    				    }
+                	
+                	})
                 } else {
                 	//결제 중 창을 닫았을 때 취소 시 결제 테이블 데이터 삭제
                 	payDelete(pay_num);
                 	alert("결제를 취소하였습니다. 다시 시도해 주세요.");
                     
                 }
+                
             });
         }
         
@@ -285,10 +313,12 @@
 					});
 		 }
 		//결제 테이블 결제 상태 1로 변경 (4번 수행)
-		 function payStatusUpdate(pay_num1){
+		 function payStatusUpdate(pay_num1, imp_uid1, token1){
 				let UpdateUrl = "/client/payJson/payStatusUpdate";
 				 /* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
-				 let data_val = JSON.stringify({pay_num : pay_num1});
+				 let data_val = JSON.stringify({pay_num : pay_num1,
+					 							imp_uid : imp_uid1,
+					 							token : token1});
 				 $.ajax({
 						url  : UpdateUrl,
 						type : "post",

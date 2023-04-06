@@ -79,7 +79,7 @@ public class ClientPayController_JSON {
 		
 		int result = 0;
 		
-		result = clientPayService.payStatusUpdate(pvo.getPay_num());
+		result = clientPayService.payStatusUpdate(pvo);
 		return (result==1) ? "SUCCESS" : "FAILURE";
 	}
 

@@ -25,9 +25,9 @@
 	</delete>
 	
 	<!-- 결제 테이블 상태값 변경 -->
-	 <update id="payStatusUpdate" parameterType="Integer">
+	 <update id="payStatusUpdate" parameterType="pay">
 	 	update PAY
-		set pay_status = 1
+		set pay_status = 1, imp_uid = #{imp_uid}, token= #{token}
 		where pay_num= #{pay_num}
 	</update>
 	
