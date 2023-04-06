@@ -72,7 +72,6 @@
                   
                   /* JSON.stringify(): JavaScript 값이나 객체를 JSON 문자열로 변환. */
                   let value = JSON.stringify({   
-                 //   u_id:'yubin', 
                      u_id:u_id, 
                      r_title:$("#r_title").val(),
                      r_content:$("#r_content").val(),
@@ -222,19 +221,20 @@
                 let r_regdate = this.r_regdate;
                 let r_no   = this.r_no;
                 let r_point   = this.r_point;
-             
+                let u_id   = this.u_id;                
+                
                r_content = r_content.replace(/(\r\n|\r|\n)/g, "<br />");
-               template(s_num, r_title, r_content, r_regdate, r_no, r_point);
+               template(s_num, r_title, r_content, r_regdate, r_no, r_point, u_id);
             });
          }).fail(function() {
-            alert("덧글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+            alert("덧글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.----");
          });            
             
       }   
       
       
       /** 새로운 글을 화면에 추가하기(보여주기) 위한 함수*/
-      function template(s_num, r_title, r_content, r_regdate,r_no, r_point){
+      function template(s_num, r_title, r_content, r_regdate,r_no, r_point, u_id){
          let $div = $('#reviewList');          
          let $element = $('#item-template').clone().removeAttr('id');
          $element.attr("data-snum", s_num);
@@ -255,6 +255,22 @@
             }      
       
           $element.find('.panel-heading > .panel-title > .name').html(r_title);
+          $element.find('.panel-heading > .panel-title > .uid').html(u_id); 
+          
+ 			let u_id2 ="${userLogin.u_id}"; 
+	      
+ 			if(u_id !== u_id2 ){
+	        //    $("#delBtn").show();
+	            $element.find('.panel-heading > .panel-title > #delBtn').css('display','none');
+	            $element.find('.panel-heading > .panel-title > #updateBtn').css('display','none');
+	        }else{	               
+	             //$("#updateBtn").hide();
+	            $element.find('.panel-heading > .panel-title > #delBtn').css('display','block');
+	            $element.find('.panel-heading > .panel-title > #updateBtn').css('display','block');
+	         }  
+        
+			
+          
           $element.find('.panel-heading > .panel-title > .date').html("      " + r_regdate); 
           $element.find('.panel-body').html(r_content);          
           
@@ -376,18 +392,17 @@
          <div id="reviewList">
             <div id="item-template" class="panel">
                <div class="panel-heading" style="background-color:#CCEEFF">
-                  <h3 class="panel-title" >                  
-                               
+                  <h3 class="panel-title" >  
+                                              
                      <span class="name"  style="text-align:left"></span>
-                      &nbsp;   
+                      &nbsp; 
+                      <span class="uid"></span>
+                      &nbsp;    
                      <span class="date"></span>
-                     &nbsp;
+                      &nbsp;
                      <span class="point" style="color:#ffdc3b"></span>  
-                     <span>
-                     	<button type="button" id="updateBtn" data-btn="upBtn" class="btn w-btn w-btn-gray gap" style="float:right;" >수정</button>
-                     <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
-                     </span>
-      <!--             <button type="button" id="delBtn" class="btn btn-default gap" style="float:right;">삭제</button>  -->                        
+                     <button type="button" id="updateBtn" data-btn="upBtn" class="btn w-btn w-btn-gray gap" style="float:right;" >수정</button>
+                  	 <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
                                  
                   </h3>                  
                </div>
