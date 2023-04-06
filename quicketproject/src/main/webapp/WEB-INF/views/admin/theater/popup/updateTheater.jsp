@@ -34,12 +34,11 @@
 			
 		})
 		$("#cancelBtn").click(function(){
-			location.href=location.pathname;
+			location.reload();
 		})
 		$("#theaterUpdateBtn").click(function(){
 			if(!checkForm("#th_name","공연장 이름을")) return;
 			if(!checkForm("#th_addr","주소를")) return;
-			if(!checkForm("#th_seat","총 좌석수를")) return;
 			
 			let value = JSON.stringify({
 				th_num:$("#th_num").val(),
@@ -47,7 +46,6 @@
 				th_addr:$("#th_addr").val(),
 				th_map_lat:$("#th_map_lat").val(),
 				th_map_lng:$("#th_map_lng").val(),
-				th_seat:$("#th_seat").val(),
 				th_web:$("#th_web").val()
 			});
 			
@@ -111,12 +109,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th>좌석수</th>
-					<td>
-						<input type="text" id="th_seat" name="th_seat" class="form-control" value="${updateData.th_seat}" />
-					</td>
-				</tr>
-				<tr>
 					<th>웹사이트</th>
 					<td>
 						<input type="text" id="th_web" name="th_web" class="form-control" value="${updateData.th_web}"  />
@@ -127,7 +119,7 @@
 		</div>
 		<div class="row"><div class="col-xs-10 col-xs-offset-1 text-right">
 			<button type="button" id="returnBtn" class="btn btn-default">돌아가기</button>
-			<button type="button" id="cancelBtn" class="btn btn-default">입력취소</button>
+			<button type="button" id="cancelBtn" class="btn btn-default">변경취소</button>
 			<button type="button" id="theaterUpdateBtn" class="btn btn-default">수정하기</button>
 		</div></div>
 	</div>

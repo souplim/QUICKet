@@ -12,11 +12,45 @@
 		margin : 20px;
 		cursor: pointer;
 	}
+	
+
 </style>
 
 <script>
 
 	$(function(){
+		
+		let click = "";
+		
+		$(".mypageDiv").click(function(){
+			click = $(this).attr('id');
+			console.log(click);
+		});
+		
+		$("#okBtn").click(function(){
+			$.ajax({
+				type:"POST",
+				url:"/user/pwdConfirm",
+				data:{
+					"u_id" : $("#u_id").val(), "u_pwd" : $("#u_pwd").val()
+				},
+				success:function(data){
+					if(data == 1) {
+						console.log("클릭한 버튼 : " + click);
+						if(click == "userInfoBtn"){
+							location.href="/user/userInfo";
+						} else if (click == "userUpdateBtn") {
+							location.href="/user/userUpdateForm";
+						} else if (click == "setPwdBtn") {
+							location.href="/user/setPwdForm";
+						}
+					} else {
+						alert("비밀번호가 일치하지 않습니다.");
+						$("#u_pwd").focus();
+					}
+				}
+			});
+		});
 		
 	});
 	
@@ -31,7 +65,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeBtn"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">비밀번호 확인</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
       	<h1></h1>
 		<h1 class="glyphicon glyphicon-lock text-center"></h1>
 		<br>
@@ -44,7 +78,9 @@
 		<table class="table">
 			<tr>
 				<td class="text-center">아이디</td>
-				<td class="text-left" colspan="4">${userLogin.u_id}</td>
+				<td class="text-left" colspan="4">
+				<input type="text" class="form-control" readonly="readonly" id="u_id" name="u_id" value="${userLogin.u_id}"/>
+				</td>
 			</tr>
 			<tr>
 				<td class="text-center">비밀번호</td>
@@ -56,8 +92,8 @@
 		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="closeBtn">닫기</button>
-        <button type="button" class="btn btn-primary" id="okBtn">로그인</button>
+        <button type="button" class="btn w-btn-outline w-btn-gray-outline" id="closeBtn" data-dismiss="modal" aria-label="Close">닫기</button>
+        <button type="button" class="btn w-btn-outline w-btn-indigo-outline" id="okBtn">확인</button>
       </div>
       
     </div><!-- /.modal-content -->
@@ -77,20 +113,20 @@
     		<p>가입 날짜 : ${userLogin.u_regdate}</p>
     		<p>최근 정보 변경일 : ${userLogin.u_moddate}</p>
     	</div>
-    	<div class="row">
-	        <div class="mypageDiv" id="userInfoBtn">
+    	<div class="row" >
+	        <div class="mypageDiv" id="userInfoBtn" data-toggle="modal" data-target="#myModal">
 	        	<br>
 	        	<h1 class="glyphicon glyphicon-user" aria-hidden="true"></h1>
 	        	<br><br>
 	          	<h3>회원정보 조회</h3>
 	        </div><!-- /.col-lg-4 -->
-	         <div class="mypageDiv" id="userUpdateBtn">
+	         <div class="mypageDiv" id="userUpdateBtn" data-toggle="modal" data-target="#myModal">
 	       		<br>
 	        	<h1 class="glyphicon glyphicon-pencil" aria-hidden="true"></h1>
 	          	<br><br>
 	          	<h3>회원정보 수정</h3>
 	        </div><!-- /.col-lg-4 -->
-	       <div class="mypageDiv" id="setPwdBtn">
+	       <div class="mypageDiv" id="setPwdBtn" data-toggle="modal" data-target="#myModal">
 	       		<br>
 	        	<h1 class="glyphicon glyphicon-lock" aria-hidden="true"></h1>
 	          	<br><br>
@@ -98,5 +134,6 @@
 	        </div><!-- /.col-lg-4 -->
       	</div><!-- /.row -->
     </div>
+    
 </body>
 </html>

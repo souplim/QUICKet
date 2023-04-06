@@ -1,6 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<style type="text/css">
+.container{
+	margin-top:30px;
+	margin-bottom:50px;
+}
+#mainPage-slide{
+	margin-bottom:100px;
+}
+.slide_Box{
+	width:100%;
+	height:600px;
+}
+.slide_img{
+	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
+	margin: 30px 0px 0px 50px;
+}
+.slide_txt{
+	position:absolute;
+	bottom:10%; 
+	right:15%;
+	text-align:right;
+}
+.slide_title{
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
+	font-weight:bold;
+	font-size:50px;
+}
+.slide_date{
+	color: #fff;
+	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
+	font-size:16px;
+}
+.carousel-indicators li{
+	box-shadow:-1px -1px 2px 1px rgb(123,123,123,0.7) inset;
+	margin: 1px 5px;
+	width:15px;
+	height:15px;
+	border:1px solid rgb(220,220,220,0.7);
+}
+.carousel-indicators li.active{
+	background-color:rgb(220,220,220);
+	box-shadow:-1px -1px 2px 1px rgb(0,0,0,0.7) inset;
+	margin: 1px 5px;
+	width:15px;
+	height:15px;
+	border:1px solid rgb(220,220,220,0.7);
+}
+a[role='tab']{
+	font-weight:bold;
+	color:#ccc;
+}
+.tab-content{
+	height:350px;
+}
+</style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -16,12 +72,12 @@ $(function(){
 		let $inner = $("#mainPage-slide").find(".carousel-inner");
 		$(data).each(function(index){	
 			let $Link = $("<a href='/showDetail?s_num="+this.s_num+"'></a>")
-			let $imgBox = $("<div>");
+			let $Box = $("<div class='slide_Box'>");
 			let $img = $("<img />");
 			
 			let img_url="";
 			if(this.s_posterimg!=null){				
-				img_url = "/uploadStorage/"+this.s_posterimg.img_dir+"/"+this.s_posterimg.img_name+"."+this.s_posterimg.img_type;
+				img_url = "/uploadStorage"+this.s_posterimg.img_dir+"/"+this.s_posterimg.img_name+"."+this.s_posterimg.img_type;
 			}			
 			$img.addClass("slide_img");
 			if(img_url!=""){
@@ -30,26 +86,28 @@ $(function(){
 				img_url="/uploadStorage/show/poster_default.jpg"
 				$img.attr("src", img_url);
 			}
-			$imgBox.css({
-				width:"100%",
-				height:"600px",
+			$Box.css({
 				backgroundImage:"url("+img_url+")",
-				backgroundSize:"cover"
+				backgroundSize:"cover",
 			})
+			
+			let $txt = $("<div class='slide_txt'><span class='slide_title'>《"+this.s_name+"》</span><br/><span class='slide_date'>"+this.s_opendate+" ~ "+this.s_closedate+"</span></div>");
 			
 			if(index==0){
 				let $item = $(".item")
-				$imgBox.append($img);
-				$Link.append($imgBox);
+				$Box.append($img)
+				$Box.append($txt)
+				$Link.append($Box);
 				$item.append($Link);
 				
 			}else{
 				let $item = $("<div class='item'></div>");
-				$imgBox.append($img);
-				$Link.append($imgBox);
+				$Box.append($img);
+				$Box.append($txt)
+				$Link.append($Box);
 				$item.append($Link);
 				$inner.append($item);
-				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'>")
+				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'></li>")
 				$indicators.append($idc)
 			}
 		})
@@ -76,19 +134,23 @@ $(function(){
 			makeShowBox(this, "#mainNewPanel", "s_opendate", "2");
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
+	
+	//날짜에 맞춰 동적 링크 생성하기
+	let now = new Date();
+	let mon = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+1).toISOString().substring(0, 10);
+	let sun = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+7).toISOString().substring(0, 10);
+	$("#moreNewLink").attr("href","/search?s_select_date=open&start_date="+mon+"&end_date="+sun);
+	
 })
 </script>
 </head>
 	<body>
 		<div class="container">
-		
 			<div class="row">
 				<!-- 메인 페이지 슬라이드 기능 구현 -->
 				<div id="mainPage-slide" class="carousel slide" data-ride="carousel">
 					<!-- 인디케이터 -->
-					<ol class="carousel-indicators">
-						<li data-target="#mainPage-slide" data-slide-to="0" class="active"></li>
-					</ol>
+					<ol class="carousel-indicators"><li data-target="#mainPage-slide" data-slide-to="0" class="active"></li></ol>
 				
 					<!-- 내부에 들어갈 아이템 -->
 					<div class="carousel-inner" role="listbox">
@@ -106,8 +168,6 @@ $(function(){
 					</a>
 				</div>
 			</div>
-			
-			<br/><br/><br/>
 			
 			<!-- 랭킹박스 탭 기능 구현 -->
 			<div class="row">
@@ -130,16 +190,11 @@ $(function(){
 						<div id="mainPointRankPanel"></div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="ticketRank">
-						<div id="mainTicketRankPanel">
-							
-						</div>
+						<div id="mainTicketRankPanel"></div>
 					</div>
 				</div>
-
+				<div class="row text-right"><a href="/ranking">▶ 랭킹 더 보기</a></div>
 			</div>
-			
-			<br/><br/><br/>
-			
 			<!-- 신작 박스 구현 -->
 			<div class="row">
 			
@@ -152,10 +207,11 @@ $(function(){
 				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="weekNew">
-						<div id="mainNewPanel" class="row">
+						<div id="mainNewPanel">
 						</div>
 					</div>
 				</div>
+				<div class="row text-right"><a id="moreNewLink">▶ 이번 주 개봉작 더 보기</a></div>
 				
 			</div>
 			

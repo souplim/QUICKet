@@ -107,3 +107,16 @@ function chkSubmit(item, msg){
 	} else 
 		return true;
 }
+
+function getDateFormat(dateValue){
+	let year = dateValue.getFullYear();
+	
+	let month = dateValue.getMonth()+1;
+	month = (month<10) ? "0"+month : month;
+	
+	let day = dateValue.getDate();
+	day = (day<10) ? "0"+day : day;
+	
+	let result = year+"-"+month+"-"+day;
+	return result;
+}

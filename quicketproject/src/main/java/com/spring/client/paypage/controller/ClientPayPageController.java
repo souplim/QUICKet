@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,7 +30,10 @@ import com.spring.client.paypage.vo.AmountVO;
 import com.spring.client.paypage.vo.CouponVO;
 import com.spring.client.paypage.vo.PayPageVO;
 import com.spring.client.paypage.vo.SeatVO;
-import com.spring.client.paypage.vo.UserVO;
+import com.spring.client.paypage.vo.ticketSuccessVO;
+import com.spring.client.show.service.ClientShowService;
+import com.spring.client.show.vo.ShowVO;
+import com.spring.client.user.vo.UserVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -36,27 +42,35 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/client/payPage/*")
+@SessionAttributes("userLogin")
 //@Log4j
 @Slf4j
 public class ClientPayPageController {
 
 	@Setter(onMethod_ = @Autowired)
 	private ClientPayPageService clientPayPageService;
-
+	@Setter(onMethod_=@Autowired)
+	private ClientShowService clientShowService;
 	// 공연상세페이지
 	@RequestMapping(value = "/pay_step1", method = RequestMethod.GET)
 	public String pay_step1(@ModelAttribute("data") PayPageVO pvo, Model model) {
 		log.info("pay_step1 호출 성공");
 		PayPageVO hall_list = clientPayPageService.hall_th_num(pvo);
 		model.addAttribute("hall_list", hall_list);
-
+		
+		ShowVO vo = new ShowVO();
+		vo.setS_num(hall_list.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
+		 
+			
 		return "/client/payPage/pay_step1";
 
 	}
 
 	// 공연상세페이지
 	@RequestMapping(value = "/pay_step2", method = RequestMethod.GET)
-	public String pay_step2(@ModelAttribute("data") PayPageVO pvo, Model model) {
+	public String pay_step2(@ModelAttribute("data") PayPageVO pvo,ShowVO vo, Model model) {
 		log.info("pay_step2 호출 성공");
 		
 		PayPageVO pay_step2_list = clientPayPageService.pay_step2_list(pvo);
@@ -65,6 +79,10 @@ public class ClientPayPageController {
 		List<PayPageVO> pay_step2_seat = clientPayPageService.pay_step2_seat(pvo);
 		model.addAttribute("pay_step2_seat", pay_step2_seat);
 
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
+		
 		return "/client/payPage/pay_step2";
 
 	}
@@ -72,18 +90,24 @@ public class ClientPayPageController {
 	// pay_step3 가기
 
 	@RequestMapping(value = "/pay_step3", method = RequestMethod.POST)
-	public String pay_step3(@ModelAttribute PayPageVO pvo, Model model) {
+	public String pay_step3(@ModelAttribute PayPageVO pvo,ShowVO vo, Model model,HttpSession session) {
 		log.info("pay_step3 호출 성공");
 		
 		PayPageVO pay_step3_list = clientPayPageService.pay_step3_list(pvo);
 		model.addAttribute("pay_step3_list", pay_step3_list);
 		
 		model.addAttribute("SeatMapData", pvo.getSeatList());
-	
-		// 아이디 세션이 없어서 임시방편으로 set u_id
-		String u_id = "user02";
-		List<CouponVO> pay_step3_coupon = clientPayPageService.pay_step3_coupon(u_id);
+		
+		// 아이디 세션 값 get
+		UserVO sessionVal = (UserVO)session.getAttribute("userLogin");
+		
+		List<CouponVO> pay_step3_coupon = null; 
+		pay_step3_coupon = clientPayPageService.pay_step3_coupon(sessionVal.getU_id());
 		model.addAttribute("pay_step3_coupon", pay_step3_coupon);
+		 
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
 		
 		return "/client/payPage/pay_step3";
 
@@ -91,7 +115,7 @@ public class ClientPayPageController {
 	// pay_step4 가기
 	
 	@RequestMapping(value = "/pay_step4", method = RequestMethod.POST)
-	public String pay_step4(@ModelAttribute PayPageVO pvo, CouponVO cvo, AmountVO avo, Model model) {
+	public String pay_step4(@ModelAttribute PayPageVO pvo, CouponVO cvo,ShowVO vo, AmountVO avo, Model model, HttpSession session) {
 		log.info("pay_step4 호출 성공");
 		
 		PayPageVO pay_step4_list = clientPayPageService.pay_step4_list(pvo);
@@ -103,14 +127,27 @@ public class ClientPayPageController {
 		
 		model.addAttribute("AmountVOData", avo);
 		
-		// 아이디 세션이 없어서 임시방편으로 set u_id
-		String u_id = "user02";
-		UserVO uvo = new UserVO();
-		uvo.setU_id(u_id);
-		UserVO pay_step4_UserData = clientPayPageService.pay_step4_UserData(uvo);
 		
-		model.addAttribute("pay_step4_UserData", pay_step4_UserData);
+		// 아이디 세션 값 get 
+		UserVO uvo = (UserVO)session.getAttribute("userLogin");
+		  
+		model.addAttribute("pay_step4_UserData", uvo);
+		
+		vo.setS_num(vo.getS_num());
+		ShowVO detailData = clientShowService.showDetail(vo);
+		model.addAttribute("detailData", detailData);
+		 
 		return "/client/payPage/pay_step4";
+		
+	}
+	
+	@RequestMapping(value = "/ticketSuccessPage", method = RequestMethod.GET)
+	public String ticketSuccessPage(@ModelAttribute ticketSuccessVO tsvo , Model model) {
+		log.info("ticketSuccessPage 호출 성공");
+		
+		ticketSuccessVO ticketSuccessPage = clientPayPageService.ticketSuccessPage(tsvo);
+		model.addAttribute("ticketSuccessPage", ticketSuccessPage);
+		return "/client/payPage/ticketSuccessPage";
 		
 	}
 

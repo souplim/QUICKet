@@ -15,6 +15,16 @@ public class PayVO {
 	private	int pay_status=0;		//결제상태
 	private String u_id="";		//회원아이디
 	
+	private String ti_date = ""; //날짜
+	private String s_name = "";	//공연명
+	
+	private String imp_uid = "";
+	private String merchant_id = "";
+	private String token = "";
+	private String amount = "";
+	private String reason = "";
+	
+	
 	
 }
 

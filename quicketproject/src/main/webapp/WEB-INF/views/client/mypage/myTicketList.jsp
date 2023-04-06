@@ -110,18 +110,19 @@
 			
 			/* 제목 클릭시 공연 상세 페이지 이동을 위한 처리 이벤트 */
 			$(".goShowDetail").on("click", function(){
-				location.href="";
+				let s_num = $(".data-snum").attr("data-snum");
+				location.href="/showDetail?s_num="+s_num;
 			});
 			
 			/* 상세정보 버튼 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
 			$(".goDetail").click(function(){
-				let ti_num = $(this).parents("tr").attr("data-num");
+				let pay_num = $(this).parents("tr").attr("data-num");
 				let s_num = $(".data-snum").attr("data-snum");
 				
-				console.log("예매번호:"+ti_num);
+				console.log("결제번호:"+pay_num);
 				console.log("공연번호:"+s_num);
 				
-				$("#ti_num").val(ti_num);
+				$("#pay_num").val(pay_num);
 				$("#s_num").val(s_num);
 				
 				// 상세 페이지로 이동하기 위해 form 추가(id: dataForm)
@@ -163,7 +164,7 @@
 		<div class="contentContainer container">
 			<%-- ================= 데이터 전달 폼 ================= --%>
 			<form name="dataForm" id="dataForm">
-				<input type="hidden" name="ti_num" id="ti_num">
+				<input type="hidden" name="pay_num" id="pay_num">
 				<input type="hidden" name="s_num" id="s_num">
 			</form>
 			<form name="pageForm" id="pageForm">
@@ -230,14 +231,14 @@
 						<c:choose>
 							<c:when test="${not empty ticketList}">
 								<c:forEach var="ticket" items="${ticketList}" varStatus="status">
-									<tr class="text-center" data-num="${ticket.ti_num}">
+									<tr class="text-center" data-num="${ticket.pay_num}">
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
 										<%-- <td>${count - status.index}</td>  --%>
 										<td style="vertical-align:middle">${ticket.ti_regdate}</td> 
-										<td class="data-snum" data-snum="${ticket.s_num}" style="vertical-align:middle">${ticket.ti_num}</td>
+										<td class="data-snum" data-snum="${ticket.s_num}" style="vertical-align:middle">${ticket.pay_num}</td>
 										<td class="text-left goShowDetail" data-uid="${ticket.u_id}" style="vertical-align:middle">${ticket.s_name}</td>
 										<td style="vertical-align:middle">${ticket.hall_date}</td>
-										<td style="vertical-align:middle">${ticket.seat_num}</td>
+										<td style="vertical-align:middle">${ticket.seat_num_cnt}</td>
 										<td class="text-danger">
 											<c:if test="${ticket.ti_status==0}">
 												전체취소

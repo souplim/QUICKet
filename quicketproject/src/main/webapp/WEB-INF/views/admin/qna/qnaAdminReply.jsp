@@ -16,7 +16,7 @@
 
 			/** 글 입력을 위한 Ajax 연동 처리 */
 			$(document).on("click", "#replyInsertBtn", function(){	//  입력화면이 수정화면이 될수 있고 수정form으로 쓸수 있어서, 동적으로 요소 만들다 보니 on 이라는 구문으로 정의
-				let insertUrl = "/qnaReply/qnaReplyInsert";
+				let insertUrl = "/qnaReply/qna/qnaReplyInsert";
 				
 				let value = JSON.stringify({	
 					q_no:q_no,
@@ -74,7 +74,7 @@
 				let q_r_no = this.q_r_no;
 				let u_id = this.u_id;
 				let q_r_content = this.q_r_content;
-				let q_r_regdate = this.q_r_date;
+				let q_r_regdate = this.q_r_regdate;
 				q_r_content = q_r_content.replace(/(\r\n|\r|\n)/g, "<br />");
 				template(q_r_no, u_id, q_r_content, q_r_regdate);
 			

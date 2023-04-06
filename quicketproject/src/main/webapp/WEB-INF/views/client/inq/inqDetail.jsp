@@ -157,8 +157,8 @@
 					<tr>
 						<td class="col-md-3">예매번호</td>
 						<td class="col-md-3">
-							<c:if test="${inqDetail.ti_num!=0}">
-								${inqDetail.ti_num}
+							<c:if test="${inqDetail.pay_num!=0}">
+								${inqDetail.pay_num}
 							</c:if>
 						</td>
 						<td class="col-md-3" style="vertical-align:middle">답변현황</td>

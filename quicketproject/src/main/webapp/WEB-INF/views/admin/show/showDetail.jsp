@@ -8,21 +8,24 @@
 	th{
 		text-align:center;
 	}
+	.detailImgHolder>img{max-width:100%;}
 </style>
 <script type="text/javascript">
 	$(function(){
 		//배역 변수의 json 변환 처리
 		let s_actor_str = "<c:out value='${detail.s_actor}' />";
 		//html로 decoding (안하면 따옴표를 제데로 못 읽어서 에러가 남)
-		let $txt = $("<textarea></textarea>");
-		$txt.html(s_actor_str)
-		let s_actor_txt = $txt.val();
-		
-		let s_actor = JSON.parse(s_actor_txt);
-		if(s_actor!=null){
-			for(let act of s_actor){
-				$("#s_actor").append("<p>"+act.actor+" - "+act.role+" 역</p>")
-			}
+		if(s_actor_str!=""){
+			let $txt = $("<textarea></textarea>");
+			$txt.html(s_actor_str)
+			let s_actor_txt = $txt.val();
+			
+			let s_actor = JSON.parse(s_actor_txt);
+			if(s_actor!=null){
+				for(let act of s_actor){
+					$("#s_actor").append("<p>"+act.actor+" - "+act.role+" 역</p>")
+				}
+			}		
 		}
 		//버튼 클릭시 동작 구현
 		$("#returnBtn").click(function(){
@@ -112,7 +115,7 @@
 						<th colspan="2" class="text-center">상세 이미지</th>
 					</tr>
 					<tr>
-						<td colspan="2" class="text-center">
+						<td colspan="2" class="text-center detailImgHolder">
 							<c:if test="${detail.s_detailimg ne null and not empty detail.s_detailimg}">
 								<c:forEach var="detailimg" items="${detail.s_detailimg}">
 									<img src="/uploadStorage/show/${detail.s_num}/detail/${detailimg.img_name}.${detailimg.img_type}" /><br/>
@@ -128,7 +131,7 @@
 		</div>
 		
 		<div class="col-xs-4">
-			<div class="text-center">
+			<div class="text-center detailImgHolder">
 				<c:if test="${detail.s_posterimg ne null}">
 					<img src="/uploadStorage/show/${detail.s_num}/poster/${detail.s_posterimg.img_name}.${detail.s_posterimg.img_type}" />
 				</c:if>

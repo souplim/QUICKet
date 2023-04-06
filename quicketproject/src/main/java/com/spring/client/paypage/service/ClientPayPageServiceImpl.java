@@ -9,7 +9,8 @@ import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.paypage.dao.PayPageClientDao;
 import com.spring.client.paypage.vo.CouponVO;
 import com.spring.client.paypage.vo.PayPageVO;
-import com.spring.client.paypage.vo.UserVO;
+import com.spring.client.paypage.vo.ticketSuccessVO;
+import com.spring.client.user.vo.UserVO;
 
 import lombok.Setter;
 
@@ -75,6 +76,13 @@ public class ClientPayPageServiceImpl implements ClientPayPageService {
 		UserVO pay_step4_UserData = null;
 		pay_step4_UserData = payPageClientDao.pay_step4_UserData(uvo);
 		return pay_step4_UserData;
+	}
+
+	@Override
+	public ticketSuccessVO ticketSuccessPage(ticketSuccessVO tsvo) {
+		ticketSuccessVO ticketSuccessPage = null;
+		ticketSuccessPage = payPageClientDao.ticketSuccessPage(tsvo);
+		return ticketSuccessPage;
 	}
 	
 }

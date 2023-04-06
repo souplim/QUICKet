@@ -22,6 +22,49 @@
 	
 	$(function(){
 		
+		//
+		// 공연명순, 번호순 나열하여 출력하는 기능 X
+		// 검색 기능 X
+		//
+		
+		// 기대평 클릭 시
+		$(".goExpect").click(function(){
+			let num = $(this).parents("tr").attr("data-num");
+			console.log(num);
+			alert("준비 중인 기능입니다.");
+			//location.href="/admin/review/adminreviewList?s_num=" + num;
+		});
+		
+		// 관람후기 클릭 시
+		$(".goReview").click(function(){
+			let num = $(this).parents("tr").attr("data-num");
+			$("#s_num").val(num);
+			console.log(num);
+			
+			$("#detailForm").attr({
+				"method":"get",
+				"action":"/admin/review/adminreviewList"
+			});
+			$("#detailForm").submit();
+			
+			//location.href="/admin/review/adminreviewList?s_num=" + num;
+		});
+		
+		// qnA 클릭 시
+		$(".goQNA").click(function(){
+			let num = $(this).parents("tr").attr("data-num");
+			console.log(num);
+			
+			location.href="/admin/qna/qnaAdminList?s_num=" + num;
+		});
+		
+		// 상세 버튼 클릭 시 
+		$(".goDetail").click(function(){
+			let num = $(this).parents("tr").attr("data-num");
+			console.log(num);
+			
+			location.href="/admin/show/showDetail?s_num=" + num;
+		});
 	});
 	
 	
@@ -99,7 +142,7 @@
 											<button type="button" class="btn btn-default goQNA">${show.qcount }</button>
 										</td>
 										<td>
-											<button type="button" class="btn btn-default">상세</button>
+											<button type="button" class="btn btn-default goDetail">상세</button>
 										</td>
 									</tr>
 								</c:forEach>
