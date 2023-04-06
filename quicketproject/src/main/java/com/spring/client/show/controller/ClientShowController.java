@@ -82,6 +82,14 @@ public class ClientShowController {
 		List<ShowVO> entity = clientShowService.newList(vo);
 		return entity;
 	}
+	@ResponseBody
+	@GetMapping(value="/mainHotList", produces=MediaType.APPLICATION_JSON_VALUE)
+	public 	List<ShowVO> mainHotList(){
+		ShowVO vo = new ShowVO();
+		vo.setAmount(5);
+		List<ShowVO> entity = clientShowService.hotShowList(vo);
+		return entity;
+	}
 	
 	//장르페이지 관련 컨트롤러
 	@GetMapping("/genre")

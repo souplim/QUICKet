@@ -309,9 +309,14 @@ div[role="tabpanel"]{min-height:30em;}
 				
 			</div>
 		</div>
-		<div class="row">
-			<div id="casting_box"></div>
-		</div>
+		
+		<!-- 캐스팅 정보 존재할 때 입력되는 박스 -->
+		<c:if test="${not empty detailData.s_actor}">
+			<div class="row">
+				<div id="casting_box"></div>
+			</div>
+		</c:if>
+		
 		<!-- 예매기능 박스 -->
 		<div class="ticketBox row">
 			<c:import url="/WEB-INF/views/client/ticket/showDetail.jsp" />

@@ -57,6 +57,8 @@ public class ShowVO extends CommonVO {
 	private int s_point_rank		= 0;	//평점 랭킹을 저장하기 위한 변수
 	private String rank_period		= "";	//랭킹 검색 범위를 저장하기 위한 변수
 	
+	//북마크 개수 받아올때 쓰는 변수
+	private int b_count				= 0;
 	
 	// 이유빈 추가 (커뮤니티 - 기대평, 관람후기 ,qna 개수)
 	private int excount = 0;

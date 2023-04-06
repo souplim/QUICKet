@@ -54,7 +54,7 @@ a[role='tab']{
 	color:#ccc;
 }
 .tab-content{
-	height:350px;
+	height:400px;
 }
 </style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
@@ -135,6 +135,13 @@ $(function(){
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
+	//현재 북마크 갯수가 상위권인 공연 리스트 5개 받아오기
+	$.getJSON("/mainHotList",function(data){
+		$(data).each(function(){
+			makeShowBox(this, "#mainHotPanel", "b_count", "2");
+		})
+	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
+	
 	//날짜에 맞춰 동적 링크 생성하기
 	let now = new Date();
 	let mon = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+1).toISOString().substring(0, 10);
@@ -169,6 +176,24 @@ $(function(){
 				</div>
 			</div>
 			
+			<!-- 북마크 기준 박스 구현 -->
+			<div class="row">
+			
+				<!-- Navi 형 탭리스트 -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="disabled">
+						<a href="#">HOT SHOW</a>
+					</li>
+				</ul>
+				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="mainHot">
+						<div id="mainHotPanel">
+						</div>
+					</div>
+				</div>
+				
+			</div>
 			<!-- 랭킹박스 탭 기능 구현 -->
 			<div class="row">
 			
