@@ -37,6 +37,14 @@
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
 	
+		<!-- fontAwesome CDN 링크 -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	
+		<style type="text/css">
+			.row { margin-top: 50px; }
+			.body-row { margin-bottom: 100px; }
+		</style>
+	
 		<script type="text/javascript">
 			$("#menu-toggle").click(function (e) {
 			    e.preventDefault();
@@ -50,11 +58,14 @@
 		</nav>
 		
 		<div class="container-fluid">
-			<div class="row">
-			<tiles:insertAttribute name="body"/>
-		</div>
+			<div class="row body-row">
+				<tiles:insertAttribute name="body"/>
+			</div>
 		</div>	
 		
+		<div class="container-fluid navbar-fixed-bottom">
+			<tiles:insertAttribute name="footer"/>
+		</div>
 		 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
