@@ -54,9 +54,12 @@
 						<!-- 	<td class="text-left"><input type="text" name="f_category" id="f_category" class="form-control" /></td>  -->
 								<td>
 									<select id="f_category" name="f_category" class="form-control">
-										<option value="회원">회원</option>
-										<option value="예매/취소">예매/취소</option>				
+										<option value="회원정보">회원정보</option>
+										<option value="공연">공연</option>
 										<option value="결제">결제</option>
+										<option value="예매/취소">예매/취소</option>	
+										<option value="배송">배송</option>
+										<option value="이벤트">이벤트</option>										
 										<option value="기타">기타</option>	
 									</select>	
 								</td>					

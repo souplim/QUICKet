@@ -33,21 +33,21 @@ public class FaqController {
 	
 	@RequestMapping(value="/faqList", method = RequestMethod.GET)
 	//@GetMapping("/faqList")
-	public String faqList(@ModelAttribute("data") FaqVO fvo, Model model) throws Exception {
+	public String faqList(@ModelAttribute FaqVO fvo, Model model) throws Exception {
 		log.info("faqList 호출 성공");
 	// 전체 레코드 조회
 	List<FaqVO> faqList = faqService.faqList(fvo);
 	model.addAttribute("faqList", faqList);
 	
 	// 전체 레코드수 구현
-//	int total = boardService.boardListCnt(bvo);
+	int total = faqService.faqListCnt(fvo);
 	
-	int total = 10;
 	// 페이징 처리
 	model.addAttribute("pageMaker", new PageDTO(fvo, total));
 	return "client/faq/faqList";   //리턴해 주는게 뷰의 정보
 	}
 
+	
 
 
 	/**************************************************************
