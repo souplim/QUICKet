@@ -53,6 +53,21 @@
 				height: 100%;
 				width: 1300px;
 			}
+			.pagination>li>a, .pagination>li>a:hover{
+				color:#999;
+			}
+			.pagination>.active>a{
+			    background-color:#ccc;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:hover{
+			    background-color:#999;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:focus{
+			    background-color:#777;
+			    border-color:#ccc;
+			}
 		</style>
 		
 		<script type="text/javascript">
