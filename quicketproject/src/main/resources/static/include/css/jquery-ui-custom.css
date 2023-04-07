@@ -909,16 +909,6 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 
-.ui-widget::before{
-	content:"";
-	position:absolute;
-	top:3%;
-	left:3%;
-	width:94%;
-	height:94%;
-	border:1px solid #ddd;
-}
-
 .ui-widget {
 	position:relative;
 	font-family: 'LeferiBaseType-RegularA';
