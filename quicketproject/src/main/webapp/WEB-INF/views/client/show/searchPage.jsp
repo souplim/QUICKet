@@ -31,7 +31,7 @@
 	font-size:20px;
 }
 </style>
-<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/include/css/jquery-ui-custom.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(function(){
