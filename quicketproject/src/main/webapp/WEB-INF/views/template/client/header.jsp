@@ -197,6 +197,14 @@
 			$("#mainSearchForm").submit();
 		});
 		
+		/* 입력 양식 enter 제거 */
+		$("#mainKeyword").bind("keydown", function(event){
+			 if (event.keyCode == 13) {
+			        event.preventDefault();
+			        $("#mainBtn").click();
+			    }
+		});
+		
 	});
 </script>
 
@@ -248,7 +256,7 @@
 		
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<a>
+				<a> 
 					<form id="mainSearchForm">
 						<input type="text" name="keyword" id="mainKeyword" />
 						<button type="button" name="mainBtn" id="mainBtn">

@@ -211,6 +211,7 @@
 				<div class="form-group">
 					<div class="col-sm-2 col-sm-offset-2">
 						<select id="search" name="search" class="form-control">
+							<option value="">전체검색</option>
 							<option value="s_name">공연명</option>
 							<option value="th_name">공연장명</option>
 						</select>
