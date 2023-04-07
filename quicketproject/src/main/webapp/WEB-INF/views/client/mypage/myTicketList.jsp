@@ -4,6 +4,7 @@
 
 	<style type="text/css">
 		.contentContainer {width: 1200px;} 
+		.title {margin-bottom: 30px;}
 		#search-title {
 			font-size: 15px;
 			font-weight: bold;
@@ -182,7 +183,7 @@
 				<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"/>
 			</form>
 			
-			<div>
+			<div class="title">
 				<h1>예매확인/취소</h1>
 				<p>상세정보를 클릭하면 예매 상세 내용을 확인할 수 있습니다.</p>
 			</div>

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 
+	<style type="text/css">
+		.communityTitle { margin-bottom: 30px; }
+	</style>
+
 	<script type="text/javascript">
 		$(function(){
 			$("#notAvailable").on("click", function(){

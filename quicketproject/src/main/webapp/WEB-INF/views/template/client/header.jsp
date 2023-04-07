@@ -5,10 +5,10 @@
 
 <style>
 	@font-face {
-    font-family: 'LeferiBaseType-RegularA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	    font-family: 'LeferiBaseType-RegularA';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
 	}
 	
 	.container-fluid { 
