@@ -35,7 +35,10 @@
 		border-bottom: 3px solid black;
 		outline: none;	
 	}
-	#mainBtn {border:none;}
+	#mainBtn {
+		border:none;
+		background-color: #fff;
+	}
 	#wrapper {
 	 	width : 100%;
 	    padding-left: 0;

@@ -12,6 +12,7 @@
 	
 	.footer { 
 		height: 250px;
+		width: 100%;
 	} 
 	.footer-menu a {
 		font-family: 'LeferiBaseType-RegularA';

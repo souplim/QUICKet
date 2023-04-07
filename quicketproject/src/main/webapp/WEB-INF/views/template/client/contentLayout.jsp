@@ -42,7 +42,10 @@
 	
 		<style type="text/css">
 			.row { margin-top: 50px; }
-			.body-row { margin-bottom: 100px; }
+			.body-row { 
+				margin-bottom: 100px; 
+				/* padding-bottom: 99999px; */
+			}
 		</style>
 	
 		<script type="text/javascript">
@@ -61,11 +64,12 @@
 			<div class="row body-row">
 				<tiles:insertAttribute name="body"/>
 			</div>
+			<div class="text-center">
+				<tiles:insertAttribute name="footer"/>
+			</div>
 		</div>	
 		
-		<div class="container-fluid navbar-fixed-bottom">
-			<tiles:insertAttribute name="footer"/>
-		</div>
+		<!-- <div class="container-fluid navbar-fixed-bottom"> -->
 		 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
