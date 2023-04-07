@@ -16,6 +16,7 @@
 .slide_img{
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 	margin: 30px 0px 0px 50px;
+	width: 300px;
 }
 .slide_txt{
 	position:absolute;
