@@ -20,7 +20,7 @@
 				 ) faq
 		 WHERE rnum > (#{pageNum} - 1) * #{amount} 
 		 ]]>
-		</select>
+	</select>
    	
    	  <sql id="faqSearch">
 			<if test="search=='f_category'">
@@ -35,7 +35,19 @@
 			<if test="search=='f_regdate'">
 				<![CDATA[ to_char(f_regdate,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
 			</if>
-		</sql>		
+		</sql>	
+		
+		
+			
+		
+		<!-- 검색 & 페이징 처리 구현 -->
+		<select id="adminfaqListCnt" parameterType="faq" resultType="int">
+			SELECT COUNT(f_no) FROM faq
+			<trim prefix=" WHERE (" suffix=")">
+				<include refid="faqSearch"></include>
+			</trim>
+		</select>
+	
 		
 		<!--상세 구현   -->		
 		<select id="adminfaqDetail" parameterType="faq" resultType="faq">
