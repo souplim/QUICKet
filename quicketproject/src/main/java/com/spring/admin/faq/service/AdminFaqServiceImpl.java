@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.admin.faq.dao.AdminFaqDao;
 import com.spring.client.faq.vo.FaqVO;
+import com.spring.client.qna.vo.QnaVO;
 
 import lombok.Setter;
 
@@ -25,13 +26,20 @@ public class AdminFaqServiceImpl implements AdminFaqService {
 		list = adminfaqDao.adminfaqList(fvo);
 		return list;
 	}
-
 	
-// 글상세 구현
+	// 전체 레코드수 
 	@Override
-	public FaqVO adminfaqDetail(FaqVO fvo) {
-		FaqVO detail = null;
+	public int adminfaqListCnt(FaqVO fvo) {
+		// TODO Auto-generated method stub
+		return adminfaqDao.adminfaqListCnt(fvo);
+	}
+
 		
+	// 글상세 구현
+		@Override
+		public FaqVO adminfaqDetail(FaqVO fvo) {
+			FaqVO detail = null;
+			
 		//조회수 증가 멤서드 호출  추가
 	//	boardDao.readCntUpdate(bvo);
 		
@@ -90,6 +98,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
 			return result;
 		}
 
+		
 
 
 

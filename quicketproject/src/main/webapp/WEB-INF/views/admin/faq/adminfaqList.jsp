@@ -72,12 +72,11 @@
 		function goPage(){
 			$("#f_search").attr({
 				"method":"get",
-				"action":"/faq/adminfaqList"
+				"action":"/admin/faq/adminfaqList"
 			});
 			$("#f_search").submit();
 		}
-
-
+		
 
 		search = "<c:out value='${data.search}' />";
 		start_date = "<c:out value='${data.start_date}' />";	
@@ -97,6 +96,9 @@
 				$("#detailForm").submit(); 
 			});
 		});
+		
+
+		
 </script> 
 </head>
 <body>
@@ -131,7 +133,8 @@
 				<input type="date" name="end_date" id="end_date" placeholder="종료일자" class="form-control">
 			</div>
 			<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
-			<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button>
+			<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button>	
+			
 		</form>
 	</div> 
 	
@@ -197,6 +200,8 @@
 				</li>
 			</c:if> 
 		</ul>
+		
+		
 	</div>	
 
 </body>
