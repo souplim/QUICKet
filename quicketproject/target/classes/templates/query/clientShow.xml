@@ -23,14 +23,17 @@
 	</select>
 	<!-- 검색조건 설정하는 구문 -->
 	<sql id="showSearch">
-		<if test="search=='s_name'">
+		<if test="search=='' and keyword!=''">
+		<![CDATA[s_name like '%'||#{keyword}||'%' or (select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='s_name' and keyword!=''">
 		<![CDATA[s_name like '%'||#{keyword}||'%']]>
 		</if>
-		<if test="search=='th_name'">
+		<if test="search=='th_name' and keyword!=''">
 		<![CDATA[(select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
 		</if>
 		<if test="start_date!='' and end_date!=''">
-			<if test="search!=''"><![CDATA[and]]></if>
+			<if test="keyword!=''"><![CDATA[and]]></if>
 			<if test="s_select_date==''">
 			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
 			</if>
