@@ -171,7 +171,7 @@
 <c:if test="${showVO.rank_period=='year'}">
 <style type="text/css">.ui-datepicker-month{display:none;}</style>
 </c:if>
-<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/include/css/jquery-ui-custom.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
