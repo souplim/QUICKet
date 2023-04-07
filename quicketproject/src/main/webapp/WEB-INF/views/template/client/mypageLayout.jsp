@@ -39,10 +39,20 @@
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
 	
+		<!-- fontAwesome CDN 링크 -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		
 		<style type="text/css">
 			.row { margin-top: 50px; }
-			.side-bar {margin-top: 50px;}
-			.body-row { margin-bottom: 100px; }
+			.side-bar {
+				margin-top: 50px;
+				width : 180px;
+				height: 70%;
+			}
+			#mainContents {
+				height: 100%;
+				width: 1300px;
+			}
 		</style>
 		
 		<script type="text/javascript">
@@ -51,10 +61,7 @@
 			    $("#wrapper").toggleClass("toggled");
 			});
 		</script>
-		
-		<style>
-			.side-bar{ width : 180px; }
-		</style>
+
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -69,9 +76,9 @@
 				<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<tiles:insertAttribute name="body"/>
 				</div>
-				<div>
-					<tiles:insertAttribute name="footer"/>
-				</div>
+			</div>
+			<div class="text-center row footer-clear">
+				<tiles:insertAttribute name="footer"/>
 			</div>
 		</div>	
 		

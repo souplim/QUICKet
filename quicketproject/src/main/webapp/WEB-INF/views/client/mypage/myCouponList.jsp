@@ -41,7 +41,7 @@
 			    
 			    	<%-- ================= 사용가능 쿠폰 리스트 시작 ================= --%>
 					<div id="qnaList" class="table-height">
-						<table summary="사용가능 쿠폰 리스트" class="table table-striped">
+						<table summary="사용가능 쿠폰 리스트" class="table">
 							<thead>
 								<tr>
 									<th class="text-center col-md-3">쿠폰이름</th>
@@ -51,7 +51,7 @@
 									<th class="text-center col-md-2">남은일자</th>
 								</tr>
 							</thead>
-							<tbody id="list" class="table-striped">
+							<tbody id="list">
 								<c:choose>
 									<c:when test="${not empty couponList}">
 										<c:forEach var="coupon" items="${couponList}" varStatus="status">

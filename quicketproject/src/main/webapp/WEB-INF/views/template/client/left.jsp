@@ -11,7 +11,7 @@
 		color : gray;
 		font-size: 15px;
 	}
-	strong {color : mediumblue}
+	strong {color : dodgerblue;}
 </style>
 
 <ul class="nav">

@@ -4,6 +4,10 @@
 	
 	<style type="text/css">
 		#inqReplyList { margin-bottom: 20px; }
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
 	</style>
 	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -39,7 +43,7 @@
 				
 				/* 등록버튼 새로 만들기 */
 				$("#updateFormBtn").detach();
-				let insertButton = $("<button type='button' class='btn btn-primary' id='insertBtn'>");
+				let insertButton = $("<button type='button' class='btn btn-blue' id='insertBtn'>");
 				insertButton.html("등록");
 				$("#cancelBtn").before(insertButton);
 			});
@@ -195,9 +199,9 @@
 			<%-- ================= 1대1문의하기 버튼 시작 ================= --%>
 			<div class="contentBtn text-right">
 				<c:if test="${inqDetail.i_reply==0}">
-					<button type="button" id="updateFormBtn" class="btn btn-primary">수정</button>
+					<button type="button" id="updateFormBtn" class="btn btn-blue">수정</button>
 				</c:if>
-				<button type="button" id="listBtn" class="btn btn-primary">목록</button>
+				<button type="button" id="listBtn" class="btn btn-blue">목록</button>
 			</div>
 			
 		</div>

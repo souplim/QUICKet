@@ -4,6 +4,10 @@
 	
 	<style type="text/css">
 		.contentBtn { margin-bottom: 20px; }
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
 	</style>
 	
 	<script type="text/javascript">
@@ -72,12 +76,12 @@
 			
 			<%-- ================= 1대1문의하기 버튼 시작 ================= --%>
 			<div class="contentBtn text-right">
-				<button type="button" id="insertFormBtn" class="btn btn-primary">1대1 문의하기</button>
+				<button type="button" id="insertFormBtn" class="btn btn-blue">1대1 문의하기</button>
 			</div>
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="inqList" class="table-height">
-				<table summary="게시판 리스트" class="table table-striped">
+				<table summary="게시판 리스트" class="table">
 					<thead>
 						<tr>
 							<th data-value="i_num" class="order text-center col-md-1">글번호</th>

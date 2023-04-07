@@ -102,7 +102,7 @@
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="likeList" class="table-height">
-				<table summary="관심공연 리스트" class="table table-striped">
+				<table summary="관심공연 리스트" class="table">
 					<thead>
 						<tr>
 							<th class="text-center col-md-5">공연명</th>

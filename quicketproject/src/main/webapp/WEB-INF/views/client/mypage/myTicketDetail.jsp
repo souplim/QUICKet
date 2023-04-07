@@ -9,7 +9,7 @@
 		}
 		.gray { background-color: rgb(233, 233, 233); }
 		#borderline { 
-			border: 2px solid #286090; 
+			border: 2px solid dodgerblue; 
 			margin-bottom: 30px;
 		}
 		#img { 
@@ -19,6 +19,10 @@
 		#img img {
 			height: 200px;
 			weith: 150px;
+		}
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
 		}
 		.table-ticket { width: 900px; }
 		.contentBtn { margin: 5px 20px 10px 30px; }
@@ -129,7 +133,7 @@
 		        <p>할인쿠폰 등 기타 결제수단의 사용기간이 지난 경우 복원되지 않습니다.<br/>취소하기 전 사용기간을 꼭 확인하세요.<br/><br/>주문을 취소하시겠습니까?</p>
 		      </div>
 		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-primary" id="cancelConfirmBtn">확인</button>
+		      	<button type="button" class="btn btn-blue" id="cancelConfirmBtn">확인</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		      </div>
 		    </div><!-- /.modal-content -->
@@ -167,7 +171,7 @@
 		        <p>관심공연에서 해제되었습니다.</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary detailReload">확인</button>
+		        <button type="button" class="btn btn-blue detailReload">확인</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -194,7 +198,7 @@
 			</div>
 			
 			<div id="borderline">
-				<div class="bg-info margin-title">
+				<div class="margin-title gray">
 					<h4 class="text-left">${ticketDetail.s_name}</h4>
 				</div>
 				<div class="contentTB text-center flex">
@@ -240,7 +244,7 @@
 				
 				<%-- ================= 공연정보, 관심공연 버튼 ================= --%>
 				<div class="contentBtn text-left">
-					<button type="button" id="showInfoBtn" class="btn btn-primary">공연정보</button>
+					<button type="button" id="showInfoBtn" class="btn btn-blue">공연정보</button>
 					<!-- 관심공연 담기/해제 버튼 -->
 					<c:choose>
 						<c:when test="${ticketDetail.is_likes == 1}">
@@ -301,7 +305,7 @@
 						* 단, 예매당일 밤 12시 이전 취소시에는 취소수수료 없음(취소기한내에 한함)
 					</div>
 					<div class="cancelInfo">
-						<table summary="게시판 리스트" class="table table-striped">
+						<table summary="예매취소안내 리스트" class="table">
 							<thead>
 								<tr>
 									<th class="text-center col-md-6">취소일</th>

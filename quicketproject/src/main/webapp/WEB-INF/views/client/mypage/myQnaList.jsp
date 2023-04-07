@@ -50,7 +50,7 @@
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="qnaList" class="table-height">
-				<table summary="Q&A 리스트" class="table table-striped">
+				<table summary="Q&A 리스트" class="table">
 					<thead>
 						<tr>
 							<th class="text-center col-md-4">공연명</th>
@@ -58,7 +58,7 @@
 							<th data-value="i_regidate" class="order text-center col-md-4">작성일</th>
 						</tr>
 					</thead>
-					<tbody id="list" class="table-striped">
+					<tbody id="list">
 						<!-- 데이터 출력 -->
 						<!-- <c:if test=""></c:if> ${inq.u_id} 세션아이디와 작성자아이디가 같을 경우 출력 -> 컨트롤러에서 제어 -->
 						<c:choose>

@@ -3,12 +3,21 @@
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 
 	<style type="text/css">
+		.contentContainer {width: 1200px;} 
 		#search-title {
 			font-size: 15px;
 			font-weight: bold;
 			margin-right: 50px;
 		}
 		.searchDate {margin-right: 30px;}
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
+		.btn-gray {
+			background-color: #E9E9E9;
+			color: #000;
+		}
 		.gray { background-color: rgb(233, 233, 233); }
 		.margin-title {
 			margin: 0 0 15px 0;
@@ -188,9 +197,9 @@
 					<!-- 기간 선택 검색 -->
 					<div class="form-group">기간검색&nbsp;</div>
 					<div class="form-group searchDate">
-						<button id="btnWeek" class="btn btn-primary">1주일</button>
-					    <button id="btnMonth" class="btn btn-primary">1개월</button>
-					    <button id="btn3Month" class="btn btn-primary">3개월</button>
+						<button id="btnWeek" class="btn btn-blue">1주일</button>
+					    <button id="btnMonth" class="btn btn-blue">1개월</button>
+					    <button id="btn3Month" class="btn btn-blue">3개월</button>
 					</div>
 
 					<div class="form-group">날짜검색&nbsp;</div>
@@ -206,15 +215,15 @@
 						<input type="date" name="start_date" id="start_date" placeholder="시작일자" class="form-control">
 						<input type="date" name="end_date" id="end_date" placeholder="종료일자" class="form-control">
 					</div>
-					<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
-					<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button> <!-- 전체 레코드 조회 -->
+					<button type="button" class="btn btn-blue" id="searchBtn">Search</button>
+					<button type="button" class="btn btn-blue" id="allSearchBtn">All Search</button> <!-- 전체 레코드 조회 -->
 					
 				</form>
 			</div>
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="inqList" class="table-height">
-				<table summary="게시판 리스트" class="table table-striped">
+				<table summary="게시판 리스트" class="table">
 					<thead>
 						<tr>
 							<th class="order text-center col-md-2">예매일</th>
@@ -225,7 +234,7 @@
 							<th class="text-center col-md-2">예매상태</th>
 						</tr>
 					</thead>
-					<tbody id="list" class="table-striped">
+					<tbody id="list">
 						<!-- 데이터 출력 -->
 						<!-- <c:if test=""></c:if> ${inq.u_id} 세션아이디와 작성자아이디가 같을 경우 출력 -->
 						<c:choose>
@@ -246,7 +255,7 @@
 											<c:if test="${ticket.ti_status==1}">
 												예매완료
 											</c:if> &nbsp;
-											<button type="button" class="goDetail btn btn-info">상세정보</button>
+											<button type="button" class="goDetail btn btn-gray">상세정보</button>
 										</td>
 									</tr>
 								</c:forEach>

@@ -12,7 +12,6 @@
 	}
 	
 	.container-fluid { 
-		height: 100px;  
 		background-color: #fff;
 		font-family: 'LeferiBaseType-RegularA';
 		font-size: 17px;
