@@ -27,6 +27,7 @@
 	bottom:10%; 
 	left:60%;
 	text-align:right;
+	max-width:30%;
 }
 .slide_title{
 	color: #fff;
