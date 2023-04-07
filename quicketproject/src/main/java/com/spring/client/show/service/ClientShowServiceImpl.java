@@ -206,6 +206,19 @@ public class ClientShowServiceImpl implements ClientShowService {
 		
 		return newList;
 	}
+	@Override
+	public List<ShowVO> hotShowList(ShowVO vo) {
+		List<ShowVO> hotShowList = clientShowDao.hotShowList(vo);
+		if(hotShowList!=null) {
+			for(ShowVO show : hotShowList) {
+				ImgVO poster = clientShowDao.posterImg(show);
+				if(poster!=null) {
+					show.setS_posterimg(poster);
+				}
+			}
+		}
+		return hotShowList;
+	}
 	
 	@Override
 	public List<ShowVO> showList(ShowVO vo) {

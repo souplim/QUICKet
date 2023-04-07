@@ -39,6 +39,12 @@
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
 	
+		<style type="text/css">
+			.row { margin-top: 50px; }
+			.side-bar {margin-top: 50px;}
+			.body-row { margin-bottom: 100px; }
+		</style>
+		
 		<script type="text/javascript">
 			$("#menu-toggle").click(function (e) {
 			    e.preventDefault();
@@ -57,13 +63,16 @@
 		
 		<div class="container-fluid">
 			<div class="row">
-			<div class="sidebar side-bar">
-				<tiles:insertAttribute name="left"/>
+				<div class="sidebar side-bar">
+					<tiles:insertAttribute name="left"/>
+				</div>
+				<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<tiles:insertAttribute name="body"/>
+				</div>
+				<div>
+					<tiles:insertAttribute name="footer"/>
+				</div>
 			</div>
-			<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<tiles:insertAttribute name="body"/>
-			</div>
-		</div>
 		</div>	
 		
 		 <!-- Bootstrap core JavaScript

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.admin.ticket.vo.HallVO;
@@ -80,6 +79,14 @@ public class ClientShowController {
 		ShowVO vo = new ShowVO();
 		vo.setAmount(5);
 		List<ShowVO> entity = clientShowService.newList(vo);
+		return entity;
+	}
+	@ResponseBody
+	@GetMapping(value="/mainHotList", produces=MediaType.APPLICATION_JSON_VALUE)
+	public 	List<ShowVO> mainHotList(){
+		ShowVO vo = new ShowVO();
+		vo.setAmount(5);
+		List<ShowVO> entity = clientShowService.hotShowList(vo);
 		return entity;
 	}
 	
