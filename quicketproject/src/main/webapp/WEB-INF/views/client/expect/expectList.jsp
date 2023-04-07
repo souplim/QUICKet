@@ -239,7 +239,7 @@
 				</div>
 			</div>
 
-			<%-- 댓글 리스트 화면 --%>
+			<%-- 댓글 작성하는 화면 --%>
 			<form id = "expectReplyForm" name="expectReplyForm">
 				<div class="panel panel-default">
 					<table class="table">
@@ -269,7 +269,7 @@
 			</form>
 			
 			
-			<%-- 리스트 영역 --%>
+			<%-- 댓글 리스트 출력되는 영역 --%>
 			<div id="expectList">
 				<div id="expect-template" class="panel panel-primary">
 					<div class="panel-heading">

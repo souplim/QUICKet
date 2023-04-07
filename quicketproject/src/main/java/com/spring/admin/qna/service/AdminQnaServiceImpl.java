@@ -21,9 +21,9 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 
 	// 글 목록 구현
 	@Override
-	public List<QnaVO> qnaList(QnaVO qvo) {
+	public List<QnaVO> qnaList(Integer s_num) {
 			List<QnaVO> list = null;
-			list = qnaDao.qnaList(qvo);
+			list = qnaDao.qnaList(s_num);
 			return list;
 	}
 	

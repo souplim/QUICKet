@@ -35,7 +35,7 @@ public class AdminQnaController {
 		
 		
 		// 리스트 조회
-		List<QnaVO> qnaList = adminQnaService.qnaList(qvo);
+		List<QnaVO> qnaList = adminQnaService.qnaList(s_num);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("s_num", s_num);
 		// 전체 레코드수 구현

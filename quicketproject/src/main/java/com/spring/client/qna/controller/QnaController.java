@@ -3,10 +3,14 @@ package com.spring.client.qna.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.client.expect.vo.ExpectVO;
 import com.spring.client.qna.service.QnaService;
 import com.spring.client.qna.vo.QnaVO;
 import com.spring.client.user.vo.UserVO;
@@ -34,9 +39,40 @@ public class QnaController {
 	
 	//private UserVO userVO;
 	
+	@RequestMapping(value = "/qnaList")
+	public String qnaView() {
+		log.info("qna 리스트 화면");
+		return "client/qna/qnaList";
+	} 
+	
 	/********************************************
 	 * QNA 글 목록 구현하기
 	 ***********************************/
+	@ResponseBody
+	@GetMapping(value="/all/{s_num}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<QnaVO> qnaList(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
+		log.info("qnaList 호출 성공");
+		
+		/* 전체 레코드 조회
+		List<ExpectVO> expectList = null;
+		expectList = expectService.expectList(s_num);
+		model.addAttribute("expectList", expectList);
+		
+		// 전체 레코드 수
+		int total = expectService.expectListCnt(evo);
+		model.addAttribute("pageMaker", new PageDTO(evo, total));
+				
+		// 리스트 번호 부여를 위한 속성
+		int count = total - (evo.getPageNum()-1) * evo.getAmount();
+		model.addAttribute("count", count); */
+		
+		List<QnaVO> entity = null;
+		entity = qnaService.qnaList(s_num);
+		
+		return entity; 
+	}
+	
+	/*
 	@GetMapping("/qnaList")
 	public String qnaList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
 		log.info("qnaList 호출 성공");
@@ -54,7 +90,7 @@ public class QnaController {
 		model.addAttribute("count", count);
 		
 		return "client/qna/qnaList"; 
-	}
+	} */
 	
 	/********************************
 	 *  글 등록하기
@@ -65,6 +101,7 @@ public class QnaController {
 			return "client/qna/qnaWriteForm";
 	}
 	
+	/*
 	@RequestMapping(value = "/qnaInsert", method=RequestMethod.POST)
 	public String boardInsert(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) throws Exception{
 		log.info("qnaInsert 호출 성공");
@@ -84,7 +121,24 @@ public class QnaController {
 		}
 	
 		return "redirect:" + url;
+	} */
+	
+	@ResponseBody
+	@PostMapping(value = "/qnaInsert", consumes = "application/json", produces= MediaType.TEXT_PLAIN_VALUE)
+	public String qnaInsert(@RequestBody QnaVO qvo, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
+		log.info("qnaInsert 호출 성공");
+		log.info("QnaVO: " + qvo);
+		
+		int result = 0;
+		qvo.setU_id(userVO.getU_id());
+		result = qnaService.qnaInsert(qvo);
+		
+		//evo.setS_num(1);
+		
+
+		return (result==1) ? "SUCCESS" : "FAILURE";
 	}
+	
 	
 	/*****************************
 	 * 글 상세보기

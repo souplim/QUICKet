@@ -15,7 +15,53 @@
 <script type = "text/javascript">
 		$(function(){
 			
-			/* 글쓰기 버튼 클릭시 처리 이벤트 */
+			/* 기본 글 목록 불러오기 */
+			let s_num = ${detailData.s_num};
+			qnaListAll(s_num); 
+			
+			/* 글 입력을 위한 ajax 연동 처리 
+			$(document).on("click", "#q_insertBtn", function(){
+				let id = "${userLogin.u_id}";
+				
+				if(id != ""){
+					let insertUrl = "/qna/qnaInsert";
+					
+					let value = JSON.stringify({
+						q_title:$("#q_title").val(),
+						q_content:$("#q_content").val(),
+						s_num:s_num
+					});
+					{}
+					$.ajax({
+						url: insertUrl,
+						type: "post",
+						headers : {
+							"Content-Type":"application/json"
+						},
+						dataType:"text",
+						data : value,
+						error: function(xhr, textStatus, errorThrown){
+							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+						},
+						beforeSend: function(){	
+							if(!checkForm("#q_title","댓글 제목을 "))	return false;
+							if(!checkForm("#q_content", "댓글 내용을 ")) return false;
+						},
+						success : function(result){
+							if(result == "SUCCESS"){
+								alert("댓글 등록이 완료되었습니다.");
+								dataReset();
+								qnaListAll(s_num);
+							}
+						}
+					});
+				} else {
+					alert("로그인 후 서비스를 이용하실 수 있습니다.");
+					location.href = "/user/login";
+				}
+			}); */
+			
+			/* 글쓰기 버튼 클릭시 입력폼 호출 */
 			$("#q_insertBtn").click(function(){
 				let id ="${userLogin.u_id}";
 				if(id != ""){
@@ -24,11 +70,11 @@
 				} else{
 					alert("로그인 후 서비스를 이용하실 수 있습니다.");
 					location.href = "/user/login"; 
-				}
+				} 
 				
 				//location.href = "/qna/qnaWriteForm"; 
 				
-				});
+				}); 
 			
 			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
 			$(".goDetail").click(function(){
@@ -52,6 +98,54 @@
 			
 
 		}); // $함수 종료문	
+		
+		function qnaListAll(s_num){
+			//$(".expectReply").detach();	//선택한 요소를 DOM트리에서 삭제
+			
+			$.ajax({
+				url : 'expect/all/' + s_num,
+				type: get,
+				dataType : 'json',
+				success : makeTable,
+				error : function(){
+					alert("글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해주세요");
+				}
+			});
+			
+			<%--
+			let url = "/expect/all/"+ s_num;
+			$.getJSON(url, function(data){
+				$(data).each(function(){
+					let q_no = this.ex_no;
+					let q_title = this.ex_title;
+					let u_id = this.u_id;
+					let q_content = this.ex_content;
+					let q_regdate = this.ex_regdate;
+					q_content = q_content.replace(/(\r\n|\r|\n)/g, "<br />");
+					qnaTemplate(q_no, q_title, u_id, q_content, q_regdate);
+				});
+			}).fail(function(){
+				alert("글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해주세요");
+			}); --%>
+		}
+		
+		function makeTable(res){
+			$('#tbody').html('');
+			
+			for(let i=0; i<res.length; i++){
+				
+				tr = '
+					<tr>
+					<td>${res[i].q_no}</td>
+					<td>${res[i].q_title}</td>
+					<td>${res[i].qna.u_id}</td>
+					<td>${res[i].qna.q_regdate}</td>
+					</tr>
+					'
+					$('#tbody').append(tr);
+			}
+		}
+		
 		
 		function goPage(){
 			$("#page_form").attr({
@@ -93,6 +187,7 @@
 					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
 				</div>
 			
+			<!-- 
 			<table summary="게시판 리스트" class="table table-striped table-hover active table-condensed">
 				<thead>
 					<tr>
@@ -102,9 +197,9 @@
 						<th data-value="q_regdate" class="order col-md-1"></th>	
 					</tr>
 				</thead>
-				<tbody id="list" class="table-striped">
+				<tbody id="list" class="table-striped">  -->
 				
-					<!-- 데이터 출력 -->
+					<!-- 데이터 출력 
 					<c:choose>
 						<c:when test="${not empty qnaList}">
 							<c:forEach var="qna" items="${qnaList}" varStatus="status">
@@ -127,7 +222,23 @@
 						</c:otherwise>
 					</c:choose>
 				</tbody>
-			</table>
+			</table> -->
+			
+			<div class= "container">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th data-value="q_no" class="order text-center col-md-2"></th>
+							<th class="text-center col-md-5"></th>
+							<th class="text-center col-md-1"></th>
+							<th data-value="q_regdate" class="order col-md-1"></th>	
+						</tr>
+					</thead>
+					<tbody id="tbody">
+					
+					</tbody>
+				</table>
+			</div>
 			
 			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
 			</div>
