@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+@font-face {
+    font-family: 'KIMM_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 .container{
 	margin-top:30px;
 	margin-bottom:50px;
@@ -28,7 +35,7 @@
 	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-weight:bold;
 	font-size:50px;
-	font-family: 'LeferiBaseType-RegularA';
+	font-family: 'KIMM_Bold';
 }
 .slide_date{
 	color: #fff;
