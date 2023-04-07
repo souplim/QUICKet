@@ -6,13 +6,17 @@
 	margin-bottom:80px;
 }
 .genreBox{
+	display:inline-block;
+	vertical-align:top;
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
-	margin-bottom:20px;
+	margin:10px;
 	padding:15px 20px;
+	width: 250px;
+	height: 450px;
 	text-align:center;
 }
 .genreBox_img{
-	width:100%;
+	max-width:100%;
 	margin-bottom:10px;
 }
 .genreBox_title{
@@ -98,14 +102,14 @@ a[role='tab']{
 		//해당 장르 전체 평점 랭킹 3개 받아오기
 		$.getJSON("/genrePointRankList?s_genre="+param_genre,function(data){
 			$(data).each(function(){
-				makeShowBox(this, "#genrePointRankPanel", "s_point", "3");
+				makeShowBox(this, "#genrePointRankPanel", "s_point", 180, 320);
 			})
 		}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 		
 		//해당 이번 주 예매율 랭킹 3개 받아오기
 		$.getJSON("/genreTicketRankList?s_genre="+param_genre,function(data){
 			$(data).each(function(){
-				makeShowBox(this, "#genreTicketRankPanel", "rank_ticket", "3");
+				makeShowBox(this, "#genreTicketRankPanel", "rank_ticket", 180, 320);
 			})
 		}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})	
 		
@@ -178,9 +182,8 @@ a[role='tab']{
 		</div>
 		<br/><br/><br/>
 		<div class="row">
-			<div id="genrelist" class="col-xs-10 col-xs-offset-1">		
+			<div id="genrelist" class="col-xs-12">		
 				<c:forEach var="show" items="${showList}">
-					<div class="col-xs-3">
 					<div class="genreBox" data-num="${show.s_num}">
 						<div class="genreBox_thumbnail">
 							<a href="/showDetail?s_num=${show.s_num}">
@@ -200,7 +203,6 @@ a[role='tab']{
 							<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
 							<span class="genreBox_subtxt_point" data-point="${s_point}">${s_point}</span>
 						</div>
-					</div>
 					</div>
 				</c:forEach>
 			</div>

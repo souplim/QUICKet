@@ -105,7 +105,7 @@
 			<include refid="getRankPrev"></include> 
 		</if>
 		<![CDATA[(select theater.th_name from theater where theater.th_num = s.th_num) as th_name 
-		from show s, rank r 
+		from (select * from show order by s_point desc) s, rank r 
 		where s.s_num = r.s_num 
 		and r.rank_start = #{start_date}
 		and r.rank_end = #{end_date}
@@ -133,6 +133,19 @@
 		</if>
 		<![CDATA[and s_num = r.s_num),0)) as rank_prev,]]>
 	</sql>
+	
+	<!-- 북마크 갯수 기준으로 공연 데이터 뽑아서 조회 -->
+	<select id="hotShowList" resultType="showVO">
+		<![CDATA[select s_num, s_name, s_genre, b_count
+		from(
+		select rownum as rnum, show.s_num, s_name, nvl(b_count,0) b_count, s_genre from show left join 
+		(select s_num, count(u_id) b_count from bookmark group by s_num order by b_count desc) b 
+		on show.s_num = b.s_num
+		where rownum <= #{pageNum}*#{amount}
+		) showlist
+		where rnum>(#{pageNum}-1)*#{amount}
+		]]>
+	</select>
 	
 	<!-- 공연 상세데이터 조회 -->
 	<select id="showDetail" resultType="showVO">

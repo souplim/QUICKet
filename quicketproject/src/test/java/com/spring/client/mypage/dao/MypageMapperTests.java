@@ -107,7 +107,7 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	/* @Test
+	@Test
 	public void testMyLikeList() {
 		log.info("myLikeList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
@@ -115,7 +115,7 @@ public class MypageMapperTests {
 		List<MypageVO> list = mypageDao.myLikeList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	} */
+	}
 	
 	/* @Test
 	public void testLikesCount() {

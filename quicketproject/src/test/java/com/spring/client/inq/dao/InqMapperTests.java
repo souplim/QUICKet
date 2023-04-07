@@ -19,7 +19,7 @@ public class InqMapperTests {
 	@Setter(onMethod_=@Autowired)
 	private InqDao inqDao;
 
-	/* @Test
+	@Test
 	public void testInqList() {
 		log.info("inqList() 메서드 실행");
 		InqVO inqVO = new InqVO();
@@ -27,7 +27,7 @@ public class InqMapperTests {
 		List<InqVO> list = inqDao.inqList(inqVO);
 		for(InqVO vo : list)
 			log.info(vo.toString());
-	} */
+	}
 	
  	/* @Test
 	public void testInqDetail() {
@@ -47,7 +47,7 @@ public class InqMapperTests {
 		log.info(String.valueOf(result));
 	} */
 
-	@Test
+	/* @Test
 	 public void testInqInsert() {
 		log.info("inqInsert() 메서드 실행");
 		InqVO inqVO = inqDao.inqDetail(1);
@@ -59,7 +59,7 @@ public class InqMapperTests {
 		inqVO.setPay_num(20230303);
 		int result = inqDao.inqInsert(inqVO);
 		log.info(String.valueOf(result));
-	}
+	} */
 	
 	/* @Test
 	public void testInqListCnt() {
