@@ -28,6 +28,7 @@
 	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-weight:bold;
 	font-size:50px;
+	font-family: 'LeferiBaseType-RegularA';
 }
 .slide_date{
 	color: #fff;

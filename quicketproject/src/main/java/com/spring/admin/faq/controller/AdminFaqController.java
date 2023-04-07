@@ -40,9 +40,8 @@ public class AdminFaqController {
 		model.addAttribute("adminfaqList", adminfaqList);
 		
 		// 전체 레코드수 구현
-	//	int total = boardService.boardListCnt(bvo);
+		int total = adminfaqService.adminfaqListCnt(fvo);
 		
-		int total = 10;
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(fvo, total));
 		return "admin/faq/adminfaqList";   //불러오는 jsp

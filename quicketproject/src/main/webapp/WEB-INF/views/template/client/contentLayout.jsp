@@ -44,8 +44,32 @@
 			.row { margin-top: 50px; }
 			.body-row { 
 				margin-bottom: 100px; 
-				/* padding-bottom: 99999px; */
 			}
+			.form-control {
+				line-height: normal;
+			}
+			select {
+				z-index: 50;
+				padding: 10px;
+				height: 50px;
+			}
+			
+			.pagination>li>a, .pagination>li>a:hover{
+				color:#999;
+			}
+			.pagination>.active>a{
+			    background-color:#ccc;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:hover{
+			    background-color:#999;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:focus{
+			    background-color:#777;
+			    border-color:#ccc;
+			}
+			
 		</style>
 	
 		<script type="text/javascript">
@@ -53,6 +77,9 @@
 			    e.preventDefault();
 			    $("#wrapper").toggleClass("toggled");
 			});
+			
+			/* input 크기 조절 */
+			/* $(input).attr("class","input-lg"); */
 		</script>
 	</head>
 	<body>

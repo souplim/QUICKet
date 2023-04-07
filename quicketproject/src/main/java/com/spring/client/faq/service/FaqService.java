@@ -12,6 +12,8 @@ public interface FaqService {
 		
 		public FaqVO faqDetail(FaqVO fvo);
 
+		public int faqListCnt(FaqVO fvo);
+
 	
 		
 }

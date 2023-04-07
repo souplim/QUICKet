@@ -11,7 +11,7 @@ public class LoginConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		
 		registry.addInterceptor(new CertificationInterceptor())
-		.addPathPatterns(/* "/mypage/",*/ "/mypage/**", "/inq/**")
+		.addPathPatterns(/* "/mypage/",*/ "/mypage/**", "/inq/**"/*, "/reviewList/reviewInsert"*/)
 		.excludePathPatterns("/", "/user/login", "/user/join", "/user/logout", "/user/mailConfirm","/user/searchIdForm",
 				"/user/searchIdForm", "/user/sendTempPwd", "/user/sendTempPwd", "/user/pwdConfirm", "/resources/**"
 				);

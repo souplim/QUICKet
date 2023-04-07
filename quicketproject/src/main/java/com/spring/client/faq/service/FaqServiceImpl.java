@@ -28,6 +28,14 @@ public class FaqServiceImpl implements FaqService {
 			}
 		
 		
+		// 전체 레코드수 
+		@Override
+		public int faqListCnt(FaqVO fvo) {
+			// TODO Auto-generated method stub
+			return faqDao.faqListCnt(fvo);
+		}
+		
+		
 	// 글상세 구현
 		@Override
 		public FaqVO faqDetail(FaqVO fvo) {
@@ -43,6 +51,7 @@ public class FaqServiceImpl implements FaqService {
 			}
 			return detail;
 		}
+
 
 }
 
