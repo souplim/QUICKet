@@ -45,11 +45,11 @@
 			</if>
 		</if>
 		<if test="s_select_region!=''">
-			<if test="search!='' or (start_date!='' and end_date!='')"><![CDATA[and]]></if>
+			<if test="keyword!='' or (start_date!='' and end_date!='')"><![CDATA[and]]></if>
 			<![CDATA[(select theater.th_addr from theater where theater.th_num = show.th_num) like '%'||#{s_select_region}||'%']]>
 		</if>
 		<if test="s_genre!=''">
-			<if test="search!='' or (start_date!='' and end_date!='') or s_select_region!=''"><![CDATA[and]]></if>
+			<if test="keyword!='' or (start_date!='' and end_date!='') or s_select_region!=''"><![CDATA[and]]></if>
 			<![CDATA[s_genre = #{s_genre}]]>
 		</if>
 	</sql>
