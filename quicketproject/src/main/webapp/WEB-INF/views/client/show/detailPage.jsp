@@ -92,7 +92,6 @@ div[role="tabpanel"]{min-height:30em;}
 					let theater = JSON.parse(result);
 					
 					$("#th_name").html(theater.th_name);
-					$("#th_seat").html("총 "+theater.th_seat+"석");
 					$("#th_addr").html(theater.th_addr);
 					$("#th_web").html(theater.th_web);
 					
@@ -115,7 +114,7 @@ div[role="tabpanel"]{min-height:30em;}
 		$(".likes").on("click", function(){
 			let u_id = "${userLogin.u_id}";
 			console.log(u_id);
-			if( u_id == "") {
+			if(u_id == "") {
 				alert("로그인 후 이용해주세요.");
 				let s_num = $("#s_num").val();
 				location.href="/showDetail?s_num="+s_num;
@@ -191,7 +190,7 @@ div[role="tabpanel"]{min-height:30em;}
 	          	// 부드럽게 이동
 	            $('html, body').animate({scrollTop: scrollTop-59}, 2000,'easeOutCubic');
 	        }
-		}
+		} 
 		
 	});
 </script>
@@ -310,9 +309,14 @@ div[role="tabpanel"]{min-height:30em;}
 				
 			</div>
 		</div>
-		<div class="row">
-			<div id="casting_box"></div>
-		</div>
+		
+		<!-- 캐스팅 정보 존재할 때 입력되는 박스 -->
+		<c:if test="${not empty detailData.s_actor}">
+			<div class="row">
+				<div id="casting_box"></div>
+			</div>
+		</c:if>
+		
 		<!-- 예매기능 박스 -->
 		<div class="ticketBox row">
 			<c:import url="/WEB-INF/views/client/ticket/showDetail.jsp" />
@@ -365,10 +369,6 @@ div[role="tabpanel"]{min-height:30em;}
 						<br />
 						<div class="row">
 							<table class="table table-bordered">
-								<tr>
-									<th class="col-xs-2">좌석수</th>
-									<td class="col-xs-10" id="th_seat"></td>
-								</tr>
 								<tr>
 									<th>주소</th>
 									<td id="th_addr"></td>

@@ -134,6 +134,12 @@ $(function(){
 				$("#detail_thumb").append($div);
 			}
 		})
+		let datatrans = new DataTransfer();
+		for(let f in set_files){
+			fl = set_files[f];
+			datatrans.items.add(fl);
+		}
+		this.files = datatrans.files;
 	})
 	$(document).on("click", ".thumbdelBtn", (function(){
 		let s_detailfile = document.getElementById("s_detailfile");
@@ -151,7 +157,6 @@ $(function(){
 		s_detailfile.files = datatrans.files;
 		$(this).parents(".thumbbox").remove();
 		$("#detail_preview").text("상세 이미지 미리보기");
-		console.log(s_detailfile.files);
 	}))
 	$(document).on("click", ".thumbnail", (function(){
 		$("#detail_preview").html("");

@@ -135,6 +135,14 @@
 			makeStar($(this), point);
 		})
 		
+		//공연장 링크 부여시에 특수문자 encoding 처리해서 부여
+		$(".theatername>a").each(function(){
+			let th_name_encoded = encodeURI($(this).text());
+			$(this).attr({
+				"href":"/admin/theater/theaterList?search=th_name&keyword="+th_name_encoded
+			})
+		})
+		
 	})
 </script>
 
@@ -212,7 +220,9 @@
 									</tr>
 									<tr>
 										<td>공연장</td>
-										<td class="theatername">${show.th_name}</td>
+										<td class="theatername">
+											<a>${show.th_name}</a>
+										</td>
 									</tr>
 									<tr>
 										<td>공연기간</td>

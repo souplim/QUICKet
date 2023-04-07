@@ -18,9 +18,8 @@ public interface AdminFaqDao {
 	public int adminfaqUpdate(FaqVO fvo);
 
 	public int adminfaqDelete(int f_no);
+
+	public int adminfaqListCnt(FaqVO fvo);
 	
-    // public List<FaqVO> faqList();
-
-
 }
 

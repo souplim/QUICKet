@@ -21,6 +21,9 @@
 	zoomControl = new kakao.maps.ZoomControl();
 	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 	
+	//지도에 교통정보 추가
+	map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+	
 	//지도에 해당 공연장 위치 마커 생성
 	marker = new kakao.maps.Marker({position: theater_pos});
 	marker.setMap(map);

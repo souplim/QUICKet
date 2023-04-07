@@ -106,8 +106,10 @@
                      },
                      success : function(result){ // 서버로부터 응답코드 200으로 정상 처리가 되었을 경우
                         if(result=="SUCCESS"){
-                           alert("댓글 등록이 완료되었습니다.");
-                           dataReset();        // 입력폼 초기화
+                           alert("댓글 등록이 완료되었습니다.");      
+                           //dataReset();        // 입력폼 초기화
+                            $("#r_title").val("");
+         					$("#r_content").val("");
                            listAll(s_num);
                         }
                      }
@@ -200,7 +202,9 @@
                console.log("result: " + result);
                if(result == "SUCCESS"){
                   alert("댓글 수정이 완료되었습니다.");
-                  dataReset();
+                  //dataReset();
+                   $("#r_title").val("");
+         		   $("#r_content").val("");
                   listAll(s_num);
                }
             }
@@ -280,15 +284,17 @@
       
       /* 입력 폼 초기화 */
       function dataReset() {
-         $("#replyForm").each(function(){
+         /*$("#replyForm").each(function(){
             this.reset();
-         });            
-      
-         $("#r_name").prop("readonly", false);
+         }); */
+         $("#r_title").val("");
+         $("#r_content").val("");
+        		 
+         /*$("#r_name").prop("readonly", false);
          $("#replyForm button[type='button']").removeAttr("data-rnum");
          $("#replyForm button[type='button']").attr("id", "replyInsertBtn");
          $("#replyForm button[type='button'].sendBtn").html("저장");
-         $("#replyForm button[type='button'].resetBtn").detach();
+         $("#replyForm button[type='button'].resetBtn").detach();*/
       }      
    
       

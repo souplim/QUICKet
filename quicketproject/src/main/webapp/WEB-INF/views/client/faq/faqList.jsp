@@ -13,7 +13,7 @@
 				$("#search").val("<c:out value='${faqVO.search}' />");
 				
 			
-				if($("#search").val()!='f_content'){
+				/*if($("#search").val()!='f_content'){
 					//:contains()는 특정 텍스트를 포함한 요소반환 	
 					if($("#search").val()=='f_title') value = "#list tr td.goDetail";
 					else if($("#search").val()=='f_content') value="#list tr td.name";
@@ -23,7 +23,7 @@
 						let regex = new RegExp(word,'gi');
 						$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
 			    	});
-				}
+				}*/
 			}
 			
 			/* 입력 양식 enter 제거 */
@@ -42,7 +42,9 @@
 					$("#keyword").focus();
 				}
 			});
-	
+
+			
+
 			/* 검색 버튼 클릭 시 처리 이벤트 */
 			$("#searchData").click(function(){
 				if($("#search").val()!="all"){ // 제목/내용/작성자 선택시 검색어 유효성 체크
@@ -52,12 +54,7 @@
 				goPage();
 			});
 			
-			/* 글쓰기 버튼 클릭 시 처리 이벤트 	
-			$("#insertFormBtn").click(function(){
-				location.href = "/board/writeForm"; 
-			});
-			*/
-			
+		
 			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 	 */
 			
 			$(".goDetail").click(function(){
@@ -83,7 +80,7 @@
 			
 			
 			
-		}); // $ 함수 종료문
+		}); // $ 함수 종료문*/
 		
 		/* 검색을 위한 실질적인 처리 함수 */
 		function goPage(){
@@ -96,6 +93,18 @@
 				"action":"/faq/faqList"
 			});
 			$("#f_search").submit();
+		}
+				
+		
+		function chkData(item, msg){
+			if($(item).val().replace(/\s/g,"")==""){
+				alert(msg+" 입력해 주세요.");
+				$(item).val("");
+				$(item).focus();
+				return false;
+			}else{
+				return true;
+			}
 		}
 	</script>
 </head>
@@ -112,7 +121,7 @@
 		<%-- ============== 검색기능 시작 ====================  --%>
 		<div id="faqSearch" class="text-right">
 			<form id="f_search" name="f_search" class="form-inline">
-			<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
+			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
  			<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
 				<div class="form-group">
 					<label>검색조건</label>

@@ -19,5 +19,7 @@ public interface AdminFaqService {
 
 	public int adminfaqDelete(FaqVO fvo);
 
+	public int adminfaqListCnt(FaqVO fvo);
+
 
 }

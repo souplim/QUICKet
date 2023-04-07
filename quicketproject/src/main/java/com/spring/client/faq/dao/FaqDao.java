@@ -12,9 +12,9 @@ public interface FaqDao {
 	public List<FaqVO> faqList(FaqVO fvo); /* 검색 포함 리스트 */
 
 	public FaqVO faqDetail(FaqVO fvo);  //Detail 호출 
-	
-    // public List<FaqVO> faqList();
 
+	public int faqListCnt(FaqVO fvo);
+	
 }
 
 

@@ -157,24 +157,21 @@
 	
 	<!-- 상세페이지의 관심공연 등록 여부 조회 -->
 	<select id="myShowLike" parameterType="mypage" resultType="mypage">
-		select t.u_id, s.s_num, B.is_likes
+		select B.u_id, s.s_num, B.is_likes
 		from (
-		    select pay_num, u_id
-		    from ticket) t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
-		                   INNER JOIN hall h ON ts.hall_id = h.hall_id
-		                   INNER JOIN theater th ON h.th_num = th.th_num
-		                   INNER JOIN show s ON th.th_num = s.th_num
-		                   LEFT JOIN (SELECT s_num, 1 is_likes FROM bookmark 
-		                              WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
-		                   ON s.s_num = B.s_num 
-        where s.s_num = #{s_num}
-		group by t.u_id, s.s_num, B.is_likes   
+		    select s_num
+		    from show
+		    where s_num=#{s_num}) s LEFT JOIN (SELECT s_num, u_id, 1 is_likes FROM bookmark 
+		                            WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
+		                        ON s.s_num = B.s_num  
+		group by B.u_id, s.s_num, B.is_likes     
 	</select>
+	
 	<!-- 상세페이지 - 공연의 관심수 -->
 	<select id="likesCount" parameterType="int" resultType="int">
 		SELECT COUNT(*) likesCount
 		FROM bookmark
-		WHERE s_num = ${s_num}
+		WHERE s_num = #{s_num}
 	</select>
 	
 	<!-- 페이징 위한 나의 관심공연 수 -->
