@@ -227,7 +227,6 @@
 	<body>
 
 	<div id = "replyContainter">
-		
 			<div class="expectNotice">
 				<div id="noticeHeader">
 				<h4>꼭 읽어주세요(운영규정)</h4>
