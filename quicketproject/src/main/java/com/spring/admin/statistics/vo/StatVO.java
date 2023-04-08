@@ -22,9 +22,10 @@ public class StatVO {
 	private int s_sales=0; // 공연별 매출액
 	private int s_salesRatio=0; // 공연 매출액 비율
 	
-	private String stat_date="";
+	private String stat_date=""; // 월
 	private double stat_sales=0;
 	
-	private int 베토벤=0;
-	private int 인터뷰=0;
+	private String s1="";
+	private String s2="";
+	private String s3="";
 }
