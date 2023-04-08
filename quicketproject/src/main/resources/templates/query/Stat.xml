@@ -49,8 +49,39 @@
 		order by s_salesRatio DESC
 	</select>
 	
-	<select id="weeklySales" resultType="stat">
+	<select id="showList" resultType="stat">
+		select s_num, s_name
+		from show s JOIN theater th ON s.th_num = th.th_num
+		            JOIN hall h ON th.th_num = h.th_num
+		            JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		            JOIN ticket t ON ts.pay_num = t.pay_num
+		group by s_num, s_name
+		order by s_num
+	</select>	
+	
+	<!-- <select id="monthlySales" resultType="stat">
 		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, SUM(DECODE(s_num, 1, s_price, 0)) 베토벤, SUM(DECODE(s_num, 2, s_price, 0)) 인터뷰
+		from (
+		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
+		    from (
+		        select s_num, s_name, s_price, th_num 
+		        from show        
+		    ) s JOIN theater th ON s.th_num = th.th_num
+		        JOIN hall h ON th.th_num = h.th_num
+		        JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		        JOIN ticket t ON ts.pay_num = t.pay_num
+		        JOIN q_user u ON t.u_id = u.u_id
+		)
+		where ti_status = 1
+		group by SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2)
+		order by stat_date
+	</select> -->
+	
+	<select id="monthlySales" parameterType="java.util.List" resultType="stat">
+		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, 
+			<foreach collection="list" item="item" separator=",">
+				SUM(DECODE(s_num, ${item.s_num}, s_price, 0)) AS "s${item.s_num}"
+			</foreach>
 		from (
 		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
 		    from (

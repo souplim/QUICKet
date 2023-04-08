@@ -10,6 +10,9 @@ public interface StatService {
 
 	List<StatVO> showSales(); // 공연별 매출비율 조회하기
 
-	List<StatVO> weeklySales(); // 주별 매출액 조회하기
+	
+	List<StatVO> showList(); // 공연명 리스트 조회
+	
+	List<StatVO> monthlySales(List<StatVO> nameList); // 월별 매출액 조회하기
 
 }

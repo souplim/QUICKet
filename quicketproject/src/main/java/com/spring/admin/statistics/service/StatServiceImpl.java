@@ -30,10 +30,17 @@ public class StatServiceImpl implements StatService {
 		return list;
 	}
 
-	// 주별 매출
+	// 공연명 리스트 조회
 	@Override
-	public List<StatVO> weeklySales() {
-		List<StatVO> list = statDao.weeklySales();
+	public List<StatVO> showList() {
+		List<StatVO> list = statDao.showList();
+		return list;
+	}
+	
+	// 월별 매출
+	@Override
+	public List<StatVO> monthlySales(List<StatVO> nameList) {
+		List<StatVO> list = statDao.monthlySales(nameList);
 		return list;
 	}
 

@@ -70,12 +70,17 @@
 			}
 			
 			/* footer 하단 고정 */
-			.footer {
+			/* .footer {
 				position: absolute;
 				bottom: 30px;
 				left: 50%;
 				transform: translateX(-50%);
-			}
+			} */
+			#body-row {
+				height: auto;
+				min-height: 100%;
+				padding-bottom: 80px;
+			} 
 		</style>
 		
 		<script type="text/javascript">
