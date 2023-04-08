@@ -103,6 +103,40 @@ public class StatController {
 	}
 	
 	/***********************************************************
+	 * 공연별 예매비율, 매출비율 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/showTicketSales
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/showTicketSales", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String showTicketSales(){
+		log.info("showTicketSales 조회");
+		
+		List<StatVO> list = statService.showTicketSales();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("공연", "string");
+		gChart.addColumn("예매비율", "number");
+		gChart.addColumn("매출비율", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getS_name());
+			gChart.addCell(count, vo.getS_ticketcntRatio(), String.valueOf(vo.getS_ticketcnt())+"회 ("+vo.getS_ticketcntRatio()+"%)");
+			gChart.addCell(count, vo.getS_salesRatio(), vo.getS_sales()+"원 ("+vo.getS_salesRatio()+"%)");
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
+	
+	
+	/***********************************************************
 	 * 월별 매출액 조회하기
 	 * 현재 요청 URL : http://localhoast:8080/admin/stat/monthlySales
 	 ***********************************************************/
