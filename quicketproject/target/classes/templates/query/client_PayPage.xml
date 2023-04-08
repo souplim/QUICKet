@@ -13,8 +13,8 @@
 	</select> 
 	
 	<select id="hall_list" parameterType="Integer" resultType="paypage">
-	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,hall_date,hall_start,hall_end,s_num
-		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status ,s_num
+	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,TO_CHAR(to_date(hall_date,'mm/dd/yy'),'yyyy-mm-dd') as hall_date,TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start
+		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status 
 				from theater t LEFT JOIN hall h
 				ON t.th_num = h.th_num
 				LEFT JOIN show s
@@ -24,7 +24,7 @@
 		        where t.th_num = #{th_num}
 		        order by h.hall_id)
 		where seat_status = 0
-		group by hall_id,s_name, hall_place, hall_turn,hall_time,hall_date,hall_start,hall_end,s_num
+		group by hall_id,s_name, hall_place, hall_turn,hall_time,hall_date,hall_start,hall_end
 	</select> 
 	
 	<!-- payPage Step2 list -->
@@ -37,7 +37,7 @@
 				ON t.th_num = s.th_num
 		        LEFT JOIN seat se
 				ON h.hall_id = se.hall_id
-		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id}
 		        order by h.hall_id)
 		where seat_status = 0
 		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
@@ -51,7 +51,7 @@
 		ON t.th_num = s.th_num
 		LEFT JOIN seat se
 		ON h.hall_id = se.hall_id
-		where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		where t.th_num = #{th_num} and h.hall_id = #{hall_id}
 	</select> 
 	
 	 <select id="pay_step3_list" parameterType="paypage" resultType="paypage">
@@ -63,7 +63,7 @@
 				ON t.th_num = s.th_num
 		        LEFT JOIN seat se
 				ON h.hall_id = se.hall_id
-		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id}
 		        order by h.hall_id)
 		where seat_status = 0
 		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
@@ -85,7 +85,7 @@
 				ON t.th_num = s.th_num
 		        LEFT JOIN seat se
 				ON h.hall_id = se.hall_id
-		        where t.th_num = #{th_num} and h.hall_id = #{hall_id} and hall_date = #{hall_date}
+		        where t.th_num = #{th_num} and h.hall_id = #{hall_id}
 		        order by h.hall_id)
 		where seat_status = 0
 		group by th_num, hall_id,s_name, hall_place, hall_turn,hall_time,hall_date, s_opendate,s_closedate,hall_seatNum,s_price
