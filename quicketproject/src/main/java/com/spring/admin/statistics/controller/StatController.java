@@ -167,6 +167,9 @@ public class StatController {
 			gChart.addCell(count, vo.getS1());
 			gChart.addCell(count, vo.getS2());
 			gChart.addCell(count, vo.getS3());
+			gChart.addCell(count, vo.getS4());
+			gChart.addCell(count, vo.getS5());
+			gChart.addCell(count, vo.getS6());
 			count++;
 		} 
 		
