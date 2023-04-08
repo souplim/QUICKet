@@ -51,7 +51,6 @@ public class StatController {
 		
 		GoogleChartDTO gChart = new GoogleChartDTO();
 		gChart.addColumn("공연", "string");
-//		gChart.addColumn("예매횟수", "number");
 		gChart.addColumn("예매비율", "number");
 		
 		gChart.createRows(list.size());
@@ -59,7 +58,6 @@ public class StatController {
 		int count = 0;
 		for(StatVO vo : list) { 
 			gChart.addCell(count, vo.getS_name());
-//			gChart.addCell(count, vo.getS_ticketcnt());
 			gChart.addCell(count, vo.getS_ticketcntRatio(), String.valueOf(vo.getS_ticketcnt())+"회 ("+vo.getS_ticketcntRatio()+"%)");
 			count++;
 		} 

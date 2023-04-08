@@ -24,10 +24,9 @@ public class CertificationInterceptor implements HandlerInterceptor {
 		
 		String dest = uri+query;
 		System.out.println("dest : "+dest);
-//		if(request.getMethod().equals("GET"))
+
 		request.getSession().setAttribute("dest", dest);
-		/* if(request.getMethod().equals("POST"))
-			request.getSession().setAttribute("dest", dest); */
+
 	}
 	
 	@Override

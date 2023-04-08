@@ -182,14 +182,14 @@ div[role="tabpanel"]{min-height:30em;}
 			$(".nav-pills").find("li").eq(2).addClass('active').siblings().removeClass();
 			$(".tab-content").find("#reviewBox").addClass("active").siblings().removeClass('active');
 			
-			const url = new URL(window.location);
+			/* const url = new URL(window.location);
 	        const urlParams = url.searchParams;
-	        if(urlParams.get('s')) {
-	            const scrollTop = $('#'+urlParams.get('s')).offset().top;
+	        if(urlParams.get('s')) { // 특정 파라미터값 얻기
+	            const scrollTop = $('#'+urlParams.get('s')).offset().top; // 화면상에서 특정 요소의 y축 위치
 	          
 	          	// 부드럽게 이동
 	            $('html, body').animate({scrollTop: scrollTop-59}, 2000,'easeOutCubic');
-	        }
+	        } */
 		} 
 		
 	});
