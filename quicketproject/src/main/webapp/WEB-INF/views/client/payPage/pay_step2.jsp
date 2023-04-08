@@ -4,85 +4,100 @@
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<style>
+		@font-face {
+		    font-family: 'LeferiBaseType-RegularA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		.container-fluid { 
+			background-color: #fff;
+			font-family: 'LeferiBaseType-RegularA';
+			font-size: 17px;
+		}
 		body{
-			width:980px;
-			height:915px;
+			font-family: 'LeferiBaseType-RegularA';
+			margin:10px 0 0 15px;
+			padding:10px;
+			width:1125px;
+			height:750px;
 			display:flex;
 			flex-wrap:nowrap;
-			border: 1px solid gray;
 		}
 		/* main-------------------------------------------------------- */
 		#main{
-			width:690px;
+			width:815px;
 			height:100%;
 		}
 		/* header-------------------------------------------------------- */
 		#main > #header{
-			width:100%;
-			height:100px;
-			background:#4A4A4A;
+			width:99%;
+			height:80px;
+			background:white;
 			display:flex;
 			justify-content:flex-end;
 			align-items:flex-end;
 		}
-		#logo{
+/* 		#logo{
 			width:127px;
 			height:75px;
 			background:gray;
 			margin:0 10px 10px 0;
 			
 		}
-		.step{
-			width:135px;
-			height:90px;
+ */		.step{
+ 			border-radius:10px;
+ 			margin-right:2px;
+			width:160px;
+			height:70px;
 			display:flex;
 			align-items:center;
 		}
 		/* subMain-------------------------------------------------------- */
 		#main > #subMain{
 			width:100%;
-			height:585px;
+			height:430px;
 		}
 		#subMain_box{
-			width:670px;
-			height:565px;
-			margin: 9px 0 0 8px;
+			width:790px;
+			height:400px;
+			
+			margin: 40px 10px 0 0;
 			display:flex;
 		}
 		.subMain_box1{
-			width:70%;
+			width:50%;
 			height:100%;
-			border:2px solid lightgray;
-			display:flex;
-			flex-wrap:wrap;
-			justify-content:center;
 		}
 		#subMain_seatBox{
-			width:300px;
-			height:250px;
-			border:5px solid gray;
+			width:200px;
+			height:180px;
+			border:1px solid black;
 			display:flex;
-			flex-wrap:nowrap;
 			border-radius:10px;
 			padding:5px;
+			margin:30px 0 0 90px;
 		}
 		#seatBox_name{
 			width:40px;
-			height:200px;
+			height:160px;
 			display:flex;
 			justify-content:space-around;
 			flex-direction: column;
 			}
 		.seat_rowName{
-			width:20px;
-			height:20px;
+			width:13px;
+			height:13px;
 			background:black;
 			color:white;
 		}
 		.lineBox{
 			width:250px; 
-			height:300px;
+			height:160px;
 			display:flex;
 			justify-content:space-around;
 			flex-direction: column;
@@ -93,7 +108,7 @@
 			align-items:center;
 		}
 		.goDetail{
-			width:15px;height:15px;background:#00c3c1;margin-right:5px;border-radius:5px;text-align:center;font-size:12px;color:white;
+			width:11px;height:11px;background:#5529DD;margin-right:5px;border-radius:5px 5px 0 0;text-align:center;font-size:12px;color:white;
 		}
 		.status_1{
 			background:gray;
@@ -107,19 +122,20 @@
 		.subMain_box2{
 			width:100%;
 			height:40px;
-			background: #757bf6;
+			background: ;
 			display:flex;
 			align-items:center;
 		}
 		.subMain_box3{
+			width:100%;
+			height:100%;
 			display:flex;
 			align-items:center;
 			justify-content:center;
-			margin-top:100px;
 		}
 		.ticket_info{
 			width:320px;
-			height:340px;
+			height:370px;
 			display:flex;
 			align-items:flex_start;
 			justify-content: center;
@@ -127,16 +143,17 @@
 		}
 		/* footer-------------------------------------------------------- */
 		#main > #footer{
-			width:668px;
-			height:210px;
-			border:2px solid lightgray;
-			margin: 0 0 0 8px;
+			width:790px;
+			height:230px;
+			border:2px solid #676767;
+			border-radius:5px;
+			margin: 0 10p 0 8px;
 			display:flex;
 		}
 		#footer_box1{
 			width:40px;
 			height:100%;
-			background:#7F7F7F;
+			background:#686868;
 		}
 		#footer  ul ,li{
 			list-style: none;
@@ -146,11 +163,15 @@
 		}
 		/* side-------------------------------------------------------- */
 		#side{
-			width:290px;
-			height:100%;/* 915px */
-			background:#4A4A4A;
+			padding:15px;
+			border-radius:10px;
+			width:310px;
+			height:800px;/* 915px */
+			margin-top:10px;
+			background:#353535;
 		}
 		.side_box{
+		
 			width:100%;
 			border-bottom:1px solid #262626;
 		}
@@ -169,6 +190,7 @@
 			justify-content:flex-start;
 			align-items:flex-start;
 		}
+		
 		.side_table  tr td{
 			padding-top:10px;
 			color:white;
@@ -188,7 +210,7 @@
 			color:#7F7F7F;
 		}
 		.side_box3{
-			height:25%;
+			height:27%;
 		}
 		.side_box4{
 			height:15%;
@@ -196,6 +218,7 @@
 		}
 		#side_box4_box1{
 			border:1px solid #262626;
+			border-radius:3px;
 			width:80%;
 			height:40px;
 			background:#404040;
@@ -204,15 +227,24 @@
 			align-items:center;
 			justify-content: space-around;
 		}
+		
+		/* -------------------------------------------------------- */
+		.hall_div{
+			width:100px;
+			height:25px;
+			border:0;
+			border-radius:2px;
+			background-color: #EB4956;
+			color: white;
+			margin:2px 5px 2px 10px;
+			text-align:center;
+		}
 		.seatColor{
 			background:gray;
 		}
 		.seatColor2{
 			background:red;
 		}
-		
-		/* -------------------------------------------------------- */
-		
 	</style>
 	
 	<script type="text/javascript">
@@ -348,6 +380,7 @@
 			}
 		}
 		let seatNVal = "";
+		let alertCount = 0;
 		$("#seatSelectBtn").on("click",function(){
 			let i = 0;
 			
@@ -369,7 +402,10 @@
 			countPeple();
 			$(".count_div").text("성인: "+ adult_count + "어린이: "+ children_count);
 			
-			
+			if(alertCount==0){
+				swal('좌석담기 성공!선택내역을 참고해주세요.',"이 메시지는 첫 좌석선택 시에만 발생됩니다.",'success');
+			}
+			alertCount++;
 			
 		})
 		$(document).on("click",".goDetail",function(e){
@@ -395,8 +431,8 @@
 				$(this).children("span").text("✓");
 			}
 			
-			let adult_div = "<input type='radio' class='adult_children' name = 'adult' value='성인'/><span>성인</span>";    	
-			let children_div = "<input type='radio' class='adult_children' name = 'children'  value='어린이'/><span>어린이</span>";
+			let adult_div = "<input type='radio' style='margin-left:10px;' class='adult_children' name = 'adult' value='성인'/><span>성인</span>";    	
+			let children_div = "<input type='radio' style='margin-left:10px;' class='adult_children' name = 'children'  value='어린이'/><span>어린이</span>";
 			// 선택막기
 			$(document).on("click","input[type='radio'][name='adult']",function(){
 					$('input[type="radio"][name="children"]').prop('checked',false);
@@ -413,7 +449,7 @@
 			$(".info1_innerDiv").prepend(children_div);
            	$(".info1_innerDiv").prepend(adult_div);/* $(this).children(".seatN").val() */
            	
-           	let choiceSeatDiv = "<p style='font-size=15px;font-weight:bold;margin-left:15px;color:gray;' class='choiceSeatDiv'>"+$(this).children(".seatN").val()+"</p>";
+           	let choiceSeatDiv = "<p class='choiceSeatDiv hall_div'>"+$(this).children(".seatN").val()+"</p>";
         	$(".info2").children(".choiceSeatDiv").remove();
            	$(".info2").append(choiceSeatDiv);
            	
@@ -453,49 +489,47 @@
 	</form>
 	<div id="main">
 		<div id="header">
-			<div id="logo">
-			
-			</div>
-			<div class="step step1" style="background:#D9D9D9;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step1</span><br>
+			<img src="/resources/image/001.png" alt="QUICKet로고" width="120" height="45" style="position:relative;bottom:10px;right:18px;"/>
+			<div class="step step1" style="background:#7A7A7B">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step1</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">관람일/회차</span></span>
 			</div>
-			<div class="step step2" style="background:white;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#00B0F0;font-size:12px;font-weight:bold;">step2</span><br>
+			<div class="step step2" style="background:white;border:3px solid #666666"><!-- #666666 -->
+				<span style="margin:0 0 10px 5px;"><span style="color:#3A85C7;font-size:12px;font-weight:bold;">step2</span><br>
 				<span style="font-size:16px;font-weight:bold;">좌석선택<span style="color:#00B0F0;">∨</span></span></span>
 			</div>
-			<div class="step step3" style="background:#A6A6A6;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step3</span><br>
+			<div class="step step3" style="background:#5C5C5C">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step3</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">할인/쿠폰</span></span>
 			</div>
-			<div class="step step4" style="background:#7F7F7F;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step4</span><br>
+			<div class="step step4" style="background:#535354;">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step4</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">결제방법</span></span>
 			</div>
 		</div>
 		<div id="subMain">
 			<div id="subMain_box">
-				<div class="subMain_box1" style="border-right:0px;">
+				<div class="subMain_box1" style="margin-right:10px;">
 					<div class="subMain_box2">
-						<span style="font-size:14px;color:white;margin-left:5px;">좌석도</span>
+						<span style="font-size:13px;color:white; width:90px;height:25px;text-align:center;line-height: 30px;vertical-align: middle;;margin:10px 0 0 10px;border-radius:12px 0 0 12px;background:#f9e000;">관람일 선택</span>
 					</div>
-					<div style="width:300px;height:35px;background:gray;color:white;text-align:center;padding-top:10px;border-radius:5px;font-weight:bold;font-size:20px;">STAGE</div>
+					<div style="margin:40px 0 0 65px;width:250px;height:30px;background:#7A7A7B;color:white;text-align:center;padding-top:2px;border-radius:5px;font-weight:bold;font-size:20px;">STAGE</div>
 					<div id="subMain_seatBox">
 					<div id="seatBox_name">
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">A</div>
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">B</div>
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">C</div>
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">D</div>
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">E</div>
-						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;">F</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">A</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">B</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">C</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">D</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">E</div>
+						<div class="seat_rowName" style="text-align:center;border-radius:5px;margin-left:3px;font-size:9px;">F</div>
 					</div>
-						<div class="lineBox" style="width:250px; height:200px;">
-						<div class ="line lineA" style="width:250px; height:20px;"></div>
-						<div class ="line lineB" style="width:250px; height:20px;"></div>
-						<div class ="line lineC" style="width:250px; height:20px;"></div>
-						<div class ="line lineD" style="width:250px; height:20px;"></div>
-						<div class ="line lineE" style="width:250px; height:20px;"></div>
-						<div class ="line lineF" style="width:250px; height:20px;"></div>
+						<div class="lineBox">
+						<div class ="line lineA" style="width:180px; height:5px;"></div>
+						<div class ="line lineB" style="width:180px; height:5px;"></div>
+						<div class ="line lineC" style="width:180px; height:5px;"></div>
+						<div class ="line lineD" style="width:180px; height:5px;"></div>
+						<div class ="line lineE" style="width:180px; height:5px;"></div>
+						<div class ="line lineF" style="width:180px; height:5px;"></div>
 					</div>
 					
 					
@@ -564,21 +598,21 @@
 					</c:choose>
 					</div>
 				</div>
-				<div class="subMain_box1_1">
+				<div class="subMain_box1">
 					<div class="subMain_box2">
-						<span style="font-size:14px;color:white;margin-left:5px;">티켓정보</span>
+						<span style="font-size:13px;color:white; width:90px;height:25px;text-align:center;line-height: 30px;vertical-align: middle;;margin:10px 0 0 10px;border-radius:12px 0 0 12px;background:#f9e000;">회차 선택</span>
 					</div>
 						<div class="subMain_box3">
 							<div class = "ticket_info">
-					       		<div class="info_box info1" style="width:100%;height:200px;">
-								  	<span style="margin-left:10px;">연령</span>
-								  	<hr style="width:90%;">
+					       		<div class="info_box info1" style="width:100%;height:80px;">
+								  	<span style="margin-left:10px;font-size:14px;font-weight:bold;">연령</span>
+								  	<hr style="width:90%;border:1px solid #4A4A4A;">
 								  	<div class="info1_innerDiv"></div>
 								  	
 							  	</div>
-							  	<div class="info_box info2" style="width:100%;height:160px;">
-								  	<span style="margin-left:10px;">선택한좌석</span>
-								  	<hr style="width:90%;">
+							  	<div class="info_box info2" style="width:100%;height:80px;">
+								  	<span style="margin-left:10px;font-size:14px;font-weight:bold;">선택한좌석</span>
+								  	<hr style="width:90%;border:1px solid #4A4A4A;">
 							  	</div>
 							  	<div style="display:flex;">
 								  	<button id="seatSelectBtn" style="background:gray;color:white;width:45px;height:30px;border:0px;">선택</button>
@@ -630,7 +664,7 @@
 		</div>
 		<div class="side_box side_box2">
 				<table class="side_table1">
-					<tr><td><h3 style="color:white;">선택내역</h3></td></tr>
+					<tr><td><h3 style="color:white;font-size:17px;">선택내역</h3></td></tr>
 					<tr><td>날짜</td>
 						<td>${pay_step2_list.hall_date}</td>
 					</tr>
@@ -652,9 +686,9 @@
 		</div>
 		<div class="side_box side_box3">
 			<table class="side_table1">
-					<tr><td><h3 style="color:white;">결제내역</h3></td></tr>
+					<tr><td><h3 style="color:white;font-size:17px;">결제내역</h3></td></tr>
 					<tr><td>티켓금액</td>
-						<td id="totalTicketTd">0</td>
+						<td id="totalTicketTd"></td>
 					</tr>
 					<tr><td>할인(쿠폰)</td>
 						<td id="discountCouponTd">0</td>
@@ -672,14 +706,14 @@
 		</div>
 		<div class="side_box side_box4">
 			<div id="side_box4_box1">
-				<h4 style="color:white;">최종 결제금액</h4>
+				<h4 style="color:white;font-size:15px;">최종 결제금액</h4>
 				<span id="totalAmount" style="color:white;">0원</span>
 			</div>
 			<div style="display:flex;">
-			<button id ="prevBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
-			margin:30px 0 0 35px;">이전단계</button>
-			<button id ="nextBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
-			margin:30px 0 0 25px;">다음단계</button>
+			<button id ="prevBtn" style="background:#7F9CB7;border:0;width:160px;height:30px;color:white;
+			margin:17px 0 0 5px;">이전단계</button>
+			<button id ="nextBtn" style="background:#7F9CB7;border:0;width:160px;height:30px;color:white;
+			margin:17px 0 0 25px;">다음단계</button>
 			</div>
 		</div>
 	</div>

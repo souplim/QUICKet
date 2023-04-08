@@ -4,12 +4,14 @@
 <!-- 달력 부트스트랩 -->
 <link rel="stylesheet" href="/resources/include/css/client/ticket/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="/resources/include/css/client/ticket/ticket_calender2.css">
 <!-- 달력 부트스트랩 끝 -->
 	<style>
 	#body{
 		display:flex;
 		width:100%;
-		height:800px;
+		height:400px;
 		justify-content:center;
 		align-items:center;
 	}
@@ -43,16 +45,18 @@
 		border:0;
 		background-color: #EE2D00;
 		color: white;
+		font-size:15px;
 	}
 	.hall_div{
-		width:150px;
-		height:40px;
-		border:2px solid #FFA726;
-		background-color: white;
-		color: #FFA726;
-		margin:2px 5px 2px 10px;
-		text-align:center;
-	}
+			width:100px;
+			height:25px;
+			border:0;
+			border-radius:2px;
+			background-color: #EB4956;
+			color: white;
+			margin:2px 5px 2px 10px;
+			text-align:center;
+		}
 	/* 배경 어둡게 */
 	.shadow{position: fixed;left: 0;top: 0;background: rgba(0, 0, 0, 0.52);width: 100%;height: 100vh;display: none}
 	/* 팝업 기본디자인 */
@@ -85,6 +89,25 @@
 			})
 			return returnData;
 		}
+		$.datepicker.setDefaults({
+		      closeText: "닫기",
+		      prevText: "이전달",
+		      nextText: "다음달",
+		      currentText: "오늘",
+		      monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
+		        "7월", "8월", "9월", "10월", "11월", "12월"
+		      ],
+		      monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",
+		        "7월", "8월", "9월", "10월", "11월", "12월"
+		      ],
+		      dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+		      dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+		      dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		      weekHeader: "주",
+		      isRTL: false,
+		      showMonthAfterYear: true,
+		      yearSuffix: "년"
+		    })
 		function dayRestrict(){
 			  var date = new Date();
 			  var Today = new Date(date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate());
@@ -190,8 +213,8 @@
 			});
 		function openPopup() {
 			href='/client/payPage/pay_step1?th_num='+${hall_list.th_num};
-			w=1000;
-			h=1000;
+			w=1150;
+			h=855;
 			var xPos = (window.outerWidth/2) - (w/2); // 가운데 정렬
 			xPos += window.screenLeft; // 듀얼 모니터일 때
 			var yPos = (window.outerHeight/2) - (h/2);
