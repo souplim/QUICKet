@@ -85,36 +85,77 @@
 			})
 			return returnData;
 		}
-		// 캘린더
-		$('.datepicker').datepicker({
-		    format: 'dd-mm-yyyy',
-		    minDate: new Date(returnData[0].hall_start),
-		    maxDate: new Date(returnData[0].hall_end),
-		    onSelect:function(d){
-		    	var arr=d.split("/");
-		    	var day1=arr[0];
-		    	var day2=arr[1];
-		    	var day3=arr[2];
-		    	var Date = arr[2]+"-"+arr[0]+"-"+arr[1];
-		    	let num = equalsValue(Date);
-				if(num == -1){
-					var hidden_div = "<input type='text' class='hall_div hidden_div' value='서비스 준비중' readonly>";
-				}else{
-					var hidden_div = "<input type='hidden' class='hall_div hidden_div' value="+num+">";
-			    	var hall_place_div = "<button class='hall_div hall_place_div'>"+returnData[num].hall_place+"</button>";
-				}
-		    	
-	           	$(".info1").children(".hidden_div").remove();
-	           	$(".info1").children(".hall_place_div").remove();
-	           	$(".info2").children(".hall_turn_div").remove();
-	           	$(".info3").children(".hall_seat_div").remove();
-	           	$(".info1").append(hall_place_div);
-	           	$(".info1").append(hidden_div);
-		    }
-		})
-		// 캘린더 끝
-		// 캘린더 클릭 시 관 시간 회차 선택
+		function dayRestrict(){
+			  var date = new Date();
+			  var Today = new Date(date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate());
+			  var StartDate = new Date(returnData[0].hall_start);
+			  
+			  return Today > StartDate;
+			}
 		
+		if(dayRestrict() == true){
+			// 캘린더
+			$('.datepicker').datepicker({
+			    format: 'dd-mm-yyyy',
+			    minDate: 0,
+			    maxDate: new Date(returnData[0].hall_end),
+			    onSelect:function(d){
+			    	
+			    	var arr=d.split("/");
+			    	var day1=arr[0];
+			    	var day2=arr[1];
+			    	var day3=arr[2];
+			    	var Date = arr[2]+"-"+arr[0]+"-"+arr[1];
+			    	let num = equalsValue(Date);
+					if(num == -1){
+						var hidden_div = "<input type='text' class='hall_div hidden_div' value='서비스 준비중' readonly>";
+					}else{
+						var hidden_div = "<input type='hidden' class='hall_div hidden_div' value="+num+">";
+				    	var hall_place_div = "<button class='hall_div hall_place_div'>"+returnData[num].hall_place+"</button>";
+					}
+			    	
+		           	$(".info1").children(".hidden_div").remove();
+		           	$(".info1").children(".hall_place_div").remove();
+		           	$(".info2").children(".hall_turn_div").remove();
+		           	$(".info3").children(".hall_seat_div").remove();
+		           	$(".info1").append(hall_place_div);
+		           	$(".info1").append(hidden_div);
+			    }
+			})
+			// 캘린더 끝
+			// 캘린더 클릭 시 관 시간 회차 선택
+		}else{
+			// 캘린더
+			$('.datepicker').datepicker({
+			    format: 'dd-mm-yyyy',
+			    minDate: new Date(returnData[0].hall_start),
+			    maxDate: new Date(returnData[0].hall_end),
+			    onSelect:function(d){
+			    	
+			    	var arr=d.split("/");
+			    	var day1=arr[0];
+			    	var day2=arr[1];
+			    	var day3=arr[2];
+			    	var Date = arr[2]+"-"+arr[0]+"-"+arr[1];
+			    	let num = equalsValue(Date);
+					if(num == -1){
+						var hidden_div = "<input type='text' class='hall_div hidden_div' value='서비스 준비중' readonly>";
+					}else{
+						var hidden_div = "<input type='hidden' class='hall_div hidden_div' value="+num+">";
+				    	var hall_place_div = "<button class='hall_div hall_place_div'>"+returnData[num].hall_place+"</button>";
+					}
+			    	
+		           	$(".info1").children(".hidden_div").remove();
+		           	$(".info1").children(".hall_place_div").remove();
+		           	$(".info2").children(".hall_turn_div").remove();
+		           	$(".info3").children(".hall_seat_div").remove();
+		           	$(".info1").append(hall_place_div);
+		           	$(".info1").append(hidden_div);
+			    }
+			})
+			// 캘린더 끝
+			// 캘린더 클릭 시 관 시간 회차 선택
+		}
 		function equalsValue(Date){
 			let num = -1;
 			for(let i = 0; i < returnData.length; i++){
@@ -148,7 +189,6 @@
 				
 			});
 		function openPopup() {
-			$(".shadow").show(); // 배경 어둡게
 			href='/client/payPage/pay_step1?th_num='+${hall_list.th_num};
 			w=1000;
 			h=1000;
