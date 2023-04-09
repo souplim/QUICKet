@@ -11,7 +11,7 @@ public interface QnaService {
 	public QnaVO qnaUpdateForm(QnaVO qvo);
 	public int qnaInsert(QnaVO qvo) throws Exception;
 	public int qnaUpdate(QnaVO qvo) throws Exception;
-	public int qnaDelete(QnaVO qvo) throws Exception;
+	public int qnaDelete(int s_num) throws Exception;
 	public int qnaReplyCnt(int q_no);
 
 }

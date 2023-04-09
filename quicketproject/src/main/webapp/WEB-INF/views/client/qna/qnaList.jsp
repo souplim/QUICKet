@@ -17,49 +17,9 @@
 			
 			/* 기본 글 목록 불러오기 */
 			let s_num = ${detailData.s_num};
+			console.log("s_num : "+s_num);
 			qnaListAll(s_num); 
 			
-			/* 글 입력을 위한 ajax 연동 처리 
-			$(document).on("click", "#q_insertBtn", function(){
-				let id = "${userLogin.u_id}";
-				
-				if(id != ""){
-					let insertUrl = "/qna/qnaInsert";
-					
-					let value = JSON.stringify({
-						q_title:$("#q_title").val(),
-						q_content:$("#q_content").val(),
-						s_num:s_num
-					});
-					{}
-					$.ajax({
-						url: insertUrl,
-						type: "post",
-						headers : {
-							"Content-Type":"application/json"
-						},
-						dataType:"text",
-						data : value,
-						error: function(xhr, textStatus, errorThrown){
-							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
-						},
-						beforeSend: function(){	
-							if(!checkForm("#q_title","댓글 제목을 "))	return false;
-							if(!checkForm("#q_content", "댓글 내용을 ")) return false;
-						},
-						success : function(result){
-							if(result == "SUCCESS"){
-								alert("댓글 등록이 완료되었습니다.");
-								dataReset();
-								qnaListAll(s_num);
-							}
-						}
-					});
-				} else {
-					alert("로그인 후 서비스를 이용하실 수 있습니다.");
-					location.href = "/user/login";
-				}
-			}); */
 			
 			/* 글쓰기 버튼 클릭시 입력폼 호출 */
 			$("#q_insertBtn").click(function(){
@@ -71,13 +31,10 @@
 					alert("로그인 후 서비스를 이용하실 수 있습니다.");
 					location.href = "/user/login"; 
 				} 
-				
-				//location.href = "/qna/qnaWriteForm"; 
-				
-				}); 
+			}); 
 			
 			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-			$(".goDetail").click(function(){
+			$(".title").click(function(){
 				let q_no = $(this).parents("tr").attr("data-num");
 				$("#q_no").val(q_no);
 				console.log("글번호 : "+q_no);
@@ -94,55 +51,66 @@
 				e.preventDefault();
 				$("#page_form").find("input[name='pageNum']").val($(this).attr("href"));
 				goPage();
-			});
+			}); 
 			
 
 		}); // $함수 종료문	
 		
 		function qnaListAll(s_num){
-			//$(".expectReply").detach();	//선택한 요소를 DOM트리에서 삭제
+			//$(".qna").detach();	//선택한 요소를 DOM트리에서 삭제
 			
-			$.ajax({
-				url : 'expect/all/' + s_num,
-				type: get,
-				dataType : 'json',
-				success : makeTable,
-				error : function(){
-					alert("글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해주세요");
-				}
-			});
-			
-			<%--
-			let url = "/expect/all/"+ s_num;
+			let url = "/qna/all/"+s_num;
 			$.getJSON(url, function(data){
 				$(data).each(function(){
-					let q_no = this.ex_no;
-					let q_title = this.ex_title;
+					
+					let s_num = this.s_num;
+					let q_no = this.q_no;
 					let u_id = this.u_id;
-					let q_content = this.ex_content;
-					let q_regdate = this.ex_regdate;
+					let q_title = this.q_title;
+					let q_content = this.q_content;
+					let q_regdate = this.q_regdate;
 					q_content = q_content.replace(/(\r\n|\r|\n)/g, "<br />");
-					qnaTemplate(q_no, q_title, u_id, q_content, q_regdate);
+					
+					qnaTemplate(s_num, q_no, u_id, q_title, q_content, q_regdate);
+
+					console.log(u_id);
 				});
-			}).fail(function(){
-				alert("글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해주세요");
-			}); --%>
-		}
-		
-		function makeTable(res){
-			$('#tbody').html('');
-			
-			for(let i=0; i<res.length; i++){
 				
-				tr = '
-					<tr>
-					<td>${res[i].q_no}</td>
-					<td>${res[i].q_title}</td>
-					<td>${res[i].qna.u_id}</td>
-					<td>${res[i].qna.q_regdate}</td>
-					</tr>
-					'
-					$('#tbody').append(tr);
+			}).fail(function(){
+				 alert("덧글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+			});
+		}
+			
+		
+		/* 새로운 글을 화면에 추가하기 위한 함수 */
+		function qnaTemplate(s_num, q_title, q_content, q_regdate, q_no, u_id){
+			
+			let id = "${userLogin.u_id}";
+			console.log(u_id);
+			
+			let $div = $('#qnaList');
+			
+			
+			if($div.val() == null ){
+				$div.val().html("등록된 게시글이 존재하지 않습니다.");
+			} else {
+			let $element = $('#qna-template').clone().removeAttr('id');
+			$element.attr("data-num", q_no);
+			//$element.addClass("qnaReply");
+			$element.find('.table > .qna-tbody > .boardNum').html(q_no);
+			$element.find('.table > .qna-tbody > .title').html(q_title);
+			$element.find('.table > .qna-tbody > .id').html(u_id);
+			$element.find('.table > .qna-tbody > .date').html(q_regdate);
+			
+			<%-- 로그인한 id에 따라 출력되는 버튼 제어 필요 없으므로 주석처리
+			if(id == u_id){
+				$element.find('.panel-heading > .panel-title > button').show();
+			} else {
+				$element.find('.panel-heading > .panel-title > button').hide();
+			}
+				$element.find('.panel-body').html(ex_content); --%>
+			
+			$div.append($element);
 			}
 		}
 		
@@ -163,6 +131,7 @@
 
 		<form id="q_detailForm">
 			<input type="hidden" id="q_no" name="q_no"/>
+			<input type="hidden" id="s_num" name="s_num"/>
 		</form>
 		
 		<form id= "page_form" name="page_form">
@@ -170,8 +139,7 @@
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount }">
 		</form>
 	
-		<%-- ================= 리스트 시작 ================ --%>
-		<div id="qnaList" class="table-height">
+		<%-- 운영규정 안내 --%>
 			<div class="expectNotice">
 				<div id="noticeHeader">
 				<h4>꼭 읽어주세요(운영규정)</h4>
@@ -182,66 +150,31 @@
 				사전 경고에도 불구하고 불량 게시물을 계속적으로 게재한 게시자의 경우 QUICKet 게시판 작성 권한이 제한됩니다. <br/>
 				</div>
 			</div>
-			<%-- 글쓰기 버튼 --%>
+			
+			<%-- 문의글 개수 출력 영역 --%>
 				<div class="topArea">
 					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
 				</div>
 			
-			<!-- 
-			<table summary="게시판 리스트" class="table table-striped table-hover active table-condensed">
-				<thead>
-					<tr>
-						<th data-value="q_no" class="order text-center col-md-2"></th>
-						<th class="text-center col-md-5"></th>
-						<th class="text-center col-md-1"></th>
-						<th data-value="q_regdate" class="order col-md-1"></th>	
-					</tr>
-				</thead>
-				<tbody id="list" class="table-striped">  -->
-				
-					<!-- 데이터 출력 
-					<c:choose>
-						<c:when test="${not empty qnaList}">
-							<c:forEach var="qna" items="${qnaList}" varStatus="status">
-								<tr class="text-center" data-num="${qna.q_no }">
-									<td>${qna.q_no}</td>
-									<td class="goDetail text-left">${qna.q_title }
-										<c:if test="${qna.q_cnt > 0}">
-											<span class="reply_count">[${qna.q_cnt}]</span>
-										</c:if>
-									</td>  
-									<td class="id text-right">${qna.u_id }</td>
-									<td class="text-center">${qna.q_regdate}</td>
-								</tr>
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<tr>
-								<td colspan="4" class="tac text-center">등록된 게시글이 존재하지 않습니다.</td>
-							</tr>
-						</c:otherwise>
-					</c:choose>
-				</tbody>
-			</table> -->
 			
-			<div class= "container">
-				<table class="table table-hover table-bordered">
-					<thead>
-						<tr>
-							<th data-value="q_no" class="order text-center col-md-2"></th>
-							<th class="text-center col-md-5"></th>
-							<th class="text-center col-md-1"></th>
-							<th data-value="q_regdate" class="order col-md-1"></th>	
-						</tr>
-					</thead>
-					<tbody id="tbody">
-					
-					</tbody>
-				</table>
+			<!--  등록한 테이블이 출력되는 영역 -->
+			<div id = "qnaList">
+				<div id="qna-template">	
+					<table class="table table-hover table-bordered">
+						<tbody class="qna-tbody">
+							<tr>
+								<td class="boardNum"></td>
+								<td class="title"></td>
+								<td class="id"></td>
+								<td class="date"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			
 			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
-			</div>
+			
 		
 			
 			<%-- 페이징 --%>

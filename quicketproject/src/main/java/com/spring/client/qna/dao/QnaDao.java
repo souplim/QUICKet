@@ -16,5 +16,5 @@ public interface QnaDao {
 	public int qnaUpdate(QnaVO qvo);
 	public int qnaDelete(int q_no);
 	
-	public int qnaAdminDelete(int q_no);
+	
 }

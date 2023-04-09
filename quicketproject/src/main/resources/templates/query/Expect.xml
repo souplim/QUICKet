@@ -14,14 +14,14 @@
 			<![CDATA[ u_id LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 		<if test="search=='ex_regdate'">
-			<![CDATA[ to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') between #{start_date} and #{end_date} ]]>
+			<![CDATA[ to_char(ex_regdate, 'YYYY-MM-DD') between #{start_date} and #{end_date} ]]>
 		</if>
 	</sql> 
 
 	
 	<!-- 댓글 리스트 조회 -->
 	<select id="expectList" parameterType="expect" resultType="expect">
-		SELECT ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') as ex_regdate, s_num
+		SELECT ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD') as ex_regdate, s_num
 		FROM expect
 		WHERE s_num = #{s_num}
 		ORDER BY ex_no desc
@@ -32,7 +32,7 @@
 
 		<![CDATA[
 		SELECT
-			ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD HH24:MI') as ex_regdate, s_num
+			ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD') as ex_regdate, s_num
 		FROM (
 			SELECT /*+ INDEX_DESC(expect pk_expect) */ 
 				rownum as rnum, ex_no, ex_title, ex_content, u_id, ex_regdate, s_num
@@ -80,7 +80,7 @@
 		/* Expect - expect Detail */
 		SELECT
 			ex_no, u_id, ex_title, ex_content, s_num,
-			TO_CHAR(ex_regdate, 'YYYY-MM-DD HH24:MI') AS ex_regdate
+			TO_CHAR(ex_regdate, 'YYYY-MM-DD') AS ex_regdate
 		FROM expect
 		WHERE ex_no = #{ex_no}
 	</select>

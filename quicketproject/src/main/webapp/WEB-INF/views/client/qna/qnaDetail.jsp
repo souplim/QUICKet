@@ -8,7 +8,7 @@
 	</style>
 
 	<script type="text/javascript">
-			let buttonCheck = 0;
+			//let buttonCheck = 0;
 			$(function(){
 
 				/* 수정 버튼 클릭 시 처리 이벤트 */
@@ -61,6 +61,7 @@
 		
 			<form name ="q_data" id="q_data" method="post">
 				<input type="hidden" id="q_no" name="q_no" value="${detail.q_no}"/>
+				<input type="hidden" id="s_num" name="s_num" value="${detail.s_num}"/>
 			</form>
 			
 			

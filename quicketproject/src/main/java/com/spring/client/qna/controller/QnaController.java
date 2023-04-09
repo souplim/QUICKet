@@ -9,35 +9,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.client.expect.vo.ExpectVO;
 import com.spring.client.qna.service.QnaService;
 import com.spring.client.qna.vo.QnaVO;
 import com.spring.client.user.vo.UserVO;
-// import com.spring.common.vo.CommonVO;
-import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/qna/*")
+@RequestMapping("/qna")
 @SessionAttributes("userLogin")
 @Slf4j
 public class QnaController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private QnaService qnaService;
-	
-	//private UserVO userVO;
 	
 	@RequestMapping(value = "/qnaList")
 	public String qnaView() {
@@ -69,6 +61,8 @@ public class QnaController {
 		List<QnaVO> entity = null;
 		entity = qnaService.qnaList(s_num);
 		
+		System.out.println(entity);
+		
 		return entity; 
 	}
 	
@@ -96,7 +90,7 @@ public class QnaController {
 	 *  글 등록하기
 	 ***************************/
 	@RequestMapping(value = "/qnaWriteForm")
-	public String writeForm(@ModelAttribute("userLogin") UserVO userVO, Model model, RedirectAttributes ras) {
+	public String writeForm(@ModelAttribute("userLogin") UserVO userVO) {
 		log.info("qna writeForm 호출 성공");
 			return "client/qna/qnaWriteForm";
 	}
@@ -123,20 +117,26 @@ public class QnaController {
 		return "redirect:" + url;
 	} */
 	
-	@ResponseBody
-	@PostMapping(value = "/qnaInsert", consumes = "application/json", produces= MediaType.TEXT_PLAIN_VALUE)
-	public String qnaInsert(@RequestBody QnaVO qvo, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
+	
+	@RequestMapping(value = "/qnaInsert", method=RequestMethod.POST)
+	public String qnaInsert(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) throws Exception{
 		log.info("qnaInsert 호출 성공");
-		log.info("QnaVO: " + qvo);
 		
 		int result = 0;
 		qvo.setU_id(userVO.getU_id());
+		qvo.getS_num();
+		
+		String url = "";
+	
+	
 		result = qnaService.qnaInsert(qvo);
-		
-		//evo.setS_num(1);
-		
-
-		return (result==1) ? "SUCCESS" : "FAILURE";
+		if(result == 1) {
+			url = "/qna/qnaList";
+		} else {
+			url = "/qna/qnaWriteForm";
+		}
+	
+		return "redirect:" + url;
 	}
 	
 	
@@ -206,12 +206,12 @@ public class QnaController {
 		int result = 0;
 		String url = "";
 		
-		result = qnaService.qnaDelete(qvo); // 이식 기준 위가 준비단계, 아래가 삭제 후 처리 관련
+		result = qnaService.qnaDelete(qvo.getS_num()); // 이식 기준 위가 준비단계, 아래가 삭제 후 처리 관련
 		
 		if(result == 1) {
 			url = "/qna/qnaList";
 		} else {
-		url = "/qna/qnaDetail?q_no="+qvo.getQ_no(); 	// 상세페이지가 없으므로 qnaList로 간다 if문 필요X 
+		url = "/qna/qnaDetail?q_no="+qvo.getQ_no(); 	
 		}
 		return "redirect:"+url;		
 	}
@@ -219,7 +219,6 @@ public class QnaController {
 	/*************************************************
 	 * 글 삭제 전 댓글 개수 
 	 ************/
-	@ResponseBody
 	@RequestMapping(value="/qnaReplyCnt")
 	public String qnaReplyCnt(@RequestParam("q_no") int q_no) {
 		log.info(("qnaReplyCnt 호출 성공"));
