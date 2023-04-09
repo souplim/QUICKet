@@ -45,6 +45,18 @@
 			</if>
 		</sql>
 		
+		
+				
+		
+		<!-- 검색 & 페이징 처리 구현 -->
+		<select id="faqListCnt" parameterType="faq" resultType="int">
+			SELECT COUNT(f_no) FROM faq
+			<trim prefix=" WHERE (" suffix=")">
+				<include refid="faqSearch"></include>
+			</trim>
+		</select>
+		
+		
 		<!--상세 구현   -->		
 		<select id="faqDetail" parameterType="faq" resultType="faq">
 			SELECT	  

@@ -4,6 +4,11 @@
 	
 	<style type="text/css">
 		#inqReplyList { margin-bottom: 20px; }
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
+		#contentDiv { min-height: 200px; }
 	</style>
 	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -21,10 +26,11 @@
 			});
 			
 			/* 수정 버튼 클릭시 readonly제거, 버튼이름 변경 이벤트 */
-			$("#updateFormBtn").on("click", function(){
+			$(document).on("click", "#updateFormBtn", function(){
 				let i_num = $(this).attr("data-num");
-				$("#i_title").prop("readonly", false);
-				$("#i_content").prop("readonly", false);
+				
+				$("#titleTd").html("<input type='text' id='i_title' name='i_title' class='form-control' value='${inqDetail.i_title}'/>");
+				$("#contentTd").html("<textarea id='i_content' name='i_content' class='form-control' rows='10'>${inqDetail.i_content}</textarea>");
 				
 				/* 등록버튼 이름, 아이디 변경 -> insertBtn과 같은 버튼이라 등록까지 한번에 클릭으로 인식하는 문제점 */
 				/* $("#updateFormBtn").attr("id", "insertBtn");
@@ -39,7 +45,7 @@
 				
 				/* 등록버튼 새로 만들기 */
 				$("#updateFormBtn").detach();
-				let insertButton = $("<button type='button' class='btn btn-primary' id='insertBtn'>");
+				let insertButton = $("<button type='button' class='btn btn-blue' id='insertBtn'>");
 				insertButton.html("등록");
 				$("#cancelBtn").before(insertButton);
 			});
@@ -85,8 +91,9 @@
 							$("#cancelBtn").attr("id", "listBtn");
 							$("#listBtn").text("목록"); 
 							
-							$("#i_title").prop("readonly", true);
-							$("#i_content").prop("readonly", true);
+							let i_num = $(".dataNum").attr("data-num");
+							location.href="/inq/inqDetail?i_num="+i_num;
+							
 						} else {
 							alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
 						}
@@ -169,15 +176,13 @@
 					</tr>
 					<tr>
 						<td class="col-md-3" style="vertical-align:middle">제목</td>
-						<%-- <td class="col-md-3 text-left">${inqDetail.i_title}</td> --%>
-						<td colspan="3" class="col-md-9 text-left">
-							<input type="text" id="i_title" name="i_title" class="form-control" value="${inqDetail.i_title}" readonly/>
-						</td>
+						<td colspan="3" class="col-md-9 text-left" id="titleTd">${inqDetail.i_title}</td>
 					</tr>
 					<tr>
-						<td colspan="4" class="col-md-12 text-left">
-							<%-- ${inqDetail.i_content} --%>
-							<textarea id="i_content" name="i_content" class="form-control" rows="10" readonly>${inqDetail.i_content}</textarea>
+						<td colspan="4" class="col-md-12 text-left" id="contentTd">
+							<div id="contentDiv">
+								${inqDetail.i_content}
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -195,9 +200,9 @@
 			<%-- ================= 1대1문의하기 버튼 시작 ================= --%>
 			<div class="contentBtn text-right">
 				<c:if test="${inqDetail.i_reply==0}">
-					<button type="button" id="updateFormBtn" class="btn btn-primary">수정</button>
+					<button type="button" id="updateFormBtn" class="btn btn-blue">수정</button>
 				</c:if>
-				<button type="button" id="listBtn" class="btn btn-primary">목록</button>
+				<button type="button" id="listBtn" class="btn btn-blue">목록</button>
 			</div>
 			
 		</div>

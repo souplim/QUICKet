@@ -39,10 +39,53 @@
 	    <!--[if lt IE 9]><script src="/resources/include/dist/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	    <script src="/resources/include/dist/assets/js/ie-emulation-modes-warning.js"></script>
 	
+		<!-- fontAwesome CDN 링크 -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		
 		<style type="text/css">
+			/* 헤더 때문에 바디 잘림 방지 */
 			.row { margin-top: 50px; }
-			.side-bar {margin-top: 50px;}
-			.body-row { margin-bottom: 100px; }
+			
+			/* select 글자 잘림 방지 */
+			select { font: initial; }
+			
+			.side-bar {
+				margin-top: 50px;
+				width : 200px;
+				height: 70%;
+			}
+			#mainContents {
+				height: 100%;
+				width: 1300px;
+			}
+			.pagination>li>a, .pagination>li>a:hover{
+				color:#999;
+			}
+			.pagination>.active>a{
+			    background-color:#ccc;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:hover{
+			    background-color:#999;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:focus{
+			    background-color:#777;
+			    border-color:#ccc;
+			}
+			
+			/* footer 하단 고정 */
+			/* .footer {
+				position: absolute;
+				bottom: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+			} */
+			#body-row {
+				height: auto;
+				min-height: 100%;
+				padding-bottom: 80px;
+			} 
 		</style>
 		
 		<script type="text/javascript">
@@ -51,10 +94,7 @@
 			    $("#wrapper").toggleClass("toggled");
 			});
 		</script>
-		
-		<style>
-			.side-bar{ width : 180px; }
-		</style>
+
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -62,26 +102,26 @@
 		</nav>
 		
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row body-row">
 				<div class="sidebar side-bar">
 					<tiles:insertAttribute name="left"/>
 				</div>
-				<div id="mainContents" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div id="mainContents" class="col-sm-9 col-sm-offset-3 main">
 					<tiles:insertAttribute name="body"/>
 				</div>
-				<div>
-					<tiles:insertAttribute name="footer"/>
-				</div>
+			</div>
+			<div class="text-center row footer">
+				<tiles:insertAttribute name="footer"/>
 			</div>
 		</div>	
-		
-		 <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
-    <script src="/resources/include/dist/assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/resources/include/dist/assets/js/ie10-viewport-bug-workaround.js"></script>
+			
+			 <!-- Bootstrap core JavaScript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
+	    <script src="/resources/include/dist/assets/js/docs.min.js"></script>
+	    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	    <script src="/resources/include/dist/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 </html>

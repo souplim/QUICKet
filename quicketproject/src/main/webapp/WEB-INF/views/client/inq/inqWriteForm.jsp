@@ -45,7 +45,10 @@
 			border: 1px solid lightgray;
 		}
 		
-		
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
 	</style>
 	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -209,7 +212,7 @@
 			
 			<%-- ================= 1대1문의내역 버튼 시작 ================= --%>
 			<div class="contentBtn text-right">
-				<button type="button" id="listBtn" class="btn btn-primary">1대1 문의내역</button>
+				<button type="button" id="listBtn" class="btn btn-blue">1대1 문의내역</button>
 			</div>
 			
 			<%-- ================= 폼 시작 ================= --%>
@@ -393,8 +396,8 @@
 				
 				<%-- ================= 1대1문의내역 버튼 시작 ================= --%>
 				<div class="text-right">
-					<button type="button" class="btn btn-primary" id="insertBtn">등록</button>
-					<button type="button" class="btn btn-primary" id="cancelBtn">취소</button>
+					<button type="button" class="btn btn-blue" id="insertBtn">등록</button>
+					<button type="button" class="btn btn-blue" id="cancelBtn">취소</button>
 				</div>
 			</form>
 			

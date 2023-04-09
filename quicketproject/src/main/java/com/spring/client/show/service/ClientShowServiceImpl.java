@@ -33,9 +33,9 @@ public class ClientShowServiceImpl implements ClientShowService {
 		
 		//일~토 기준으로 월~일 기준으로 변환
 		Calendar week = (Calendar)now.clone();
-		int day_of_week = Calendar.DAY_OF_WEEK;
+		int day_of_week = week.get(Calendar.DAY_OF_WEEK);
 		if(day_of_week==1) {
-			week.add(Calendar.DAY_OF_WEEK,-6);
+			week.add(Calendar.DAY_OF_MONTH,-6);
 		}else{
 			week.set(Calendar.DAY_OF_WEEK,2);
 		}
@@ -296,6 +296,11 @@ public class ClientShowServiceImpl implements ClientShowService {
 		int result = 0;
 		result = clientShowDao.showPointUpdate(vo);
 		return result;
+	}
+	
+	@Override
+	public int ticketCntUpdate(ShowVO vo) {
+		return clientShowDao.ticketCntUpdate(vo);
 	};
 	
 }

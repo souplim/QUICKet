@@ -149,6 +149,10 @@ public class ClientPayPageController {
 		model.addAttribute("ticketSuccessPage", ticketSuccessPage);
 		
 		vo.setS_num(vo.getS_num());
+		
+		//예매 성공시 해당 공연의 예매횟수 1회 증가
+		clientShowService.ticketCntUpdate(vo);
+		
 		ShowVO detailData = clientShowService.showDetail(vo);
 		model.addAttribute("detailData", detailData);
 		return "/client/payPage/ticketSuccessPage";

@@ -5,6 +5,14 @@
 #searchBox{
 	margin-bottom:80px;
 }
+#genrePageDate{
+	display:inline-block;
+	float:left;
+}
+#genrePageTab{
+	display:inline-block;
+	float:right;
+}
 .genreBox{
 	display:inline-block;
 	vertical-align:top;
@@ -31,7 +39,7 @@ a[role='tab']{
 	height:350px;
 }
 </style>
-<link rel="stylesheet" href="/resources/include/css/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/include/css/jquery-ui-custom.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
@@ -143,12 +151,12 @@ a[role='tab']{
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2 col-sm-offset-1">
+					<div id="genrePageDate">
 						<div id="datepicker"></div>
 						<input type="hidden" id="start_date" name="start_date" />	
 						<input type="hidden" id="end_date" name="end_date" />	
 					</div>
-					<div class="col-sm-7 col-sm-offset-2">
+					<div id="genrePageTab">
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="disabled">
 								<a href="#">WEEK RANKING</a>

@@ -10,9 +10,9 @@
     font-style: normal;
 	}
 	
-	.footer { 
-		height: 250px;
-		width: 100%;
+	footer { 
+		width: 670px;
+		margin: 30px auto 0 auto;
 	} 
 	.footer-menu a {
 		font-family: 'LeferiBaseType-RegularA';
@@ -21,7 +21,7 @@
 		text-decoration: none;
 		color: black;
 	}
-	.footer-menu {margin-bottom: 20px;}
+	.footer-menu { margin-bottom: 20px; }
 </style>
 
 <footer>
@@ -35,7 +35,7 @@
 		<a href="https://github.com/eunja2/QUICKet.git"><i class="fab fa-brands fa-github fa-xl"></i></a>
 	</div>
 
-	<div class="footer-txt">
+	<div class="footer-txt text-left">
 		<img src="/resources/image/001.png" alt="QUICKet로고" width="110" height="45"/>
 		퀵켓(주)<br/>
 		강남지원 1관: 서울특별시 강남구 테헤란로14길 6 남도빌딩 4F<br/>

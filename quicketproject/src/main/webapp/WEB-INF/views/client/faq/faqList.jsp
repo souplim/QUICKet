@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 
+	<style>
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
+	</style>
 
 	<script type="text/javascript">
 		$(function(){
@@ -134,7 +140,7 @@
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" /> <!-- placeholder도가능 -->
 			<!-- 	<button type="button" id="searchData" class="btn btn-success">검색</button>  -->	
-					<button type="button" id="searchData" class="btn btn-primary">검색</button>
+					<button type="button" id="searchData" class="btn btn-blue">검색</button>
 					
 				</div>
 			</form>
@@ -144,14 +150,14 @@
 		
 		<%-- =================== 리스트 시작  ================= --%>
 		<div id="faqList" class="table-height">
-			<table summary="faq 리스트" class="table table-striped" >
+			<table summary="faq 리스트" class="table" >
 				<thead>
 					<tr>
 						<th data-value="f_no" class="order text-center col-md-1" >글번호</th>
 						<th class="text-center col-md-1">카테고리</th>
 						<th class="text-center col-md-4">제목</th>
 		<!-- 			<th class="text-center col-md-4">내용</th> -->	
-						<th data-value="f_regdate" class="order col-md-1">등록일</th>
+						<th data-value="f_regdate" class="order col-md-1 text-center">등록일</th>
 					</tr>
 				</thead>
 		 		<tbody id="list" class="table-striped" >

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,11 +42,47 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	
 		<style type="text/css">
-			.row { margin-top: 50px; }
-			.body-row { 
-				margin-bottom: 100px; 
-				/* padding-bottom: 99999px; */
+			@font-face {
+			    font-family: 'LeferiBaseType-RegularA';
+			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+			    font-weight: normal;
+			    font-style: normal;
 			}
+	
+			/* 헤더 때문에 바디 잘림 방지 */
+			.row { margin-top: 50px; }
+			
+			/* select 글자 잘림 방지 */
+			select { font: initial; }
+			
+			/* 페이지네이션 css */
+			.pagination>li>a, .pagination>li>a:hover{
+				color:#999;
+			}
+			.pagination>.active>a{
+			    background-color:#ccc;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:hover{
+			    background-color:#999;
+			    border-color:#ccc;
+			}
+			.pagination>.active>a:focus{
+			    background-color:#777;
+			    border-color:#ccc;
+			}
+			
+			/* footer 하단 고정 */
+			#body-row {
+				height: auto;
+				min-height: 100%;
+				padding-bottom: 80px;
+			}
+			/* .footer {
+				height: 100px;
+				position: relative;
+				transform: translateY(-100%);
+			} */
 		</style>
 	
 		<script type="text/javascript">
@@ -53,6 +90,7 @@
 			    e.preventDefault();
 			    $("#wrapper").toggleClass("toggled");
 			});
+			
 		</script>
 	</head>
 	<body>
@@ -61,10 +99,13 @@
 		</nav>
 		
 		<div class="container-fluid">
-			<div class="row body-row">
-				<tiles:insertAttribute name="body"/>
+			<div id="body-row">
+				<div class="row">
+					<tiles:insertAttribute name="body"/>
+				</div>
 			</div>
-			<div class="text-center">
+			
+			<div class="footer">
 				<tiles:insertAttribute name="footer"/>
 			</div>
 		</div>	

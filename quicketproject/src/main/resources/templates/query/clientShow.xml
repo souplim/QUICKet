@@ -23,14 +23,17 @@
 	</select>
 	<!-- 검색조건 설정하는 구문 -->
 	<sql id="showSearch">
-		<if test="search=='s_name'">
+		<if test="search=='' and keyword!=''">
+		<![CDATA[s_name like '%'||#{keyword}||'%' or (select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
+		</if>
+		<if test="search=='s_name' and keyword!=''">
 		<![CDATA[s_name like '%'||#{keyword}||'%']]>
 		</if>
-		<if test="search=='th_name'">
+		<if test="search=='th_name' and keyword!=''">
 		<![CDATA[(select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
 		</if>
 		<if test="start_date!='' and end_date!=''">
-			<if test="search!=''"><![CDATA[and]]></if>
+			<if test="keyword!=''"><![CDATA[and]]></if>
 			<if test="s_select_date==''">
 			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
 			</if>
@@ -42,11 +45,11 @@
 			</if>
 		</if>
 		<if test="s_select_region!=''">
-			<if test="search!='' or (start_date!='' and end_date!='')"><![CDATA[and]]></if>
+			<if test="keyword!='' or (start_date!='' and end_date!='')"><![CDATA[and]]></if>
 			<![CDATA[(select theater.th_addr from theater where theater.th_num = show.th_num) like '%'||#{s_select_region}||'%']]>
 		</if>
 		<if test="s_genre!=''">
-			<if test="search!='' or (start_date!='' and end_date!='') or s_select_region!=''"><![CDATA[and]]></if>
+			<if test="keyword!='' or (start_date!='' and end_date!='') or s_select_region!=''"><![CDATA[and]]></if>
 			<![CDATA[s_genre = #{s_genre}]]>
 		</if>
 	</sql>
@@ -96,7 +99,7 @@
 		<if test="s_array=='rank_ticket' and rank_period!=''">
 			<![CDATA[, decode(rank_prev, 0, 'new', to_char(rank_prev - rank_rank)) rank_change]]>
 		</if>
-		<![CDATA[from(select rownum as rnum, s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
+		<![CDATA[from (select rownum as rnum, s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
 		rank_start, rank_end, rank_rank, rank_ticket,]]>
 		<if test="s_array=='s_point'">
 			<![CDATA[(dense_rank() over (order by s_point desc)) s_point_rank,]]>
@@ -104,15 +107,15 @@
 		<if test="s_array=='rank_ticket' and rank_period!=''">
 			<include refid="getRankPrev"></include> 
 		</if>
-		<![CDATA[(select theater.th_name from theater where theater.th_num = s.th_num) as th_name 
-		from (select * from show order by s_point desc) s, rank r 
-		where s.s_num = r.s_num 
-		and r.rank_start = #{start_date}
-		and r.rank_end = #{end_date}
-		and rownum <= #{pageNum}*#{amount}]]>
+		<![CDATA[(select theater.th_name from theater where theater.th_num = od.th_num) as th_name 
+		from (select s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
+ 		rank_start, rank_end, rank_rank, rank_ticket from show s left join rank r on s.s_num = r.s_num  
+		where s.s_num = r.s_num and r.rank_start = #{start_date} and r.rank_end = #{end_date}]]>
 		<if test="s_genre!=''"><![CDATA[and s_genre = #{s_genre}]]></if>
 		<if test="s_array=='' or s_array=='rank_ticket'"><![CDATA[order by rank_rank]]></if>
-		<if test="s_array=='s_point'"><![CDATA[order by s_point_rank]]></if>
+		<if test="s_array=='s_point'"><![CDATA[order by s_point desc]]></if>
+		<![CDATA[) od
+		where rownum <= #{pageNum}*#{amount}]]>
 		<![CDATA[) ranklist
 		where rnum>(#{pageNum}-1)*#{amount}
 		]]>
@@ -131,7 +134,7 @@
 		<if test="rank_period=='year'">
 			rank_start = add_months(to_date(#{start_date}),-12) and rank_end = add_months(to_date(#{end_date}),-12)
 		</if>
-		<![CDATA[and s_num = r.s_num),0)) as rank_prev,]]>
+		<![CDATA[and s_num = od.s_num),0)) as rank_prev,]]>
 	</sql>
 	
 	<!-- 북마크 갯수 기준으로 공연 데이터 뽑아서 조회 -->
@@ -174,6 +177,10 @@
 		 set s_point = (select avg(nvl(r_point, 0)) from reviewboard where s_num = #{s_num}) 
 		 where s_num = #{s_num}
 		]]>
+	</update>
+	
+	<update id="ticketCntUpdate" parameterType="showVO">
+		<![CDATA[update show set s_ticketcnt = s_ticketcnt+1 where s_num = #{s_num}]]>
 	</update>
 	
 </mapper>

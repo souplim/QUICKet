@@ -22,4 +22,6 @@ public interface ClientShowDao {
 	public List<RankVO> rankList(ShowVO vo);
 	
 	public int showPointUpdate(ReviewVO vo);
+	
+	public int ticketCntUpdate(ShowVO vo);
 }

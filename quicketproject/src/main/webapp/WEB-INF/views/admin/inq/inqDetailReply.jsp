@@ -5,7 +5,7 @@
 	<style type="text/css">
 		#inqReplyList { margin-bottom: 20px; }
 		#height { height: 150px; }
-		.panel-body { height: 200px; }
+		.panel-body { min-height: 200px; }
 	</style>
 	
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>

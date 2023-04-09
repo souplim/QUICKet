@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 
+	<style>
+		.title {margin-bottom: 30px;}
+	</style>
+	
 	<script type="text/javascript">
 		$(function(){
 			/* 공연제목 클릭시 이벤트 처리 */
@@ -95,14 +99,14 @@
 		
 		
 		<div class="contentContainer container">
-			<div>
+			<div class="title">
 				<h1>관심공연 확인/취소</h1>
 				<p>관심공연 해제 버튼을 클릭하면 관심공연을 취소할 수 있습니다.</p>
 			</div>
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="likeList" class="table-height">
-				<table summary="관심공연 리스트" class="table table-striped">
+				<table summary="관심공연 리스트" class="table">
 					<thead>
 						<tr>
 							<th class="text-center col-md-5">공연명</th>

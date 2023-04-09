@@ -4,15 +4,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <style>
-	@font-face {
-    font-family: 'LeferiBaseType-RegularA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-	}
-	
 	.container-fluid { 
-		height: 100px;  
 		background-color: #fff;
 		font-family: 'LeferiBaseType-RegularA';
 		font-size: 17px;
@@ -130,8 +122,8 @@
 	    background: rgba(255, 255, 255, 0.6);
 	}
 	
-	@media(min-width:768px) {
-	    #wrapper {
+	@media(min-width:0px){
+		#wrapper {
 	        padding-left: 250px;
 	    }
 	    #wrapper.toggled {
@@ -143,6 +135,21 @@
 	    #wrapper.toggled #sidebar-wrapper {
 	        width: 0;
 	    }
+	}	
+	
+	@media(min-width:768px) {
+	   /* #wrapper {
+	        padding-left: 250px;
+	    }
+	    #wrapper.toggled {
+	        padding-left: 0;
+	    }
+	    #sidebar-wrapper {
+	        width: 250px;
+	    }
+	    #wrapper.toggled #sidebar-wrapper {
+	        width: 0;
+	    } */
 	    #page-content-wrapper {
 	        padding: 20px;
 	        position: relative;
@@ -159,6 +166,30 @@
 
 <script>
 	$(document).ready(function(){
+		
+		/* 마우스 오버 헤더 메뉴 표시 */
+		$(".topMenu > li").hover(function(){
+			$(this).css("borderBottom", "3px solid dodgerblue");
+			$(this).css("fontWeight","bold");
+		}, function(){
+			$(this).css("borderBottom","").css("fontWeight","");
+		});
+		
+		/* 해당 페이지 메뉴 표시 */
+		const urlParams = new URL(location.href).searchParams;
+		const genre = urlParams.get('s_genre');
+		const rank = document.location.href;
+		
+		console.log(genre);
+		if(genre=='뮤지컬'){
+			$("#musical").css("borderBottom", "3px solid dodgerblue").css("fontWeight","bold");
+		} else if(genre=='연극'){
+			$("#play").css("borderBottom", "3px solid dodgerblue").css("fontWeight","bold");
+		} else if(rank=='http://localhost:8080/ranking'){
+			$("#rank").css("borderBottom", "3px solid dodgerblue").css("fontWeight","bold");
+		}
+		
+		
 		$("#open-btn").click(function (e) {
 		    e.preventDefault();
 		    $("#wrapper").removeClass("toggled").addClass("active")
@@ -196,6 +227,14 @@
 				"action":"/search"
 			});
 			$("#mainSearchForm").submit();
+		});
+		
+		/* 입력 양식 enter 제거 */
+		$("#mainKeyword").bind("keydown", function(event){
+			 if (event.keyCode == 13) {
+			        event.preventDefault();
+			        $("#mainBtn").click();
+			    }
 		});
 		
 	});
@@ -240,16 +279,16 @@
 			</li>
 		</ul>
 
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav topMenu">
 			<li><a href="/"><i class="fa-solid fa-house fa-xl"></i></a></li>
-			<li><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
-			<li><a href="/genre?s_genre=연극">연극</a></li>
-			<li class="margin"><a href="/ranking">랭킹</a></li>
+			<li id="musical"><a href="/genre?s_genre=뮤지컬">뮤지컬</a></li>
+			<li id="play"><a href="/genre?s_genre=연극">연극</a></li>
+			<li class="margin" id="rank"><a href="/ranking">랭킹</a></li>
 		</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<a>
+				<a> 
 					<form id="mainSearchForm">
 						<input type="text" name="keyword" id="mainKeyword" />
 						<button type="button" name="mainBtn" id="mainBtn">

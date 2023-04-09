@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
 
+	<style type="text/css">
+		.communityTitle { margin-bottom: 30px; }
+	</style>
+	
 	<script type="text/javascript">
 		$(function(){
 			$("#available").on("click", function(){
@@ -41,7 +45,7 @@
 			    
 			    	<%-- ================= 사용가능 쿠폰 리스트 시작 ================= --%>
 					<div id="qnaList" class="table-height">
-						<table summary="Q&A 리스트" class="table table-striped">
+						<table summary="Q&A 리스트" class="table">
 							<thead>
 								<tr>
 									<th class="text-center col-md-3">쿠폰이름</th>
