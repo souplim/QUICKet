@@ -179,4 +179,8 @@
 		]]>
 	</update>
 	
+	<update id="ticketCntUpdate" parameterType="showVO">
+		<![CDATA[update show set s_ticketcnt = s_ticketcnt+1 where s_num = #{s_num}]]>
+	</update>
+	
 </mapper>

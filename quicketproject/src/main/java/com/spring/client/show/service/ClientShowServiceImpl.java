@@ -296,6 +296,11 @@ public class ClientShowServiceImpl implements ClientShowService {
 		int result = 0;
 		result = clientShowDao.showPointUpdate(vo);
 		return result;
+	}
+	
+	@Override
+	public int ticketCntUpdate(ShowVO vo) {
+		return clientShowDao.ticketCntUpdate(vo);
 	};
 	
 }
