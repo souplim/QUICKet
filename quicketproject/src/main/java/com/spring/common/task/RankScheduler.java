@@ -34,7 +34,7 @@ public class RankScheduler {
 		
 		//일~토 기준으로 월~일 기준으로 변환
 		Calendar week = (Calendar)now.clone();
-		int day_of_week = Calendar.DAY_OF_WEEK;
+		int day_of_week = week.get(Calendar.DAY_OF_WEEK);
 		if(day_of_week==1) {
 			week.add(Calendar.DAY_OF_WEEK,-6);
 		}else{
@@ -78,7 +78,7 @@ public class RankScheduler {
 		list.add(prev_month_end);	//[6]: 저번달 말일
 		list.add(prev_year_start);	//[7]: 작년 1일
 		list.add(prev_year_end);	//[8]: 작년 말일
-		
+
 		return list;
 	}
 	
