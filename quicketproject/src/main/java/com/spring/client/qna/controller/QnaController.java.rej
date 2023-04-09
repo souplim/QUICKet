@@ -1,0 +1,42 @@
+diff a/quicketproject/src/main/java/com/spring/client/qna/controller/QnaController.java b/quicketproject/src/main/java/com/spring/client/qna/controller/QnaController.java	(rejected hunks)
+@@ -39,9 +39,40 @@
+ 	
+ 	//private UserVO userVO;
+ 	
++	@RequestMapping(value = "/qnaList")
++	public String qnaView() {
++		log.info("qna 리스트 화면");
++		return "client/qna/qnaList";
++	} 
++	
+ 	/********************************************
+ 	 * QNA 글 목록 구현하기
+ 	 ***********************************/
++	@ResponseBody
++	@GetMapping(value="/all/{s_num}", produces=MediaType.APPLICATION_JSON_VALUE)
++	public List<QnaVO> qnaList(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
++		log.info("qnaList 호출 성공");
++		
++		/* 전체 레코드 조회
++		List<ExpectVO> expectList = null;
++		expectList = expectService.expectList(s_num);
++		model.addAttribute("expectList", expectList);
++		
++		// 전체 레코드 수
++		int total = expectService.expectListCnt(evo);
++		model.addAttribute("pageMaker", new PageDTO(evo, total));
++				
++		// 리스트 번호 부여를 위한 속성
++		int count = total - (evo.getPageNum()-1) * evo.getAmount();
++		model.addAttribute("count", count); */
++		
++		List<QnaVO> entity = null;
++		entity = qnaService.qnaList(s_num);
++		
++		return entity; 
++	}
++	
++	/*
+ 	@GetMapping("/qnaList")
+ 	public String qnaList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
+ 		log.info("qnaList 호출 성공");
