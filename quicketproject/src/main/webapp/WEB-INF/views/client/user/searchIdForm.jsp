@@ -307,24 +307,25 @@
 					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 					      <div class="panel-body">
 					      		<!-- 전화번호로 찾기 폼 -->
-					      		<form id="idPhoneForm" class="container">
+					      		<form id="idPhoneForm" class="container-fluid	">
 					      		<input type="hidden" id="searchType" value="phone"/>
 					      		<table>
 									<tr class="form-group"> 
 										<td>이름</td>
-										<td colspan="4"><input type="text" class="form-control p-input" id="p-name" name="p-name" placeholder="이름을 입력해주세요." /></td>
+										<td colspan="4" class="inputTD"><input type="text" class="form-control p-input" id="p-name" name="p-name" placeholder="이름을 입력해주세요." /></td>
 									</tr>
 									<tr class="form-group">
 										<td>전화번호</td>
-										<td colspan="4"><input type="text" class="form-control p-input" id="p-phone" name="p-phone" placeholder="전화번호를 입력해주세요. (- 제외)"/></td>
+										<td colspan="4" class="inputTD"><input type="text" class="form-control p-input" id="p-phone" name="p-phone" placeholder="전화번호를 입력해주세요. (- 제외)"/></td>
 									</tr>
 									<tr class="form-group">
-										<td colspan="5"><button type="button" id="idPhoneBtn" class="btn btn-primary btn-block">확인</button></td>
+										<td colspan="5" class="inputTD"><button type="button" id="idPhoneBtn" class="btn btn-primary btn-block">확인</button></td>
 									</tr>
 								</table>
 								</form>
 					      		<!-- 전화번호로 찾기 폼 -->
 					      </div>
+					      
 					    </div>
 					  </div>
 					<!--  전화번호로 찾기 -->
@@ -342,7 +343,7 @@
 			        			<table>
 									<tr class="form-group"> 
 										<td>이름</td>
-										<td colspan="3"><input type="text" class="form-control e-input" id="e-name" name="e-name" placeholder="이름을 입력해주세요." /></td>
+										<td colspan="3" class="inputTD"><input type="text" class="form-control e-input" id="e-name" name="e-name" placeholder="이름을 입력해주세요." /></td>
 									</tr>
 									<tr class="form-group">
 										<td>이메일</td>
