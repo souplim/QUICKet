@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/resources/include/css/client/ticket/ticket_calender2.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
  
 <!-- 달력 부트스트랩 끝 -->
@@ -207,7 +207,7 @@
 			color: white;
 		}
 		.hall_div{
-			width:100px;
+			width:130px;
 			height:25px;
 			border:0;
 			border-radius:2px;
@@ -367,7 +367,7 @@
 				location.href="/client/payPage/pay_step2?hall_date="+returnData[num].hall_date+
 						"&th_num="+${hall_list.th_num}+"&hall_id="+returnData[num].hall_id+"&s_num="+"${detailData.s_num}";
 			}else{
-				alert("관람일/관/회차를 선택해주세요.");
+				swal('',"관람일/관/회차를 선택해주세요.",'warning');
 			}
 				
 			});

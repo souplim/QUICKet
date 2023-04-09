@@ -6,6 +6,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 <link rel="stylesheet" href="/resources/include/css/client/ticket/ticket_calender2.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- 달력 부트스트랩 끝 -->
 	<style>
 	#body{
@@ -207,7 +209,7 @@
 			if($(".hall_turn_div").length != 0){
 				openPopup();
 			}else{
-				alert("관람일/관/회차를 선택해주세요.");
+				swal('',"관람일/관/회차를 선택해주세요.",'warning');
 			}
 				
 			});
