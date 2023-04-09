@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 .btn-group-lg>.btn-default{
 	background-image:none;
@@ -497,8 +498,7 @@
 						<p class="topRankBox_theater">${rank.th_name}</p>
 						<br/>
 						<div class="topRankBox_ticket">${rank.rank_ticket}%</div>
-						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
-						<div class="topRankBox_point" data-point="${s_point}">${s_point}</div>
+						<div class="topRankBox_point" data-point="${rank.s_point}"><fmt:formatNumber value="${rank.s_point}" pattern=".00" /></div>
 					</div>
 				</div>
 			</div>	
@@ -557,7 +557,7 @@
 					<div class="otherRankBox_ticket_point col-xs-2">
 						<div class="row"><span class="otherRankBox_ticket">${rank.rank_ticket}%</span></div>
 						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
-						<div class="row otherRankBox_pointBox" data-point="${s_point}">${s_point}</div>
+						<div class="row otherRankBox_pointBox" data-point="${rank.s_point}"><fmt:formatNumber value="${rank.s_point}" pattern="0.00" /></div>
 					</div>
 				</div>
 			</c:forEach>

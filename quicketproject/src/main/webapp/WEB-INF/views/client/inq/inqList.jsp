@@ -99,8 +99,8 @@
 								<c:forEach var="inq" items="${inqList}" varStatus="status">
 									<tr class="text-center" data-num="${inq.i_num}">
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
-										<%-- <td>${count - status.index}</td>  --%>
-										<td>${inq.i_num}</td>
+										<td>${count - status.index}</td> 
+										<%-- <td>${inq.i_num}</td> --%>
 										<td>${inq.i_category} > ${inq.i_cate_detail}</td>
 										<td class="text-center goDetail">${inq.i_title}</td>
 										<td>${inq.i_regidate}</td>
