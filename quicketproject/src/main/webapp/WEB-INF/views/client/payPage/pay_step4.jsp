@@ -397,7 +397,8 @@
 		 function ticketInsert(pay_num1){
 				let UpdateUrl = "/client/payJson/ticketInsert";
 				let data_val = JSON.stringify({pay_num : pay_num1,
-												u_id : "${pay_step4_UserData.u_id}"
+												u_id : "${pay_step4_UserData.u_id}",
+												ti_coupon : "${CouponVOData.c_num}"
 				});
 				  $.ajax({
 						url  : UpdateUrl,
