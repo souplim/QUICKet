@@ -33,9 +33,21 @@ public class StatMapperTests {
 			log.info(vo.toString());
 	} */
 	
+	/*@Test
+	public void testNameList() {
+		List<StatVO> nameList = statDao.showList();
+		
+		for(StatVO vo : nameList)
+			log.info(vo.toString());
+	} */
+	
 	@Test
-	public void testWeeklySales() {
-		List<StatVO> list = statDao.weeklySales();
+	public void testMonthlySales() {
+		List<StatVO> nameList = statDao.showList();
+		for(StatVO vo : nameList)
+			log.info(vo.toString());
+		
+		List<StatVO> list = statDao.monthlySales(nameList);
 		for(StatVO vo : list)
 			log.info(vo.toString());
 	}

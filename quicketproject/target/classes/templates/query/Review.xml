@@ -8,7 +8,7 @@
 			    to_char(r_regdate,'YYYY-MM-DD') as r_regdate 
 		from REVIEWBOARD 
 		where s_num = #{s_num}
-		order by r_no desc        
+ 		order by r_regdate desc, r_no desc           
 	</select>
 	
 	

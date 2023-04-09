@@ -12,6 +12,7 @@ public interface ClientShowService {
 	public List<ShowVO> pointRankList(ShowVO vo);
 	public List<RankVO> ticketRankList(ShowVO vo);
 	public List<ShowVO> newList(ShowVO vo);
+	public List<ShowVO> hotShowList(ShowVO vo);
 	
 	//검색페이지의 검색리스트 관련 서비스
 	public List<ShowVO> showList(ShowVO vo);
@@ -25,4 +26,5 @@ public interface ClientShowService {
 	
 	public int showPointUpdate(ReviewVO vo);
 	
+	public int ticketCntUpdate(ShowVO vo);
 } 

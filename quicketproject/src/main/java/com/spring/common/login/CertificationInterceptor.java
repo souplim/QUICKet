@@ -4,8 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.client.user.vo.UserVO;
 
 public class CertificationInterceptor implements HandlerInterceptor {
 	
@@ -20,8 +24,9 @@ public class CertificationInterceptor implements HandlerInterceptor {
 		
 		String dest = uri+query;
 		System.out.println("dest : "+dest);
-//		if(request.getMethod().equals("GET"))
-			request.getSession().setAttribute("dest", dest);
+
+		request.getSession().setAttribute("dest", dest);
+
 	}
 	
 	@Override
@@ -29,8 +34,10 @@ public class CertificationInterceptor implements HandlerInterceptor {
 		// 컨트롤러 실행 직전에 동작
 		// 반환 값이 true일 경우(세션에 로그인 정보값이 존재) 정상적으로 컨트롤러 코드 진행
 		// false일 경우 saveDest 호출하여 세션에 기존요청정보 저장후 /user/login으로 redirect (원래 요청의 컨트롤러 진입 x)
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userLogin") != null) {
+		HttpSession session = request.getSession(false);
+		UserVO userVO = (UserVO) session.getAttribute("userLogin");
+		
+		if(userVO != null && userVO.getU_id() != null) {
 			return true;
 		} else {
 			saveDest(request);

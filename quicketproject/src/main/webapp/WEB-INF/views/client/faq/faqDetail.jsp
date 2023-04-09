@@ -29,7 +29,8 @@
 							<td class="col-md-1 text-left">${detail.f_category}</td> 						
 						</tr>	
 						
-						<tr class="table-tr-height">							
+						<tr class="table-tr-height">	
+							<td class="col-md-1">제목</td> 						
 							<td colspan="3" class="col-md-8 text-center">${detail.f_title}</td>
 						</tr>			
 								

@@ -1,18 +1,21 @@
 /**
  * 
  */
-function makeShowBox(vo, panel, sub, size){
+function makeShowBox(vo, panel, sub, width, height){
 	let $panel = $(panel);
 	
 	let $showBox = $("<div class='showBox'></div>");
-	$showBox.addClass("col-xs-"+size);
 	let s_num = vo.s_num;
 	$showBox.attr("data-num", s_num);
 	$showBox.css({
+		"display":"inline-block",
+		"verticalAlign":"top",
 		"padding":"15px 20px",
 		"textAlign":"center",
 		"boxShadow":"10px 10px 20px 3px rgb(123,123,123,0.5)",
-		"margin":"10px"
+		"margin":"10px",
+		"width":width+"px",
+		"height":height+"px"
 	});
 	
 	let $showBox_thumbnail = $("<div class='showBox_thumbnail'></div>")
@@ -47,6 +50,8 @@ function makeShowBox(vo, panel, sub, size){
 		subtxt = vo.s_opendate;
 	}else if(sub=='s_point'){
 		subtxt = Math.round(vo.s_point*100)/100;
+	}else if(sub=='b_count'){
+		subtxt = vo.b_count;
 	}
 	let $title = $("<p class='showBox_title'>"+s_name+"</p>");
 	$title.css({"fontSize":"16px","fontWeight":"bold"})
@@ -56,6 +61,11 @@ function makeShowBox(vo, panel, sub, size){
 		makeStar($subtxt, Math.round(vo.s_point*100)/100);
 	}else{
 		$subtxt.append("<br/>")
+	}
+	if(sub=='b_count'){
+		$subtxt.css({"color":"red", "fontSize":"16px"});
+		$subtxt.prepend("&nbsp;&nbsp;");
+		makeHeart($subtxt, "red", 10);
 	}
 	$showBox_text.append($title).append($subtxt);
 	$showBox_text.css({"display":"inline-block","textAlign":"center"})
@@ -83,4 +93,40 @@ function makeStar(item, point){
 	})
 	$star.append($starpaint);
 	$(item).prepend($star);
+}
+
+function makeHeart(item, color, size){
+	let $Heart= $("<span>");
+	$Heart.css({
+		"display":"inline-block"
+	})
+	let $part0= $("<div>");
+	$part0.css({
+		"position":"relative",
+		"width":size+"px",
+		"height":size+"px",
+		"backgroundColor":color,
+		"transform":"rotate(45deg)"
+	});
+	let $part1 = $("<div>");
+	$part1.css({
+		"position":"absolute",
+		"left":"-50%",
+		"width":size+"px",
+		"height":size+"px",
+		"borderRadius":"50%",
+		"backgroundColor":color
+	});
+	let $part2 = $("<div>");	
+	$part2.css({
+		"position":"absolute",
+		"top":"-50%",
+		"width":size+"px",
+		"height":size+"px",
+		"borderRadius":"50%",
+		"backgroundColor":color	
+	});
+	$part0.append($part1).append($part2);
+	$Heart.append($part0);
+	$(item).prepend($Heart);
 }

@@ -17,7 +17,11 @@ public interface ClientShowDao {
 	public ImgVO posterImg(ShowVO vo);
 	public int showListCnt(ShowVO vo);
 	
+	public List<ShowVO> hotShowList(ShowVO vo);
+	
 	public List<RankVO> rankList(ShowVO vo);
 	
 	public int showPointUpdate(ReviewVO vo);
+	
+	public int ticketCntUpdate(ShowVO vo);
 }

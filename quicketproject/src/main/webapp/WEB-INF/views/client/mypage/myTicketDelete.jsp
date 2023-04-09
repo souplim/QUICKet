@@ -14,6 +14,10 @@
 		}
 		.contentBtn { margin-bottom: 30px; }
 		.gray { background-color: rgb(233, 233, 233); }
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
 	</style>
 	
 	<script type="text/javascript">
@@ -78,7 +82,7 @@
 			
 			<%-- ================= 예매내역 목록, 취소내역 버튼 ================= --%>
 			<div class="contentBtn text-center">
-				<button type="button" id="listBtn" class="btn btn-primary">예매내역 목록</button>
+				<button type="button" id="listBtn" class="btn btn-blue">예매내역 목록</button>
 			</div>
 			
 			<%-- ================= 티켓취소 안내 ================= --%>

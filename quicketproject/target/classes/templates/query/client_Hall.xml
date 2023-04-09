@@ -13,7 +13,7 @@
 	</select> 
 	
 	<select id="hall_list" parameterType="Integer" resultType="hall">
-	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,hall_date,hall_start,hall_end
+	 	select hall_id, count(seat_status) remaining_seatNum, s_name, hall_place, hall_turn, hall_time,TO_CHAR(to_date(hall_date,'mm/dd/yy'),'yyyy-mm-dd') as hall_date,TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start
 		from (select h.hall_id, hall_seatNum ,s_name, h.hall_place, h.hall_turn, h.hall_seatNum, hall_start,hall_end, hall_date, hall_time, seat_num, seat_status 
 				from theater t LEFT JOIN hall h
 				ON t.th_num = h.th_num

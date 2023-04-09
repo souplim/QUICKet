@@ -4,6 +4,10 @@
 	
 	<style type="text/css">
 		.contentBtn { margin-bottom: 20px; }
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
 	</style>
 	
 	<script type="text/javascript">
@@ -72,12 +76,12 @@
 			
 			<%-- ================= 1대1문의하기 버튼 시작 ================= --%>
 			<div class="contentBtn text-right">
-				<button type="button" id="insertFormBtn" class="btn btn-primary">1대1 문의하기</button>
+				<button type="button" id="insertFormBtn" class="btn btn-blue">1대1 문의하기</button>
 			</div>
 			
 			<%-- ================= 리스트 시작 ================= --%>
 			<div id="inqList" class="table-height">
-				<table summary="게시판 리스트" class="table table-striped">
+				<table summary="게시판 리스트" class="table">
 					<thead>
 						<tr>
 							<th data-value="i_num" class="order text-center col-md-1">글번호</th>
@@ -95,8 +99,8 @@
 								<c:forEach var="inq" items="${inqList}" varStatus="status">
 									<tr class="text-center" data-num="${inq.i_num}">
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
-										<%-- <td>${count - status.index}</td>  --%>
-										<td>${inq.i_num}</td>
+										<td>${count - status.index}</td> 
+										<%-- <td>${inq.i_num}</td> --%>
 										<td>${inq.i_category} > ${inq.i_cate_detail}</td>
 										<td class="text-center goDetail">${inq.i_title}</td>
 										<td>${inq.i_regidate}</td>

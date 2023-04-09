@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <style type="text/css">
+@font-face {
+    font-family: 'KIMM_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 .container{
 	margin-top:30px;
 	margin-bottom:50px;
@@ -10,24 +17,31 @@
 	margin-bottom:100px;
 }
 .slide_Box{
+	position:relative;
 	width:100%;
 	height:600px;
+	filter:blur(5px) brightness(0.7);
 }
 .slide_img{
+	position:absolute;
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
-	margin: 30px 0px 0px 50px;
+	top:10%;
+	left:15%;
+	width:350px;
 }
 .slide_txt{
 	position:absolute;
 	bottom:10%; 
-	right:15%;
+	left:60%;
 	text-align:right;
+	max-width:30%;
 }
 .slide_title{
 	color: #fff;
 	text-shadow: 1px 1px 1px rgb(0,0,0,0.7);
 	font-weight:bold;
 	font-size:50px;
+	font-family: 'KIMM_Bold';
 }
 .slide_date{
 	color: #fff;
@@ -54,7 +68,7 @@ a[role='tab']{
 	color:#ccc;
 }
 .tab-content{
-	height:350px;
+	margin-bottom:50px;
 }
 </style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
@@ -95,16 +109,16 @@ $(function(){
 			
 			if(index==0){
 				let $item = $(".item")
-				$Box.append($img)
-				$Box.append($txt)
 				$Link.append($Box);
+				$Link.append($img)
+				$Link.append($txt)
 				$item.append($Link);
 				
 			}else{
 				let $item = $("<div class='item'></div>");
-				$Box.append($img);
-				$Box.append($txt)
 				$Link.append($Box);
+				$Link.append($img);
+				$Link.append($txt)
 				$item.append($Link);
 				$inner.append($item);
 				let $idc = $("<li data-target='#mainPage-slide' data-slide-to='"+index+"'></li>")
@@ -117,21 +131,28 @@ $(function(){
 	//전체 평점 랭킹 5개 받아오기
 	$.getJSON("/mainPointRankList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainPointRankPanel", "s_point", "2");
+			makeShowBox(this, "#mainPointRankPanel", "s_point", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
 	//이번 주 예매율 랭킹 5개 받아오기
 	$.getJSON("/mainTicketRankList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainTicketRankPanel", "rank_ticket", "2");
+			makeShowBox(this, "#mainTicketRankPanel", "rank_ticket", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
 	//이번 주 개봉되는 공연 리스트 5개 받아오기
 	$.getJSON("/mainNewList",function(data){
 		$(data).each(function(){
-			makeShowBox(this, "#mainNewPanel", "s_opendate", "2");
+			makeShowBox(this, "#mainNewPanel", "s_opendate", 200, 350);
+		})
+	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
+	
+	//현재 북마크 갯수가 상위권인 공연 리스트 5개 받아오기
+	$.getJSON("/mainHotList",function(data){
+		$(data).each(function(){
+			makeShowBox(this, "#mainHotPanel", "b_count", 200, 350);
 		})
 	}).fail(function(){alert("메인페이지 로딩 중에 오류가 발생했습니다. 관리자에게 문의하세요.")})
 	
@@ -145,30 +166,48 @@ $(function(){
 </script>
 </head>
 	<body>
-		<div class="container">
-			<div class="row">
-				<!-- 메인 페이지 슬라이드 기능 구현 -->
-				<div id="mainPage-slide" class="carousel slide" data-ride="carousel">
-					<!-- 인디케이터 -->
-					<ol class="carousel-indicators"><li data-target="#mainPage-slide" data-slide-to="0" class="active"></li></ol>
-				
-					<!-- 내부에 들어갈 아이템 -->
-					<div class="carousel-inner" role="listbox">
-						<div class="item active"></div>				
-					</div>
-					
-					<!-- 슬라이드 버튼 -->
-					<a class="carousel-control left" href="#mainPage-slide" role="button" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="false"></span>
-						<span class="sr-only">이전 페이지</span>
-					</a>
-					<a class="carousel-control right" href="#mainPage-slide" role="button" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="false"></span>
-						<span class="sr-only">다음 페이지</span>
-					</a>
-				</div>
+	
+		<!-- 메인 페이지 슬라이드 기능 구현 -->
+		<div id="mainPage-slide" class="carousel slide" data-ride="carousel">
+			<!-- 인디케이터 -->
+			<ol class="carousel-indicators"><li data-target="#mainPage-slide" data-slide-to="0" class="active"></li></ol>
+		
+			<!-- 내부에 들어갈 아이템 -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active"></div>				
 			</div>
 			
+			<!-- 슬라이드 버튼 -->
+			<a class="carousel-control left" href="#mainPage-slide" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="false"></span>
+				<span class="sr-only">이전 페이지</span>
+			</a>
+			<a class="carousel-control right" href="#mainPage-slide" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="false"></span>
+				<span class="sr-only">다음 페이지</span>
+			</a>
+		</div>
+		
+		<div class="container">
+		
+			<!-- 북마크 기준 박스 구현 -->
+			<div class="row">
+			
+				<!-- Navi 형 탭리스트 -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="disabled">
+						<a href="#">HOT SHOW</a>
+					</li>
+				</ul>
+				<!-- 탭의 컨텐츠를 표시하는 각 패널 부분 -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="mainHot">
+						<div id="mainHotPanel">
+						</div>
+					</div>
+				</div>
+				
+			</div>
 			<!-- 랭킹박스 탭 기능 구현 -->
 			<div class="row">
 			
