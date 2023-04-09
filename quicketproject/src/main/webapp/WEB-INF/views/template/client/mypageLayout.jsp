@@ -43,7 +43,12 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		
 		<style type="text/css">
+			/* 헤더 때문에 바디 잘림 방지 */
 			.row { margin-top: 50px; }
+			
+			/* select 글자 잘림 방지 */
+			select { font: initial; }
+			
 			.side-bar {
 				margin-top: 50px;
 				width : 200px;

@@ -53,9 +53,7 @@
 			.row { margin-top: 50px; }
 			
 			/* select 글자 잘림 방지 */
-			select {
-				font: initial;
-			}
+			select { font: initial; }
 			
 			/* 페이지네이션 css */
 			.pagination>li>a, .pagination>li>a:hover{
