@@ -382,6 +382,10 @@
 		let seatNVal = "";
 		let alertCount = 0;
 		$("#seatSelectBtn").on("click",function(){
+			if($(".hall_div").length == 0){
+				swal('',"좌석을 선택해주세요.",'warning');
+				return;
+			}
 			let i = 0;
 			
 			$(".goDetail").each(function(index){
@@ -464,6 +468,10 @@
 			})
 		// 다음단계 버튼
 		$("#nextBtn").click(function(){
+			if($("#totalAmountTd").text() == 0){
+				swal('',"좌석을 선택해주세요.",'warning');
+				return;
+			}
 				$("#seatMap").val(JSON.stringify(seatMap.map));
 				
 				$("#pay_step2_Form").attr({
