@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<style type="text/css">
 		.flex { display: flex; }
 		.margin-title {
@@ -288,8 +289,18 @@
 					<tr>
 						<td class="col-md-4 gray" style="vertical-align:middle">총결제금액</td>
 						<td class="col-md-8 text-left">
-							<p class="text-danger">${ticketDetail.pay_amount}원</p>
-							<p>티켓금액 ${ticketDetail.s_price}원</p>
+							<p class="text-danger">
+								${ticketDetail.pay_amount}원
+							</p>
+							<p>
+								티켓금액 ${ticketDetail.s_price}원
+								<c:if test="${not empty ticketDetail.c_num}">
+									- 할인금액 
+									<c:set var="discount" value="${ticketDetail.c_discount*0.01*ticketDetail.s_price}"/>
+									<fmt:formatNumber value="${discount+(1-(discount%1))%1}" type="number" />원
+									(${ticketDetail.c_name})
+								</c:if>
+							</p>
 						</td>
 					</tr>
 				</table>
