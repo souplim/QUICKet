@@ -151,37 +151,42 @@
 </head>
 	<body>
 	<div class="container">
+		<div class="row text-center">
+			<h3>공연 관리 리스트</h3>
+		</div>
+		<br/><br/>
 		<div class="row">
-			<br/><br/>
 			<form class="form-horizontal" id="f_search">
-				<div class="form-group">
-					<div class="col-sm-2">
-						<select id="s_array" name="s_array" class="form-control">
-							<option value="s_num">번호순</option>
-							<option value="s_name">이름순</option>
-							<option value="s_startdate">시작일순</option>
-							<option value="s_closedate">종료일순</option>								
-						</select>						
+				<div>
+					<div class="form-group">
+						<div class="col-sm-2">
+							<select id="s_array" name="s_array" class="form-control">
+								<option value="s_num">번호순</option>
+								<option value="s_name">이름순</option>
+								<option value="s_startdate">시작일순</option>
+								<option value="s_closedate">종료일순</option>								
+							</select>						
+						</div>
+						<div class="col-sm-2 col-sm-offset-2">
+							<select id="search" name="search" class="form-control">
+								<option value="s_name">공연명</option>
+								<option value="th_name">공연장명</option>
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" name="keyword" id="keyword" class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<button type="button" id="searchData" class="form-control btn btn-default">검색</button>
+						</div>
 					</div>
-					<div class="col-sm-2 col-sm-offset-2">
-						<select id="search" name="search" class="form-control">
-							<option value="s_name">공연명</option>
-							<option value="th_name">공연장명</option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<input type="text" name="keyword" id="keyword" class="form-control" />
-					</div>
-					<div class="col-sm-2">
-						<button type="button" id="searchData" class="form-control btn btn-default">검색</button>
-					</div>
-				</div>
-				<div class="form-group" id="dateCheck">
-					<div class="col-sm-2 col-sm-offset-8">
-						<input type="date" name="start_date" id="start_date" class="form-control" />
-					</div>
-					<div class="col-sm-2">
-						<input type="date" name="end_date" id="end_date" class="form-control" />
+					<div class="form-group" id="dateCheck">
+						<div class="col-sm-2 col-sm-offset-8">
+							<input type="date" name="start_date" id="start_date" class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<input type="date" name="end_date" id="end_date" class="form-control" />
+						</div>
 					</div>
 				</div>
 				<br/><br/>
