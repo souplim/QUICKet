@@ -8,7 +8,7 @@
 		from (
 		    select s_name, COUNT(seat_num) AS s_ticketcnt
 		    from (
-		        select s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
+		        select s.s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
 		        from (
 		            select s_num, s_name, s_price, th_num 
 		            from show
@@ -33,7 +33,7 @@
 		    from (
 		        select s_name, COUNT(seat_num) AS seat_nums, s_price
 		        from (
-		            select s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
+		            select s.s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
 		            from (
 		                select s_num, s_name, s_price, th_num 
 		                from show
@@ -59,7 +59,7 @@
 		    from (
 		        select s_name, s_price, COUNT(seat_num) AS s_ticketcnt  
 		        from (
-		            select s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
+		            select s.s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, h.hall_date, t.ti_regdate, ti_status 
 		            from (
 		                select s_num, s_name, s_price, th_num 
 		                from show
@@ -113,7 +113,7 @@
 				SUM(DECODE(s_num, ${item.s_num}, s_price, 0)) AS "s${item.s_num}"
 			</foreach>
 		from (
-		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
+		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s.s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
 		    from (
 		        select s_num, s_name, s_price, th_num 
 		        from show        
