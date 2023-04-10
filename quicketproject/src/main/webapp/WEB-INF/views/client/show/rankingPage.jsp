@@ -38,14 +38,20 @@
 	padding:10px;
 }
 .topRankBox{
-	padding:20px;
+	padding:25px;
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
+}
+.topRankBox_title{
+	font-size:24px;
+	font-weight:bold;
 }
 .rankBox_thumbnail{
 	display:inline-block;
 }
-.rankBox_img{
+.topRankBox .rankBox_img{
 	width:100%;
+	max-width:300px;
+	max-height:400px;
 }
 .rank_label{
 	position:absolute;
@@ -122,6 +128,9 @@
 	text-align:center;
 	box-shadow:10px 10px 20px 3px rgb(123,123,123,0.5);
 }
+.otherRankBox .rankBox_img{
+	width:100%;
+}
 .otherRankBox_ranking{
 	display:flex;
 	flex-flow:column;
@@ -133,6 +142,10 @@
 .otherRankBox_text{
 	display:inline-block;
 	text-align:left;
+}
+.otherRankBox_title{
+	font-size:24px;
+	font-weight:bold;
 }
 #start_date, #end_date{
 	display:none;
@@ -498,7 +511,7 @@
 						<p class="topRankBox_theater">${rank.th_name}</p>
 						<br/>
 						<div class="topRankBox_ticket">${rank.rank_ticket}%</div>
-						<div class="topRankBox_point" data-point="${rank.s_point}"><fmt:formatNumber value="${rank.s_point}" pattern=".00" /></div>
+						<div class="topRankBox_point" data-point="${rank.s_point}">&nbsp;<fmt:formatNumber value="${rank.s_point}" pattern=".00" /></div>
 					</div>
 				</div>
 			</div>	
@@ -549,7 +562,7 @@
 						</a>
 					</div>
 					<div class="otherRankBox_text col-xs-4 col-xs-offset-1">
-						<h4 class="otherRankBox_title"><strong>${rank.s_name}</strong></h4>
+						<p class="otherRankBox_title">${rank.s_name}</p>
 						<br/>
 						<p class="otherRankBox_theater"><strong>장소 : </strong>${rank.th_name}</p>
 						<p class="otherRankBox_date"><strong>기간 : </strong>${rank.s_opendate} ~ ${show.s_closedate}</p>
@@ -557,7 +570,7 @@
 					<div class="otherRankBox_ticket_point col-xs-2">
 						<div class="row"><span class="otherRankBox_ticket">${rank.rank_ticket}%</span></div>
 						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
-						<div class="row otherRankBox_pointBox" data-point="${rank.s_point}"><fmt:formatNumber value="${rank.s_point}" pattern="0.00" /></div>
+						<div class="row otherRankBox_pointBox" data-point="${rank.s_point}">&nbsp;<fmt:formatNumber value="${rank.s_point}" pattern="0.00" /></div>
 					</div>
 				</div>
 			</c:forEach>
