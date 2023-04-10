@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/popup.jspf" %>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <title>회원 쿠폰 내역</title>
 

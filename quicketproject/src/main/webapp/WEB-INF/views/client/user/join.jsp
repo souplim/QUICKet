@@ -241,6 +241,14 @@
   <style>
   	#keyForm{display:none;}
   	#id-chk-msg{display:none};
+  	#regBtn {width:100%;}
+  	#regForm {
+  	margin-top : 50px;
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    padding: 20px;
+  	}
+  	.table>tbody>tr>td {border : none;}
   </style>
   
 <title>회원가입</title>
@@ -258,7 +266,7 @@
 				<table class="table">
 					<tr class="form-group"> 
 						<td class="text-center">이름</td>
-						<td colspan="4">
+						<td colspan="5">
 							<div id="nameDiv" class="has-feedback">
 							<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름을 입력해주세요."/>
 							<span id="nameicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -267,21 +275,21 @@
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">아이디</td>
-						<td colspan="3">
+						<td colspan="4">
 						<div id="idDiv" class="has-feedback">
 							<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디를 입력해주세요. (영문자 + 숫자 조합, 5-15자)"/>
 							<span id="idicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 						</div>
 						</td>
-						<td><button type="button" id="idChkBtn" class="btn btn-default">중복 확인</button></td>
+						<td><button type="button" id="idChkBtn" class="btn w-btn-outline w-btn-gray-outline">중복 확인</button></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td colspan="4"><div id="id-chk-msg" class="alert"></div></td>
+						<td colspan="5"><div id="id-chk-msg" class="alert"></div></td>
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">비밀번호</td>
-						<td colspan="4">
+						<td colspan="5">
 						<div id="pwdDiv" class="has-feedback">
 							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요. (영문자 + 숫자 조합, 대문자 포함 8-20자)"/>
 							<span id="pwdicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -290,7 +298,7 @@
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">비밀번호 확인</td>
-						<td colspan="4">
+						<td colspan="5">
 						<div id="pwdChkDiv" class="has-feedback">
 							<input type="password" class="form-control" id="u_pwd" name="u_pwd" placeholder="비밀번호를 한번 더 입력해주세요."/>
 							<span id="pwdChkicon" class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -306,13 +314,13 @@
 							<input id="F" type="radio" checked value="F" name="u_gender">
 							<label for="F" class="">여성</label>
 						</td>
-						<td></td>
+						<td colspan="2"></td>
 						<td class="text-center">생년월일</td>
 						<td><input  class="form-control" type="date" name="u_birth" id="u_birth" value="2000-01-01" required></td>
 					</tr>
 					<tr class="form-group">
 						<td class="text-center">이메일</td>
-						<td colspan="2"><input type="text" id="email" class="form-control" required></td>
+						<td colspan="3"><input type="text" id="email" class="form-control" required></td>
 						<td><div class="input-group"><span class="input-group-addon">@</span><input type="text" id="email_address" class="form-control" required></div></td>
 						<td>
 							<select name="emaildomain" id="emaildomain" class="form-control" >
@@ -326,7 +334,7 @@
 							<input type="hidden" id="u_email" name="u_email" value="" required>
 						</td>
 						<td>
-							<button type="button" class="btn btn-default" id="keySendBtn">인증키 전송</button>
+							<button type="button" class="btn w-btn-outline w-btn-gray-outline" id="keySendBtn">인증키 전송</button>
 						</td>
 					</tr>
 					<tr id="keyForm"  class="form-group">
@@ -344,7 +352,7 @@
 						<td colspan="4"><input type="text" id="u_phone" name="u_phone" class="form-control" placeholder="전화번호를 입력해주세요. (- 제외)" required></td>
 					</tr>
 					<tr>
-						<td colspan="5"><button type="button" id="regBtn" class="btn">회원 가입</button></td>
+						<td colspan="7"><button type="button" id="regBtn" class="btn btn-block w-btn-outline w-btn-indigo-outline">회원 가입</button></td>
 					</tr>
 				</table>				
 				
