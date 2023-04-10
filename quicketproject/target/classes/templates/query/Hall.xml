@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.admin.ticket.dao.HallDao">
-
-	<!-- 게시판 리스트 기본 조회 -->
-	<!-- <select id="boardList" resultType="board">
-		SELECT b_num, b_name, b_title, to_char(b_date,'YYYY-MM-DD') as b_date
-		FROM spring_board
-		ORDER BY b_num desc
-	</select> -->
-	
-	<!--  <sql id="boardSearch">
+<!-- 
+	<sql id="boardSearch">
 		<if test="search=='b_title'">
 			<![CDATA[ b_title LIKE '%'||#{keyword}||'%']]>
 		</if>
@@ -22,37 +15,50 @@
 		<if test="search=='b_date'">
 			<![CDATA[ to_char(b_date,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
 		</if>
-	</sql> 
+	</sql>
 	
-	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+	 <select id="boardList" parameterType="board" resultType="board">
+		<![CDATA[
+			SELECT b_num, b_name, b_title, to_char(b_date, 'YYYY-MM-DD') as b_date ,readcnt, b_thumb, b_file
+			FROM(
+				SELECT /*+ INDEX_DESC(spring_board spring_board_pk) */
+					rownum as rnum, b_num, b_name, b_title, b_date, readcnt, b_thumb, b_file
+				FROM spring_board
+				WHERE ]]>
+				<trim prefix="(" suffix=") AND " prefixOverrides="AND">
 					<include refid="boardSearch"></include>
 				</trim>
-	-->
+				<![CDATA[	rownum <= #{pageNum} * #{amount}
+					) boardlist
+					WHERE rnum > (#{pageNum}-1) * #{amount}
+				]]>
+	</select>  -->
 	
 	 <select id="hall_list" parameterType="hall" resultType="hall">
-	 	select distinct(t.th_num), s_name ,th_name, hall_start,hall_end,
-		TO_DATE(hall_end, 'YYYY-MM-DD') - TO_DATE(hall_start, 'YYYY-MM-DD') + 1 as date_gap, 
-		(select count(h.hall_id) from hall) as data_num 
-		from theater t LEFT JOIN hall h
-		ON t.th_num = h.th_num
+	 	select s.s_num, s_name ,th_name, TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start,
+		TO_DATE(to_date(hall_end,'mm/dd/yy'), 'YYYY-MM-DD') - TO_DATE(to_date(hall_start,'mm/dd/yy'), 'YYYY-MM-DD') + 1 as date_gap, 
+		count(h.hall_id) as data_num 
+		from hall h LEFT JOIN theater t
+		ON h.th_num = t.th_num
 		LEFT JOIN show s
-		ON t.th_num = s.th_num
+		ON h.s_num = s.s_num
+        group by s.s_num,s_name ,th_name, hall_end, hall_start
+        order by s_num
 	</select> 
 	 <select id = "payCancelPage" resultType="pay">
 	 	select distinct(p.pay_num),TO_CHAR(ti_date, 'YYYY-MM-DD') ti_date, t.u_id, s.s_name, pay_status
 				from ticket t 
-		        INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
-		        INNER JOIN seat se ON ts.seat_num = se.seat_num
+		        INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num 
+		        INNER JOIN seat se ON ts.seat_num = se.seat_num and ts.hall_id = se.hall_id
 		        INNER JOIN hall h ON se.hall_id = h.hall_id
 		        INNER JOIN theater th ON h.th_num = th.th_num
 		        INNER JOIN show s ON th.th_num = s.th_num
-		        INNER JOIN img i ON s.s_num = i.s_num
 		        INNER JOIN pay p ON t.pay_num = p.pay_num
 	</select> 
 	
 	<select id="hallDetail" parameterType="hall" resultType="hall">
-		select hall_id, s_name ,th_name, h.hall_place as hall_place, h.hall_turn as hall_turn,
-		h.hall_seatNum as hall_seatNum, hall_start as hall_start,hall_end, hall_date, hall_time
+		select hall_id, s_name ,th_name, h.hall_place as hall_place, h.hall_turn as hall_turn,t.th_num,
+		h.hall_seatNum as hall_seatNum, hall_start as hall_start,hall_end, hall_date, hall_time,s.s_num
 		from theater t LEFT JOIN hall h
 		ON t.th_num = h.th_num
 		LEFT JOIN show s
@@ -67,6 +73,19 @@
 		ON t.th_num = s.th_num
 		WHERE hall_id= #{hall_id}
 	</select>
+
+	<select id="seat_updateForm" parameterType="hall" resultType="seat">
+		select * 
+		from seat 
+		where hall_id=#{hall_id}
+	</select>
+	<select id="seat_updateForm2" parameterType="seat" resultType="seat">
+		select seat_num, seat_name, h.hall_id, seat_status, seat_age, TO_CHAR(seat_update,'YYYY-MM-DD') as seat_update, th.th_num
+			from  seat se INNER JOIN hall h ON  se.hall_id = h.hall_id
+		        INNER JOIN theater th ON h.th_num = th.th_num
+		        INNER JOIN show s ON th.th_num = s.th_num and s.s_num = h.s_num
+		where seat_num=#{seat_num} and h.hall_id = #{hall_id}
+	</select>
 	 <!-- 전체 레코드 수 조회 
    <select id="hall_listCnt" parameterType="hall" resultType="int">
       SELECT count(*) FROM hall
@@ -74,7 +93,6 @@
          <include refid="hallSearch"></include>
       </trim>
    </select>-->
-   <!-- 게시판 리스트 쓰기 -->
 	<update id="hallUpdate" parameterType="hall">
 		UPDATE hall 
 		SET hall_place = #{hall_place},
@@ -82,7 +100,31 @@
 			hall_time = #{hall_time},
 			hall_seatNum = #{hall_seatNum},
 			hall_date = #{hall_date}
-		WHERE hall_id = #{hall_id}
+		where hall_id = #{hall_id}
+	</update>
+	<delete id="hall_delete" parameterType="hall">
+		DELETE FROM hall
+		where th_num=#{th_num} and hall_id=#{hall_id} and s_num=#{s_num}
+	</delete>
+	<delete id="seat_delete" parameterType="seat">
+		DELETE FROM seat
+		where seat_num=#{seat_num} and hall_id = #{hall_id}
+	</delete>
+	<insert id="hall_write" parameterType="hall">
+		INSERT INTO HALL
+		VALUES(HALL_SEQ.nextval, #{hall_place}, #{hall_turn},#{hall_time}, #{hall_seatNum},#{hall_date}, #{hall_start}, #{hall_end}, SYSDATE, SYSDATE, #{th_num}, #{s_num})
+	</insert>
+	<insert id="seat_write" parameterType="seat">
+		INSERT INTO seat(seat_num,seat_name,hall_id,seat_status,seat_age,seat_regdate)
+		VALUES(#{seat_num},#{seat_name},#{hall_id},#{seat_status},#{seat_age},SYSDATE)
+	</insert>
+	<update id="seatUpdate" parameterType="seat">
+		UPDATE seat 
+		SET seat_name = #{seat_name},
+			seat_status = #{seat_status},
+			seat_age = #{seat_age},
+			seat_update = #{seat_update}
+		where seat_num=#{seat_num} and hall_id = #{hall_id}
 	</update>
 	
 	<!-- 결제 취소 테이블 반환 -->

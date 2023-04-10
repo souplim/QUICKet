@@ -18,6 +18,7 @@ public class ticketSuccessVO {
 	private String ti_date;			// 예약날짜
 	private String s_opendate;		// 공연시작날짜
 	private String s_closedate;		// 공연종료날짜
+	private String seat_num;
 	
 }
 

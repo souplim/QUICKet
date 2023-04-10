@@ -4,67 +4,88 @@
 
 <!-- 달력 부트스트랩 -->
 
-<link rel="stylesheet" href="/resources/include/css/client/ticket/jquery-ui.css">
+<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="/resources/include/css/client/ticket/ticket_calender2.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		
  
 <!-- 달력 부트스트랩 끝 -->
 
 	<style>
+		@font-face {
+		    font-family: 'LeferiBaseType-RegularA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		.container-fluid { 
+			background-color: #fff;
+			font-family: 'LeferiBaseType-RegularA';
+			font-size: 17px;
+		}
 		body{
-			width:980px;
-			height:915px;
+			font-family: 'LeferiBaseType-RegularA';
+			margin:10px 0 0 15px;
+			padding:10px;
+			width:1125px;
+			height:750px;
 			display:flex;
 			flex-wrap:nowrap;
-			border: 1px solid gray;
 		}
 		/* main-------------------------------------------------------- */
 		#main{
-			width:690px;
+			width:815px;
 			height:100%;
 		}
 		/* header-------------------------------------------------------- */
 		#main > #header{
-			width:100%;
-			height:100px;
-			background:#4A4A4A;
+			width:99%;
+			height:80px;
+			background:white;
 			display:flex;
 			justify-content:flex-end;
 			align-items:flex-end;
 		}
-		#logo{
+/* 		#logo{
 			width:127px;
 			height:75px;
 			background:gray;
 			margin:0 10px 10px 0;
 			
 		}
-		.step{
-			width:135px;
-			height:90px;
+ */		.step{
+ 			border-radius:10px;
+ 			margin-right:2px;
+			width:160px;
+			height:70px;
 			display:flex;
 			align-items:center;
 		}
 		/* subMain-------------------------------------------------------- */
 		#main > #subMain{
 			width:100%;
-			height:585px;
+			height:430px;
 		}
 		#subMain_box{
-			width:670px;
-			height:565px;
-			margin: 9px 0 0 8px;
+			width:790px;
+			height:400px;
+			
+			margin: 40px 10px 0 0;
 			display:flex;
 		}
 		.subMain_box1{
 			width:50%;
 			height:100%;
-			border:2px solid lightgray;
+			/* border:2px solid #676767;
+			border-radius:5px; */
 		}
 		.subMain_box2{
 			width:100%;
 			height:40px;
-			background: #757bf6;
+			background: ;
 			display:flex;
 			align-items:center;
 		}
@@ -77,16 +98,17 @@
 		}
 		/* footer-------------------------------------------------------- */
 		#main > #footer{
-			width:668px;
-			height:210px;
-			border:2px solid lightgray;
-			margin: 0 0 0 8px;
+			width:790px;
+			height:230px;
+			border:2px solid #676767;
+			border-radius:5px;
+			margin: 0 10p 0 8px;
 			display:flex;
 		}
 		#footer_box1{
 			width:40px;
 			height:100%;
-			background:#7F7F7F;
+			background:#686868;
 		}
 		#footer  ul ,li{
 			list-style: none;
@@ -96,11 +118,15 @@
 		}
 		/* side-------------------------------------------------------- */
 		#side{
-			width:290px;
-			height:100%;/* 915px */
-			background:#4A4A4A;
+			padding:15px;
+			border-radius:10px;
+			width:310px;
+			height:800px;/* 915px */
+			margin-top:10px;
+			background:#353535;
 		}
 		.side_box{
+		
 			width:100%;
 			border-bottom:1px solid #262626;
 		}
@@ -139,7 +165,7 @@
 			color:#7F7F7F;
 		}
 		.side_box3{
-			height:25%;
+			height:27%;
 		}
 		.side_box4{
 			height:15%;
@@ -147,6 +173,7 @@
 		}
 		#side_box4_box1{
 			border:1px solid #262626;
+			border-radius:3px;
 			width:80%;
 			height:40px;
 			background:#404040;
@@ -162,7 +189,7 @@
 		}
 		.ticket_info{
 			width:320px;
-			height:340px;
+			height:370px;
 			display:flex;
 			align-items:flex_start;
 			justify-content: center;
@@ -180,11 +207,12 @@
 			color: white;
 		}
 		.hall_div{
-			width:150px;
-			height:40px;
-			border:2px solid #FFA726;
-			background-color: white;
-			color: #FFA726;
+			width:130px;
+			height:25px;
+			border:0;
+			border-radius:2px;
+			background-color: #EB4956;
+			color: white;
 			margin:2px 5px 2px 10px;
 			text-align:center;
 		}
@@ -220,7 +248,25 @@
 			  
 			  return Today > StartDate;
 			}
-		
+		$.datepicker.setDefaults({
+		      closeText: "닫기",
+		      prevText: "이전달",
+		      nextText: "다음달",
+		      currentText: "오늘",
+		      monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
+		        "7월", "8월", "9월", "10월", "11월", "12월"
+		      ],
+		      monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",
+		        "7월", "8월", "9월", "10월", "11월", "12월"
+		      ],
+		      dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+		      dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+		      dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		      weekHeader: "주",
+		      isRTL: false,
+		      showMonthAfterYear: true,
+		      yearSuffix: "년"
+		    })
 		if(dayRestrict() == true){
 			// 캘린더
 			$('.datepicker').datepicker({
@@ -235,9 +281,11 @@
 			    	var day3=arr[2];
 			    	var Date = arr[2]+"-"+arr[0]+"-"+arr[1];
 			    	let num = equalsValue(Date);
+			    	
 					if(num == -1){
 						var hidden_div = "<input type='text' class='hall_div hidden_div' value='서비스 준비중' readonly>";
 					}else{
+						$("#hall_date").text(returnData[num].hall_date);
 						var hidden_div = "<input type='hidden' class='hall_div hidden_div' value="+num+">";
 				    	var hall_place_div = "<button class='hall_div hall_place_div'>"+returnData[num].hall_place+"</button>";
 					}
@@ -250,6 +298,7 @@
 		           	$(".info1").append(hidden_div);
 			    }
 			})
+			
 			// 캘린더 끝
 			// 캘린더 클릭 시 관 시간 회차 선택
 		}else{
@@ -269,6 +318,7 @@
 					if(num == -1){
 						var hidden_div = "<input type='text' class='hall_div hidden_div' value='서비스 준비중' readonly>";
 					}else{
+						$("#hall_date").text(returnData[num].hall_date);
 						var hidden_div = "<input type='hidden' class='hall_div hidden_div' value="+num+">";
 				    	var hall_place_div = "<button class='hall_div hall_place_div'>"+returnData[num].hall_place+"</button>";
 					}
@@ -317,7 +367,7 @@
 				location.href="/client/payPage/pay_step2?hall_date="+returnData[num].hall_date+
 						"&th_num="+${hall_list.th_num}+"&hall_id="+returnData[num].hall_id+"&s_num="+"${detailData.s_num}";
 			}else{
-				alert("관람일/관/회차를 선택해주세요.");
+				swal('',"관람일/관/회차를 선택해주세요.",'warning');
 			}
 				
 			});
@@ -331,31 +381,29 @@
 	<body>	
 	<div id="main">
 		<div id="header">
-			<div id="logo">
-			
-			</div>
-			<div class="step step1" style="background:white;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#00B0F0;font-size:12px;font-weight:bold;">step1</span><br>
+			<img src="/resources/image/001.png" alt="QUICKet로고" width="120" height="45" style="position:relative;bottom:10px;right:18px;"/>
+			<div class="step step1" style="background:white;border:3px solid #666666"><!-- #666666 -->
+				<span style="margin:0 0 10px 5px;"><span style="color:#3A85C7;font-size:12px;font-weight:bold;">step1</span><br>
 				<span style="font-size:16px;font-weight:bold;">관람일/회차<span style="color:#00B0F0;">∨</span></span></span>
 			</div>
-			<div class="step step2" style="background:#BFBFBF;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step2</span><br>
+			<div class="step step2" style="background:#676767;">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step2</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">좌석선택</span></span>
 			</div>
-			<div class="step step3" style="background:#A6A6A6;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step3</span><br>
+			<div class="step step3" style="background:#5C5C5C">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step3</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">할인/쿠폰</span></span>
 			</div>
-			<div class="step step4" style="background:#7F7F7F;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step4</span><br>
+			<div class="step step4" style="background:#535354;">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step4</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">결제방법</span></span>
 			</div>
 		</div>
 		<div id="subMain">
 			<div id="subMain_box">
-				<div class="subMain_box1" style="border-right:0px;">
+				<div class="subMain_box1" style="margin-right:10px;">
 					<div class="subMain_box2">
-						<span style="font-size:14px;color:white;margin-left:5px;">관람일 선택</span>
+						<span style="font-size:13px;color:white; width:90px;height:25px;text-align:center;line-height: 30px;vertical-align: middle;;margin:10px 0 0 10px;border-radius:12px 0 0 12px;background:#f9e000;">관람일 선택</span>
 					</div>
 					<div class="subMain_box3">
 						<div class = "datepicker" style="margin-bottom:40px;">
@@ -365,21 +413,21 @@
 				</div>
 				<div class="subMain_box1">
 					<div class="subMain_box2">
-						<span style="font-size:14px;color:white;margin-left:5px;">회차 선택</span>
+						<span style="font-size:13px;color:white; width:90px;height:25px;text-align:center;line-height: 30px;vertical-align: middle;;margin:10px 0 0 10px;border-radius:12px 0 0 12px;background:#f9e000;">회차 선택</span>
 					</div>
 					<div class="subMain_box3">
 						<div class = "ticket_info">
-				       		<div class="info_box info1" style="width:100%;">
-							  	<span style="margin-left:10px;">관</span>
-							  	<hr style="width:90%;">
+				       		<div class="info_box info1" style="width:100%;height:80px;">
+							  	<span style="margin-left:10px;font-size:14px;font-weight:bold;">관</span>
+							  	<hr style="width:90%;border:1px solid #4A4A4A;">
 						  	</div>
-						  	<div class="info_box info2" style="width:100%;">
-							  	<span style="margin-left:10px;">회차</span>
-							  	<hr style="width:90%;">
+						  	<div class="info_box info2" style="width:100%;height:80px;">
+							  	<span style="margin-left:10px;font-size:14px;font-weight:bold;">회차</span>
+							  	<hr style="width:90%;border:1px solid #4A4A4A;">
 						  	</div>
 						  	<div class="info_box info3" style="width:100%;">
-							  	<span style="margin-left:10px;">예매 가능 좌석</span>
-							  	<hr style="width:90%;">
+							  	<span style="margin-left:10px;font-size:14x;font-weight:bold;">예매 가능 좌석</span>
+							  	<hr style="width:90%;border:1px solid #4A4A4A;">
 						  	</div>
 				    	</div>
 					</div>
@@ -388,11 +436,11 @@
 		</div>
 		<div id="footer">
 			<div id="footer_box1">
-				<span style="writing-mode:vertical-rl; color:white; margin:60px 0 0 8px; font-size:18px;">
+				<span style="writing-mode:vertical-rl; color:white; margin:60px 0 0 8px; font-size:15px;">
 				유 의 사 항
 				</span>
 			</div>
-			<div id="footer_box2">
+			<div id="footer_box2" style="padding:10px;">
 				<ul>
 					<li style="color:red;">- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
 					<li>- 어린이 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, 현장에서 증빙서류 미지참 시 차액 지불하셔야 합니다.</li>
@@ -426,7 +474,7 @@
 		</div>
 		<div class="side_box side_box2">
 				<table class="side_table1">
-					<tr><td><h3 style="color:white;">선택내역</h3></td></tr>
+					<tr><td><h3 style="color:white;font-size:17px;">선택내역</h3></td></tr>
 					<tr><td>날짜</td>
 						<td id="hall_date"></td>
 					</tr>
@@ -446,7 +494,7 @@
 		</div>
 		<div class="side_box side_box3">
 			<table class="side_table1">
-					<tr><td><h3 style="color:white;">결제내역</h3></td></tr>
+					<tr><td><h3 style="color:white;font-size:17px;">결제내역</h3></td></tr>
 					<tr><td>티켓금액</td>
 						<td>0</td>
 					</tr>
@@ -460,12 +508,12 @@
 		</div>
 		<div class="side_box side_box4">
 			<div id="side_box4_box1">
-				<h4 style="color:white;">최종 결제금액</h4>
+				<h4 style="color:white;font-size:15px;">최종 결제금액</h4>
 				<span style="color:white;">0원</span>
 			</div>
 			
-			<button id="nextBtn"style="background:#757bf6;border:0;width:180px;height:35px;color:white;
-			margin:30px 0 0 55px;">다음단계</button>
+			<button id="nextBtn"style="background:#7F9CB7;border:0;width:160px;height:30px;color:white;
+			margin:10px 0 0 55px;">다음단계</button>
 		</div>
 	</div>
 	</body>
