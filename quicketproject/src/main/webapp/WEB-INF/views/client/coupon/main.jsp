@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <title>쿠폰</title>
 
+<style>
+	.title { margin-bottom: 30px; }
+</style>
+
 <script>
 
 	$(function(){
@@ -61,6 +65,9 @@
 
 <div class="container">
 
+<div class="title">
+	<h1>쿠폰</h1>
+</div>
 
 <div class="row">
 	<form name="couponForm"id="couponForm">

@@ -79,13 +79,13 @@
 	
 	<!-- 예매기록 있는 공연명 조회 -->
 	<select id="showList" resultType="stat">
-		select s_num, s_name
+		select s.s_num, s_name
 		from show s JOIN theater th ON s.th_num = th.th_num
 		            JOIN hall h ON th.th_num = h.th_num
 		            JOIN ticket_seat ts ON h.hall_id = ts.hall_id
 		            JOIN ticket t ON ts.pay_num = t.pay_num
-		group by s_num, s_name
-		order by s_num
+		group by s.s_num, s_name
+		order by s.s_num
 	</select>	
 	
 	<!-- <select id="monthlySales" resultType="stat">
