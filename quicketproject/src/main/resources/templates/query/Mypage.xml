@@ -76,7 +76,7 @@
 		                                , 2) seat_age
 		                        FROM TICKET_SEAT ts INNER JOIN SEAT se ON ts.seat_num = se.seat_num AND ts.hall_id = se.hall_id
 		                        where pay_num=#{pay_num}
-		                        GROUP BY pay_num, se.seat_num) 
+		                        GROUP BY pay_num) 
 		                ) seat_age
 		            from dual) AS seat_ages,
 		            t.u_id, t.ti_status, i.img_name, i.img_dir, i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, 

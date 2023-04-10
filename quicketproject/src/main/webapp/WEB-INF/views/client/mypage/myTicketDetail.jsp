@@ -34,6 +34,57 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			/* 좌석 번호 생성*/
+			 let seatArr = new Array();
+		      let b = 1;
+		      for(let i = 0 ; i < 50; i++){
+		         if(i>=0 && i<=7){
+		            seatArr.push("a"+"-"+b);
+		            if(i==7){
+		               b = 0;
+		            }
+		         }else if(i>=8 && i<=15){
+		            seatArr.push("b"+"-"+b);
+		            if(i==15){
+		               b = 0;
+		            }
+		         }else if(i>=16 && i<=25){
+		            seatArr.push("c"+"-"+b);
+		            if(i==25){
+		               b = 0;
+		            }
+		         }else if(i>=26 && i<=35){
+		            seatArr.push("d"+"-"+b);
+		            if(i==35){
+		               b = 0;
+		            }
+		         }else if(i>=36 && i<=45){
+		            seatArr.push("e"+"-"+b);
+		            if(i==45){
+		               b = 0;
+		            }
+		         }else if(i>=46 && i<=50){
+		            seatArr.push("f"+"-"+b);
+		         }
+		         
+		         b++;
+		      }
+		      let seatValueString = "${ticketDetail.seat_nums}";
+		      let seatValue = seatValueString.split(',');
+		      let resultSeatVal = "";
+		      
+		      for(let i = 0 ; i < seatValue.length; i++){
+		         resultSeatVal += seatArr[Number(seatValue[i])+1]
+		         if(i!=seatValue.length-1){
+		            resultSeatVal += ", "
+		         }
+		      }
+		      $(".seatVal").text(resultSeatVal+" 석(${ticketDetail.seat_ages})");
+
+			
+			
+			
+			
 			/* 공연정보 버튼 클릭시 이벤트 처리 */
 			$("#showInfoBtn").on("click", function(){
 				let s_num = $("#s_num").val();
@@ -320,8 +371,8 @@
 							</tr>
 							<tr>
 								<td class="col-md-4 gray" style="vertical-align:middle">좌석번호</td>
-								<td class="col-md-8 text-left">
-									${ticketDetail.seat_nums}번
+								<td class="col-md-8 text-left seatVal">
+									<%-- ${ticketDetail.seat_nums}번 --%>
 									<%-- <c:choose>
 										<c:when test="${not empty seatList}">
 											<c:forEach var="seats" items="${seatList}" varStatus="status">
@@ -329,7 +380,6 @@
 											</c:forEach>
 										</c:when>
 									</c:choose> --%>
-									(${ticketDetail.seat_ages})
 								</td>
 							</tr>
 						</table>
@@ -386,12 +436,12 @@
 								${ticketDetail.pay_amount}원
 							</p>
 							<p>
-								티켓금액 
+								티켓금액<br/> 
 								<c:forEach var="seatAge" items="${seatAgeList}" varStatus="status">
 									<c:if test="${seatAge.seat_age eq '성인'}">
 										성인 ${ticketDetail.s_price}원
 									</c:if>
-									<c:if test="${seatAge.seat_age eq '아동'}">
+									<c:if test="${seatAge.seat_age eq '어린이'}">
 										아동 
 										<c:set var="child" value="${ticketDetail.s_price*0.3}"/>
 										<fmt:formatNumber value="${child+(1-(child%1))%1}" type="number" />원
