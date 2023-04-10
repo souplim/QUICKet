@@ -58,8 +58,8 @@
 					<c:choose>
 						<c:when test="${not empty hall_list}">
 							<c:forEach var="hall" items="${hall_list}" varStatus="status">
-								<tr class="text-center" data-num="${hall.th_num}">
-									<td>${hall.th_num}</td>
+								<tr class="text-center" data-num="${hall.s_num}">
+									<td>${hall.s_num}</td>
 									<td class="goDetail text-left">${hall.s_name}</td>
 									<td class="text-left">${hall.th_name}</td>
 									<td class="text-left">${hall.hall_start}</td>

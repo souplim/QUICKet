@@ -51,8 +51,8 @@
 
 	<!-- 예매 테이블 insert -->
 	<insert id="ticketInsert" parameterType="pay">
-		INSERT INTO TICKET(pay_num, ti_date, ti_status, u_id, ti_regdate, ti_update)
-		VALUES(#{pay_num},SYSDATE,1,#{u_id},SYSDATE,SYSDATE)
+		INSERT INTO TICKET(pay_num, ti_date, ti_status, u_id, ti_regdate, ti_update,ti_coupon)
+		VALUES(#{pay_num},SYSDATE,1,#{u_id},SYSDATE,SYSDATE,#{ti_coupon})
 	</insert>
 	
 	<!-- 예매좌석 테이블 Insert -->

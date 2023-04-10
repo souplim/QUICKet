@@ -413,7 +413,6 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
-	background:pink;
 	position: absolute;
 	top: 2px;
 	width: 1.8em;
@@ -986,17 +985,6 @@ a.ui-button:focus {
 
 .ui-visual-focus {
 	box-shadow: 0 0 3px 1px rgb(94, 158, 214);
-}
-.ui-state-active,
-.ui-widget-content .ui-state-active,
-.ui-widget-header .ui-state-active,
-a.ui-button:active,
-.ui-button:active,
-.ui-button.ui-state-active:hover {
-	border-radius: 50%;
-	background: #FFA726;
-	font-weight: normal;
-	color: #ffffff;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {

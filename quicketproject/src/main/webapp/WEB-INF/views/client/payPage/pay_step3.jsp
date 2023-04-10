@@ -9,47 +9,63 @@
 <script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 
 	<style>
+		@font-face {
+		    font-family: 'LeferiBaseType-RegularA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		.container-fluid { 
+			background-color: #fff;
+			font-family: 'LeferiBaseType-RegularA';
+			font-size: 17px;
+		}
 		body{
-			width:980px;
-			height:915px;
+			font-family: 'LeferiBaseType-RegularA';
+			margin:10px 0 0 15px;
+			padding:10px;
+			width:1125px;
+			height:750px;
 			display:flex;
 			flex-wrap:nowrap;
-			border: 1px solid gray;
 		}
 		/* main-------------------------------------------------------- */
 		#main{
-			width:690px;
+			width:815px;
 			height:100%;
 		}
 		/* header-------------------------------------------------------- */
 		#main > #header{
-			width:100%;
-			height:100px;
-			background:#4A4A4A;
+			width:99%;
+			height:80px;
+			background:white;
 			display:flex;
 			justify-content:flex-end;
 			align-items:flex-end;
 		}
-		#logo{
+/* 		#logo{
 			width:127px;
 			height:75px;
 			background:gray;
 			margin:0 10px 10px 0;
 			
 		}
-		.step{
-			width:135px;
-			height:90px;
+ */		.step{
+ 			border-radius:10px;
+ 			margin-right:2px;
+			width:160px;
+			height:70px;
 			display:flex;
 			align-items:center;
 		}
 		/* subMain-------------------------------------------------------- */
 		#main > #subMain{
 			width:100%;
-			height:585px;
+			height:430px;
 		}
 		#subMain_box{
-			width:670px;
+			width:790px;
 			height:565px;
 			margin: 9px 0 0 8px;
 			display:flex;
@@ -57,7 +73,6 @@
 		.subMain_box1{
 			width:100%;
 			height:100%;
-			border:2px solid lightgray;
 		}
 		.subMain_box2{
 			width:100%;
@@ -74,16 +89,17 @@
 		}
 		/* footer-------------------------------------------------------- */
 		#main > #footer{
-			width:668px;
-			height:210px;
-			border:2px solid lightgray;
-			margin: 0 0 0 8px;
+			width:790px;
+			height:230px;
+			border:2px solid #676767;
+			border-radius:5px;
+			margin: 0 10p 0 8px;
 			display:flex;
 		}
 		#footer_box1{
 			width:40px;
 			height:100%;
-			background:#7F7F7F;
+			background:#686868;
 		}
 		#footer  ul ,li{
 			list-style: none;
@@ -93,11 +109,15 @@
 		}
 		/* side-------------------------------------------------------- */
 		#side{
-			width:290px;
-			height:100%;/* 915px */
-			background:#4A4A4A;
+			padding:15px;
+			border-radius:10px;
+			width:310px;
+			height:800px;/* 915px */
+			margin-top:10px;
+			background:#353535;
 		}
 		.side_box{
+		
 			width:100%;
 			border-bottom:1px solid #262626;
 		}
@@ -116,6 +136,7 @@
 			justify-content:flex-start;
 			align-items:flex-start;
 		}
+		
 		.side_table  tr td{
 			padding-top:10px;
 			color:white;
@@ -135,7 +156,7 @@
 			color:#7F7F7F;
 		}
 		.side_box3{
-			height:25%;
+			height:27%;
 		}
 		.side_box4{
 			height:15%;
@@ -143,6 +164,7 @@
 		}
 		#side_box4_box1{
 			border:1px solid #262626;
+			border-radius:3px;
 			width:80%;
 			height:40px;
 			background:#404040;
@@ -151,7 +173,6 @@
 			align-items:center;
 			justify-content: space-around;
 		}
-		
 		/* -------------------------------------------------------- */
 		
 	</style>
@@ -263,34 +284,32 @@
 	</form>
 	<div id="main">
 		<div id="header">
-			<div id="logo">
-			
-			</div>
-			<div class="step step1" style="background:#D9D9D9;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step1</span><br>
+			<img src="/resources/image/001.png" alt="QUICKet로고" width="120" height="45" style="position:relative;bottom:10px;right:18px;"/>
+			<div class="step step1" style="background:#7A7A7B">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step1</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">관람일/회차</span></span>
 			</div>
-			<div class="step step2" style="background:#BFBFBF;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step2</span><br>
+			<div class="step step2" style="background:#676767;">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step2</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">좌석선택</span></span>
 			</div>
-			<div class="step step3" style="background:white;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#00B0F0;font-size:12px;font-weight:bold;">step3</span><br>
+			<div class="step step3" style="background:white;border:3px solid #666666"><!-- #666666 -->
+				<span style="margin:0 0 10px 5px;"><span style="color:#3A85C7;font-size:12px;font-weight:bold;">step3</span><br>
 				<span style="font-size:16px;font-weight:bold;">할인/쿠폰<span style="color:#00B0F0;">∨</span></span></span>
 			</div>
-			<div class="step step4" style="background:#7F7F7F;">
-				<span style="margin:0 0 10px 5px;"><span style="color:#595959;font-size:12px;font-weight:bold;">step4</span><br>
+			<div class="step step4" style="background:#535354;">
+				<span style="margin:0 0 10px 5px;"><span style="color:#B3B3B3;font-size:12px;font-weight:bold;">step4</span><br>
 				<span style="font-size:16px;color:white;font-weight:bold;">결제방법</span></span>
 			</div>
 		</div>
 		<div id="subMain">
 			<div id="subMain_box">
-				<div class="subMain_box1">
+				<div class="subMain_box1" style="width:90%;margin:10px 0 0 30px;">
 					<div class="subMain_box2">
 						<span style="font-size:14px;color:white;margin-left:5px;">쿠폰</span>
 					</div>
 						<%-- ==========리스트시작================== --%>
-						<div id="pay_step3_coupon" class="table-height"> 
+						<div id="pay_step3_coupon" class="table-height" > 
 							<table summary="게시판 리스트" class="couponTable table table-striped">
 								<thead>
 									<tr>
@@ -481,16 +500,16 @@
 		</div>
 		<div class="side_box side_box4">
 			<div id="side_box4_box1">
-				<h4 style="color:white;">최종 결제금액</h4>
+				<h4 style="color:white;font-size:15px;">최종 결제금액</h4>
 				<!-- 금액 콤마 파싱 -->
 				<fmt:formatNumber var="totalAmount" value="${totalAmount}" pattern="#,###"/>
 				<span style="color:white;" id="totalAmount"><c:out value="${totalAmount}"/>원</span>
 			</div>
 			<div style="display:flex;">
-			<button id ="prevBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
-			margin:30px 0 0 35px;">이전단계</button>
-			<button id ="nextBtn" style="background:#757bf6;border:0;width:90px;height:35px;color:white;
-			margin:30px 0 0 25px;">다음단계</button>
+			<button id ="prevBtn" style="background:#7F9CB7;border:0;width:160px;height:30px;color:white;
+			margin:17px 0 0 5px;">이전단계</button>
+			<button id ="nextBtn" style="background:#7F9CB7;border:0;width:160px;height:30px;color:white;
+			margin:17px 0 0 25px;">다음단계</button>
 			</div>
 		</div>
 	</div>
