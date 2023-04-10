@@ -26,4 +26,5 @@ public interface ClientShowService {
 	
 	public int showPointUpdate(ReviewVO vo);
 	
+	public int ticketCntUpdate(ShowVO vo);
 } 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 #searchBox{
 	margin-bottom:80px;
@@ -208,8 +209,7 @@ a[role='tab']{
 						<div class="genreBox_text">
 							<p class="genreBox_title">${show.s_name}</p>
 							<p class="genreBox_subtxt">${show.s_opendate}</p>
-							<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
-							<span class="genreBox_subtxt_point" data-point="${s_point}">${s_point}</span>
+							<span class="genreBox_subtxt_point" data-point="${show.s_point}">&nbsp;<fmt:formatNumber value="${show.s_point}" pattern=".00" /></span>
 						</div>
 					</div>
 				</c:forEach>

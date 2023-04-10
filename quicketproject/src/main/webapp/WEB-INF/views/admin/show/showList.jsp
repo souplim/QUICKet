@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 	.input-date-empty::before{
 		content:attr(data-placeholder);
@@ -9,6 +10,7 @@
 	.thumbnail{
 		width:100%;
 	}
+	#list th{text-align:center;}
 </style>
 <script type="text/javascript" src="/resources/include/js/showBox.js"></script>
 <script type="text/javascript">
@@ -213,32 +215,31 @@
 							<td>
 								<table class="table table-bordered">
 									<tr>
-										<td>공연명</td>
+										<th>공연명</th>
 										<td class="showname">
 											<a href="/admin/show/showDetail?s_num=${show.s_num}">${show.s_name}</a>
 										</td>
 									</tr>
 									<tr>
-										<td>공연장</td>
+										<th>공연장</th>
 										<td class="theatername">
 											<a>${show.th_name}</a>
 										</td>
 									</tr>
 									<tr>
-										<td>공연기간</td>
+										<th>공연기간</th>
 										<td>${show.s_opendate} ~ ${show.s_closedate}</td>
 									</tr>
 									<tr>
-										<td>평점</td>
-										<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
-										<td class="showlist_point" data-point="${s_point}">${s_point}</td>
+										<th>평점</th>
+										<td class="showlist_point" data-point="${show.s_point}"><fmt:formatNumber value="${show.s_point}" pattern=".00" /></td>
 									</tr>
 									<tr>
-										<td>등록일</td>
+										<th>등록일</th>
 										<td>${show.s_regdate}</td>
 									</tr>
 									<tr>
-										<td>수정일</td>
+										<th>수정일</th>
 										<td>${show.s_update}</td>
 									</tr>
 								</table>

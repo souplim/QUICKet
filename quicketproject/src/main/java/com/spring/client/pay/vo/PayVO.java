@@ -24,6 +24,7 @@ public class PayVO {
 	private String amount = "";
 	private String reason = "";
 	
+	private String ti_coupon = "";	//ticket테이블 사용쿠폰 컬럼
 	
 	
 }
