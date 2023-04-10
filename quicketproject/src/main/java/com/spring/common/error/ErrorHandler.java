@@ -1,4 +1,4 @@
-package com.spring.common.error;
+/* package com.spring.common.error;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ErrorHandler implements ErrorController {
-
+	
 	@GetMapping("/error")
 	public String handlerError(HttpServletRequest request) {
 		
@@ -32,4 +32,6 @@ public class ErrorHandler implements ErrorController {
       
         return "/error/errorPage";
     } 
+    
 }
+*/
