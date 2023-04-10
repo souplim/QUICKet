@@ -50,7 +50,7 @@
 </script>
 
 <style>
-	img {width : 100%;}
+	.couponImg {width : 100%;}
 	.caption{height:110px;}
 	
 </style>
@@ -75,7 +75,7 @@
 		<c:forEach var="coupon" items="${couponList}" varStatus="status">
 				<div class="col-md-4 coupon">
 				    <div class="thumbnail">
-				        <img src="/uploadStorage/coupon/${coupon.c_img}"/>
+				        <img class="couponImg" src="/uploadStorage/coupon/${coupon.c_img}"/>
 				        <div class="caption">
 				          <p><span>[${coupon.c_discount}%]</span>&nbsp;${coupon.c_name}</p>
 				          <p><small>발급기간 : <span>${coupon.c_startissue}</span>~<span>${coupon.c_endissue }</span></small><br>
