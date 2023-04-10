@@ -115,8 +115,100 @@
 			/* 예매취소 -> 확인 버튼 클릭시 이벤트 처리 */
 			$("#cancelConfirmBtn").on("click", function(){
 				let pay_num = $(".dataNum").attr("data-num");
-				location.href="/mypage/myTicketDelete?pay_num="+pay_num;
+				payToken(pay_num);
 			});
+			/* 예매 취소 메서드 */
+			function requestCancel(imp_uid, token, amount) {
+				let value= JSON.stringify({
+					token : token,
+					imp_uid : imp_uid,
+					amount : amount,
+					reason : "사유"
+					});
+				$.ajax({
+	                url: "/api/v1/payment/cancel", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: value,
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result != "hello"){
+				    		console.log("환불실패");
+				    	}
+				    	else{/* 성공 */
+				    		console.log("환불성공");
+				    		
+				    	}
+				    }
+				})
+	        }
+			//결제상태변경
+			function payStatus(pay_num1) {
+				$.ajax({
+	                url: "/admin/payJson2/payStatus", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: String(pay_num1),
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result == "SUCCESS"){
+				    		console.log("결제상태변경 성공");
+				    	}
+				    	else{/* 성공 */
+				    		console.log("결제상태변경 실패");
+				    		
+				    	}
+				    }
+				})
+	        }
+			
+			//예매상태변경
+			function ticketStatus(pay_num1) {
+				$.ajax({
+	                url: "/admin/payJson2/ticketStatus", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: String(pay_num1),
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result == "SUCCESS"){
+				    		console.log("예매상태변경 성공");
+				    	}
+				    	else{
+				    		console.log("예매상태변경 실패");
+				    		
+				    	}
+				    }
+				})
+	        }
+			
+			function payToken(pay_num){
+				let url = "/admin/payJson2/payToken/"+pay_num; 
+				$.ajaxSetup({
+					async:false
+				});
+				$.getJSON(url, function(data){
+					$(data).each(function(){
+						let pay_num = this.pay_num;
+						let imp_uid = this.imp_uid;
+						let token = this.token;
+						let amount = this.pay_amount;
+						requestCancel(imp_uid, token, amount);
+						payStatus(pay_num);
+						ticketStatus(pay_num);
+						location.href="/mypage/myTicketDelete?pay_num="+pay_num;
+					});
+				}).fail(function(){
+					alert("결제 취소를 실패했습니다. 관리자에게 문의해주세요.")				
+				})
+			}
+			/* 예매 취소 메서드 끝 */
 			
 		});
 	</script>

@@ -141,21 +141,22 @@ public class MypageController {
 			return "redirect:/user/login";
 		else
 			mypageVO.setU_id(userVO.getU_id());
-		
+//		
 		String url = "";
-		
-		int result = mypageService.myTicketDelete(pay_num);
-
+//		
+//		int result = mypageService.myTicketDelete(pay_num);
+//
 		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
-		
-		if(result == 1) {
-			model.addAttribute("ticketDelete", ticketDetail);
-			url = "client/mypage/myTicketDelete";
-		} else {
-			model.addAttribute("ticketDetail", ticketDetail);
-			url = "redirect:/client/mypage/myTicketDetail"; // jsp 페이지로 포워드 하지 않고 매핑 찾기
-		}
+		model.addAttribute("ticketDelete", ticketDetail);
+		url = "client/mypage/myTicketDelete";
+//		if(result == 1) {
+//			model.addAttribute("ticketDelete", ticketDetail);
+//			url = "client/mypage/myTicketDelete";
+//		} else {
+//			model.addAttribute("ticketDetail", ticketDetail);
+//			url = "redirect:/client/mypage/myTicketDetail"; // jsp 페이지로 포워드 하지 않고 매핑 찾기
+//		}
 		
 		return url;
 	}
