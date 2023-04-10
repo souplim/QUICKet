@@ -436,7 +436,17 @@
 </head>
 <body>
 	<div class="container">
-	<br/>
+		<div class="row">
+			<h2><strong>랭킹> 
+			<c:if test="${showVO.s_array=='s_point'}"><a style="color:#888888" href="/ranking?s_array=s_point">평점순</a></c:if>
+			<c:if test="${showVO.s_array=='rank_ticket'}">예매율순> 
+				<c:if test="${showVO.rank_period=='day'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=day">일간</a></c:if>
+				<c:if test="${showVO.rank_period=='week'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=week">주간</a></c:if>
+				<c:if test="${showVO.rank_period=='month'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=month">월간</a></c:if>
+				<c:if test="${showVO.rank_period=='year'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=year">연간</a></c:if>
+			</c:if>
+			</strong></h2> 
+		</div>
 	<form id="f_ranking">
 		<div class="row">
 			<div class="col-xs-4 col-xs-offset-4">

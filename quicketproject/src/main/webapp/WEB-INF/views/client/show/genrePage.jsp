@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 #searchBox{
-	margin-bottom:80px;
+	margin: 0px 10% 80px 10%;
+	padding :25px;
 }
 #genrePageDate{
 	display:inline-block;
@@ -133,18 +134,20 @@ a[role='tab']{
 </head>
 <body>
 	<div class="container">
-		<br/><br/><br/>
+		<div class="row">
+			<h1><strong>장르> <a style="color:#888888" href="/genre?s_genre=${showVO.s_genre}">${showVO.s_genre}</a></strong></h1> 
+		</div>
 		<div class="row">
 			<form class="form-horizontal" id="f_search">
 				<input type="hidden" class="s_genre" name="s_genre" value="${ShowVO.s_genre}"/>
 				<div id="searchBox" class="form-group">
-					<div class="col-sm-2 col-sm-offset-2">
+					<div class="col-sm-2 col-sm-offset-1">
 						<select id="search" name="search" class="form-control">
 							<option value="s_name">공연명</option>
 							<option value="th_name">공연장명</option>
 						</select>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-6">
 						<input type="text" name="keyword" id="keyword" class="form-control" />
 					</div>
 					<div class="col-sm-2">
