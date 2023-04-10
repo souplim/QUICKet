@@ -12,7 +12,11 @@ public class RankVO extends ShowVO{
 	private String rank_start 	= "";
 	private String rank_end 	= "";
 	private double rank_ticket 	= 0.0;
-	private int rank_rank 		= 0;
+	
+	//랭킹 받는 변수
+	private int rank_rank 		= 0;	//총합 랭킹
+	private int rank_genre_rank = 0;	//장르 랭킹
+	
 	private String rank_regdate = "";
 	private String rank_update 	= "";
 	

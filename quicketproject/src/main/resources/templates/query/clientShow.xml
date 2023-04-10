@@ -100,16 +100,20 @@
 			<![CDATA[, decode(rank_prev, 0, 'new', to_char(rank_prev - rank_rank)) rank_change]]>
 		</if>
 		<![CDATA[from (select rownum as rnum, s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
-		rank_start, rank_end, rank_rank, rank_ticket,]]>
+		rank_start, rank_end, rank_ticket,]]>
 		<if test="s_array=='s_point'">
-			<![CDATA[(dense_rank() over (order by s_point desc)) s_point_rank,]]>
+			<![CDATA[rank_rank, (dense_rank() over (order by s_point desc)) s_point_rank,]]>
 		</if>
-		<if test="s_array=='rank_ticket' and rank_period!=''">
-			<include refid="getRankPrev"></include> 
+		<if test="s_array=='rank_ticket'">
+			<if test="s_genre==''"><![CDATA[rank_rank, ]]></if>
+			<if test="s_genre!=''"><![CDATA[rank_genre_rank as rank_rank, ]]></if>
+			<if test="rank_period!=''">
+				<include refid="getRankPrev"></include> 
+			</if>
 		</if>
 		<![CDATA[(select theater.th_name from theater where theater.th_num = od.th_num) as th_name 
 		from (select s.s_num as s_num, s_name, th_num, s_genre, s_opendate, s_closedate, s_price, s_point, 
- 		rank_start, rank_end, rank_rank, rank_ticket from show s left join rank r on s.s_num = r.s_num  
+ 		rank_start, rank_end, rank_rank, rank_genre_rank, rank_ticket from show s left join rank r on s.s_num = r.s_num  
 		where s.s_num = r.s_num and r.rank_start = #{start_date} and r.rank_end = #{end_date}]]>
 		<if test="s_genre!=''"><![CDATA[and s_genre = #{s_genre}]]></if>
 		<if test="s_array=='' or s_array=='rank_ticket'"><![CDATA[order by rank_rank]]></if>
@@ -121,7 +125,12 @@
 		]]>
 	</select>
 	<sql id="getRankPrev">
-		<![CDATA[(nvl((select rank_rank from rank where ]]>
+		<if test="s_genre==''">
+			<![CDATA[(nvl((select rank_rank from rank where ]]>
+		</if>
+		<if test="s_genre!=''">
+			<![CDATA[(nvl((select rank_genre_rank from rank where s_genre=#{s_genre} and ]]>
+		</if>
 		<if test="rank_period=='day'">
 			rank_start = to_date(#{start_date})-1 and rank_end = to_date(#{end_date})-1
 		</if>
