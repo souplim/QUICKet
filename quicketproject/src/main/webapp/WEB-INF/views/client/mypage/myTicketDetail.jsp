@@ -79,12 +79,9 @@
 		            resultSeatVal += ", "
 		         }
 		      }
-		      $(".seatVal").text(resultSeatVal+" 석(${ticketDetail.seat_ages})");
-
+		      $(".seatVal").text(resultSeatVal+" 석(${ticketDetail.seat_ages})");			
 			
-			
-			
-			
+		      
 			/* 공연정보 버튼 클릭시 이벤트 처리 */
 			$("#showInfoBtn").on("click", function(){
 				let s_num = $("#s_num").val();
@@ -440,6 +437,7 @@
 								<c:forEach var="seatAge" items="${seatAgeList}" varStatus="status">
 									<c:if test="${seatAge.seat_age eq '성인'}">
 										성인 ${ticketDetail.s_price}원
+										<c:if test="${!status.last}">,</c:if>
 									</c:if>
 									<c:if test="${seatAge.seat_age eq '어린이'}">
 										아동 

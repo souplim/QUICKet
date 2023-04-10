@@ -72,7 +72,20 @@
 						<td class="col-md-8 text-left">
 							<p class="text-danger">${ticketDelete.pay_amount}원</p>
 							<p>
-								티켓금액 ${ticketDelete.s_price}원
+								티켓금액<br/> 
+								<c:forEach var="seatAge" items="${seatAgeList}" varStatus="status">
+									<c:if test="${seatAge.seat_age eq '성인'}">
+										성인 ${ticketDelete.s_price}원
+										<c:if test="${!status.last}">,</c:if>
+									</c:if>
+									<c:if test="${seatAge.seat_age eq '어린이'}">
+										아동 
+										<c:set var="child" value="${ticketDelete.s_price*0.3}"/>
+										<fmt:formatNumber value="${child+(1-(child%1))%1}" type="number" />원
+										<c:if test="${!status.last}">,</c:if>
+									</c:if>
+									<br/>
+								</c:forEach> 
 								<c:if test="${not empty ticketDelete.c_num}">
 									- 할인금액 
 									<c:set var="discount" value="${ticketDelete.c_discount*0.01*ticketDelete.s_price}"/>

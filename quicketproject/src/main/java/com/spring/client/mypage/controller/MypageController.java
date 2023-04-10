@@ -149,6 +149,11 @@ public class MypageController {
 		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
 		model.addAttribute("ticketDelete", ticketDetail);
+		
+		// 좌석연령 리스트 조회
+		List<MypageVO> seatAgeList = mypageService.seatAgeList(pay_num);
+		model.addAttribute("seatAgeList", seatAgeList);
+				
 		url = "client/mypage/myTicketDelete";
 //		if(result == 1) {
 //			model.addAttribute("ticketDelete", ticketDetail);
