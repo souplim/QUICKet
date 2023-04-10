@@ -118,8 +118,12 @@ public class MypageController {
 		model.addAttribute("ticketDetail", ticketDetail);
 		
 		// 좌석번호 리스트 조회
-		List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
-		model.addAttribute("seatList", seatList);
+		/* List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
+		model.addAttribute("seatList", seatList); */
+		
+		// 좌석연령 리스트 조회
+		List<MypageVO> seatAgeList = mypageService.seatAgeList(mypageVO.getPay_num());
+		model.addAttribute("seatAgeList", seatAgeList);
 				
 		return "client/mypage/myTicketDetail"; // /WEB-INF/views/client/mypage/myTicketDetail.jsp 
 	}
