@@ -11,7 +11,7 @@ public interface AdminTicketService {
 	public List<PayVO> payCancelPage();
 
 	public List<HallVO> hall_list(HallVO hvo); /* 검색 포함 리스트 */
-//	public int hall_listCnt(HallVO hvo);
+	public int hall_listCnt(HallVO hvo);
 	public List<HallVO> updateForm(HallVO hvo);
 	public HallVO updateForm2(HallVO hvo);
 	public List<SeatVO> seat_updateForm(HallVO hvo);
@@ -25,4 +25,5 @@ public interface AdminTicketService {
 	
 	public PayVO payToken(int pay_num);
 	public int payStatus(int pay_num);
+	public int ticketStatus(int pay_num);
 }

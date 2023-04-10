@@ -52,6 +52,29 @@
 			    }
 			})
         }
+		
+		//결제상태변경
+		function ticketStatus(pay_num1) {
+			$.ajax({
+                url: "/admin/payJson2/ticketStatus", // 예: https://www.myservice.com/payments/complete
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                data: String(pay_num1),
+                error 	: function(xhr, textStatus, errorThrown) {
+					alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+			    },
+			    success : function(result){
+			    	if(result == "SUCCESS"){
+			    		console.log("예매상태변경 성공");
+			    	}
+			    	else{
+			    		console.log("예매상태변경 실패");
+			    		
+			    	}
+			    }
+			})
+        }
+		
 		function payToken(pay_num){
 			let url = "/admin/payJson2/payToken/"+pay_num; 
 			$.ajaxSetup({
@@ -65,6 +88,7 @@
 					let amount = this.pay_amount;
 					requestCancel(imp_uid, token, amount);
 					payStatus(pay_num);
+					ticketStatus(pay_num);
 					location.href="/admin/ticket/payCancelPage";
 				});
 			}).fail(function(){

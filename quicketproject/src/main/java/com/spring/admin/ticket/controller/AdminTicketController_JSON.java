@@ -52,5 +52,13 @@ public class AdminTicketController_JSON {
 			return (result==1) ? "SUCCESS" : "FAILURE";
 		}
 
+		@PostMapping(value = "/ticketStatus", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+		public String ticketStatus(@RequestBody String pay_num){
+			log.info("ticketStatus 호출 성공");
+			int result = 0;
+			result = adminTicketService.ticketStatus(Integer.parseInt(pay_num));
+			return (result==1) ? "SUCCESS" : "FAILURE";
+		}
+
 	
 }
