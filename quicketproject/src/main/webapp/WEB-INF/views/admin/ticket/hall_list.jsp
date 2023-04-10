@@ -103,7 +103,6 @@
 					<label>검색조건</label>
 					<select id="search" name="search"  class="form-control">
 						<option value="all">전체</option>
-						<option value="s_num">번호</option>
 						<option value="s_name">제목</option>
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />

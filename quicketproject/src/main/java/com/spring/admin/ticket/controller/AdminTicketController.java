@@ -94,6 +94,10 @@ public class AdminTicketController {
 	@RequestMapping(value="/hall_list", method = RequestMethod.GET)
 	public String hall_list(@ModelAttribute("data") HallVO hvo, Model model) {
 		log.info("hall_list 호출 성공");
+		log.info("getPageNum:" + hvo.getPageNum());
+		List<HallVO> hall_list = adminTicketService.hall_list(hvo);
+		model.addAttribute("hall_list", hall_list);
+			System.out.println(hall_list.toString());
 		// 전체 레코드수 조회
 		int total = adminTicketService.hall_listCnt(hvo);
 		model.addAttribute("pageMaker", new PageDTO(hvo, total));
