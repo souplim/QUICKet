@@ -8,7 +8,13 @@
 
 
 		let keyword = "", search = "", start_date = "", end_date = "";
-		$(function(){
+		$(function(){			
+
+			/* 글쓰기 버튼 클릭 시 처리 이벤트 */
+			$("#insertFormBtn").click(function(){
+				location.href = "/admin/faq/adminfaqwriteForm"; 				
+			});		
+			
 			if(search!="f_regdate"){
 				$("#dateCheck").hide();
 				var date = getDateFormat(new Date())
@@ -134,6 +140,8 @@
 			</div>
 			<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
 			<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button>	
+			<button type="button" class="btn btn-primary" id="insertFormBtn">FAQ등록</button>	
+			
 			
 		</form>
 	</div> 
