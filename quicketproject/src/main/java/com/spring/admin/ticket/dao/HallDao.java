@@ -15,7 +15,7 @@ public interface HallDao {
 	public List<PayVO> payCancelPage();
 	public List<HallVO> hall_list(HallVO hvo); /* 검색 포함 리스트 */
 
-	/* public int hall_listCnt(HallVO hvo); hall 테이블의 전체 레코드 수 */
+	public int hall_listCnt(HallVO hvo); /* hall 테이블의 전체 레코드 수 */
 
 	public int hallUpdate(HallVO hallVO);
 	public int hall_delete(HallVO hvo);

@@ -6,6 +6,51 @@
 	<script type="text/javascript">
 	$(function(){
 		
+		/* 검색 후 검색 대상과 검색 단어 출력 */
+		let word="<c:out value='${hallVO.keyword}' />";
+		let value="";
+		if(word!=""){
+			$("#keyword").val("<c:out value='${hallVO.keyword}' />");
+			$("#search").val("<c:out value='${hallVO.search}' />");
+		
+			/* if($("#search").val()!='b_content'){
+				//:contains()는 특정 텍스트를 포함한 요소반환 	
+				if($("#search").val()=='b_title') value = "#list tr td.goDetail";
+				else if($("#search").val()=='b_name') value="#list tr td.name";
+				console.log($(value+":contains('"+word+"')").html());
+				//$("#list tr td.goDetail:contains('노력')").html() => <span class='required'>노력</span>에 대한 명언
+		    	$(value+":contains('"+word+"')").each(function () {
+					let regex = new RegExp(word,'gi');
+					$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
+		    	});
+			} */
+		}
+		
+		/* 입력 양식 enter 제거 */
+		$("#keyword").bind("keydown", function(event){
+			 if (event.keyCode == 13) {
+			        event.preventDefault();
+			    }
+		});
+		
+		/* 검색 대상이 변경될 때마다 처리 이벤트 */
+		$("#search").change(function() {
+			if($("#search").val()=="all"){
+				$("#keyword").val("전체 데이터 조회합니다.");
+			}else if($("#search").val()!="all"){
+				$("#keyword").val("");
+				$("#keyword").focus();
+			}
+		});
+
+		/* 검색 버튼 클릭 시 처리 이벤트 */
+		$("#searchData").click(function(){
+			if($("#search").val()!="all"){ // 제목/내용/작성자 선택시 검색어 유효성 체크
+				if(!chkData("#keyword","검색어를")) return;
+			}
+			goPage();
+		});
+		
 		/* 글쓰기 버튼 클릭 시 처리 이벤트 */		
 		$("#insertFormBtn").click(function(){
 			location.href = "/admin/ticket/hall_writeForm"; 
@@ -29,6 +74,17 @@
 	}); // $ 함수 종료문
 	
 	/* 검색을 위한 실질적인 처리 함수 */
+	function goPage(){
+		if($("#search").val()=="all"){
+			$("#keyword").val("");
+		} 
+
+		$("#f_search").attr({
+			"method":"get",
+			"action":"/admin/ticket/hall_list"
+		});
+		$("#f_search").submit();
+	}
 </script>
 </head>
 <body>
@@ -38,6 +94,23 @@
 	</form>
 		<div class="contentTit page-header"><h3 class="text-center">공연 리스트</h3></div>
 		<%-- ============== 검색기능 시작 ====================  --%>
+		<div id="boardSearch" class="text-right">
+			<form id="f_search" name="f_search" class="form-inline">
+			<!-- 페이징 처리를 위한 파라미터 -->
+			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+				<div class="form-group">
+					<label>검색조건</label>
+					<select id="search" name="search"  class="form-control">
+						<option value="all">전체</option>
+						<option value="s_num">번호</option>
+						<option value="s_name">제목</option>
+					</select>
+					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />
+					<button type="button" id="searchData" class="btn btn-success">검색</button>
+				</div>
+			</form>
+		</div>
 		<%--================== 검색기능 종료 ===================  --%>	
 		<%-- ==========리스트시작================== --%>
 		<div id="hall_list" class="table-height"> 
@@ -81,7 +154,7 @@
 		</div>
 		<!-- ========리스트 종료 ==================== -->
 		<!-- ========페이징 출력 시작==================== -->
-<%-- 		<div class="text-center">
+		<div class="text-center">
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li class="paginate_button previous">
@@ -102,7 +175,7 @@
 					</li>
 				</c:if>
 			</ul>
-		</div> --%>
+		</div>
 		<!-- ========페이징 출력 종료================== -->
 		
 		<!-- ========글쓰기 버튼 출력 시작==================== -->

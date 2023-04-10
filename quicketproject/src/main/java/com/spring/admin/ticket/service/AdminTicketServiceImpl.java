@@ -37,12 +37,14 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		
 	}
 	
-	/*
-	 * //전체 레코드 수 구현
-	 * 
-	 * @Override public int hall_listCnt(HallVO bvo) { return
-	 * hallDao.hall_listCnt(bvo); }
-	 */
+	
+	  //전체 레코드 수 구현
+	  
+	  @Override public int hall_listCnt(HallVO bvo) {
+		  
+		  return hallDao.hall_listCnt(bvo); 
+		  }
+	 
 
 	@Override
 	public List<HallVO> updateForm(HallVO hvo) {

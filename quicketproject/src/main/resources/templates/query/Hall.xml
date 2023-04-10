@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.admin.ticket.dao.HallDao">
-<!-- 
-	<sql id="boardSearch">
-		<if test="search=='b_title'">
-			<![CDATA[ b_title LIKE '%'||#{keyword}||'%']]>
+ 
+	<sql id="hallSearch">
+		<if test="search=='s_num'">
+			<![CDATA[ s_num LIKE '%'||#{keyword}||'%']]>
 		</if>
-		<if test="search=='b_content'">
-			<![CDATA[ b_content LIKE '%'||#{keyword}||'%']]>
-		</if>
-		<if test="search=='b_name'">
-			<![CDATA[ b_name LIKE '%'||#{keyword}||'%']]>
-		</if>
-		<if test="search=='b_date'">
-			<![CDATA[ to_char(b_date,'YYYY-MM-DD') between #{start_date} and #{end_date}  ]]>	
+		<if test="search=='s_name'">
+			<![CDATA[ s_name LIKE '%'||#{keyword}||'%']]>
 		</if>
 	</sql>
 	
-	 <select id="boardList" parameterType="board" resultType="board">
-		<![CDATA[
-			SELECT b_num, b_name, b_title, to_char(b_date, 'YYYY-MM-DD') as b_date ,readcnt, b_thumb, b_file
-			FROM(
-				SELECT /*+ INDEX_DESC(spring_board spring_board_pk) */
-					rownum as rnum, b_num, b_name, b_title, b_date, readcnt, b_thumb, b_file
-				FROM spring_board
-				WHERE ]]>
-				<trim prefix="(" suffix=") AND " prefixOverrides="AND">
-					<include refid="boardSearch"></include>
-				</trim>
-				<![CDATA[	rownum <= #{pageNum} * #{amount}
-					) boardlist
-					WHERE rnum > (#{pageNum}-1) * #{amount}
-				]]>
-	</select>  -->
-	
-	 <select id="hall_list" parameterType="hall" resultType="hall">
-	 	select s.s_num, s_name ,th_name, TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start,
+	<!-- <select id="hall_list" parameterType="hall" resultType="hall">
+	select s.s_num, s_name ,th_name, TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start,
 		TO_DATE(to_date(hall_end,'mm/dd/yy'), 'YYYY-MM-DD') - TO_DATE(to_date(hall_start,'mm/dd/yy'), 'YYYY-MM-DD') + 1 as date_gap, 
 		count(h.hall_id) as data_num 
 		from hall h LEFT JOIN theater t
 		ON h.th_num = t.th_num
 		LEFT JOIN show s
 		ON h.s_num = s.s_num
+		where <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+					<include refid="hallSearch"></include>
+				</trim>
+		<![CDATA[	rownum <= #{pageNum} * #{amount}
+					
+				]]>
         group by s.s_num,s_name ,th_name, hall_end, hall_start
         order by s_num
+        </select> -->
+        <!-- ) hallList
+					WHERE ROWNUM > (#{pageNum}-1) * #{amount} -->
+        
+	 <select id="hall_list" parameterType="hall" resultType="hall">
+	 	select hallList.s_num, s_name ,th_name, hall_end1 as hall_end,hall_start1 as hall_start,
+				TO_DATE(hall_end1, 'YYYY-MM-DD') - TO_DATE(hall_start1, 'YYYY-MM-DD') + 1 as date_gap, 
+				count(hallList.hall_id) as data_num 
+	 	from
+	 	(
+	 	select h.hall_id, s.s_num, s_name ,th_name, TO_CHAR(to_date(hall_end,'mm/dd/yy'),'yyyy-mm-dd') as hall_end1,TO_CHAR(to_date(hall_start,'mm/dd/yy'),'yyyy-mm-dd') as hall_start1 
+		from hall h LEFT JOIN theater t
+		ON h.th_num = t.th_num
+		LEFT JOIN show s
+		ON h.s_num = s.s_num and h.th_num = s.th_num
+		WHERE 
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+					<include refid="hallSearch"></include>
+				</trim>
+				<![CDATA[	rownum <= #{pageNum} * #{amount}
+					) hallList
+					WHERE ROWNUM > (#{pageNum}-1) * #{amount}
+				]]>
+		group by hallList.s_num,s_name ,th_name, hall_end1, hall_start1
+		 order by s_num
 	</select> 
+	
+	 <!-- 전체 레코드 수 조회  -->
+   <select id="hall_listCnt" parameterType="hall" resultType="int">
+      SELECT count(*) FROM show
+      <trim prefix=" where (" suffix=")" >
+         <include refid="hallSearch"></include>
+      </trim>
+   </select>
 	 <select id = "payCancelPage" resultType="pay">
 	 	select distinct(p.pay_num),TO_CHAR(ti_date, 'YYYY-MM-DD') ti_date, t.u_id, s.s_name, pay_status
 				from ticket t 
@@ -86,13 +102,7 @@
 		        INNER JOIN show s ON th.th_num = s.th_num and s.s_num = h.s_num
 		where seat_num=#{seat_num} and h.hall_id = #{hall_id}
 	</select>
-	 <!-- 전체 레코드 수 조회 
-   <select id="hall_listCnt" parameterType="hall" resultType="int">
-      SELECT count(*) FROM hall
-      <trim prefix=" where (" suffix=")" >
-         <include refid="hallSearch"></include>
-      </trim>
-   </select>-->
+	
 	<update id="hallUpdate" parameterType="hall">
 		UPDATE hall 
 		SET hall_place = #{hall_place},

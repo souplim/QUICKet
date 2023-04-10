@@ -94,16 +94,16 @@ public class AdminTicketController {
 	@RequestMapping(value="/hall_list", method = RequestMethod.GET)
 	public String hall_list(@ModelAttribute("data") HallVO hvo, Model model) {
 		log.info("hall_list 호출 성공");
-		// 전체 레코드 조회
-		List<HallVO> hall_list = adminTicketService.hall_list(hvo);
-//		log.info(boardList);
-		model.addAttribute("hall_list",hall_list);
+		// 전체 레코드수 조회
+		int total = adminTicketService.hall_listCnt(hvo);
+		model.addAttribute("pageMaker", new PageDTO(hvo, total));
+		log.info("totalVal:" + total);
+		// 리스트 번호 부여를 위한 속성
+		int count = total - (hvo.getPageNum()-1) * hvo.getAmount();
+		model.addAttribute("count", count);
+		log.info("countVal:" + count);
+		log.info("getKeyword:" + hvo.getKeyword());
 		
-		// 전체 레코드수 구현
-//		int total = adminTicketService.hall_listCnt(hvo);
-//		log.info(total);
-		// 페이징 처리
-//		model.addAttribute("pageMaker", new PageDTO(hvo, total));
 		return "admin/ticket/hall_list"; // 
 	}
 	
