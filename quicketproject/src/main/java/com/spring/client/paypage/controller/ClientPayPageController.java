@@ -93,29 +93,26 @@ public class ClientPayPageController {
 	public String pay_step3(@ModelAttribute PayPageVO pvo,ShowVO vo, Model model,HttpSession session) {
 		log.info("pay_step3 호출 성공");
 		
-		PayPageVO pay_step3_list = clientPayPageService.pay_step3_list(pvo);
-		model.addAttribute("pay_step3_list", pay_step3_list);
-		
-		model.addAttribute("SeatMapData", pvo.getSeatList());
-		
-		// 아이디 세션 값 get
-		UserVO sessionVal = (UserVO)session.getAttribute("userLogin");
-		
-		List<CouponVO> pay_step3_coupon = null; 
-		if(sessionVal.getU_id() == null) {
-			return "/client/payPage/paypageError/uIdNullError";
-		}
-		else {
+		try {
+			PayPageVO pay_step3_list = clientPayPageService.pay_step3_list(pvo);
+			model.addAttribute("pay_step3_list", pay_step3_list);
+			
+			model.addAttribute("SeatMapData", pvo.getSeatList());
+
+			// 아이디 세션 값 get
+			UserVO sessionVal = (UserVO)session.getAttribute("userLogin");
+			
+			List<CouponVO> pay_step3_coupon = null;
 			pay_step3_coupon = clientPayPageService.pay_step3_coupon(sessionVal.getU_id());
 			model.addAttribute("pay_step3_coupon", pay_step3_coupon);
 			 
 			vo.setS_num(vo.getS_num());
 			ShowVO detailData = clientShowService.showDetail(vo);
 			model.addAttribute("detailData", detailData);
-			
+			}catch(Exception e){
+				return "/client/payPage/paypageError/uIdNullError";
+			}
 			return "/client/payPage/pay_step3";
-		}
-
 	}
 	// pay_step4 가기
 	

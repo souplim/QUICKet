@@ -11,6 +11,9 @@
 		});
 		
 		$("#write").click(function(){
+			if(!chkData('#seat_num', "좌석번호를")) return;
+			if(!chkData('#seat_name', "좌석이름을")) return;
+			if(!chkData('#seat_status', "좌석상태를")) return;
 			$("#writeForm").attr({
 				"method":"post",
 				"action":"/admin/ticket/seat_write"
