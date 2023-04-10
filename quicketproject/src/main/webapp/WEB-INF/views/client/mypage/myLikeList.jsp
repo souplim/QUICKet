@@ -10,7 +10,8 @@
 		$(function(){
 			/* 공연제목 클릭시 이벤트 처리 */
 			$(".goDetail").on("click", function(){
-				location.href="";
+				let s_num = $(this).parents("tr").attr("data-num");
+				location.href="/showDetail?s_num="+s_num;
 			});
 			
 			/* 제목 마우스 오버시 밑줄 */

@@ -5,6 +5,7 @@
 	.th_date{
 		font-size:8px;
 	}
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -149,8 +150,11 @@
 </head>
 	<body>
 	<div class="container">
+		<div class="row text-center">
+			<h3>공연장 관리 리스트</h3>
+		</div>
+		<br/><br/>
 		<div class="row">
-			<br/><br/>
 			<form class="form-horizontal" id="f_search">
 				<div class="form-group">
 					<div class="col-sm-2">
@@ -193,7 +197,7 @@
 						<th class="text-center col-md-3">주소</th>
 						<th class="text-center col-md-2">웹사이트</th>
 						<th class="text-center col-md-1">지도 정보</th>
-						<th class="text-center col-md-1">등록일/수정일</th>
+						<th class="text-center col-md-1">등록일<br/>/수정일</th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>

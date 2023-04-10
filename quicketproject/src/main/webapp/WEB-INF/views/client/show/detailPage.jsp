@@ -93,7 +93,7 @@ div[role="tabpanel"]{min-height:30em;}
 					
 					$("#th_name").html(theater.th_name);
 					$("#th_addr").html(theater.th_addr);
-					$("#th_web").html(theater.th_web);
+					$("#th_web").html("<a href='"+theater.th_web+"'>"+theater.th_web+"</a>");
 					
 					let th_name = theater.th_name;
 					let th_map_lat = theater.th_map_lat;
