@@ -183,7 +183,10 @@
 }
 </style>
 <c:if test="${showVO.s_array=='s_point'}">
-<style type="text/css">.rank_label_rank {top: 15px;}</style>
+<style type="text/css">
+	.rank_label_rank {top: 15px;}
+	.otherRankBox_ranking{padding-bottom:2em;}
+</style>
 </c:if>
 <c:if test="${showVO.rank_period=='month' or showVO.rank_period=='year'}">
 <style type="text/css">

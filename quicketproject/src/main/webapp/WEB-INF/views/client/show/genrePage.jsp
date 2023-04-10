@@ -182,7 +182,7 @@ a[role='tab']{
 				</div>
 				<div class="form-group"><div class="col-sm-2 col-sm-offset-1">
 					<select name="s_select_region" id="s_select_region" class="form-control">
-						<option value="">지역</option>
+						<option value="">지역검색</option>
 						<option value="서울">서울</option>
 						<option value="경기">경기</option>							
 					</select>
