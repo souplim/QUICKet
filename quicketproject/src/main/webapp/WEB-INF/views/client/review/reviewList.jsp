@@ -109,7 +109,7 @@
                            alert("댓글 등록이 완료되었습니다.");      
                            //dataReset();        // 입력폼 초기화
                             $("#r_title").val("");
-         					$("#r_content").val("");
+                        $("#r_content").val("");
                            listAll(s_num);
                         }
                      }
@@ -204,7 +204,7 @@
                   alert("댓글 수정이 완료되었습니다.");
                   //dataReset();
                    $("#r_title").val("");
-         		   $("#r_content").val("");
+                  $("#r_content").val("");
                   listAll(s_num);
                }
             }
@@ -244,7 +244,6 @@
          $element.attr("data-snum", s_num);
          $element.attr("data-num", r_no);
          $element.addClass("reply");
-      //    $element.find('.panel-heading > .panel-title > .point').html(r_point);
       
          let $point = $element.find('.panel-heading > .panel-title > .point');
             
@@ -261,20 +260,18 @@
           $element.find('.panel-heading > .panel-title > .name').html(r_title);
           $element.find('.panel-heading > .panel-title > .uid').html(u_id); 
           
- 			let u_id2 ="${userLogin.u_id}"; 
-	      
- 			if(u_id !== u_id2 ){
-	        //    $("#delBtn").show();
-	            $element.find('.panel-heading > .panel-title > #delBtn').css('display','none');
-	            $element.find('.panel-heading > .panel-title > #updateBtn').css('display','none');
-	        }else{	               
-	             //$("#updateBtn").hide();
-	            $element.find('.panel-heading > .panel-title > #delBtn').css('display','block');
-	            $element.find('.panel-heading > .panel-title > #updateBtn').css('display','block');
-	         }  
-        
-			
-          
+          let u_id2 ="${userLogin.u_id}"; 
+         
+          if(u_id !== u_id2 ){
+           //    $("#delBtn").show();
+               $element.find('.panel-heading > .panel-title > #delBtn').css('display','none');
+               $element.find('.panel-heading > .panel-title > #updateBtn').css('display','none');
+           }else{                  
+                //$("#updateBtn").hide();
+               $element.find('.panel-heading > .panel-title > #delBtn').css('display','block');
+               $element.find('.panel-heading > .panel-title > #updateBtn').css('display','block');
+            }         
+                   
           $element.find('.panel-heading > .panel-title > .date').html("      " + r_regdate); 
           $element.find('.panel-body').html(r_content);          
           
@@ -289,7 +286,7 @@
          }); */
          $("#r_title").val("");
          $("#r_content").val("");
-        		 
+               
          /*$("#r_name").prop("readonly", false);
          $("#replyForm button[type='button']").removeAttr("data-rnum");
          $("#replyForm button[type='button']").attr("id", "replyInsertBtn");
@@ -367,9 +364,7 @@
                              <input type="radio" name="r_point" value="2" id="rate4"><label for="rate4">⭐</label>
                              <input type="radio" name="r_point" value="1" id="rate5"><label for="rate5">⭐</label>
                           </fieldset>
-                      </td>
-                                             
-                        
+                         </td>
                      </tr>      
                      
                      <tr>
@@ -379,7 +374,8 @@
                         </td>
                                                 
                         <td class="col-md-4 btnArea">
-                           <button type="button" id="replyInsertBtn" class="w-btn-outline w-btn-indigo-outline btn-block btn sendBtn">저장</button>
+              <!--            <button type="button" id="replyInsertBtn" class="w-btn-outline w-btn-indigo-outline btn-block btn sendBtn">저장</button>  -->  
+                              <button type="button" id="replyInsertBtn" class="btn w-btn w-btn-gray gap" >저장</button>                           
                         </td>
                      </tr>
                      <tr>
@@ -408,7 +404,7 @@
                       &nbsp;
                      <span class="point" style="color:#ffdc3b"></span>  
                      <button type="button" id="updateBtn" data-btn="upBtn" class="btn w-btn w-btn-gray gap" style="float:right;" >수정</button>
-                  	 <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
+                      <button type="button" id="delBtn" class="btn w-btn w-btn-gray gap" style="float:right;">삭제</button>
                                  
                   </h3>                  
                </div>
