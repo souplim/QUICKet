@@ -53,6 +53,9 @@
 	max-width:300px;
 	max-height:400px;
 }
+.topRankBox_text{
+	margin-top:1em;
+}
 .rank_label{
 	position:absolute;
 	top:10px;
@@ -120,6 +123,9 @@
     position: absolute;
     top: 33px;
 }
+.rank_label[data-rank='1']{
+	background-color:yellow;
+}
 .otherRankBox{
 	display:flex;
 	align-items:center;
@@ -147,6 +153,9 @@
 	font-size:24px;
 	font-weight:bold;
 }
+.otherRankBox_ticket_point{
+	width:135px;
+}
 #start_date, #end_date{
 	display:none;
 }
@@ -173,6 +182,9 @@
 	font-size:20px;
 }
 </style>
+<c:if test="${showVO.s_array=='s_point'}">
+<style type="text/css">.rank_label_rank {top: 15px;}</style>
+</c:if>
 <c:if test="${showVO.rank_period=='month' or showVO.rank_period=='year'}">
 <style type="text/css">
 .ui-datepicker-calendar{display:none;}
@@ -401,6 +413,14 @@
 			makeStar(this, point);
 		})
 		
+		$(".topRankBox").each(function(index){
+			let color='#f3f2e9';
+			if(index==0){color='#ffd700';}else if(index==1){color='#c0c0c0';}
+			$(this).find(".rank_label").css({'backgroundColor':color});
+			$(this).find(".rank_label_part3").css({'borderTopColor':color});
+			$(this).find(".rank_label_part4").css({'borderTopColor':color});
+		})
+		
 		function rankingSubmit(){
 			$("#f_ranking").attr({
 				"method":"get",
@@ -459,14 +479,14 @@
 		<br/><br/><br/>
 		<div id="top3list" class="row">
 			<c:forEach var="rank" items="${rankList}" end="2" step="1" varStatus="status">
-			<div class="topRankBox_wrapper col-xs-4">
+			<div class="topRankBox_wrapper col-md-4">
 				<div class="topRankBox text-center" data-num="${rank.s_num}">
 					<div class="rank_label">
 						<div class="rank_label_text">
-						<c:if test="${empty param.s_array or param.s_array=='s_point'}">
+						<c:if test="${empty showVO.s_array or showVO.s_array=='s_point'}">
 							<span class="rank_label_rank">${rank.s_point_rank}</span>
 						</c:if>
-						<c:if test="${param.s_array=='rank_ticket'}">
+						<c:if test="${showVO.s_array=='rank_ticket'}">
 							<span class="rank_label_rank">${rank.rank_rank}</span>
 							<span class="rank_label_change">
 								<c:choose>
@@ -524,10 +544,10 @@
 			<c:forEach var="rank" items="${rankList}" begin="3" step="1" varStatus="status">
 				<div class="otherRankBox col-xs-12" data-num="${rank.s_num}">
 					<div class="otherRankBox_ranking text-center col-xs-2">
-						<c:if test="${empty param.s_array or param.s_array=='s_point'}">
+						<c:if test="${empty showVO.s_array or showVO.s_array=='s_point'}">
 							<div class="row"><span class="otherRankBox_rank">${rank.s_point_rank}</span></div>
 						</c:if>
-						<c:if test="${param.s_array=='rank_ticket'}">
+						<c:if test="${showVO.s_array=='rank_ticket'}">
 							<span span class="otherRankBox_rank">${rank.rank_rank}</span>
 							<span span class="otherRankBox_change">
 								<c:choose>
@@ -565,9 +585,9 @@
 						<p class="otherRankBox_title">${rank.s_name}</p>
 						<br/>
 						<p class="otherRankBox_theater"><strong>장소 : </strong>${rank.th_name}</p>
-						<p class="otherRankBox_date"><strong>기간 : </strong>${rank.s_opendate} ~ ${show.s_closedate}</p>
+						<p class="otherRankBox_date"><strong>기간 : </strong>${rank.s_opendate} ~ ${rank.s_closedate}</p>
 					</div>
-					<div class="otherRankBox_ticket_point col-xs-2">
+					<div class="otherRankBox_ticket_point">
 						<div class="row"><span class="otherRankBox_ticket">${rank.rank_ticket}%</span></div>
 						<c:set var="s_point" value="${(rank.s_point+0.005)-((rank.s_point+0.005)%0.01)}" />
 						<div class="row otherRankBox_pointBox" data-point="${rank.s_point}">&nbsp;<fmt:formatNumber value="${rank.s_point}" pattern="0.00" /></div>

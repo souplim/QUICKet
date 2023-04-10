@@ -164,7 +164,8 @@
 		    where s_num=#{s_num}) s LEFT JOIN (SELECT s_num, u_id, 1 is_likes FROM bookmark 
 		                            WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
 		                        ON s.s_num = B.s_num  
-		group by B.u_id, s.s_num, B.is_likes     
+		group by B.u_id, s.s_num, B.is_likes
+		having u_id = #{u_id}
 	</select>
 	
 	<!-- 상세페이지 - 공연의 관심수 -->
