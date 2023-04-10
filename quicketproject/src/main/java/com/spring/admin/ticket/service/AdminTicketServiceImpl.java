@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.admin.ticket.dao.HallDao;
 import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.pay.vo.PayVO;
+import com.spring.client.paypage.vo.SeatVO;
 import com.spring.common.file.FileUploadUtil;
 
 import lombok.Setter;
@@ -56,9 +57,51 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		return updateData;
 	}
 	@Override
+	public List<SeatVO> seat_updateForm(HallVO hvo) {
+		List<SeatVO> seat_updateForm = null;
+		seat_updateForm = hallDao.seat_updateForm(hvo);
+		return seat_updateForm;
+	}
+	@Override
+	public SeatVO seat_updateForm2(SeatVO svo) {
+		SeatVO seat_updateForm2 = null;
+		seat_updateForm2 = hallDao.seat_updateForm2(svo);
+		return seat_updateForm2;
+	}
+	@Override
 	public int hallUpdate(HallVO hvo){
 		int result = 0;
 		result = hallDao.hallUpdate(hvo);
+		return result;
+	}
+	@Override
+	public int hall_delete(HallVO hvo) {
+		int result = 0;
+		result = hallDao.hall_delete(hvo);
+		return result;
+	}
+	@Override
+	public int seat_delete(SeatVO svo) {
+		int result = 0;
+		result = hallDao.seat_delete(svo);
+		return result;
+	}
+	@Override
+	public int hall_write(HallVO hvo) {
+		int result = 0;
+		result = hallDao.hall_write(hvo);
+		return result;
+	}
+	@Override
+	public int seat_write(SeatVO svo) {
+		int result = 0;
+		result = hallDao.seat_write(svo);
+		return result;
+	}
+	@Override
+	public int seatUpdate(SeatVO svo) {
+		int result = 0;
+		result = hallDao.seatUpdate(svo);
 		return result;
 	}
 	
@@ -81,5 +124,6 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		result = hallDao.payStatus(pay_num);
 		return result;
 	}
+	
 	
 }

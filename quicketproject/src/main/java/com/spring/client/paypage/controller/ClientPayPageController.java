@@ -102,14 +102,19 @@ public class ClientPayPageController {
 		UserVO sessionVal = (UserVO)session.getAttribute("userLogin");
 		
 		List<CouponVO> pay_step3_coupon = null; 
-		pay_step3_coupon = clientPayPageService.pay_step3_coupon(sessionVal.getU_id());
-		model.addAttribute("pay_step3_coupon", pay_step3_coupon);
-		 
-		vo.setS_num(vo.getS_num());
-		ShowVO detailData = clientShowService.showDetail(vo);
-		model.addAttribute("detailData", detailData);
-		
-		return "/client/payPage/pay_step3";
+		if(sessionVal.getU_id() == null) {
+			return "/client/payPage/paypageError/uIdNullError";
+		}
+		else {
+			pay_step3_coupon = clientPayPageService.pay_step3_coupon(sessionVal.getU_id());
+			model.addAttribute("pay_step3_coupon", pay_step3_coupon);
+			 
+			vo.setS_num(vo.getS_num());
+			ShowVO detailData = clientShowService.showDetail(vo);
+			model.addAttribute("detailData", detailData);
+			
+			return "/client/payPage/pay_step3";
+		}
 
 	}
 	// pay_step4 가기
