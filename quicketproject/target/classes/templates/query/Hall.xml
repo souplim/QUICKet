@@ -132,10 +132,14 @@
 		select * from PAY where pay_num=#{pay_num}
 	</select> 
 	
-	<!-- 게시판 리스트 쓰기 -->
 	<update id="payStatus" parameterType="Integer">
 		UPDATE pay 
 		SET pay_status = 0
+		WHERE pay_num = #{pay_num}
+	</update>
+	<update id="ticketStatus" parameterType="Integer">
+		UPDATE ticket 
+		SET ti_status = 0
 		WHERE pay_num = #{pay_num}
 	</update>
 	

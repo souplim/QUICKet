@@ -29,6 +29,7 @@ public interface HallDao {
 	public SeatVO seat_updateForm2(SeatVO svo);
 	public PayVO payToken(int pay_num); 
 	public int payStatus(int pay_num);
+	public int ticketStatus(int pay_num);
 ////	public int readCntUpdate(BoardVO bvo);
 //	public void readCount(String num);
 //	

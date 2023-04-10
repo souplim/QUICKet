@@ -124,6 +124,12 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		result = hallDao.payStatus(pay_num);
 		return result;
 	}
+	@Override
+	public int ticketStatus(int pay_num) {
+		int result = 0;
+		result = hallDao.ticketStatus(pay_num);
+		return result;
+	}
 	
 	
 }

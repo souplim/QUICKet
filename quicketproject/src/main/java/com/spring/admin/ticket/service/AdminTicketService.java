@@ -25,4 +25,5 @@ public interface AdminTicketService {
 	
 	public PayVO payToken(int pay_num);
 	public int payStatus(int pay_num);
+	public int ticketStatus(int pay_num);
 }
