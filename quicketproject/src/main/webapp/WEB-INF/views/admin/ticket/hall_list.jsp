@@ -4,28 +4,18 @@
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 	<script type="text/javascript">
+	let keyword = "", search = "", search_detail = "", start_date = "", end_date = "";
 	$(function(){
 		
-		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word="<c:out value='${hallVO.keyword}' />";
-		let value="";
-		if(word!=""){
-			$("#keyword").val("<c:out value='${hallVO.keyword}' />");
-			$("#search").val("<c:out value='${hallVO.search}' />");
-		
-			/* if($("#search").val()!='b_content'){
-				//:contains()는 특정 텍스트를 포함한 요소반환 	
-				if($("#search").val()=='b_title') value = "#list tr td.goDetail";
-				else if($("#search").val()=='b_name') value="#list tr td.name";
-				console.log($(value+":contains('"+word+"')").html());
-				//$("#list tr td.goDetail:contains('노력')").html() => <span class='required'>노력</span>에 대한 명언
-		    	$(value+":contains('"+word+"')").each(function () {
-					let regex = new RegExp(word,'gi');
-					$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
-		    	});
-			} */
-		}
-		
+		search = "<c:out value='${data.search}' />";
+		keyword = "<c:out value='${data.keyword}' />";
+		/* 페이징 처리 이벤트 */
+		$(".paginate_button a").click(function(e){
+			e.preventDefault(); 
+			$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+			
+			goPage();
+		});
 		/* 입력 양식 enter 제거 */
 		$("#keyword").bind("keydown", function(event){
 			 if (event.keyCode == 13) {
@@ -69,8 +59,8 @@
 			});
 			$("#detailForm").submit();
 		})
-	
-		
+		console.log(${pageMaker.startPage});
+		console.log(${pageMaker.endPage});
 	}); // $ 함수 종료문
 	
 	/* 검색을 위한 실질적인 처리 함수 */
@@ -96,14 +86,12 @@
 		<%-- ============== 검색기능 시작 ====================  --%>
 		<div id="boardSearch" class="text-right">
 			<form id="f_search" name="f_search" class="form-inline">
-			<!-- 페이징 처리를 위한 파라미터 -->
-			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
-			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+				<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
 				<div class="form-group">
 					<label>검색조건</label>
 					<select id="search" name="search"  class="form-control">
 						<option value="all">전체</option>
-						<option value="s_num">번호</option>
 						<option value="s_name">제목</option>
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />
@@ -156,26 +144,28 @@
 		<!-- ========페이징 출력 시작==================== -->
 		<div class="text-center">
 			<ul class="pagination">
+				<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
 				<c:if test="${pageMaker.prev}">
 					<li class="paginate_button previous">
 						<a href="${pageMaker.startPage - 1}">Previous</a>
 					</li>
 				</c:if>
-				<c:forEach var="num" begin="${pageMaker.startPage}"
-									  end="${pageMaker.endPage}">
-					<li class="paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
-						<a href="${num}" > ${num}</a>
+						
+				<!-- 바로가기 번호 출력 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="paginate_button  ${pageMaker.cvo.pageNum == num ? 'active':''}">
+						<a href="${num}">${num}</a>
 					</li>
 				</c:forEach>
-				
-				<!-- 다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인 -->
+		
+				<!-- 다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
 				<c:if test="${pageMaker.next}">
 					<li class="paginate_button next">
-						<a href="${pageMaker.endPage + 1}">Next</a>
+						<a href="${pageMaker.endPage + 1 }">Next</a>
 					</li>
-				</c:if>
+				</c:if> 
 			</ul>
-		</div>
+		</div>	
 		<!-- ========페이징 출력 종료================== -->
 		
 		<!-- ========글쓰기 버튼 출력 시작==================== -->
