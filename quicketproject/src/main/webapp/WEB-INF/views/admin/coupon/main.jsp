@@ -42,24 +42,11 @@
 </head>
 <body>
 <div class="">
-
-		<div class="well">
+		<div class="contentTit page-header"><h3 class="text-center">쿠폰 관리</h3></div>  
+		<div class="">
 			<form class="form-inline" id="f_search">
 				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 				<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
-							
-				<h3 style="display: inline;"><span class="label label-success">검색조건</span></h3>
-				<div class="form-group">
-					<select id="search" name="search" class="form-control">
-						<option value="c_num">쿠폰번호</option>
-						<option value="c_name">쿠폰명</option>	
-					</select>
-				</div>
-				<div class="form-group" id="textCheck">
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를입력하세요" />
-				</div>
-				<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
-				<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button>
 			</form>
 		</div> 
 

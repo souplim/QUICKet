@@ -50,6 +50,7 @@
 
 	</head>
 	<body>
+	<div class="contentTit page-header"><h3 class="text-center">쿠폰 등록</h3></div>  
 		<div class=" contentContainer container">
 			<div class="contentTB text-center">
 				<form class="form-horizontal"id="insertForm" name="insertForm">
