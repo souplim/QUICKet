@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.spring.client.qna.service.QnaService;
 import com.spring.client.qna.vo.QnaVO;
 import com.spring.client.user.vo.UserVO;
+import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -40,28 +42,26 @@ public class QnaController {
 	/********************************************
 	 * QNA 글 목록 구현하기
 	 ***********************************/
-	@ResponseBody
 	@GetMapping(value="/all/{s_num}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	public List<QnaVO> qnaList(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) {
 		log.info("qnaList 호출 성공");
 		
-		/* 전체 레코드 조회
-		List<ExpectVO> expectList = null;
-		expectList = expectService.expectList(s_num);
-		model.addAttribute("expectList", expectList);
 		
-		// 전체 레코드 수
-		int total = expectService.expectListCnt(evo);
-		model.addAttribute("pageMaker", new PageDTO(evo, total));
-				
-		// 리스트 번호 부여를 위한 속성
-		int count = total - (evo.getPageNum()-1) * evo.getAmount();
-		model.addAttribute("count", count); */
 		
 		List<QnaVO> entity = null;
 		entity = qnaService.qnaList(s_num);
 		
-		System.out.println(entity);
+		//System.out.println(entity);
+		
+		// 전체 레코드 수
+		int total = qnaService.qnaListCnt(qvo);
+		model.addAttribute("pageMaker", new PageDTO(qvo, total));
+						
+		// 리스트 번호 부여를 위한 속성
+		int count = total - (qvo.getPageNum()-1) * qvo.getAmount();
+		model.addAttribute("count", count);
+				
 		
 		return entity; 
 	}
@@ -118,8 +118,8 @@ public class QnaController {
 	} */
 	
 	
-	@RequestMapping(value = "/qnaInsert", method=RequestMethod.POST)
-	public String qnaInsert(@PathVariable("s_num") Integer s_num, @ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) throws Exception{
+	@RequestMapping(value = "/qnaInsert", method=RequestMethod.GET)
+	public String qnaInsert(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute QnaVO qvo, Model model) throws Exception{
 		log.info("qnaInsert 호출 성공");
 		
 		int result = 0;
@@ -178,7 +178,7 @@ public class QnaController {
 	 }
 	
 	@RequestMapping(value="/qnaUpdate", method=RequestMethod.POST)
-	public String qnaUpdate(@ModelAttribute QnaVO qvo) throws Exception{
+	public String qnaUpdate(@ModelAttribute QnaVO qvo, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
 		log.info("qnaUpdate 호출 성공");
 		
 		int result = 0;
@@ -187,9 +187,10 @@ public class QnaController {
 		result = qnaService.qnaUpdate(qvo);
 		
 		if(result == 1) {
-			url = "/qna/qnaDetail?q_no="+qvo.getQ_no();
+			url = "/qna/qnaDetail?q_no="+qvo.getQ_no()+"&s_num="+qvo.getS_num();
 		} else {
-			url = "/qna/qnaUpdateForm?q_no="+qvo.getQ_no();
+	
+			url = "/qna/qnaUpdateForm?q_no="+qvo.getQ_no()+"&s_num="+qvo.getS_num();
 		}
 		
 		return "redirect:"+url;
@@ -199,28 +200,32 @@ public class QnaController {
 	 * 글 삭제 구현하기
 	 **********************************/
 	@RequestMapping(value="/qnaDelete")
-	public String qnaDelete(@ModelAttribute QnaVO qvo) throws Exception{
+	//@DeleteMapping(value="/{q_no}", produces=MediaType.TEXT_PLAIN_VALUE)
+	public String qnaDelete(/*@PathVariable("q_no") int q_no*/ @ModelAttribute QnaVO qvo, @ModelAttribute("userLogin") UserVO userVO) throws Exception{
 		log.info("qnaDelete 호출 성공");
 		log.info("삭제할 글번호: "+qvo.getQ_no());
 		
 		int result = 0;
 		String url = "";
 		
-		result = qnaService.qnaDelete(qvo.getS_num()); // 이식 기준 위가 준비단계, 아래가 삭제 후 처리 관련
+		result = qnaService.qnaDelete(qvo); // 이식 기준 위가 준비단계, 아래가 삭제 후 처리 관련
 		
 		if(result == 1) {
 			url = "/qna/qnaList";
 		} else {
-		url = "/qna/qnaDetail?q_no="+qvo.getQ_no(); 	
+		url = "/qna/qnaDetail?q_no="+qvo.getQ_no()+"&s_num="+qvo.getS_num(); 	
 		}
 		return "redirect:"+url;		
 	}
 	
+	
+	
 	/*************************************************
 	 * 글 삭제 전 댓글 개수 
 	 ************/
+	@ResponseBody
 	@RequestMapping(value="/qnaReplyCnt")
-	public String qnaReplyCnt(@RequestParam("q_no") int q_no) {
+	public String qnaReplyCnt(@RequestParam("q_no") int q_no, @RequestParam("s_num") int s_num) {
 		log.info(("qnaReplyCnt 호출 성공"));
 		
 		int result = 0;

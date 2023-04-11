@@ -71,10 +71,10 @@ public class QnaServiceImpl implements QnaService{
 
 	/* 글 삭제 구현 */
 	@Override
-	public int qnaDelete(int s_num) throws Exception {
+	public int qnaDelete(QnaVO qvo) throws Exception {
 		int result = 0;
 		
-		result = qnaDao.qnaDelete(s_num);
+		result = qnaDao.qnaDelete(qvo);
 		return result;
 	}
 

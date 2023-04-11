@@ -29,6 +29,7 @@
 						ex_content:$("#ex_content").val(),
 						s_num:s_num
 					});
+					
 					{}
 					$.ajax({
 						url: insertUrl,
@@ -53,6 +54,7 @@
 							}
 						}
 					});
+					
 				} else {
 					alert("로그인 후 서비스를 이용하실 수 있습니다.");
 					location.href = "/user/login";
@@ -245,7 +247,7 @@
 						<tbody>
 							<tr>
 								<td class="col-md-2">작성자</td>
-								<td class="col-md-3 text-left">
+								<td class="col-md-3 text-left idArea">
 									${userLogin.u_id}
 								</td>
 								<td class="col-md-1">제목</td>
@@ -271,13 +273,13 @@
 			<%-- 댓글 리스트 출력되는 영역 --%>
 			<div id="expectList">
 				<div id="expect-template" class="panel panel-primary">
-					<div class="panel-heading">
+					<div class="panel-heading" style="background-color:#CCEEFF">
 						<h3 class="panel-title">
 							<span class="title"></span>
 							<span class="id"></span>
 							<span class="date"></span>
-								<button type="button" data-btn="upBtn" class="btn btn-default gap upBtn">수정하기</button>
-								<button type="button" data-btn="delBtn" class="btn btn-default gap delBtn">삭제하기</button>
+								<button type="button" data-btn="upBtn" class="btn w-btn w-btn-gray gap upBtn" style="float:right;">수정</button>
+								<button type="button" data-btn="delBtn" class="btn w-btn w-btn-gray gap delBtn" style="float:right;">삭제</button>
 						</h3>
 					</div>
 					<div class="panel-body"></div>

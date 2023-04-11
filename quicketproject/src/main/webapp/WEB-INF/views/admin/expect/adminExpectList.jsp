@@ -75,7 +75,7 @@
 					goPage();
 				}); 
 				
-				/* 제목 클릭시 상세페이지로 이동  */
+				/* 제목 클릭시 상세페이지로 이동  
 				$(".goDetail").click(function(){
 					let q_no = $(this).parents("tr").attr("data-no");
 					$("#q_no").val(q_no);
@@ -86,7 +86,7 @@
 						"action":"/admin/adminExpectDetail"
 					});
 					$("#q_detailForm").submit();
-				}); 
+				}); */
 				
 				/* 조회 클릭 시 상세페이지로 이동 */
 				$(".detailBtn").click(function(){
@@ -117,7 +117,7 @@
 			
 				$(".paginate_button a").click(function(e){
 					e.preventDefault();
-					$("#q_search").find("input[name='pageNum']").val($(this).attr("href"));
+					$("#ex_search").find("input[name='pageNum']").val($(this).attr("href"));
 					goPage();
 				});
 		});

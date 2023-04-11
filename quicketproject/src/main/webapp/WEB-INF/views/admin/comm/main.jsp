@@ -31,7 +31,10 @@
 		$(".goExpect").click(function(){
 			let num = $(this).parents("tr").attr("data-num");
 			console.log(num);
-			alert("준비 중인 기능입니다.");
+			
+			location.href="/admin/expect/adminExpectList?s_num=" + num;
+			
+			//alert("준비 중인 기능입니다.");
 			//location.href="/admin/review/adminreviewList?s_num=" + num;
 		});
 		
@@ -55,7 +58,7 @@
 			let num = $(this).parents("tr").attr("data-num");
 			console.log(num);
 			
-			location.href="/admin/qna/qnaAdminList?s_num=" + num;
+			location.href="/admin/qna/adminQnaList?s_num=" + num;
 		});
 		
 		// 상세 버튼 클릭 시 

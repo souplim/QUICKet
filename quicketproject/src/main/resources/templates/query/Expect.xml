@@ -34,16 +34,16 @@
 		SELECT
 			ex_no, ex_title, ex_content, u_id, to_char(ex_regdate, 'YYYY-MM-DD') as ex_regdate, s_num
 		FROM (
-			SELECT /*+ INDEX_DESC(expect pk_expect) */ 
+			SELECT
 				rownum as rnum, ex_no, ex_title, ex_content, u_id, ex_regdate, s_num
-			FROM expect
+			FROM expect 
 			WHERE ]]>
 			<trim prefix="(" suffix=") AND " prefixOverrides ="AND">
 				<include refid="expectSearch"></include>
 			</trim>
-		<![CDATA[ rownum <= #{pageNum} * #{amount} and s_num = #{s_num}
-			) expectList
-			WHERE rnum > (#{pageNum} - 1) * #{amount} 
+		<![CDATA[ rownum <= #{pageNum} * #{amount} and s_num = #{s_num} ORDER BY ex_no desc
+			) adminExpectList
+			WHERE rnum > (#{pageNum} - 1) * #{amount}
 		 ]]>
 	</select>  
 	

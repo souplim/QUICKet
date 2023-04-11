@@ -6,7 +6,7 @@
 	div.qnaNotice{height: 150px; background-color: #EAEAEA; margin-top: 10px;}
 	div.countArea{margin-top: 30px;}
 	div.insertBtnArea{margin-top: 15px; margin-botton:0px;}
-
+	#qna-template{display: none;}
 
 </style>
 
@@ -23,9 +23,10 @@
 			
 			/* 글쓰기 버튼 클릭시 입력폼 호출 */
 			$("#q_insertBtn").click(function(){
-				let id ="${userLogin.u_id}";
+				let id = "${userLogin.u_id}";
+				
 				if(id != ""){
-					location.href = "/qna/qnaWriteForm"; 
+					location.href = "/qna/qnaWriteForm?s_num="+s_num; 
 					
 				} else{
 					alert("로그인 후 서비스를 이용하실 수 있습니다.");
@@ -34,10 +35,13 @@
 			}); 
 			
 			/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-			$(".title").click(function(){
+			$(document).on("click", ".title", function(){
 				let q_no = $(this).parents("tr").attr("data-num");
+				
 				$("#q_no").val(q_no);
+				$("#s_number").val(s_num);
 				console.log("글번호 : "+q_no);
+				console.log("공연번호 : "+$("#s_number").val());
 				
 				$("#q_detailForm").attr({
 					"method":"get",
@@ -59,23 +63,21 @@
 		function qnaListAll(s_num){
 			//$(".qna").detach();	//선택한 요소를 DOM트리에서 삭제
 			
-			let url = "/qna/all/"+s_num;
+			let url = "/qna/all/"+ s_num;
 			$.getJSON(url, function(data){
 				$(data).each(function(){
 					
-					let s_num = this.s_num;
 					let q_no = this.q_no;
-					let u_id = this.u_id;
 					let q_title = this.q_title;
+					let u_id = this.u_id;
 					let q_content = this.q_content;
 					let q_regdate = this.q_regdate;
 					q_content = q_content.replace(/(\r\n|\r|\n)/g, "<br />");
 					
-					qnaTemplate(s_num, q_no, u_id, q_title, q_content, q_regdate);
+					qnaTemplate(q_no, q_title, u_id, q_content, q_regdate);
 
 					console.log(u_id);
 				});
-				
 			}).fail(function(){
 				 alert("덧글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 			});
@@ -83,7 +85,7 @@
 			
 		
 		/* 새로운 글을 화면에 추가하기 위한 함수 */
-		function qnaTemplate(s_num, q_title, q_content, q_regdate, q_no, u_id){
+		function qnaTemplate(q_no, q_title, u_id, q_content, q_regdate){
 			
 			let id = "${userLogin.u_id}";
 			console.log(u_id);
@@ -91,16 +93,13 @@
 			let $div = $('#qnaList');
 			
 			
-			if($div.val() == null ){
-				$div.val().html("등록된 게시글이 존재하지 않습니다.");
-			} else {
 			let $element = $('#qna-template').clone().removeAttr('id');
 			$element.attr("data-num", q_no);
 			//$element.addClass("qnaReply");
-			$element.find('.table > .qna-tbody > .boardNum').html(q_no);
-			$element.find('.table > .qna-tbody > .title').html(q_title);
-			$element.find('.table > .qna-tbody > .id').html(u_id);
-			$element.find('.table > .qna-tbody > .date').html(q_regdate);
+			$element.find('.boardNum').html(q_no);
+			$element.find('.title').html(q_title);
+			$element.find('.id').html(u_id);
+			$element.find('.date').html(q_regdate);
 			
 			<%-- 로그인한 id에 따라 출력되는 버튼 제어 필요 없으므로 주석처리
 			if(id == u_id){
@@ -111,7 +110,7 @@
 				$element.find('.panel-body').html(ex_content); --%>
 			
 			$div.append($element);
-			}
+			
 		}
 		
 		
@@ -131,7 +130,7 @@
 
 		<form id="q_detailForm">
 			<input type="hidden" id="q_no" name="q_no"/>
-			<input type="hidden" id="s_num" name="s_num"/>
+			<input type="hidden" id="s_number" name="s_num"/>
 		</form>
 		
 		<form id= "page_form" name="page_form">
@@ -151,18 +150,17 @@
 				</div>
 			</div>
 			
-			<%-- 문의글 개수 출력 영역 --%>
+			<%-- 문의글 개수 출력 영역
 				<div class="topArea">
 					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
-				</div>
+				</div>   --%>
 			
 			
-			<!--  등록한 테이블이 출력되는 영역 -->
-			<div id = "qnaList">
-				<div id="qna-template">	
+			<!--  등록한 테이블이 출력되는 영역 	-->
+				<div>
 					<table class="table table-hover table-bordered">
-						<tbody class="qna-tbody">
-							<tr>
+						<tbody class="qna-tbody" id = "qnaList">
+							<tr id="qna-template" class="temp">
 								<td class="boardNum"></td>
 								<td class="title"></td>
 								<td class="id"></td>
@@ -171,9 +169,10 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
 			
 			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
+		
+			
 			
 		
 			

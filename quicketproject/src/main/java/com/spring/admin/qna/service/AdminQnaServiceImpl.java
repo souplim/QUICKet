@@ -13,6 +13,7 @@ import lombok.Setter;
 
 @Service
 public class AdminQnaServiceImpl implements AdminQnaService {
+	
 	@Setter(onMethod_ = @Autowired)
 	private AdminQnaDao adminQnaDao;
 	
@@ -21,15 +22,15 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 
 	// 글 목록 구현
 	@Override
-	public List<QnaVO> adminQnaList(Integer s_num) {
+	public List<QnaVO> adminQnaList(QnaVO qvo) {
 			List<QnaVO> list = null;
-			list = adminQnaDao.adminQnaList(s_num);
+			list = adminQnaDao.adminQnaList(qvo);
 			return list;
 	}
 	
 	// 글 상세페이지
 	@Override
-	public QnaVO adminQnaDetail(QnaVO qvo) {
+	public QnaVO adminQnaDetail(QnaVO qvo) throws Exception {
 			QnaVO detail = null;
 				
 			detail = adminQnaDao.adminQnaDetail(qvo);
@@ -41,17 +42,17 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 	
 	// 전체 레코드수 
 	@Override
-	public int adminQnaListCnt(QnaVO qvo) {
+	public int adminQnaListCnt(QnaVO qvo) throws Exception{
 		return adminQnaDao.adminQnaListCnt(qvo);
 	}
 	
 	@Override
-	public int adminQnaDelete(int q_no) {
+	public int adminQnaDelete(QnaVO qvo) throws Exception {
 		int result = 0;
 		
 		// 댓글 삭제 후 글번호에 해당하는 게시글 삭제
-		qnaReplyDao.qnaReplyAdminDelete(q_no);
-		result = adminQnaDao.adminQnaDelete(q_no);
+		qnaReplyDao.qnaReplyAdminDelete(qvo.getQ_no());
+		result = adminQnaDao.adminQnaDelete(qvo);
 		return result;
 	}
 }

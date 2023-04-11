@@ -14,7 +14,7 @@ public interface QnaDao {
 	public QnaVO qnaUpdateForm(QnaVO qvo);
 	public int qnaInsert(QnaVO qvo);
 	public int qnaUpdate(QnaVO qvo);
-	public int qnaDelete(int q_no);
+	public int qnaDelete(QnaVO qvo);
 	
 	
 }

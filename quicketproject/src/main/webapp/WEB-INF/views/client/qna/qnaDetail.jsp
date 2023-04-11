@@ -10,6 +10,8 @@
 	<script type="text/javascript">
 			//let buttonCheck = 0;
 			$(function(){
+				
+				let s_num = ${param.s_num};
 
 				/* 수정 버튼 클릭 시 처리 이벤트 */
 				$("#qnaUpdateBtn").click(function(){
@@ -20,28 +22,28 @@
 				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
 				$("#qnaListBtn").click(function(){
-					location.href = "/qna/qnaList";
+					location.href = "/showDetail?s_num="+s_num;
 				});
 				
-				/* 삭제 버튼 클릭 시 처리 이벤트 */
+				/* 삭제 버튼 클릭 시 처리 이벤트 
 				$("#qnaDeleteBtn").click(function(){
-					if(confirm("댓글을 삭제하시겠습니까?")){
+					if(confirm("삭제하시겠습니까?")){
 						$.ajax({
 							url: "/qna/qnaReplyCnt",
 							type: "post",
-							data: "q_no="+$("#q_no").val(),
+							data: "q_no="+$("#q_no").val()+"&s_num="+$("#s_number").val(),
 							dataType: "text",
 							error: function(){
 								alert('시스템 오류, 관리자에게 문의하세요.');
 							},
 						success : function(resultData){
+							//let goUrl = "";
 							if(resultData==0){
 								goUrl = "/qna/qnaDelete";
-								
 								$("#q_data").attr("action", goUrl);
-								$("#q_data").submit();
-								
-							} else {
+								$("#q_data").submit(); 
+								buttonCheck = 2;
+							} else { // 댓글이 존재하는 경우
 								alert("댓글이 존재하면 게시물을 삭제할 수 없습니다.\n댓글 삭제 후 다시 확인해주세요. ")
 								return;
 								}
@@ -51,7 +53,24 @@
 						
 					}
 					
+				});  */
+				/* 삭제 버튼 클릭 */
+				$("#qnaDeleteBtn").click(function(e){
+					if(confirm("삭제하시겠습니까?")){
+						let goUrl = "";
+						
+				
+						goUrl = "/qna/qnaDelete";
+						$("#q_data").attr("action", goUrl);
+						$("#q_data").submit();
+						//location.href = "/showDetail?s_num="+s_num;
+						
+							alert("댓글을 삭제할 수 없습니다.");
+						
+					}
 				}); 
+				
+		
 			});
 	</script>
 	
@@ -61,7 +80,7 @@
 		
 			<form name ="q_data" id="q_data" method="post">
 				<input type="hidden" id="q_no" name="q_no" value="${detail.q_no}"/>
-				<input type="hidden" id="s_num" name="s_num" value="${detail.s_num}"/>
+				<input type="hidden" id="s_number" name="s_num" value="${param.s_num}"/>
 			</form>
 			
 			
