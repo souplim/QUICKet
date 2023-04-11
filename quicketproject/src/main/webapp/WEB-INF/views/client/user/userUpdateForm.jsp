@@ -254,7 +254,7 @@
 							<input type="hidden" id="u_email" name="u_email" value="${userLogin.u_email}" required>
 						</td>
 						<td>
-							<div id="btnArea"><button type="button" id="keySendBtn">인증번호 전송</button></div>
+							<div id="btnArea"><button type="button" id="keySendBtn" class="w-btn-outline w-btn-indigo-outline btn">인증번호 전송</button></div>
 						</td>
 					</tr>
 					<tr id="keyForm"  class="form-group">
