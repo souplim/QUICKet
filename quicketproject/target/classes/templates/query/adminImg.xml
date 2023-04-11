@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.admin.img.dao.AdminImgDao">
+	<!-- 해당 공연이 가진 포스터이미지 파일 정보 조회 -->
+	<select id="posterImg" parameterType="showVO" resultType="imgVO">
+		<![CDATA[select * from img where s_num = #{s_num} and img_dir like '%/poster']]>
+	</select>
+	
+	<!-- 해당 공연이 가진 상세이미지 파일 정보 조회 -->
+	<select id="detailImg" parameterType="showVO" resultType="imgVO">
+		<![CDATA[select * from img where s_num = #{s_num} and img_dir like '%/detail']]>
+	</select>
+	
+	<!-- 해당 공연이 가진 모든이미지 파일 정보 조회 -->	
+	<select id="allImg" parameterType="showVO" resultType="imgVO">
+		select * from img where s_num=#{s_num}
+	</select>
+	
+	<select id="oneImg" resultType="imgVO">
+		select * from img where img_id=#{img_id}
+	</select>
+	
+	<insert id="insertImg" parameterType="imgVO">
+		insert into img(img_id, img_name, img_dir, img_type, img_size, s_num)
+		values(img_seq.nextval, #{img_name}, #{img_dir}, #{img_type}, #{img_size}, #{s_num})
+	</insert>
+	
+	<update id="updateImg" parameterType="imgVO">
+		update img
+		set img_id = #{img_id}, 
+			img_name = #{img_name}, 
+			img_dir = #{img_dir}, 
+			img_type = #{img_type}, 
+			img_size = #{img_size}, 
+			img_update = SYSDATE,
+			s_num = #{s_num}
+		values(img_seq.nextval, #{img_name}, #{img_dir}, #{img_type}, #{img_size}, #{s_num})
+	</update>
+	
+	<delete id="deleteImg" parameterType="imgVO">
+		delete from img where img_id=#{img_id}
+	</delete>
+	
+</mapper>
