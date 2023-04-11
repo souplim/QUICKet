@@ -32,7 +32,7 @@
 <body>
 <div class="contentContainer container">
 <form id="detailForm">
-		<input type="hidden" id="th_num" name="th_num" value = "${seat_updateForm2.th_num}"/>
+		<input type="hidden" id="s_num" name="s_num" value = "${seat_updateForm2.s_num}"/>
 		
 </form>
 <div class="contentTit page-header"><h3 class="text-center">좌석 정보 등록</h3></div>
