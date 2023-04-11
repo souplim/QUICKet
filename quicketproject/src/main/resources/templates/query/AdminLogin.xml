@@ -8,6 +8,4 @@
 		from admin 
 		where admin_id = #{admin_id} and admin_pwd = #{admin_pwd}
 	</select>
-
-	
 </mapper>

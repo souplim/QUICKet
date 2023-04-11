@@ -6,7 +6,7 @@
 
 </head>
 <body>
-
+<div class="contentTit page-header"><h3 class="text-center">회원 쿠폰 내역</h3></div>  
 <div class="container">
 			<table class="table table-bordered">
 				<thead>

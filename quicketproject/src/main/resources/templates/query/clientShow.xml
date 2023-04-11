@@ -24,24 +24,24 @@
 	<!-- 검색조건 설정하는 구문 -->
 	<sql id="showSearch">
 		<if test="search=='' and keyword!=''">
-		<![CDATA[s_name like '%'||#{keyword}||'%' or (select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
+		<![CDATA[(s_name like '%'||#{keyword}||'%' or (select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%')]]>
 		</if>
 		<if test="search=='s_name' and keyword!=''">
-		<![CDATA[s_name like '%'||#{keyword}||'%']]>
+		<![CDATA[(s_name like '%'||#{keyword}||'%')]]>
 		</if>
 		<if test="search=='th_name' and keyword!=''">
-		<![CDATA[(select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
+		<![CDATA[((select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%')]]>
 		</if>
 		<if test="start_date!='' and end_date!=''">
 			<if test="keyword!=''"><![CDATA[and]]></if>
 			<if test="s_select_date==''">
-			<![CDATA[((to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'YYYY-MM-DD') and to_char(s_closedate,'YYYY-MM-DD')))]]>	
+			<![CDATA[((to_char(s_opendate,'yyyy-MM-dd') between #{start_date} and #{end_date}) or (#{start_date} between to_char(s_opendate,'yyyy-MM-dd') and to_char(s_closedate,'yyyy-MM-dd')))]]>	
 			</if>
 			<if test="s_select_date=='open'">
-			<![CDATA[(to_char(s_opendate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			<![CDATA[(to_char(s_opendate,'yyyy-MM-dd') between #{start_date} and #{end_date})]]>
 			</if>
 			<if test="s_select_date=='close'">
-			<![CDATA[(to_char(s_closedate,'YYYY-MM-DD') between #{start_date} and #{end_date})]]>
+			<![CDATA[(to_char(s_closedate,'yyyy-MM-dd') between #{start_date} and #{end_date})]]>
 			</if>
 		</if>
 		<if test="s_select_region!=''">

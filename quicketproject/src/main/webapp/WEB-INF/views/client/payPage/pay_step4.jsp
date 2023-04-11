@@ -11,6 +11,7 @@
 <link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<style>
 		@font-face {
 		    font-family: 'LeferiBaseType-RegularA';
@@ -216,7 +217,7 @@
                             merchant_uid: rsp.merchant_uid
                         },success : function(result){
     				    	if(result == "payInsertFail"){
-    				    		alert("결제테이블 insert 실패");
+    				    		swal('결제테이블 insert 실패',"관리자에게 문의해주세요.",'warning');
     				    	}
     				    	else{/* 성공 */
     	                    	const arr = result.split(",");
@@ -232,8 +233,9 @@
     	                    	ticketInsert(pay_num);
     	                    	// 예매 좌석 테이블 Insert
     	                    	ticketSeatInsert(pay_num);
-    	                        alert("결제 완료되었습니다."); 
-    	                        location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num+"&s_num="+"${detailData.s_num}";
+    	                    	swal('',"결제 완료되었습니다.",'success').then(function(){
+    	                    		location.href="/client/payPage/ticketSuccessPage?pay_num="+pay_num+"&s_num="+"${detailData.s_num}";    
+    	                		})
     				    	}
     				    },
     					error 	: function(xhr, textStatus, errorThrown) {
@@ -244,8 +246,7 @@
                 } else {
                 	//결제 중 창을 닫았을 때 취소 시 결제 테이블 데이터 삭제
                 	payDelete(pay_num);
-                	alert("결제를 취소하였습니다. 다시 시도해 주세요.");
-                    
+                	swal('',"결제를 취소하였습니다. 다시 시도해 주세요.",'warning');
                 }
                 
             });
@@ -282,7 +283,7 @@
 				    },
 				    success : function(result){
 				    	if(result == "payInsertFail"){
-				    		alert("결제테이블 insert 실패");
+				    		swal('결제테이블 insert 실패',"관리자에게 문의해주세요.",'warning');
 				    	}
 				    	else{/* 성공 */
 				    		SelectPayInfo(result);
@@ -307,7 +308,7 @@
 							requestPay(pay_num,pay_name,pay_phone,pay_email,pay_amount,s_name);
 						});
 					}).fail(function(){
-						alert("결제데이터 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.")				
+						swal('결제데이터 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.',"관리자에게 문의해주세요.",'warning');
 					})
 				}
 		//결제 진행 중 취소할 시 결제 테이블 인서트 삭제 (3번 수행)

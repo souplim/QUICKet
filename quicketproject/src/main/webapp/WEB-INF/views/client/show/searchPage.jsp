@@ -234,7 +234,7 @@
 					</div>
 					<div class="col-sm-2">
 						<select name="s_select_region" id="s_select_region" class="form-control">
-							<option value="">지역</option>
+							<option value="">전체지역</option>
 							<option value="서울">서울</option>
 							<option value="경기">경기</option>							
 						</select>

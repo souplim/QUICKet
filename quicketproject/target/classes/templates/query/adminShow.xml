@@ -25,10 +25,10 @@
 	<!-- 검색조건 설정하는 구문 -->
 	<sql id="showSearch">
 		<if test="search=='s_name'">
-		<![CDATA[s_name like '%'||#{keyword}||'%']]>
+		<![CDATA[(s_name like '%'||#{keyword}||'%')]]>
 		</if>
 		<if test="search=='th_name'">
-		<![CDATA[(select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%']]>
+		<![CDATA[((select theater.th_name from theater where theater.th_num = show.th_num) like '%'||#{keyword}||'%')]]>
 		</if>
 		<if test="start_date!='' and end_date!=''">
 			<if test="search!=''"><![CDATA[and]]></if>

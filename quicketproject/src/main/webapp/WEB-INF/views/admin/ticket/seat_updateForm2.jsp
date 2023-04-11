@@ -13,8 +13,10 @@
 			});
 			$("#detailForm").submit();
 		});
-		
 		$("#updateBtn").click(function(){
+			if(!chkData('#seat_name', "좌석이름을")) return;
+			if(!chkData('#seat_status', "좌석상태를")) return;
+			
 			$("#updateForm").attr({
 				"method":"post",
 				"action":"/admin/ticket/seatUpdate"
