@@ -1,9 +1,0 @@
-@charset "UTF-8";
-
-/* 공통 부분 */
-textarea {resize: none;} 
-.goDetail {cursor: pointer;}
-.required {color: red;}
-.reply_count {font-size: 12px; color: red;} /* 웹브라우저에서 보이지 않으면 ctrl+f5 누르면 css 다시 입혀짐 */
-.gap {margin: 0 2px;}
-.msg_error {color: red;}
