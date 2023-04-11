@@ -41,7 +41,7 @@ public class StatMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
 	public void testMonthlySales() {
 		List<StatVO> nameList = statDao.showList();
 		for(StatVO vo : nameList)
@@ -49,6 +49,14 @@ public class StatMapperTests {
 		
 		List<StatVO> list = statDao.monthlySales(nameList);
 		for(StatVO vo : list)
+			log.info(vo.toString());
+	} */
+	
+	@Test
+	public void testGenderCnt() {
+		List<StatVO> genderCnt = statDao.genderCnt();
+		
+		for(StatVO vo : genderCnt)
 			log.info(vo.toString());
 	}
 }

@@ -10,14 +10,47 @@
 		$(function() {
 			
 			// 구글 차트 Load the Visualization API and the piechart package.
+			google.charts.load('current', {'packages':['corechart']}); // 차트 스타일 - 파이
 			google.charts.load('current', {'packages':['bar']}); // 차트 스타일 - 막대
 			google.charts.load('current', { 'packages' : ['corechart', 'line'] }); // 차트 스타일 - 선
 			
+			
 			// Set a callback to run when the Google Visualization API is loaded.
+			google.charts.setOnLoadCallback(drawChartGender);
 			google.charts.setOnLoadCallback(drawChartTicketCnt);
 			google.charts.setOnLoadCallback(drawChartShowSales);
 			google.charts.setOnLoadCallback(drawChartTicketSales);
 			google.charts.setOnLoadCallback(drawChartMonthlySales);
+			
+			function drawChartGender(){
+				$.ajax({
+					url : "/admin/stat/genderCnt",
+					type : 'post',
+					headers : {
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					error : function(xhr, textStatus, errorThrown) {
+						alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
+					},
+					success : function(result) {
+						console.log(result);
+						
+						// Create our data table out of JSON data loaded from server.
+						var data = new google.visualization.DataTable(result);
+						
+						// 차트 상단 제목 설정
+						var options = { 
+								title : '예매자 성비'							
+						};
+						
+						// 입력값 화면에 뿌려주기
+						var chart = new google.visualization.PieChart(document.getElementById('gender_div'));
+						chart.draw(data, options);
+					},
+					async: false
+				}).responseText;
+			}
 			
 			function drawChartTicketCnt(){
 				$.ajax({
@@ -38,7 +71,7 @@
 						
 						// 차트 상단 제목 설정
 						var options = { 
-								title : '공연별 예매율',								
+								title : '공연별 예매율'								
 						};
 						
 						// 입력값 화면에 뿌려주기
@@ -148,6 +181,7 @@
 
   <body>
     <!--Div that will hold the pie chart-->
+    <div id="gender_div" style="width: 900px; height: 500px;"></div>
     <div id="ticketCnt_div" style="height: 400px;"></div>
     <div id="showSales_div" style="height: 400px;"></div>
     <div id="ticketSales_div" style="height: 400px;"></div>

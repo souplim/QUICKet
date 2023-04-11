@@ -52,6 +52,13 @@ public class StatServiceImpl implements StatService {
 		return list;
 	}
 
+	// 예매자 성비 조회
+	@Override
+	public List<StatVO> genderCnt() {
+		List<StatVO> list = statDao.genderCnt();
+		return list;
+	}
+
 	
 
 }

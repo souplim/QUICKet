@@ -109,9 +109,9 @@ public class MypageController {
 			mypageVO.setU_id(userVO.getU_id());
 				
 		// 공연 상세 페이지에 들어갈 공연 관심 수 조회
-		System.out.println(mypageVO.getS_num());
+		/* System.out.println(mypageVO.getS_num());
 		int likesCount = mypageService.likesCount(mypageVO.getS_num());
-		mypageVO.setLikesCount(likesCount);
+		mypageVO.setLikesCount(likesCount); */
 		
 		// 세부정보 조회
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);

@@ -127,4 +127,28 @@
 		group by SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2)
 		order by stat_date
 	</select>
+	
+	<!-- 예매자 성비 조회 -->
+	<select id="genderCnt" resultType="stat">
+		select u_gender, u_gendercnt, ROUND(RATIO_TO_REPORT(u_gendercnt) OVER(), 2) * 100  AS u_gendercntRatio
+		from (
+		    select u_gender, COUNT(u_gender) AS u_gendercnt
+		    from (
+		        select s.s_num, s_name, seat_num, s_price, s.th_num, u.u_id, u.u_gender, t.pay_num, ti_status 
+		        from (
+		            select s_num, s_name, s_price, th_num 
+		            from show
+		            order by s_num
+		        ) s JOIN theater th ON s.th_num = th.th_num
+		            JOIN hall h ON th.th_num = h.th_num
+		            JOIN ticket_seat ts ON h.hall_id = ts.hall_id
+		            JOIN ticket t ON ts.pay_num = t.pay_num
+		            JOIN q_user u ON t.u_id = u.u_id
+		    )
+		    where ti_status = 1
+		    group by u_gender
+		)
+		order by u_gendercntRatio DESC
+	</select>
+	
 </mapper>
