@@ -39,7 +39,7 @@
 	<!-- 댓글 개수 구하기 -->
 	<select id="qnaReplyCnt" parameterType="int" resultType="int">
 		/* Reply - replyCnt */
-		select count(q_r_no) from qna_reply where q_no = #{q_no}
+		select count(q_r_no) from qna_reply where q_no = #{q_no} 
 	</select>
 	
 	<delete id="qnaReplyAdminDelete" parameterType="int">

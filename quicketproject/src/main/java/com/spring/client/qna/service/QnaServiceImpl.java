@@ -22,9 +22,9 @@ public class QnaServiceImpl implements QnaService{
 
 	// 글 목록 구현
 	@Override
-	public List<QnaVO> qnaList(QnaVO qvo) {
+	public List<QnaVO> qnaList(Integer s_num) {
 		List<QnaVO> list = null;
-		list = qnaDao.qnaList(qvo);
+		list = qnaDao.qnaList(s_num);
 		return list;
 	}
 
@@ -74,7 +74,7 @@ public class QnaServiceImpl implements QnaService{
 	public int qnaDelete(QnaVO qvo) throws Exception {
 		int result = 0;
 		
-		result = qnaDao.qnaDelete(qvo.getQ_no());
+		result = qnaDao.qnaDelete(qvo);
 		return result;
 	}
 

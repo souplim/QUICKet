@@ -10,7 +10,6 @@
 				else if (!chkData("#q_content", "작성할 내용을")) return;					
 				else{
 					
-					
 					$("#q_updateForm").attr({
 						"method":"post", 
 						"action":"/qna/qnaUpdate"
@@ -41,7 +40,7 @@
 					<!-- 글번호 받는 hidden -->
 				<form id="q_updateForm" name="q_updateForm">
 					<input type="hidden" id="q_no" name="q_no" value="${updateData.q_no}"/>
-					
+					<input type="hidden" id="s_number" name="s_num" value="${param.s_num}"/>
 					
 					<table class="table table-bordered">
 						<tbody>
