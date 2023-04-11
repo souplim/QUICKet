@@ -107,13 +107,13 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
 	public void testSeatAgeList() {
 		log.info("seatAgeList() 메서드 실행");
 		List<MypageVO> list = mypageDao.seatAgeList(20230301);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	}
+	} */
 	
 	/* @Test
 	public void testMyLikeList() {
@@ -198,4 +198,14 @@ public class MypageMapperTests {
 		for(MypageVO vo : list)
 			log.info(vo.toString());
 	} */
+	
+	@Test
+	public void testExpectList() {
+		log.info("expectList() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("yubin");
+		List<MypageVO> list = mypageDao.expectList(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	}
 }

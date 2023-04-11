@@ -298,5 +298,28 @@
 		WHERE u_id = #{u_id} AND uc_state=1	
 	</select>
 	
+	<select id="expectList" parameterType="mypage" resultType="mypage">
+		SELECT rnum, ex_no, s_num, s_name, ex_title, ex_regdate
+		FROM ( 
+		    SELECT 
+		        rnum, ex_no, E.s_num, s_name, ex_title, TO_CHAR(ex_regdate,'yyyy-mm-dd') ex_regdate
+		    FROM (
+		        SELECT 
+		            rownum AS rnum, ex_no, s_num, ex_title, ex_regdate, u_id
+		        FROM expect
+		        WHERE u_id = #{u_id}
+		        ORDER BY ex_no DESC
+		    ) E INNER JOIN show S ON E.s_num = S.s_num
+		    WHERE
+			 <![CDATA[ rownum <= (1 * 10)
+		)
+		WHERE (rnum > (1 - 1) * 10) 
+		]]>
+	</select>
 	
+	<select id="expectListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM expect
+		WHERE u_id = #{u_id}
+	</select>
 </mapper>
