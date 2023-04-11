@@ -37,7 +37,9 @@
 						var data = new google.visualization.DataTable(result);
 						
 						// 차트 상단 제목 설정
-						var options = { title : '공연별 예매율' };
+						var options = { 
+								title : '공연별 예매율',								
+						};
 						
 						// 입력값 화면에 뿌려주기
 						var chart = new google.charts.Bar(document.getElementById('ticketCnt_div'));
@@ -66,7 +68,7 @@
 						
 						// 차트 상단 제목 설정
 						var options = { 
-							title : '공연별 매출비율'	, 
+							title : '공연별 매출비율', 
 							series: {
 					            0: { color: '#e2431e' }
 					        }
@@ -129,12 +131,7 @@
 						
 						// 차트 상단 제목 설정
 						var options = {
-							title : '월별 매출액',
-							annotations : {
-								boxStyle: {
-									
-								}
-							}
+							title : '월별 매출액'
 						};
 						
 						// 입력값 화면에 뿌려주기
@@ -151,9 +148,9 @@
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="ticketCnt_div" style="width: 800px; height: 400px;"></div>
-    <div id="showSales_div" style="width: 800px; height: 400px;"></div>
-    <div id="ticketSales_div" style="width: 800px; height: 400px;"></div>
-    <div id="monthlySales_div" style="width: 800px; height: 500px;"></div>
+    <div id="ticketCnt_div" style="height: 400px;"></div>
+    <div id="showSales_div" style="height: 400px;"></div>
+    <div id="ticketSales_div" style="height: 400px;"></div>
+    <div id="monthlySales_div" style="height: 500px;"></div>
   </body>
 </html>

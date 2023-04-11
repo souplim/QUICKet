@@ -93,7 +93,7 @@ div[role="tabpanel"]{min-height:30em;}
 					
 					$("#th_name").html(theater.th_name);
 					$("#th_addr").html(theater.th_addr);
-					$("#th_web").html(theater.th_web);
+					$("#th_web").html("<a href='"+theater.th_web+"'>"+theater.th_web+"</a>");
 					
 					let th_name = theater.th_name;
 					let th_map_lat = theater.th_map_lat;
@@ -177,7 +177,7 @@ div[role="tabpanel"]{min-height:30em;}
 			location.href="/showDetail?s_num="+s_num;
 		}); 
 		
-		/* 마이페이지 관람후기 제목 클릭해서 유입 -> 관람후기 탭 열기 */
+		/* 마이페이지 관람후기, 기대평 제목 클릭해서 유입 -> 탭 열기 */
 		if(location.hash == "#reviewBox"){
 			$(".nav-pills").find("li").eq(2).addClass('active').siblings().removeClass();
 			$(".tab-content").find("#reviewBox").addClass("active").siblings().removeClass('active');
@@ -190,7 +190,10 @@ div[role="tabpanel"]{min-height:30em;}
 	          	// 부드럽게 이동
 	            $('html, body').animate({scrollTop: scrollTop-59}, 2000,'easeOutCubic');
 	        } */
-		} 
+		} else if (location.hash == "#expectBox"){
+			$(".nav-pills").find("li").eq(3).addClass('active').siblings().removeClass();
+			$(".tab-content").find("#expectBox").addClass("active").siblings().removeClass('active');
+		}
 		
 	});
 </script>

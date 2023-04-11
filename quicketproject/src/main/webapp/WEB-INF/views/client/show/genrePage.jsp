@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 #searchBox{
-	margin-bottom:80px;
+	margin: 0px 10% 80px 10%;
+	padding :25px;
 }
 #genrePageDate{
 	display:inline-block;
@@ -132,18 +134,20 @@ a[role='tab']{
 </head>
 <body>
 	<div class="container">
-		<br/><br/><br/>
+		<div class="row">
+			<h1><strong>장르> <a style="color:#888888" href="/genre?s_genre=${showVO.s_genre}">${showVO.s_genre}</a></strong></h1> 
+		</div>
 		<div class="row">
 			<form class="form-horizontal" id="f_search">
 				<input type="hidden" class="s_genre" name="s_genre" value="${ShowVO.s_genre}"/>
 				<div id="searchBox" class="form-group">
-					<div class="col-sm-2 col-sm-offset-2">
+					<div class="col-sm-2 col-sm-offset-1">
 						<select id="search" name="search" class="form-control">
 							<option value="s_name">공연명</option>
 							<option value="th_name">공연장명</option>
 						</select>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-6">
 						<input type="text" name="keyword" id="keyword" class="form-control" />
 					</div>
 					<div class="col-sm-2">
@@ -181,7 +185,7 @@ a[role='tab']{
 				</div>
 				<div class="form-group"><div class="col-sm-2 col-sm-offset-1">
 					<select name="s_select_region" id="s_select_region" class="form-control">
-						<option value="">지역</option>
+						<option value="">지역검색</option>
 						<option value="서울">서울</option>
 						<option value="경기">경기</option>							
 					</select>
@@ -208,8 +212,7 @@ a[role='tab']{
 						<div class="genreBox_text">
 							<p class="genreBox_title">${show.s_name}</p>
 							<p class="genreBox_subtxt">${show.s_opendate}</p>
-							<c:set var="s_point" value="${(show.s_point+0.005)-((show.s_point+0.005)%0.01)}" />
-							<span class="genreBox_subtxt_point" data-point="${s_point}">${s_point}</span>
+							<span class="genreBox_subtxt_point" data-point="${show.s_point}">&nbsp;<fmt:formatNumber value="${show.s_point}" pattern=".00" /></span>
 						</div>
 					</div>
 				</c:forEach>

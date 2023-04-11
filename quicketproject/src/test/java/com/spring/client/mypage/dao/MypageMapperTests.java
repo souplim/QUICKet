@@ -47,7 +47,7 @@ public class MypageMapperTests {
 		log.info("myTicketDetail() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
 		mypageVO.setU_id("user02");
-		mypageVO.setPay_num(20230303);
+		mypageVO.setPay_num(20230301);
 		mypageVO.setS_num(1);
 		MypageVO mypageVO2 = mypageDao.myTicketDetail(mypageVO);
 		log.info(mypageVO2.toString());
@@ -107,7 +107,15 @@ public class MypageMapperTests {
 			log.info(vo.toString());
 	} */
 	
-	@Test
+	/* @Test
+	public void testSeatAgeList() {
+		log.info("seatAgeList() 메서드 실행");
+		List<MypageVO> list = mypageDao.seatAgeList(20230301);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	} */
+	
+	/* @Test
 	public void testMyLikeList() {
 		log.info("myLikeList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
@@ -115,7 +123,7 @@ public class MypageMapperTests {
 		List<MypageVO> list = mypageDao.myLikeList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	}
+	} */
 	
 	/* @Test
 	public void testLikesCount() {
@@ -190,4 +198,14 @@ public class MypageMapperTests {
 		for(MypageVO vo : list)
 			log.info(vo.toString());
 	} */
+	
+	@Test
+	public void testExpectList() {
+		log.info("expectList() 메서드 실행");
+		MypageVO mypageVO = new MypageVO();
+		mypageVO.setU_id("yubin");
+		List<MypageVO> list = mypageDao.expectList(mypageVO);
+		for(MypageVO vo : list)
+			log.info(vo.toString());
+	}
 }

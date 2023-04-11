@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<style type="text/css">
 		.flex { display: flex; }
 		.margin-title {
@@ -33,6 +34,54 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			/* 좌석 번호 생성*/
+			 let seatArr = new Array();
+		      let b = 1;
+		      for(let i = 0 ; i < 50; i++){
+		         if(i>=0 && i<=7){
+		            seatArr.push("a"+"-"+b);
+		            if(i==7){
+		               b = 0;
+		            }
+		         }else if(i>=8 && i<=15){
+		            seatArr.push("b"+"-"+b);
+		            if(i==15){
+		               b = 0;
+		            }
+		         }else if(i>=16 && i<=25){
+		            seatArr.push("c"+"-"+b);
+		            if(i==25){
+		               b = 0;
+		            }
+		         }else if(i>=26 && i<=35){
+		            seatArr.push("d"+"-"+b);
+		            if(i==35){
+		               b = 0;
+		            }
+		         }else if(i>=36 && i<=45){
+		            seatArr.push("e"+"-"+b);
+		            if(i==45){
+		               b = 0;
+		            }
+		         }else if(i>=46 && i<=50){
+		            seatArr.push("f"+"-"+b);
+		         }
+		         
+		         b++;
+		      }
+		      let seatValueString = "${ticketDetail.seat_nums}";
+		      let seatValue = seatValueString.split(',');
+		      let resultSeatVal = "";
+		      
+		      for(let i = 0 ; i < seatValue.length; i++){
+		         resultSeatVal += seatArr[Number(seatValue[i])+1]
+		         if(i!=seatValue.length-1){
+		            resultSeatVal += ", "
+		         }
+		      }
+		      $(".seatVal").text(resultSeatVal+" 석(${ticketDetail.seat_ages})");			
+			
+		      
 			/* 공연정보 버튼 클릭시 이벤트 처리 */
 			$("#showInfoBtn").on("click", function(){
 				let s_num = $("#s_num").val();
@@ -114,8 +163,100 @@
 			/* 예매취소 -> 확인 버튼 클릭시 이벤트 처리 */
 			$("#cancelConfirmBtn").on("click", function(){
 				let pay_num = $(".dataNum").attr("data-num");
-				location.href="/mypage/myTicketDelete?pay_num="+pay_num;
+				payToken(pay_num);
 			});
+			/* 예매 취소 메서드 */
+			function requestCancel(imp_uid, token, amount) {
+				let value= JSON.stringify({
+					token : token,
+					imp_uid : imp_uid,
+					amount : amount,
+					reason : "사유"
+					});
+				$.ajax({
+	                url: "/api/v1/payment/cancel", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: value,
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result != "hello"){
+				    		console.log("환불실패");
+				    	}
+				    	else{/* 성공 */
+				    		console.log("환불성공");
+				    		
+				    	}
+				    }
+				})
+	        }
+			//결제상태변경
+			function payStatus(pay_num1) {
+				$.ajax({
+	                url: "/admin/payJson2/payStatus", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: String(pay_num1),
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result == "SUCCESS"){
+				    		console.log("결제상태변경 성공");
+				    	}
+				    	else{/* 성공 */
+				    		console.log("결제상태변경 실패");
+				    		
+				    	}
+				    }
+				})
+	        }
+			
+			//예매상태변경
+			function ticketStatus(pay_num1) {
+				$.ajax({
+	                url: "/admin/payJson2/ticketStatus", // 예: https://www.myservice.com/payments/complete
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: String(pay_num1),
+	                error 	: function(xhr, textStatus, errorThrown) {
+						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
+				    },
+				    success : function(result){
+				    	if(result == "SUCCESS"){
+				    		console.log("예매상태변경 성공");
+				    	}
+				    	else{
+				    		console.log("예매상태변경 실패");
+				    		
+				    	}
+				    }
+				})
+	        }
+			
+			function payToken(pay_num){
+				let url = "/admin/payJson2/payToken/"+pay_num; 
+				$.ajaxSetup({
+					async:false
+				});
+				$.getJSON(url, function(data){
+					$(data).each(function(){
+						let pay_num = this.pay_num;
+						let imp_uid = this.imp_uid;
+						let token = this.token;
+						let amount = this.pay_amount;
+						requestCancel(imp_uid, token, amount);
+						payStatus(pay_num);
+						ticketStatus(pay_num);
+						location.href="/mypage/myTicketDelete?pay_num="+pay_num;
+					});
+				}).fail(function(){
+					alert("결제 취소를 실패했습니다. 관리자에게 문의해주세요.")				
+				})
+			}
+			/* 예매 취소 메서드 끝 */
 			
 		});
 	</script>
@@ -227,8 +368,8 @@
 							</tr>
 							<tr>
 								<td class="col-md-4 gray" style="vertical-align:middle">좌석번호</td>
-								<td class="col-md-8 text-left">
-									${ticketDetail.seat_nums}번
+								<td class="col-md-8 text-left seatVal">
+									<%-- ${ticketDetail.seat_nums}번 --%>
 									<%-- <c:choose>
 										<c:when test="${not empty seatList}">
 											<c:forEach var="seats" items="${seatList}" varStatus="status">
@@ -288,8 +429,31 @@
 					<tr>
 						<td class="col-md-4 gray" style="vertical-align:middle">총결제금액</td>
 						<td class="col-md-8 text-left">
-							<p class="text-danger">${ticketDetail.pay_amount}원</p>
-							<p>티켓금액 ${ticketDetail.s_price}원</p>
+							<p class="text-danger">
+								${ticketDetail.pay_amount}원
+							</p>
+							<p>
+								티켓금액<br/> 
+								<c:forEach var="seatAge" items="${seatAgeList}" varStatus="status">
+									<c:if test="${seatAge.seat_age eq '성인'}">
+										성인 ${ticketDetail.s_price}원
+										<c:if test="${!status.last}">,</c:if>
+									</c:if>
+									<c:if test="${seatAge.seat_age eq '어린이'}">
+										아동 
+										<c:set var="child" value="${ticketDetail.s_price*0.3}"/>
+										<fmt:formatNumber value="${child+(1-(child%1))%1}" type="number" />원
+										<c:if test="${!status.last}">,</c:if>
+									</c:if>
+									<br/>
+								</c:forEach> 
+								<c:if test="${not empty ticketDetail.c_num}">
+									- 할인금액 
+									<c:set var="discount" value="${ticketDetail.c_discount*0.01*ticketDetail.s_price}"/>
+									<fmt:formatNumber value="${discount+(1-(discount%1))%1}" type="number" />원
+									(${ticketDetail.c_name})
+								</c:if>
+							</p>
 						</td>
 					</tr>
 				</table>

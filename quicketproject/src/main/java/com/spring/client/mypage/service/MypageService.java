@@ -17,6 +17,7 @@ public interface MypageService {
 	List<MypageVO> faqList(String f_category); /* 문의글 등록 폼에서 조회할 faq 리스트 */
 	
 	List<Integer> mySeatList(int pay_num); /* 좌석번호 리스트 조회 */
+	List<MypageVO> seatAgeList(int pay_num); /* 좌석연령 리스트 조회 */
 	
 	List<MypageVO> myLikeList(MypageVO mypageVO); /* 관심공연 리스트 조회 */
 	MypageVO myShowLike(MypageVO mypageVO); /* 상세페이지의 관심공연 등록 여부 조회 */
@@ -33,5 +34,8 @@ public interface MypageService {
 	
 	List<MypageVO> couponListN(MypageVO mypageVO); /* 사용완료 쿠폰 리스트 조회 */
 	int couponListCntN(MypageVO mypageVO); /* 사용완료 쿠폰 개수 */
+	
+	List<MypageVO> expectList(MypageVO mypageVO); /* 기대평 리스트 조회 */
+	int expectListCnt(MypageVO mypageVO); /* 페이징 처리 위한 기대평 개수 */
 	
 }

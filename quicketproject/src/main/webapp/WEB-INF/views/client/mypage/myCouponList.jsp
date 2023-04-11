@@ -4,6 +4,11 @@
 
 	<style type="text/css">
 		.communityTitle { margin-bottom: 30px; }
+		.margin-title {
+			margin: 0 0 15px 0;
+			padding: 3px 10px;
+		}
+		.gray { background-color: rgb(233, 233, 233); }
 	</style>
 
 	<script type="text/javascript">
@@ -111,7 +116,21 @@
 			  </div>
 			</div>
 			
-			
+			<%-- ================= 할인쿠폰 안내 ================= --%>
+			<div class="contentTB text-center">
+				<div class="gray margin-title">
+					<h4 class="text-left">공연할인쿠폰 사용안내</h4>
+					<div class="text-left">
+						<ul>
+							<li>쿠폰은 사용조건에 따라 장르 , 특정 공연, 회차, 좌석등급 등에 대한 제한이 있을 수 있으니, 사용조건을 반드시 확인해주시기 바랍니다.</li>
+							<li>예매 시 사용하실 쿠폰을 클릭하시면 결제 시점에 자동으로 할인가격 만큼 차감되어 결제 총 금액에 표시됩니다.</li>
+							<li>예매 취소 시 해당 공연에 적용된 할인금액을 제외하고 실 결제금액만큼 환불됩니다.<br/>
+								(단, 쿠폰을 사용한 경우 부분취소는 불가합니다. 부분취소를 원할 경우 고객센터로 문의해주세요.)</li>
+							<li>사용기간이 지난 쿠폰은 사용하실 수 없습니다.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		
 		</div>
 	</body>

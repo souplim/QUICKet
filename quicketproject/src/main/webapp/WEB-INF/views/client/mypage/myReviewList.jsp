@@ -9,12 +9,6 @@
 	<script type="text/javascript">
 		$(function(){
 			
-			/* 제목 클릭시 관람후기 게시판의 내 댓글 페이지로 이동? */
-			/* $(".goDetail").on("click", function(){
-				let r_no = $(this).parents("tr").attr("data-num");
-				let s_num = $(this).parents("tr").attr("data-snum");
-			}); */
-			
 			/* 페이징 처리 이벤트 */
 			$(".paginate_button a").click(function(e){
 				e.preventDefault(); // a태그 -> href로 이동하는 성격 해제

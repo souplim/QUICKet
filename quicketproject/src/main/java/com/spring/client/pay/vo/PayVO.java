@@ -23,7 +23,9 @@ public class PayVO {
 	private String token = "";
 	private String amount = "";
 	private String reason = "";
+	private String c_num = "";
 	
+	private String ti_coupon = "";	//ticket테이블 사용쿠폰 컬럼
 	
 	
 }

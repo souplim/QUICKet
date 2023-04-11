@@ -118,8 +118,12 @@ public class MypageController {
 		model.addAttribute("ticketDetail", ticketDetail);
 		
 		// 좌석번호 리스트 조회
-		List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
-		model.addAttribute("seatList", seatList);
+		/* List<Integer> seatList = mypageService.mySeatList(mypageVO.getPay_num());
+		model.addAttribute("seatList", seatList); */
+		
+		// 좌석연령 리스트 조회
+		List<MypageVO> seatAgeList = mypageService.seatAgeList(mypageVO.getPay_num());
+		model.addAttribute("seatAgeList", seatAgeList);
 				
 		return "client/mypage/myTicketDetail"; // /WEB-INF/views/client/mypage/myTicketDetail.jsp 
 	}
@@ -137,21 +141,27 @@ public class MypageController {
 			return "redirect:/user/login";
 		else
 			mypageVO.setU_id(userVO.getU_id());
-		
+//		
 		String url = "";
-		
-		int result = mypageService.myTicketDelete(pay_num);
-
+//		
+//		int result = mypageService.myTicketDelete(pay_num);
+//
 		mypageVO.setPay_num(pay_num);
 		MypageVO ticketDetail = mypageService.myTicketDetail(mypageVO);
+		model.addAttribute("ticketDelete", ticketDetail);
 		
-		if(result == 1) {
-			model.addAttribute("ticketDelete", ticketDetail);
-			url = "client/mypage/myTicketDelete";
-		} else {
-			model.addAttribute("ticketDetail", ticketDetail);
-			url = "redirect:/client/mypage/myTicketDetail"; // jsp 페이지로 포워드 하지 않고 매핑 찾기
-		}
+		// 좌석연령 리스트 조회
+		List<MypageVO> seatAgeList = mypageService.seatAgeList(pay_num);
+		model.addAttribute("seatAgeList", seatAgeList);
+				
+		url = "client/mypage/myTicketDelete";
+//		if(result == 1) {
+//			model.addAttribute("ticketDelete", ticketDetail);
+//			url = "client/mypage/myTicketDelete";
+//		} else {
+//			model.addAttribute("ticketDetail", ticketDetail);
+//			url = "redirect:/client/mypage/myTicketDetail"; // jsp 페이지로 포워드 하지 않고 매핑 찾기
+//		}
 		
 		return url;
 	}
@@ -352,5 +362,35 @@ public class MypageController {
 		
 		return "client/mypage/myCouponListN"; // /WEB-INF/views/client/mypage/myCouponListN.jsp
 	}
+	
+	/***********************************************************
+	 * 나의 기대평 리스트 조회하기
+	 * 요청 주소 : http://localhost:8080/mypage/myExpectList
+	 ***********************************************************/
+	@GetMapping(value="/myExpectList")
+	public String myExpectList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("사용가능 발급쿠폰 화면");
+		
+		// 회원 아이디 임의로 지정
+		//mypageVO.setU_id("user02");
+		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
+		
+		// 기대평 리스트 조회
+		List<MypageVO> expectList = null;
+		expectList = mypageService.expectList(mypageVO);
+		model.addAttribute("expectList", expectList);
+		
+		// 기대평 리스트 페이징 처리
+		int total = mypageService.expectListCnt(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+		
+		return "client/mypage/myExpectList"; // /WEB-INF/views/client/mypage/myExpectList.jsp
+	}
+	
 	
 }

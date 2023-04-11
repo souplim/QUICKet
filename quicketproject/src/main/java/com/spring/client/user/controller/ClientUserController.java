@@ -134,7 +134,7 @@ public class ClientUserController {
 			ex.printStackTrace();
 		} 
 		if (userLogin == null) {
-			ras.addFlashAttribute("errorMsg", "로그인 실패");
+			ras.addFlashAttribute("errorMsg", "입력한 아이디가 존재하지 않거나 아이디 비밀번호가 올바르지 않습니다.");
 			url = "/user/login";
 		} else if(userLogin != null && userLogin.getU_state() == 1 && dateResult == false) {
 			model.addAttribute("userLogin", userLogin);

@@ -33,6 +33,7 @@ import com.spring.admin.ticket.service.AdminTicketService;
 import com.spring.admin.ticket.vo.HallVO;
 import com.spring.client.pay.service.PaymentService;
 import com.spring.client.pay.vo.PayVO;
+import com.spring.client.paypage.vo.SeatVO;
 import com.spring.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -93,19 +94,79 @@ public class AdminTicketController {
 	@RequestMapping(value="/hall_list", method = RequestMethod.GET)
 	public String hall_list(@ModelAttribute("data") HallVO hvo, Model model) {
 		log.info("hall_list 호출 성공");
-		// 전체 레코드 조회
+		log.info("getPageNum:" + hvo.getPageNum());
 		List<HallVO> hall_list = adminTicketService.hall_list(hvo);
-//		log.info(boardList);
-		model.addAttribute("hall_list",hall_list);
+		model.addAttribute("hall_list", hall_list);
+			System.out.println(hall_list.toString());
+		// 전체 레코드수 조회
+		int total = adminTicketService.hall_listCnt(hvo);
+		model.addAttribute("pageMaker", new PageDTO(hvo, total));
+		log.info("totalVal:" + total);
+		// 리스트 번호 부여를 위한 속성
+		int count = total - (hvo.getPageNum()-1) * hvo.getAmount();
+		model.addAttribute("count", count);
+		log.info("countVal:" + count);
+		log.info("getKeyword:" + hvo.getKeyword());
 		
-		// 전체 레코드수 구현
-//		int total = adminTicketService.hall_listCnt(hvo);
-//		log.info(total);
-		// 페이징 처리
-//		model.addAttribute("pageMaker", new PageDTO(hvo, total));
 		return "admin/ticket/hall_list"; // 
 	}
 	
+	@RequestMapping(value="/hall_delete", method=RequestMethod.POST)
+	public String hall_delete(@ModelAttribute HallVO hvo, RedirectAttributes ras) throws Exception {
+		log.info("hall_delete 호출 성공");
+		
+		int result = 0;
+		String url="";
+		try {
+		result = adminTicketService.hall_delete(hvo);  
+		ras.addFlashAttribute("HallVO",hvo); // 글번호인 b_num의 값을 유지하기위해서
+		}catch(Exception e){
+			url="/error/ticket/childhallError?th_num=" + hvo.getTh_num();
+			return "redirect:" + url;
+		}
+		url="/admin/ticket/hall_updateForm?th_num=" + hvo.getTh_num();
+		return "redirect:" + url;		
+	}
+	@RequestMapping(value="/hall_insertForm")
+	public String hall_writeForm(@ModelAttribute HallVO hvo, Model model) {
+		log.info("hall_insertForm 호출 성공");
+		hvo.setTh_num(hvo.getTh_num());
+		hvo.setS_num(hvo.getS_num());
+		model.addAttribute("th_numValue",hvo);
+		return "admin/ticket/hall_writeForm";
+	}
+	@RequestMapping(value="/seat_insertForm")
+	public String seat_insertForm(@ModelAttribute SeatVO svo, Model model) {
+		log.info("seat_insertForm 호출 성공");
+		svo.setHall_id(svo.getHall_id());
+		model.addAttribute("hall_idValue",svo);
+		return "admin/ticket/seat_writeForm";
+	}
+	@RequestMapping(value="/hall_write", method=RequestMethod.POST)
+	public String hall_write(@ModelAttribute HallVO hvo, RedirectAttributes ras) throws Exception {
+		log.info("hall_write 호출 성공");
+		
+		int result = 0;
+		String url="";
+		
+		result = adminTicketService.hall_write(hvo);  
+		ras.addFlashAttribute("HallVO",hvo);
+		url="/admin/ticket/hall_updateForm?th_num=" + hvo.getTh_num();
+		
+		return "redirect:" + url;		
+	}
+	@RequestMapping(value="/seat_write", method=RequestMethod.POST)
+	public String seat_write(@ModelAttribute SeatVO svo, RedirectAttributes ras) throws Exception {
+		log.info("hall_write 호출 성공");
+		int result = 0;
+		String url="";
+		
+		result = adminTicketService.seat_write(svo);  
+		ras.addFlashAttribute("SeatVO",svo);
+		url="/admin/ticket/seat_updateForm?hall_id=" + svo.getHall_id();
+		
+		return "redirect:" + url;		
+	}
 	@RequestMapping(value="/hall_updateForm")
 	public String updateForm(@ModelAttribute HallVO hvo, Model model) {
 		log.info("hall_updateForm 호출 성공");
@@ -129,6 +190,49 @@ public class AdminTicketController {
 		return "admin/ticket/hall_updateForm2";
 	}
 	
+	@RequestMapping(value="/seat_updateForm")
+	public String seat_updateForm(@ModelAttribute HallVO hvo, Model model) {
+		log.info("seat_updateForm 호출 성공");
+		
+		List<SeatVO> seat_updateForm = adminTicketService.seat_updateForm(hvo);
+		
+		model.addAttribute("seat_updateForm", seat_updateForm);
+		hvo.setTh_num(hvo.getTh_num());
+		model.addAttribute("th_numValue", hvo);
+		return "admin/ticket/seat_updateForm";
+		
+		
+	}
+	@RequestMapping(value="/seat_delete", method=RequestMethod.POST)
+	public String seat_delete(@ModelAttribute SeatVO svo, RedirectAttributes ras) throws Exception {
+		log.info("seat_delete 호출 성공");
+		
+		int result = 0;
+		String url="";
+		
+		
+		try {
+			result = adminTicketService.seat_delete(svo);  
+			ras.addFlashAttribute("SeatVO",svo); 
+		}catch(Exception e){
+			url="/error/ticket/childseatError?hall_id=" + svo.getHall_id();
+			return "redirect:" + url;	
+		}
+		url="/admin/ticket/seat_updateForm?hall_id=" + svo.getHall_id();
+		return "redirect:" + url;		
+	}
+	
+	@RequestMapping(value="/seat_updateForm2")
+	public String seat_updateForm2(@ModelAttribute SeatVO svo, Model model) {
+		log.info("seat_updateForm2 호출 성공");
+		
+		SeatVO seat_updateForm2 = adminTicketService.seat_updateForm2(svo);
+		
+		model.addAttribute("seat_updateForm2", seat_updateForm2);
+		
+		return "admin/ticket/seat_updateForm2";
+	}
+	
 	@RequestMapping(value="/hallUpdate", method=RequestMethod.POST)
 	public String hallUpdate(@ModelAttribute HallVO hvo, RedirectAttributes ras) throws Exception {
 		log.info("hallUpdate 호출 성공");
@@ -149,6 +253,25 @@ public class AdminTicketController {
 		}else {
 //			url="/board/updateForm?b_num=" + bvo.getB_num();
 			url="/admin/ticket/hall_updateForm2";
+		}
+		
+		return "redirect:" + url;		
+	}
+	
+	@RequestMapping(value="/seatUpdate", method=RequestMethod.POST)
+	public String seatUpdate(@ModelAttribute SeatVO svo, RedirectAttributes ras) throws Exception {
+		log.info("seatUpdate 호출 성공");
+		
+		int result = 0;
+		String url="";
+		
+		result = adminTicketService.seatUpdate(svo);  
+		ras.addFlashAttribute("SeatVO",svo); // 글번호인 b_num의 값을 유지하기위해서
+		
+		if(result == 1) {
+			url="/admin/ticket/seat_updateForm?hall_id=" + svo.getHall_id();
+		}else {
+			url="/admin/ticket/seat_updateForm2";
 		}
 		
 		return "redirect:" + url;		

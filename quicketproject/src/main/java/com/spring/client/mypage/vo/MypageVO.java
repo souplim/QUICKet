@@ -18,6 +18,9 @@ public class MypageVO extends CommonVO {
 	private int seat_num = 0; // 예매 좌석 번호
 	private String seat_nums = ""; // 예매 좌석 번호 한 행으로 반환
 	private int seat_num_cnt = 0; // 예매 좌석 개수
+	private String seat_age = ""; // 예매 좌석 연령
+	private String seat_ages = ""; // 예매 좌석 연령 한 행으로 반환
+	
 	private String s_opendate; // 공연 시작일
 	private String s_closedate; // 공연 종료일
 	private String img_name = ""; // 이미지 파일
@@ -59,4 +62,8 @@ public class MypageVO extends CommonVO {
 	private String c_startdate=""; // 쿠폰 시작일	
 	private String c_enddate=""; // 쿠폰 만료일
 	private String c_remain=""; // 쿠폰 남은 기간
+	
+	private String ex_no=""; // 기대평 번호
+	private String ex_title=""; // 기대평 제목
+	private String ex_regdate; // 기대평 등록일		
 }

@@ -82,22 +82,34 @@
 					/* 유형 선택 시 아코디언 열기 */
 					if($("#faqBoxList").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
 						$("#confirmFaq").next("div").slideDown();
-					} else {
-						$("#confirmFaq").next("div").slideUp();
-					}
+						$(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+					} 
 				}
 				else if(category == "공연") {
 					detail = 공연;
 					$("#reserveInfo").show();
 					$("#accordion").show();
+					
+					/* 유형 선택 시 아코디언 열기 */
+					if($("#faqBoxList").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
+						$("#confirmFaq").next("div").slideDown();
+						$(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+					} 
 				} else if(category == "그 외") {
 					detail = 그외;
 					$("#reserveInfo").hide();
 					$("#accordion").show();
+					
+					/* 유형 선택 시 아코디언 열기 */
+					if($("#faqBoxList").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
+						$("#confirmFaq").next("div").slideDown();
+						$(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+					} 
 				} else {
 					detail = opt;
 					$("#reserveInfo").hide();
 					$("#accordion").hide();
+					$(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
 				}
 				
 				let target = $("#i_cate_detail");
@@ -133,8 +145,10 @@
 			$("#confirmFaq").on("click", function(){
 				if($("#faqBoxList").css("display") == "none"){ // 클릭하는 요소 열려있지 않으면
 					$(this).next("div").slideDown();
+					$(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 				} else {
 					$(this).next("div").slideUp();
+					$(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
 				}
 			});
 			

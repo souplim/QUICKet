@@ -27,6 +27,7 @@
 	
 		<typeAlias type="com.spring.admin.ticket.vo.HallVO" alias="hall" />
 		<typeAlias type="com.spring.client.paypage.vo.PayPageVO" alias="paypage" />
+		<typeAlias type="com.spring.client.paypage.vo.SeatVO" alias="seat" />
 		<typeAlias type="com.spring.client.paypage.vo.CouponVO" alias="coupon" />
 		<typeAlias type="com.spring.client.pay.vo.PayVO" alias="pay" />
 		<typeAlias type="com.spring.client.paypage.vo.ticketSuccessVO" alias="tSuccess" />    

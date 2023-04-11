@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/popup.jspf" %>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 <title>회원 쿠폰 내역</title>
 
 </head>
 <body>
-
+<div class="contentTit page-header"><h3 class="text-center">회원 쿠폰 내역</h3></div>  
 <div class="container">
 			<table class="table table-bordered">
 				<thead>

@@ -5,22 +5,49 @@
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 	<script type="text/javascript">
 	$(function(){
-		
 		/* 뒤로가기 버튼 클릭 시 처리 이벤트 */
 		$("#back").click(function(){
 			location.href = "/admin/ticket/hall_list";
 		});
+		
+		/* writeBtn 버튼 클릭 시 처리 이벤트 */
+		$("#writeBtn").click(function(){
+			location.href= "/admin/ticket/hall_insertForm?th_num="+"${updateData[0].th_num}" + "&s_num=" + "${updateData[0].s_num}" 
+		});
 	
-		/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */		
-		$(".goDetail").click(function(){
+		/* delete 클릭시 상세 페이지 이동을 위한 처리 이벤트 */		
+		$(".goDetail0").click(function(){
 			//let num = $(this).parents("tr").children().eq(0).html();
 			// 이벤트가 발생한 자기 자신. 자신을 포함한 부모 요소중 tr을 찾아 trdㅢ 속성인 data-num의 값을 읽ㅇ옴
 			let hall_id = $(this).parents("tr").attr("data-num");
 			$("#hall_id").val(hall_id);
-			console.log("글번호 : "+hall_id);
+			$("#detailForm").attr({
+				"method":"post",
+				"action":"/admin/ticket/hall_delete"
+			});
+			$("#detailForm").submit();
+		})
+		/* Hallupdate 클릭시 상세 페이지 이동을 위한 처리 이벤트 */		
+		$(".goDetail1").click(function(){
+			//let num = $(this).parents("tr").children().eq(0).html();
+			// 이벤트가 발생한 자기 자신. 자신을 포함한 부모 요소중 tr을 찾아 trdㅢ 속성인 data-num의 값을 읽ㅇ옴
+			let hall_id = $(this).parents("tr").attr("data-num");
+			$("#hall_id").val(hall_id);
 			$("#detailForm").attr({
 				"method":"get",
 				"action":"/admin/ticket/hall_updateForm2"
+			});
+			$("#detailForm").submit();
+		})
+		/* Seatupdate 클릭시 상세 페이지 이동을 위한 처리 이벤트 */		
+		$(".goDetail2").click(function(){
+			//let num = $(this).parents("tr").children().eq(0).html();
+			// 이벤트가 발생한 자기 자신. 자신을 포함한 부모 요소중 tr을 찾아 trdㅢ 속성인 data-num의 값을 읽ㅇ옴
+			let hall_id = $(this).parents("tr").attr("data-num");
+			$("#hall_id").val(hall_id);
+			$("#detailForm").attr({
+				"method":"get",
+				"action":"/admin/ticket/seat_updateForm"
 			});
 			$("#detailForm").submit();
 		})
@@ -34,7 +61,11 @@
 <div class="contentTit page-header"><h3 class="text-center">예매 정보 등록</h3></div>
 	<form id="detailForm">
 		<input type="hidden" id="hall_id" name="hall_id"/>
+		<input type="hidden" id="th_num" name ="th_num" value="${updateData[0].th_num}"/>
+		<input type="hidden" id="s_num" name ="s_num" value="${updateData[0].s_num}"/>
+		
 	</form>
+	<span style="color:red;">※공연관에 좌석 데이터가 존재할 시 삭제되지 않습니다.</span>
  	<table class="table table-striped">
 		<tr>
 			<td class="text-left col-md-2"><h4>공연명</h4></td>
@@ -69,7 +100,9 @@
 							<td class="text-left">${update.hall_time}</td>
 							<td class="text-left">${update.hall_seatNum}</td>
 							<td class="text-left">${update.hall_date}</td>
-							<td class="goDetail"><button>update</button></td>
+							<td class="goDetail0"><button>delete</button></td>
+							<td class="goDetail1"><button>Hallupdate</button></td>
+							<td class="goDetail2"><button>Seatupdate</button></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -85,6 +118,7 @@
 	
 </div> 
 			<div class="text-right">
+				<button type="button" id="writeBtn" class="btn btn-primary btn-sm">예매정보등록</button>
 				<button type="button" id="back" class="btn btn-primary btn-sm">뒤로가기</button>
 			</div>
 </div>

@@ -15,11 +15,18 @@
 					let id = $(this).parents("tr").attr("data-id");
 					console.log("회원아이디 : "  + id);
 					$("#u_id").val(id);
+					/*
 					$("#idForm").attr({
 						"method" : "get",
 						"action" : "/admin/user/userCouponList"
 					});
 					$("#idForm").submit();
+					
+					var DF = $("#idForm");*/
+					var url = "/admin/user/userCouponList?u_id="+id;
+					var c_window = window.open(url, "c_window", "scrollbars=no,toolbar=no,location=yes,status=yes,menubar=no,resizable=no,width=920,height=400");
+					c_window.focus();
+					
 				}); 
 				
 				
@@ -29,11 +36,14 @@
 					let id = $(this).parents("tr").attr("data-id");
 					console.log("회원아이디 : "  + id);
 					$("#u_id").val(id);
-					$("#idForm").attr({
+					/*$("#idForm").attr({
 						"method" : "get",
 						"action" : "/admin/user/userTicketList"
 					});
-					$("#idForm").submit();
+					$("#idForm").submit();*/
+					var url = "/admin/user/userTicketList?u_id="+id;
+					var c_window = window.open(url, "c_window", "scrollbars=no,toolbar=no,location=yes,status=yes,menubar=no,resizable=no,width=920,height=400");
+					c_window.focus();
 				}); 
 				
 				<!-- 회원 탈퇴 처리 -->
@@ -105,6 +115,7 @@
 				$("#f_search").submit();
 			}
 	</script> 
+
 </head>
 <body>
 	<form name="outForm" id="outForm">
@@ -114,6 +125,7 @@
 	<form name="idForm" id="idForm">
 		<input type="hidden" name="u_id" id="u_id"/>
 	</form>
+	<div class="contentTit page-header"><h3 class="text-center">회원 관리</h3></div>  
 	
 	<div  class="well">
 			<form class="form-inline" id="f_search">
@@ -195,7 +207,7 @@
 											<td><button type="button" class="btn btn-danger outBtn">탈퇴</button></td>
 										</c:when>
 										<c:otherwise>
-											<td><button type="button" class="btn">탈퇴</button></td>
+											<td><button type="button" class="btn" disabled="disabled">탈퇴</button></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>

@@ -3,7 +3,7 @@
   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
   
 <tiles-definitions>
-	<!-- <definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
+	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
 		<put-attribute name="title" value="나의 첫 스프링 사이트" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
@@ -14,7 +14,7 @@
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
-	</definition> -->
+	</definition>
 	
 	<definition name="client/show/*" template="/WEB-INF/views/template/client/contentLayout.jsp">
 		<put-attribute name="title" value="QUICKet" />
@@ -102,7 +102,7 @@
 	</definition>
 	
 	<!-- Control 단에서 error/error_page 받아오면... -->
-	<definition name="error/*" extends="content"> 
+	<definition name="/error/*" extends="content"> 
 		<put-attribute name="title" value="" /> <!-- 안 주면 기본값인 "나의 첫 스프링 사이트"가 나오기 때문에 공백으로 값 준다 -->
 		<put-attribute name="body" value="/WEB-INF/views/error/{1}.jsp" /> 
 	</definition>
