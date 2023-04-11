@@ -185,7 +185,7 @@
     border-radius: 20px;
     padding: 0 20px;
   	}
-  	
+  	.table>tbody>tr>td {border : none;}
 </style>
   
 		
@@ -206,7 +206,7 @@
 		<col width="30%">
 		<col width="10%">
 		</colgroup>
-		
+		<br>
 		<tr class="form-group">
 			<td class="Label">이름</td>
 			<td colspan="5">${userLogin.u_name}</td>
@@ -233,9 +233,10 @@
 					</c:otherwise>
 				</c:choose>
 			</td>
-			<td colspan="2"></td>
+			<td></td>
 			<td class="text-left" class="Label">생년월일</td>
 			<td class="text-left">${userLogin.u_birth }</td>
+			<td></td>
 		</tr>
 		<tr class="form-group">
 						<td class="Label">이메일</td>
@@ -253,7 +254,7 @@
 							<input type="hidden" id="u_email" name="u_email" value="${userLogin.u_email}" required>
 						</td>
 						<td>
-							<div id="btnArea"><button type="button" id="keySendBtn">인증번호 전송</button></div>
+							<div id="btnArea"><button type="button" id="keySendBtn" class="w-btn-outline w-btn-indigo-outline btn">인증번호 전송</button></div>
 						</td>
 					</tr>
 					<tr id="keyForm"  class="form-group">
@@ -271,7 +272,7 @@
 		</tr>
 		<tr class="form-group">
 			<td colspan="2"></td>
-			<td colspan="3" class="form-inline text-right" id="pwdChkArea"><label>비밀번호 확인</label><input type="password" id="DelChk" name="DelChk" class="form-control"/><button type="button" id="DelChkBtn" class="btn btn-default">확인</button></td>
+			<td colspan="3" class="form-inline text-right" id="pwdChkArea"><label>비밀번호 확인 &nbsp;</label><input type="password" id="DelChk" name="DelChk" class="form-control"/><button type="button" id="DelChkBtn" class="btn w-btn-gray gap">확인</button></td>
 			<td class="text-right"><button type="button" class="btn w-btn-outline w-btn-indigo-outline block btn-block" id="userDelBtn">회원 탈퇴</button></td>
 		</tr>
 		<tr class="form-group">

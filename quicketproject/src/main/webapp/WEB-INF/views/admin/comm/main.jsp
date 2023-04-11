@@ -31,11 +31,15 @@
 		$(".goExpect").click(function(){
 			let num = $(this).parents("tr").attr("data-num");
 			console.log(num);
+			$("#s_num").val(num);
+			console.log(num);
 			
-			location.href="/admin/expect/adminExpectList?s_num=" + num;
+			$("#detailForm").attr({
+				"method":"get",
+				"action":"/admin/expect/adminExpectList"
+			});
+			$("#detailForm").submit();
 			
-			//alert("준비 중인 기능입니다.");
-			//location.href="/admin/review/adminreviewList?s_num=" + num;
 		});
 		
 		// 관람후기 클릭 시
@@ -58,7 +62,7 @@
 			let num = $(this).parents("tr").attr("data-num");
 			console.log(num);
 			
-			location.href="/admin/qna/adminQnaList?s_num=" + num;
+			location.href="/admin/qna/qnaAdminList?s_num=" + num;
 		});
 		
 		// 상세 버튼 클릭 시 

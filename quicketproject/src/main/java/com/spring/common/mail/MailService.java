@@ -50,7 +50,7 @@ public class MailService {
 		msgg += "</div>";
 		message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
-		message.setFrom(new InternetAddress("eeluynib902@gmail.com", "QUICKet 관리자"));// 보내는 사람
+		message.setFrom(new InternetAddress("yubinn2@naver.com", "QUICKet 관리자"));// 보내는 사람
 
 		return message;
 	}
@@ -75,7 +75,7 @@ public class MailService {
 		msgg += "<h3>관리자에 의해 QUICKet 탈퇴 처리가 되었음을 알려드립니다. 감사합니다.</h3>";
 		message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
-		message.setFrom(new InternetAddress("eeluynib902@gmail.com", "QUICKet 관리자"));// 보내는 사람
+		message.setFrom(new InternetAddress("yubinn2@naver.com", "QUICKet 관리자"));// 보내는 사람
 
 		return message;
 	}
@@ -164,7 +164,7 @@ public class MailService {
 			msgg += "</div>";
 			message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
 			// 보내는 사람의 이메일 주소, 보내는 사람 이름
-			message.setFrom(new InternetAddress("eeluynib902@gmail.com", "QUICKet 관리자"));// 보내는 사람
+			message.setFrom(new InternetAddress("yubinn2@naver.com", "QUICKet 관리자"));// 보내는 사람
 
 			return message;
 

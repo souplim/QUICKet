@@ -73,9 +73,9 @@
 			</div>
 			
 			<div class= "contentBtn text-right">
-				<input type="button" value="수정" id="qnaUpdateBtn" class="btn btn-primary"/>
-				<input type="button" value="취소" id="qnaCancelBtn" class="btn btn-primary"/>
-				<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+				<input type="button" value="수정" id="qnaUpdateBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
+				<input type="button" value="취소" id="qnaCancelBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
+				<input type="button" value="목록" id="qnaListBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
 			</div>
 		</div>
 	

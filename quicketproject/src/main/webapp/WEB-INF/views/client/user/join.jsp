@@ -74,8 +74,8 @@
 				alert("비밀번호 형식이 올바르지 않습니다.");
 			} else if ($("#pwdChkDiv.has-error").length){
 				alert("비밀번호와 비밀번호 확인을 올바르게 입력해주세요.");
-			} else if ($("#keyDiv.has-error").length){
-				alert("인증키가 올바르지 않습니다. \n다시 입력해주세요.");
+			} else if ($("#chkKey").val() == ""){
+				alert("이메일 본인인증을 해주세요.");
 			} else if ($("#id-chk-msg").html() != "아이디 중복확인 완료.") {
 				alert("아이디 중복확인을 해주세요.");
 			} else if($(".has-feedback.has-success").length) {
@@ -130,10 +130,19 @@
 				$('#idDiv').addClass("has-error");
 				$("#idicon").addClass("glyphicon-remove");
 				$("#id-chk-msg").css("display", "block");
-				$("#id-chk-msg").html("아이디 형식이 올바르지 않습니다. (한글 2-5자)");
+				$("#id-chk-msg").html("아이디 형식이 올바르지 않습니다. (영어,숫자 5-15자)");
 				$("#id-chk-msg").removeClass("alert-warning");
 				$("#id-chk-msg").removeClass("alert-success");
 				$("#id-chk-msg").addClass("alert-danger");
+			} else if ($('#u_id').val() == "" || $('#u_id').val() == " "){
+				$('#idDiv').removeClass("has-error");
+				$("#idicon").removeClass("glyphicon-remove");
+				$('#idDiv').removeClass("has-warning");
+				$("#idicon").removeClass("glyphicon-warning-sign");
+				$('#idDiv').removeClass("has-success");
+				$("#idicon").removeClass("glyphicon-ok");
+				$("#id-chk-msg").css("display", "none");
+				$("#idChkBtn").focus();
 			} else {
 				$('#idDiv').removeClass("has-error");
 				$("#idicon").removeClass("glyphicon-remove");
@@ -142,7 +151,6 @@
 				$('#idDiv').addClass("has-success");
 				$("#idicon").addClass("glyphicon-ok");
 				$("#id-chk-msg").css("display", "none");
-				$("#idChkBtn").focus();
 			}
 		});
 		
@@ -259,7 +267,7 @@
 	<section class="bg-light">
 		<div class="container">
 			<div class="row align-items-center justify-content-between">
-				<h4>회원 가입</h4>
+				<h3 class="text-center">회원 가입</h3>
 			</div>
 			<form id="regForm">
 			
