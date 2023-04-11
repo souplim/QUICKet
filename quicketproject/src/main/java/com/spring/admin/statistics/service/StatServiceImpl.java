@@ -59,6 +59,13 @@ public class StatServiceImpl implements StatService {
 		return list;
 	}
 
+	// 예매자 연령비 조회
+	@Override
+	public List<StatVO> ageGroupCnt() {
+		List<StatVO> list = statDao.ageGroupCnt();
+		return list;
+	}
+
 	
 
 }

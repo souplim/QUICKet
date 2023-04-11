@@ -14,6 +14,9 @@ public class StatVO {
 	private int u_gendercnt=0; // 예매자 성별수
 	private int u_gendercntRatio=0; // 예매자 성비
 	
+	private int ageGroup=0; // 예매자 연령대
+	private int ageGroupCnt=0; // 예매자 연령대 수
+	
 	private int ti_num=0;
 	private String ti_regidate; // 예매일
 	private int ti_status=0; // 예매상태

@@ -151,4 +151,15 @@
 		order by u_gendercntRatio DESC
 	</select>
 	
+	<!-- 예매자 연령비 조회 -->
+	<select id="ageGroupCnt" resultType="stat">
+		select ageGroup, count(ageGroup) as ageGroupCnt
+		from(
+		    select t.u_id, u_birth, ti_status, 2023-SUBSTR(TO_CHAR(u_birth,'yyyymmdd'),1,4) AS age, floor((to_char(sysdate,'yyyy')-SUBSTR(TO_CHAR(u_birth,'yyyymmdd'),1,4))/10)*10 as ageGroup 
+		    from ticket t INNER JOIN q_user u
+		                  ON t.u_id = u.u_id
+		)
+		where ti_status = 1
+		group by ageGroup
+	</select>
 </mapper>

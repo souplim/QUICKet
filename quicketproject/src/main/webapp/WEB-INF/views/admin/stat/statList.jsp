@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"  %>
+	
+	<style>
+		.human {display: flex;}
+	</style>
 
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -17,6 +21,7 @@
 			
 			// Set a callback to run when the Google Visualization API is loaded.
 			google.charts.setOnLoadCallback(drawChartGender);
+			google.charts.setOnLoadCallback(drawChartAgeGroup);
 			google.charts.setOnLoadCallback(drawChartTicketCnt);
 			google.charts.setOnLoadCallback(drawChartShowSales);
 			google.charts.setOnLoadCallback(drawChartTicketSales);
@@ -46,6 +51,36 @@
 						
 						// 입력값 화면에 뿌려주기
 						var chart = new google.visualization.PieChart(document.getElementById('gender_div'));
+						chart.draw(data, options);
+					},
+					async: false
+				}).responseText;
+			}
+			
+			function drawChartAgeGroup(){
+				$.ajax({
+					url : "/admin/stat/ageGroupCnt",
+					type : 'post',
+					headers : {
+						"Content-Type" : "application/json"
+					},
+					dataType : "json",
+					error : function(xhr, textStatus, errorThrown) {
+						alert("시스템에 문제가 있어 잠시 후 다시 진행해주세요.");
+					},
+					success : function(result) {
+						console.log(result);
+						
+						// Create our data table out of JSON data loaded from server.
+						var data = new google.visualization.DataTable(result);
+						
+						// 차트 상단 제목 설정
+						var options = { 
+								title : '예매자 연령비'							
+						};
+						
+						// 입력값 화면에 뿌려주기
+						var chart = new google.visualization.PieChart(document.getElementById('ageGroup_div'));
 						chart.draw(data, options);
 					},
 					async: false
@@ -181,7 +216,10 @@
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="gender_div" style="width: 900px; height: 500px;"></div>
+    <div class="human">
+    	 <div id="gender_div" style="width: 900px; height: 500px;"></div>
+    	<div id="ageGroup_div" style="width: 900px; height: 500px;"></div>
+    </div>
     <div id="ticketCnt_div" style="height: 400px;"></div>
     <div id="showSales_div" style="height: 400px;"></div>
     <div id="ticketSales_div" style="height: 400px;"></div>

@@ -241,4 +241,35 @@ public class StatController {
 		
 		return json;
 	}
+	
+	/***********************************************************
+	 * 예매자 연령비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/ageGroupCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/ageGroupCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String ageGroupCnt(){
+		log.info("ageGroupCnt 조회");
+		
+		List<StatVO> list = statService.ageGroupCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("연령대", "string");
+		gChart.addColumn("연령비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getAgeGroup());
+			gChart.addCell(count, vo.getAgeGroupCnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
 }

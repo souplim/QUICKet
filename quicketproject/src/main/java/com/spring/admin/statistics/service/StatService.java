@@ -19,6 +19,8 @@ public interface StatService {
 
 	List<StatVO> genderCnt(); // 예매자 성비 조회
 
+	List<StatVO> ageGroupCnt(); // 예매자 연령비 조회
+
 	
 
 }
