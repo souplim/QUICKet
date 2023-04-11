@@ -9,6 +9,12 @@
 				});			
 			});				
 	</script>
+	<style>
+		.btn-blue {
+			background-color: dodgerblue;
+			color: #fff;
+		}
+	</style>
 	</head>
 	<body>
 	    <h3 class="text-center">FAQ</h3>		
@@ -26,7 +32,7 @@
 					<tbody>
 						<tr>
 							<td class="col-md-1">구분</td> 
-							<td class="col-md-1 text-left">${detail.f_category}</td> 						
+							<td colspan="3" class="text-left">${detail.f_category}</td> 						
 						</tr>	
 						
 						<tr class="table-tr-height">	
@@ -78,8 +84,8 @@
 	
 							
 			<%-- ========= 목록 버튼 ====== --%>	
-			<div class="btnArea col-md-4 text-right">
-				<input type="button" value="목록보기" id="boardListBtn" class="btn btn-primary" />
+			<div class="btnArea text-right">
+				<input type="button" value="목록보기" id="boardListBtn" class="btn btn-blue" />
 			</div>
 		</div>	
 	</body>

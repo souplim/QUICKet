@@ -189,7 +189,7 @@
 		                            WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
 		                        ON s.s_num = B.s_num  
 		group by B.u_id, s.s_num, B.is_likes
-		having u_id = #{u_id}     
+		having u_id = #{u_id}
 	</select>
 	
 	<!-- 상세페이지 - 공연의 관심수 -->
@@ -298,5 +298,28 @@
 		WHERE u_id = #{u_id} AND uc_state=1	
 	</select>
 	
+	<select id="expectList" parameterType="mypage" resultType="mypage">
+		SELECT rnum, ex_no, s_num, s_name, ex_title, ex_regdate
+		FROM ( 
+		    SELECT 
+		        rnum, ex_no, E.s_num, s_name, ex_title, TO_CHAR(ex_regdate,'yyyy-mm-dd') ex_regdate
+		    FROM (
+		        SELECT 
+		            rownum AS rnum, ex_no, s_num, ex_title, ex_regdate, u_id
+		        FROM expect
+		        WHERE u_id = #{u_id}
+		        ORDER BY ex_no DESC
+		    ) E INNER JOIN show S ON E.s_num = S.s_num
+		    WHERE
+			 <![CDATA[ rownum <= (1 * 10)
+		)
+		WHERE (rnum > (1 - 1) * 10) 
+		]]>
+	</select>
 	
+	<select id="expectListCnt" parameterType="mypage" resultType="int">
+		SELECT COUNT(*)
+		FROM expect
+		WHERE u_id = #{u_id}
+	</select>
 </mapper>

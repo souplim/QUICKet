@@ -174,4 +174,18 @@ public class MypageServiceImpl implements MypageService {
 		return couponListCntN;
 	}
 
+	// 기대평 리스트 조회 
+	@Override
+	public List<MypageVO> expectList(MypageVO mypageVO) {
+		List<MypageVO> list = mypageDao.expectList(mypageVO);
+		return list;
+	}
+
+	// 기대평 글 개수 
+	@Override
+	public int expectListCnt(MypageVO mypageVO) {
+		int expectListCnt = mypageDao.expectListCnt(mypageVO);
+		return expectListCnt;
+	}
+
 }

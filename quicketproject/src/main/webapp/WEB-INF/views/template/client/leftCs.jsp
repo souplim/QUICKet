@@ -16,12 +16,6 @@
 
 <ul class="nav">
 	<li>
-		<strong>공지</strong>
-		<ul class="nav nav-sidebar">
-			<li ><a href="#">공지사항</a></li>
-		</ul>
-	</li>
-	<li>
 		<strong>FAQ 자주 묻는 질문</strong>
 		<ul class="nav nav-sidebar">
 			<li ><a href="/faq/faqList?pageNum=1&amount=10&search=f_title&keyword=로그인">로그인</a></li>	

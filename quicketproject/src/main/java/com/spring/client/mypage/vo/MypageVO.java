@@ -62,4 +62,8 @@ public class MypageVO extends CommonVO {
 	private String c_startdate=""; // 쿠폰 시작일	
 	private String c_enddate=""; // 쿠폰 만료일
 	private String c_remain=""; // 쿠폰 남은 기간
+	
+	private String ex_no=""; // 기대평 번호
+	private String ex_title=""; // 기대평 제목
+	private String ex_regdate; // 기대평 등록일		
 }

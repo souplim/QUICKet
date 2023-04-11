@@ -35,4 +35,7 @@ public interface MypageService {
 	List<MypageVO> couponListN(MypageVO mypageVO); /* 사용완료 쿠폰 리스트 조회 */
 	int couponListCntN(MypageVO mypageVO); /* 사용완료 쿠폰 개수 */
 	
+	List<MypageVO> expectList(MypageVO mypageVO); /* 기대평 리스트 조회 */
+	int expectListCnt(MypageVO mypageVO); /* 페이징 처리 위한 기대평 개수 */
+	
 }

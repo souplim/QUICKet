@@ -363,4 +363,34 @@ public class MypageController {
 		return "client/mypage/myCouponListN"; // /WEB-INF/views/client/mypage/myCouponListN.jsp
 	}
 	
+	/***********************************************************
+	 * 나의 기대평 리스트 조회하기
+	 * 요청 주소 : http://localhost:8080/mypage/myExpectList
+	 ***********************************************************/
+	@GetMapping(value="/myExpectList")
+	public String myExpectList(@ModelAttribute("userLogin") UserVO userVO, @ModelAttribute MypageVO mypageVO, Model model ) {
+		log.info("사용가능 발급쿠폰 화면");
+		
+		// 회원 아이디 임의로 지정
+		//mypageVO.setU_id("user02");
+		
+		// 로그인한 회원 아이디 세션에서 얻어오기
+		if(userVO.getU_id()==null)
+			return "redirect:/user/login";
+		else
+			mypageVO.setU_id(userVO.getU_id());
+		
+		// 기대평 리스트 조회
+		List<MypageVO> expectList = null;
+		expectList = mypageService.expectList(mypageVO);
+		model.addAttribute("expectList", expectList);
+		
+		// 기대평 리스트 페이징 처리
+		int total = mypageService.expectListCnt(mypageVO);
+		model.addAttribute("pageMaker", new PageDTO(mypageVO, total));
+		
+		return "client/mypage/myExpectList"; // /WEB-INF/views/client/mypage/myExpectList.jsp
+	}
+	
+	
 }

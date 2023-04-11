@@ -32,7 +32,7 @@
 	<li>
 		<strong>커뮤니티 활동</strong>
 		<ul class="nav nav-sidebar">
-			<li><a href="#">공연 기대평</a></li>
+			<li><a href="/mypage/myExpectList">공연 기대평</a></li>
 			<li><a href="/mypage/myReviewList">공연 관람후기</a></li>
 			<li><a href="/mypage/myQnaList">작성한 Q&A</a></li>
 		</ul>

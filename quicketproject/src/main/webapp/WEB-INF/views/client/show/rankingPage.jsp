@@ -436,7 +436,17 @@
 </head>
 <body>
 	<div class="container">
-	<br/>
+		<div class="row">
+			<h2><strong>랭킹> 
+			<c:if test="${showVO.s_array=='s_point'}"><a style="color:#888888" href="/ranking?s_array=s_point">평점순</a></c:if>
+			<c:if test="${showVO.s_array=='rank_ticket'}">예매율순> 
+				<c:if test="${showVO.rank_period=='day'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=day">일간</a></c:if>
+				<c:if test="${showVO.rank_period=='week'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=week">주간</a></c:if>
+				<c:if test="${showVO.rank_period=='month'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=month">월간</a></c:if>
+				<c:if test="${showVO.rank_period=='year'}"><a style="color:#888888" href="/ranking?s_array=rank_ticket&rank_period=year">연간</a></c:if>
+			</c:if>
+			</strong></h2> 
+		</div>
 	<form id="f_ranking">
 		<div class="row">
 			<div class="col-xs-4 col-xs-offset-4">
@@ -480,6 +490,7 @@
 		</div>
 	</form>
 		<br/><br/><br/>
+		<c:if test="${not empty rankList}">
 		<div id="top3list" class="row">
 			<c:forEach var="rank" items="${rankList}" end="2" step="1" varStatus="status">
 			<div class="topRankBox_wrapper col-md-4">
@@ -540,9 +551,7 @@
 			</div>	
 			</c:forEach>
 		</div>
-		<br />
-		<br />
-		<br />		
+		<br /><br /><br />		
 		<div id="otherlist" class="row">
 			<c:forEach var="rank" items="${rankList}" begin="3" step="1" varStatus="status">
 				<div class="otherRankBox col-xs-12" data-num="${rank.s_num}">
@@ -598,6 +607,12 @@
 				</div>
 			</c:forEach>
 		</div>
+		</c:if>
+		<c:if test="${empty rankList}">
+			<div class="row text-center">
+				<h3>해당 날짜의 랭킹 데이터가 존재하지 않습니다.</h2><br /><br /><br />	
+			</div>
+		</c:if>
 	</div>
 
 </body>

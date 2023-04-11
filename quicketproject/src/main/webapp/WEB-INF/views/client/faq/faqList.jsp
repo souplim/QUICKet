@@ -19,17 +19,7 @@
 				$("#search").val("<c:out value='${faqVO.search}' />");
 				
 			
-				/*if($("#search").val()!='f_content'){
-					//:contains()는 특정 텍스트를 포함한 요소반환 	
-					if($("#search").val()=='f_title') value = "#list tr td.goDetail";
-					else if($("#search").val()=='f_content') value="#list tr td.name";
-					console.log($(value+":contains('"+word+"')").html());
-					//$("#list tr td.goDetail:contains('노력')").html() => <span class='required'>노력</span>에 대한 명언
-			    	$(value+":contains('"+word+"')").each(function () {
-						let regex = new RegExp(word,'gi');
-						$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
-			    	});
-				}*/
+		
 			}
 			
 			/* 입력 양식 enter 제거 */
@@ -138,7 +128,7 @@
 						<option value="f_content">글내용</option> 
 				<!-- 		<option value="f_regdate">등록일</option> -->
 					</select>
-					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" /> <!-- placeholder도가능 -->
+					<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control" /> <!-- placeholder도가능 -->
 			<!-- 	<button type="button" id="searchData" class="btn btn-success">검색</button>  -->	
 					<button type="button" id="searchData" class="btn btn-blue">검색</button>
 					
