@@ -79,7 +79,7 @@
 		ON t.th_num = h.th_num
 		LEFT JOIN show s
 		ON t.th_num = s.th_num
-		WHERE t.th_num= #{th_num}
+		WHERE s.s_num= #{s_num}
 	</select>
 	<select id="hallDetail2" parameterType="hall" resultType="hall">
 		select *
@@ -96,7 +96,7 @@
 		where hall_id=#{hall_id}
 	</select>
 	<select id="seat_updateForm2" parameterType="seat" resultType="seat">
-		select seat_num, seat_name, h.hall_id, seat_status, seat_age, TO_CHAR(seat_update,'YYYY-MM-DD') as seat_update, th.th_num
+		select seat_num, seat_name, h.hall_id, seat_status, seat_age, TO_CHAR(seat_update,'YYYY-MM-DD') as seat_update, th.th_num,s.s_num
 			from  seat se INNER JOIN hall h ON  se.hall_id = h.hall_id
 		        INNER JOIN theater th ON h.th_num = th.th_num
 		        INNER JOIN show s ON th.th_num = s.th_num and s.s_num = h.s_num
@@ -153,4 +153,17 @@
 		WHERE pay_num = #{pay_num}
 	</update>
 	
+	<!-- 예매 좌석 테이블 조회 -->
+	<select id="ticketSeatSelect" parameterType="pay" resultType="seat">
+		SELECT * from ticket_seat where pay_num = #{pay_num}
+	</select>
+	
+	<!-- 좌석 테이블 상태값 변경 -->
+	 <update id="seatStatusCancelUpdate" parameterType="java.util.List">
+	 	 <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE SEAT
+			SET seat_age = '', seat_status = 0
+			WHERE seat_num = #{item.seat_num} and hall_id = #{item.hall_id}
+	    </foreach>
+	</update>
 </mapper>
