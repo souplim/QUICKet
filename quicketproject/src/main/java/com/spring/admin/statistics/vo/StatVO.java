@@ -17,6 +17,9 @@ public class StatVO {
 	private int ageGroup=0; // 예매자 연령대
 	private int ageGroupCnt=0; // 예매자 연령대 수
 	
+	private String u_state=""; // 회원상태
+	private int u_statecnt=0; // 회원상태에 따른 명수
+	
 	private int ti_num=0;
 	private String ti_regidate; // 예매일
 	private int ti_status=0; // 예매상태
