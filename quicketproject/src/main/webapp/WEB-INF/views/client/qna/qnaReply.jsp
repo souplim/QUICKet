@@ -263,13 +263,15 @@
 			
 			<%-- 불러온 리스트 출력되는 영역 --%>
 			<div id="reviewList">
-				<div id="qnaReply-template" class="panel panel-primary">
+				<div id="qnaReply-template" class="panel">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="id"></span>
 							<span class="date"></span>
-								<button type="button" data-btn="upBtn" class="btn btn-default gap upBtn">수정하기</button>
-								<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="btn btn-default gap delBtn">삭제하기</button>
+							<span class="btnArea"></span>
+							&nbsp;
+							<button type="button" data-btn="upBtn" class="w-btn-outline w-btn-gray-outline btn gap upBtn">수정하기</button>
+							<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="w-btn-outline w-btn-gray-outline btn gap delBtn">삭제하기</button>
 						</h3>
 					</div>
 					<div class="panel-body"></div>
