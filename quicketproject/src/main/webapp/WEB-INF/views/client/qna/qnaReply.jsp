@@ -6,7 +6,6 @@
 		 #qnaReply-template{display: none;}
 		 .inline{display:inline-block;}
 		 .panel-heading {background-color:#CCEEFF;} 
-		 .panel-title > button {}
 	</style>
 	
 	<script type = "text/javascript">
