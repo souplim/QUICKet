@@ -19,7 +19,7 @@ public class MypageMapperTests {
 	@Setter(onMethod_=@Autowired)
 	private MypageDao mypageDao;
 	
-	/* @Test
+	 @Test
 	public void testMyTicketList() {
 		log.info("myTicketList() 메서드 실행");
 		MypageVO mypageVO = new MypageVO();
@@ -31,7 +31,7 @@ public class MypageMapperTests {
 		List<MypageVO> list = mypageDao.myTicketList(mypageVO);
 		for(MypageVO vo : list)
 			log.info(vo.toString());
-	} */
+	} 
 	
 	/* @Test
 	public void testTicketListCnt() {

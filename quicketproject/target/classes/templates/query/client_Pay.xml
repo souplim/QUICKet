@@ -62,4 +62,5 @@
 			VALUES(#{item.seat_num}, #{item.hall_id}, #{item.pay_num})
 	    </foreach>
 	</insert>
+	
 </mapper>

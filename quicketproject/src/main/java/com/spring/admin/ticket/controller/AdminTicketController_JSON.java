@@ -59,6 +59,50 @@ public class AdminTicketController_JSON {
 			result = adminTicketService.ticketStatus(Integer.parseInt(pay_num));
 			return (result==1) ? "SUCCESS" : "FAILURE";
 		}
-
+		
+		@PostMapping(value = "/seatStatusCancelUpdate", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+		public String seatStatusCancelUpdate(@RequestBody ArrayList<String> seatData){
+			log.info("seatStatusCancelUpdate 호출 성공");
+			int result = 0;
+			
+			  PayPageVO pvo = new PayPageVO(); 
+			  List<SeatVO> seatList = pvo.getSeatList();
+			  int z = 0; 
+			  for(int i = 0; i < seatData.size(); i++) { 
+				  SeatVO svo = new SeatVO();
+				  if(i ==0) { 
+				  svo.setSeat_num(Integer.parseInt(seatData.get(z)));
+				  svo.setHall_id(Integer.parseInt(seatData.get(z+1))); 
+				  svo.setPay_num(Integer.parseInt(seatData.get(z+2)));
+				  seatList.add(svo);
+				  z=z+3; 
+			  }else if(i ==1) {
+			  
+			  }else if(i%3 ==0 && i!=0) {
+				  svo.setSeat_num(Integer.parseInt(seatData.get(z)));
+				  svo.setHall_id(Integer.parseInt(seatData.get(z+1))); 
+				  svo.setPay_num(Integer.parseInt(seatData.get(z+2)));
+				  seatList.add(svo);
+				  z=z+3; 
+			  }
+			  
+			  
+			  } 
+			  log.info(seatList.toString()); 
+			  result = adminTicketService.seatStatusCancelUpdate(seatList);
+			  
+			 
+			 
+			return (result != 0) ? "SUCCESS" : "FAILURE";
+		}
 	
+		@PostMapping(value = "/ticketSeatSelect", produces =MediaType.APPLICATION_JSON_VALUE)
+		public List<SeatVO> ticketSeatSelect(@RequestBody String pay_num){
+			log.info("ticketSeatSelect 호출 성공");
+			PayVO pvo = new PayVO();
+			pvo.setPay_num(Integer.parseInt(pay_num));
+			List<SeatVO> lsvo = null;
+			lsvo = adminTicketService.ticketSeatSelect(pvo);
+			return lsvo;
+		}
 }
