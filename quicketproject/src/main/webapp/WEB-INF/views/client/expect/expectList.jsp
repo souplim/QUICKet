@@ -5,7 +5,7 @@
 <style type="text/css">
 	#expect-template{display: none;}
 	.inline{display:inline-block;}
-	
+	.panel-heading {background-color:#CCEEFF;}
 </style>
 
 
@@ -94,7 +94,7 @@
 				$("#expectReplyForm button[type='button']").attr("data-num", ex_no);
 				$("#expectReplyForm button[type='button']").html("수정");	// 등록 -> 수정 버튼으로 변경
 				
-				let resetButton = $("<button type='button' class='btn btn-primary resetBtn'>");	//취소버튼 생성?
+				let resetButton = $("<button type='button' class='w-btn-outline w-btn-indigo-outline btn resetBtn'>");	//취소버튼 생성?
 				resetButton.html("취소");
 				$("#expectReplyForm .sendBtn").after(resetButton);	// 기존등록버튼 뒤에 취소버튼 추가. .after() - 선택한 요소 뒤에 새 요소를 추가하거나, 다른 곳에 있는 요소를 이동시키는 메서드
 			}
@@ -239,10 +239,10 @@
 				사전 경고에도 불구하고 불량 게시물을 계속적으로 게재한 게시자의 경우 QUICKet 게시판 작성 권한이 제한됩니다. <br/> <br/>
 				</div>
 			</div>
-
+			<br>
 			<%-- 댓글 작성하는 화면 --%>
 			<form id = "expectReplyForm" name="expectReplyForm">
-				<div class="panel panel-default">
+				<div class="panel">
 					<table class="table">
 						<tbody>
 							<tr>
@@ -254,8 +254,8 @@
 								<td class="col-md-3">
 									<input type="text" name="ex_title" id="ex_title" class="form-control">
 								</td>
-									<td class="col-md-4-btnArea">
-										<button type="button" id="expectReplyInsertBtn" class="btn btn-primary gap sendBtn">등록</button>
+									<td class="col-md-4-btnArea text-right">
+										<button type="button" id="expectReplyInsertBtn" class="w-btn-outline w-btn-indigo-outline btn gap sendBtn">등록</button>
 									</td>
 							</tr>
 							<tr>
@@ -269,17 +269,19 @@
 				</div>
 			</form>
 			
-			
+			<br>
+			<hr>
+			<br>
 			<%-- 댓글 리스트 출력되는 영역 --%>
 			<div id="expectList">
-				<div id="expect-template" class="panel panel-primary">
-					<div class="panel-heading" style="background-color:#CCEEFF">
+				<div id="expect-template" class="panel">
+					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="title"></span>
 							<span class="id"></span>
 							<span class="date"></span>
-								<button type="button" data-btn="upBtn" class="btn w-btn w-btn-gray gap upBtn" style="float:right;">수정</button>
-								<button type="button" data-btn="delBtn" class="btn w-btn w-btn-gray gap delBtn" style="float:right;">삭제</button>
+								<button type="button" data-btn="upBtn" class="btn w-btn w-btn-gray gap upBtn" >수정</button>
+								<button type="button" data-btn="delBtn" class="btn w-btn w-btn-gray gap delBtn" >삭제</button>
 						</h3>
 					</div>
 					<div class="panel-body"></div>
