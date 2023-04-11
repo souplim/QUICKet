@@ -25,9 +25,10 @@
 				});
 			});
 			
+			
 			/*목록 버튼 클릭시 처리 이벤트 */
 			$("#qnaListBtn").click(function(){
-				location.href = "/qna/qnaList";
+				location.href = "/showDetail?s_num="+$("#s_number").val();
 			});
 		});
 	</script>

@@ -131,7 +131,7 @@ public class QnaController {
 	
 		result = qnaService.qnaInsert(qvo);
 		if(result == 1) {
-			url = "/qna/qnaList";
+			url = "/showDetail?s_num="+qvo.getS_num();
 		} else {
 			url = "/qna/qnaWriteForm";
 		}
@@ -211,7 +211,7 @@ public class QnaController {
 		result = qnaService.qnaDelete(qvo); // 이식 기준 위가 준비단계, 아래가 삭제 후 처리 관련
 		
 		if(result == 1) {
-			url = "/qna/qnaList";
+			url = "/showDetail?s_num="+qvo.getS_num();
 		} else {
 		url = "/qna/qnaDetail?q_no="+qvo.getQ_no()+"&s_num="+qvo.getS_num(); 	
 		}
@@ -222,7 +222,7 @@ public class QnaController {
 	
 	/*************************************************
 	 * 글 삭제 전 댓글 개수 
-	 ************/
+	 **************/
 	@ResponseBody
 	@RequestMapping(value="/qnaReplyCnt")
 	public String qnaReplyCnt(@RequestParam("q_no") int q_no) {
