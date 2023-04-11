@@ -133,6 +133,18 @@ public class AdminTicketServiceImpl implements AdminTicketService {
 		result = hallDao.ticketStatus(pay_num);
 		return result;
 	}
+	@Override
+	public List<SeatVO> ticketSeatSelect(PayVO pvo) {
+		List<SeatVO> ticketSeatSelect = null;
+		ticketSeatSelect = hallDao.ticketSeatSelect(pvo);
+		return ticketSeatSelect;
+	}
+	@Override
+	public int seatStatusCancelUpdate(List<SeatVO> sv) {
+		int result = 0;
+		result = hallDao.seatStatusCancelUpdate(sv);
+		return result;
+	}
 	
 	
 }

@@ -58,7 +58,7 @@
 </head>
 <body>
 <div class="contentContainer container">
-<div class="contentTit page-header"><h3 class="text-center">예매 정보 등록</h3></div>
+<div class="contentTit page-header"><h3 class="text-center">예매 정보 등록(공연관 리스트)</h3></div>
 	<form id="detailForm">
 		<input type="hidden" id="hall_id" name="hall_id"/>
 		<input type="hidden" id="th_num" name ="th_num" value="${updateData[0].th_num}"/>

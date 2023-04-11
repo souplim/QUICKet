@@ -12,10 +12,11 @@
 				else if(!chkData("#q_content", "내용을")) return;
 					
 					$("#q_writeForm").attr({
-						method: "post",
+						method: "get",
 						action: "/qna/qnaInsert"
 					});
 					$("#q_writeForm").submit();
+					location.href = "/showDetail?s_num="+s_num;
 				});
 			
 			
@@ -39,6 +40,8 @@
 			
 		<div class="contentTB text-center">
 			<form  id="q_writeForm" name="q_writeForm" class="form-horizontal">
+				<input type="hidden" name="s_num" value="${param.s_num}"/>
+				<!-- request.getParameter -->
 				 <table class="table table-bordered">
 				 	<colgroup>
 				 		<col width = "20%"/>

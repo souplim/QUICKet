@@ -7,7 +7,7 @@
 	$(function(){
 		/* 뒤로가기 버튼 클릭 시 처리 이벤트 */
 		$("#back").click(function(){
-			location.href="/admin/ticket/hall_updateForm?th_num="+"${th_numValue.th_num}";
+			location.href="/admin/ticket/hall_updateForm?s_num="+"${s_numValue.s_num}";
 		});
 		/* 좌석정보등록 버튼 클릭 시 처리 이벤트 */
 		$("#writeBtn").click(function(){
@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="contentContainer container">
-<div class="contentTit page-header"><h3 class="text-center">예매(좌석) 정보 등록</h3></div>
+<div class="contentTit page-header"><h3 class="text-center">예매 정보 등록(좌석 리스트)</h3></div>
 	<form id="detailForm">
 		<input type="hidden" id="seat_num" name="seat_num"/>
 		<input type="hidden" id="hall_id" name="hall_id" value="${seat_updateForm[0].hall_id}"/>
