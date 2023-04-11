@@ -46,7 +46,7 @@
 	<!-- 상세정보 조회(관심공연 추가) -->
 	<select id="myTicketDetail" parameterType="mypage" resultType="mypage">
 		select DISTINCT pay_num, RESULT.s_num, s_name, TO_CHAR(ti_regdate,'yyyymmdd') ti_regdate, hall_id, seat_nums, seat_ages, u_id, ti_status, img_name, img_dir, img_type, 
-		    th_name, hall_date, hall_turn, hall_time, s_price, pay_amount, B.is_likes, 
+		    th_name, hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes, 
 		    CASE WHEN c_num IS NULL THEN null
 		         WHEN c_num IS NOT NULL THEN NULL END c_name,
 		    CASE WHEN c_num IS NULL THEN null
