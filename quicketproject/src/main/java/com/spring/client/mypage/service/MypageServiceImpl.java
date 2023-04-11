@@ -75,6 +75,13 @@ public class MypageServiceImpl implements MypageService {
 		List<Integer> list = mypageDao.mySeatList(pay_num);
 		return list;
 	}
+	
+	// 좌석 연령 리스트 조회
+	@Override
+	public List<MypageVO> seatAgeList(int pay_num) {
+		List<MypageVO> list = mypageDao.seatAgeList(pay_num);
+		return list;
+	}
 
 	// 관심공연 리스트 조회
 	@Override
@@ -167,8 +174,4 @@ public class MypageServiceImpl implements MypageService {
 		return couponListCntN;
 	}
 
-
-
-	
-	
 }

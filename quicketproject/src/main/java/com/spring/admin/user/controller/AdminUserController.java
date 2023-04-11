@@ -116,7 +116,7 @@ public class AdminUserController {
 		
 		// 회원 문의글 리스트 조회
 		List<MypageVO> ticketList = null;
-		ticketList = adminUserService.userTicketList(u_id);
+		ticketList = mypageService.myTicketList(mypageVO);
 		model.addAttribute("ticketList", ticketList);
 		
 		// 페이징 처리
@@ -126,5 +126,6 @@ public class AdminUserController {
 			*/	
 		return "/admin/user/userTicketList"; // /WEB-INF/views/client/mypage/myTicketList.jsp
 	}
+	
  
 }

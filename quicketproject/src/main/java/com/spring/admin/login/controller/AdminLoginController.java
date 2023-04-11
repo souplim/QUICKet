@@ -71,7 +71,7 @@ class AdminLoginController {
 		
 		if(adminLogin != null) {
 			model.addAttribute("adminLogin", adminLogin);
-			url = "/admin/user/userList";
+			url = "/admin/stat/statList";
 					//"/admin/quicket/main";
 		} else {
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
@@ -96,6 +96,4 @@ class AdminLoginController {
 		return "redirect:/admin/login";
 	}
 	
-	
-
 }
