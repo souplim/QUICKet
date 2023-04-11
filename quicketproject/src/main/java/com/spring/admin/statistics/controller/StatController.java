@@ -210,4 +210,159 @@ public class StatController {
 		
 		return json;
 	}
+	
+	/***********************************************************
+	 * 예매자 성비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/genderCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/genderCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String genderCnt(){
+		log.info("genderCnt 조회");
+		
+		List<StatVO> list = statService.genderCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("성별", "string");
+		gChart.addColumn("성비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getU_gender());
+			gChart.addCell(count, vo.getU_gendercnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
+	
+	/***********************************************************
+	 * 예매자 연령비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/ageGroupCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/ageGroupCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String ageGroupCnt(){
+		log.info("ageGroupCnt 조회");
+		
+		List<StatVO> list = statService.ageGroupCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("연령대", "string");
+		gChart.addColumn("연령비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getAgeGroup()+"대");
+			gChart.addCell(count, vo.getAgeGroupCnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
+	
+	/***********************************************************
+	 * 회원 성비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/userGenderCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/userGenderCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String userGenderCnt(){
+		log.info("userGenderCnt 조회");
+		
+		List<StatVO> list = statService.userGenderCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("성별", "string");
+		gChart.addColumn("성비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getU_gender());
+			gChart.addCell(count, vo.getU_gendercnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
+	
+	/***********************************************************
+	 * 회원 연령비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/userAgeGroupCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/userAgeGroupCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String userAgeGroupCnt(){
+		log.info("userAgeGroupCnt 조회");
+		
+		List<StatVO> list = statService.userAgeGroupCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("연령대", "string");
+		gChart.addColumn("연령비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getAgeGroup()+"대");
+			gChart.addCell(count, vo.getAgeGroupCnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
+	
+	/***********************************************************
+	 * 일반회원 탈퇴회원 비율 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/userMemberQuitCount
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/userMemberQuitCount", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String userMemberQuitCount(){
+		log.info("userMemberQuitCount 조회");
+		
+		List<StatVO> list = statService.userMemberQuitCount();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("회원상태", "string");
+		gChart.addColumn("회원수", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getU_state());
+			gChart.addCell(count, vo.getU_statecnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
 }

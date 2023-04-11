@@ -39,7 +39,7 @@
 		<img src="/resources/image/001.png" alt="QUICKet로고" width="110" height="45"/>
 		퀵켓(주)<br/>
 		강남지원 1관: 서울특별시 강남구 테헤란로14길 6 남도빌딩 4F<br/>
-		개인정보보호책임자: 권진범 김나정 박영석 배정웅 오명숙 이유빈 임은재<br/>
+		개인정보보호책임자: 권진범 김나정 박영석 오명숙 이유빈 임은재<br/>
 		이메일: quicket1234@google.com<br/>
 		Copyright © QUICKet Corp. All Right Reserved.
 	</div>

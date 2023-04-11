@@ -52,6 +52,39 @@ public class StatServiceImpl implements StatService {
 		return list;
 	}
 
+	// 예매자 성비 조회
+	@Override
+	public List<StatVO> genderCnt() {
+		List<StatVO> list = statDao.genderCnt();
+		return list;
+	}
+
+	// 예매자 연령비 조회
+	@Override
+	public List<StatVO> ageGroupCnt() {
+		List<StatVO> list = statDao.ageGroupCnt();
+		return list;
+	}
 	
+	// 회원 성비 조회
+	@Override
+	public List<StatVO> userGenderCnt() {
+		List<StatVO> list = statDao.userGenderCnt();
+		return list;
+	}
+
+	// 회원 연령비 조회
+	@Override
+	public List<StatVO> userAgeGroupCnt() {
+		List<StatVO> list = statDao.userAgeGroupCnt();
+		return list;
+	}
+
+	// 일반회원 탈퇴회원 비율
+	@Override
+	public List<StatVO> userMemberQuitCount() {
+		List<StatVO> list = statDao.userMemberQuitCount();
+		return list;
+	}
 
 }
