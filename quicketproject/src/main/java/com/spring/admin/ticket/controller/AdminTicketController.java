@@ -121,10 +121,10 @@ public class AdminTicketController {
 		result = adminTicketService.hall_delete(hvo);  
 		ras.addFlashAttribute("HallVO",hvo); // 글번호인 b_num의 값을 유지하기위해서
 		}catch(Exception e){
-			url="/error/ticket/childhallError?th_num=" + hvo.getTh_num();
+			url="/error/ticket/childhallError?s_num=" + hvo.getS_num();
 			return "redirect:" + url;
 		}
-		url="/admin/ticket/hall_updateForm?th_num=" + hvo.getTh_num();
+		url="/admin/ticket/hall_updateForm?s_num=" + hvo.getS_num();
 		return "redirect:" + url;		
 	}
 	@RequestMapping(value="/hall_insertForm")
@@ -151,7 +151,7 @@ public class AdminTicketController {
 		
 		result = adminTicketService.hall_write(hvo);  
 		ras.addFlashAttribute("HallVO",hvo);
-		url="/admin/ticket/hall_updateForm?th_num=" + hvo.getTh_num();
+		url="/admin/ticket/hall_updateForm?s_num=" + hvo.getS_num();
 		
 		return "redirect:" + url;		
 	}
@@ -170,7 +170,6 @@ public class AdminTicketController {
 	@RequestMapping(value="/hall_updateForm")
 	public String updateForm(@ModelAttribute HallVO hvo, Model model) {
 		log.info("hall_updateForm 호출 성공");
-		log.info("th_num = " + hvo.getTh_num());
 		
 		List<HallVO> updateData = adminTicketService.updateForm(hvo);
 		
@@ -197,8 +196,8 @@ public class AdminTicketController {
 		List<SeatVO> seat_updateForm = adminTicketService.seat_updateForm(hvo);
 		
 		model.addAttribute("seat_updateForm", seat_updateForm);
-		hvo.setTh_num(hvo.getTh_num());
-		model.addAttribute("th_numValue", hvo);
+		hvo.setS_num(hvo.getS_num());
+		model.addAttribute("s_numValue", hvo);
 		return "admin/ticket/seat_updateForm";
 		
 		
@@ -249,7 +248,7 @@ public class AdminTicketController {
 		if(result == 1) {
 			//아래 url은 수정 후 상세 페이지로 이동
 //			url="/board/boardDetail?b_num=" + bvo.getB_num();
-			url="/admin/ticket/hall_updateForm?th_num=" + hvo.getTh_num();
+			url="/admin/ticket/hall_updateForm?s_num=" + hvo.getS_num();
 		}else {
 //			url="/board/updateForm?b_num=" + bvo.getB_num();
 			url="/admin/ticket/hall_updateForm2";
