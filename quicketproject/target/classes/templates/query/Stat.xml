@@ -108,8 +108,8 @@
 	
 	<!-- 월별 공연 매출 조회 -->
 	<select id="monthlySales" parameterType="java.util.List" resultType="stat">
-		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, 
-			<foreach collection="list" item="item" separator=",">
+		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date 
+			<foreach collection="list" item="item" separator="," open=",">
 				SUM(DECODE(s_num, ${item.s_num}, s_price, 0)) AS "s${item.s_num}"
 			</foreach>
 		from (
