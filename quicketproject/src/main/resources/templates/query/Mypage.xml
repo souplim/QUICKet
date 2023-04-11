@@ -31,7 +31,7 @@
 				</trim>
 		        img_dir LIKE '%'||'poster' AND t.u_id = #{u_id}		        
 		        GROUP BY p.pay_num, h.hall_id, t.ti_regdate, h.hall_date, s.s_num, s.s_name, t.u_id, t.ti_status, img_dir 
-		        ORDER BY pay_num
+		        ORDER BY pay_num DESC
 		    ) 
 		    <![CDATA[ WHERE rownum <= #{pageNum} * #{amount}
 		)
