@@ -256,10 +256,18 @@
 	#sendBtnArea{display:none;}
 	#goLoginArea{display:none;}
 	.container{margin-top : 40px;}
+	.gridForm {display: grid;}
+	.nav-tabs>li>a {color:black;}
+	.nav-tabs>li.active>a {background-color : dodgerblue; color:white;}
+	.table>tbody>tr>td {border : none;}
+	
 </style>
 
 </head>
 <body>
+<br>
+<div><h3 class="text-center">아이디 / 비밀번호 찾기</h3></div>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -288,7 +296,7 @@
 
 	 <div class="container">
 	 
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs nav-justified">
 		  <li class="active"><a data-toggle="tab" href="#searchId">아이디 찾기</a></li>
 		  <li><a data-toggle="tab" href="#searchPwd">비밀번호 찾기</a></li>
 		</ul>
@@ -307,19 +315,19 @@
 					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 					      <div class="panel-body">
 					      		<!-- 전화번호로 찾기 폼 -->
-					      		<form id="idPhoneForm" class="container-fluid	">
+					      		<form id="idPhoneForm" class="container-fluid gridForm">
 					      		<input type="hidden" id="searchType" value="phone"/>
-					      		<table>
+					      		<table class="table tableForm">
 									<tr class="form-group"> 
 										<td>이름</td>
-										<td colspan="4" class="inputTD"><input type="text" class="form-control p-input" id="p-name" name="p-name" placeholder="이름을 입력해주세요." /></td>
+										<td colspan="4" class="inputTD" style="width: 85%;"><input type="text" class="form-control p-input" id="p-name" name="p-name" placeholder="이름을 입력해주세요." /></td>
 									</tr>
 									<tr class="form-group">
 										<td>전화번호</td>
-										<td colspan="4" class="inputTD"><input type="text" class="form-control p-input" id="p-phone" name="p-phone" placeholder="전화번호를 입력해주세요. (- 제외)"/></td>
+										<td colspan="4" class="inputTD" style="width: 85%;"><input type="text" class="form-control p-input" id="p-phone" name="p-phone" placeholder="전화번호를 입력해주세요. (- 제외)"/></td>
 									</tr>
 									<tr class="form-group">
-										<td colspan="5" class="inputTD"><button type="button" id="idPhoneBtn" class="btn btn-primary btn-block">확인</button></td>
+										<td colspan="5" class="inputTD"><button type="button" id="idPhoneBtn" class="btn btn-block w-btn-outline w-btn-indigo-outline">확인</button></td>
 									</tr>
 								</table>
 								</form>
@@ -339,11 +347,11 @@
 					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 					      <div class="panel-body">
 			        			<!-- 이메일로 찾기 폼 -->
-			        			<form id="emailIdForm" class="container">
-			        			<table>
+			        			<form id="emailIdForm" class="container-fluid gridForm">
+			        			<table class="table tableForm">
 									<tr class="form-group"> 
 										<td>이름</td>
-										<td colspan="3" class="inputTD"><input type="text" class="form-control e-input" id="e-name" name="e-name" placeholder="이름을 입력해주세요." /></td>
+										<td colspan="3" class="inputTD" style="width: 85%;"><input type="text" class="form-control e-input" id="e-name" name="e-name" placeholder="이름을 입력해주세요." /></td>
 									</tr>
 									<tr class="form-group">
 										<td>이메일</td>
@@ -367,7 +375,7 @@
 										</td>
 									</tr>
 									<tr class="form-group">
-										<td colspan="5"><button type="button" id="idEmailBtn" class="btn btn-primary btn-block">확인</button></td>
+										<td colspan="5"><button type="button" id="idEmailBtn" class="btn btn-block w-btn-outline w-btn-indigo-outline">확인</button></td>
 									</tr>
 								</table>
 								</form>
@@ -381,8 +389,8 @@
 		  
 		  <!-- 비밀번호 찾기 -->
 		  <div id="searchPwd" class="tab-pane fade">
-		   <form id="pwdForm" class="container">
-      			<table class="table">
+		   <form id="pwdForm" class="container gridForm">
+      			<table class="table tableForm">
 					<tr class="form-group"> 
 						<td>이름</td>
 						<td colspan="3"><input type="text" class="form-control pw-input" id="pw-name" name="pw-name" placeholder="이름을 입력해주세요." /></td>
@@ -413,11 +421,11 @@
 					</tr>
 					<tr class="form-group" id="sendBtnArea">
 						<td></td>
-						<td colspan="4"><button type="button" id="pwdSendBtn" class="btn btn-default btn-block">임시 비밀번호 전송</button></td>
+						<td colspan="4"><button type="button" id="pwdSendBtn" class="btn btn-block w-btn-outline w-btn-indigo-outline">임시 비밀번호 전송</button></td>
 					</tr>
 					<tr class="form-group" id="goLoginArea">
 						<td></td>
-						<td colspan="4"><button type="button" id="goLoginBtn" class="btn btn-warning btn-block">로그인 페이지로 이동</button></td>
+						<td colspan="4"><button type="button" id="goLoginBtn" class="btn btn-block w-btn-outline w-btn-indigo-outline">로그인 페이지로 이동</button></td>
 					</tr>
 					<!-- 
 					<tr class="form-group" id="chkKeyArea">
