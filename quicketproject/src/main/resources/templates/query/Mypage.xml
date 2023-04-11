@@ -45,8 +45,12 @@
 	
 	<!-- 상세정보 조회(관심공연 추가) -->
 	<select id="myTicketDetail" parameterType="mypage" resultType="mypage">
-		select pay_num, RESULT.s_num, s_name, TO_CHAR(ti_regdate,'yyyymmdd') ti_regdate, hall_id, seat_nums, seat_ages, u_id, ti_status, img_name, img_dir, img_type, th_name, 
-				hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes, c_num, c_name, c_discount
+		select DISTINCT pay_num, RESULT.s_num, s_name, TO_CHAR(ti_regdate,'yyyymmdd') ti_regdate, hall_id, seat_nums, seat_ages, u_id, ti_status, img_name, img_dir, img_type, 
+		    th_name, hall_date, hall_turn, hall_time, s_price, pay_amount, B.is_likes, 
+		    CASE WHEN c_num IS NULL THEN null
+		         WHEN c_num IS NOT NULL THEN NULL END c_name,
+		    CASE WHEN c_num IS NULL THEN null
+		         WHEN c_num IS NOT NULL THEN NULL END c_discount     
 		from (
 		    select t.pay_num, s.s_num, s.s_name, t.ti_regdate, h.hall_id,
 		            (select 
@@ -77,23 +81,26 @@
 		                        GROUP BY pay_num) 
 		                ) seat_age
 		            from dual) AS seat_ages,
-		            t.u_id, t.ti_status, i.img_name, i.img_dir, i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, 
-		            p.pay_name, p.pay_amount, t.c_num, ac.c_name, ac.c_discount
+		            t.u_id, t.ti_status, i.img_name, i.img_dir, i.img_type, th.th_name, h.hall_date, h.hall_turn, h.hall_time, s.s_price, p.pay_name, p.pay_amount
+		            ,t.c_num, ac.c_name, ac.c_discount
 		    from ticket t INNER JOIN ticket_seat ts ON t.pay_num = ts.pay_num
-		                   INNER JOIN hall h ON ts.hall_id = h.hall_id
-		                   INNER JOIN theater th ON h.th_num = th.th_num
-		                   INNER JOIN show s ON th.th_num = s.th_num
-		                   INNER JOIN img i ON s.s_num = i.s_num
-		                   INNER JOIN pay p ON t.pay_num = p.pay_num
-		                   INNER JOIN user_coupon uc ON uc.u_id = t.u_id
-                  		   INNER JOIN admin_coupon ac ON t.c_num = ac.c_num
+		                  INNER JOIN hall h ON ts.hall_id = h.hall_id
+		                  INNER JOIN theater th ON h.th_num = th.th_num
+		                  INNER JOIN show s ON th.th_num = s.th_num
+		                  INNER JOIN img i ON s.s_num = i.s_num
+		                  INNER JOIN pay p ON t.pay_num = p.pay_num
+		                  INNER JOIN user_coupon uc ON uc.u_id = t.u_id
+		                  INNER JOIN admin_coupon ac ON ac.c_num =
+		                                             CASE WHEN t.c_num is not null THEN t.c_num
+		                                                  WHEN t.c_num is null THEN uc.c_num
+		                                                  END
 		    where t.pay_num=#{pay_num}
 		    AND img_dir LIKE '%'||'poster' 
 		) RESULT LEFT JOIN (SELECT s_num, 1 is_likes FROM bookmark 
 		                    WHERE EXISTS(SELECT 1 FROM bookmark WHERE u_id = #{u_id} AND s_num = #{s_num})) B
-		         ON RESULT.s_num = B.s_num    
-		group by pay_num, RESULT.s_num, s_name, ti_regdate, hall_id, seat_nums, seat_ages, u_id, ti_status, img_name, img_dir, img_type, th_name, 
-				hall_date, hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes, c_num, c_name, c_discount
+		         ON RESULT.s_num = B.s_num        
+		group by pay_num, RESULT.s_num, s_name, ti_regdate, hall_id, seat_nums, seat_ages, u_id, ti_status, img_name, img_dir, img_type, th_name, hall_date, 
+		hall_turn, hall_time, s_price, pay_name, pay_amount, B.is_likes, c_num, c_name, c_discount	
 	</select>
 	
 	<!-- 좌석번호 리스트 조회 -->
