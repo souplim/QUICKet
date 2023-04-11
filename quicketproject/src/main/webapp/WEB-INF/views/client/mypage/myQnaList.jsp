@@ -68,7 +68,9 @@
 										<!-- 새로 번호 부여 상태변수.index: 0부터 시작-->
 										<%-- <td>${count - status.index}</td>  --%>
 										<td class="text-center">${qna.s_name}</td>
-										<td class="goDetail">${qna.q_title}</td>
+										<td class="goDetail">
+											<a href="/showDetail?s_num=${qna.s_num}#qnaBox">${qna.q_title}</a>
+										</td>
 										<td>${qna.q_regdate}</td>
 									</tr>
 								</c:forEach>
