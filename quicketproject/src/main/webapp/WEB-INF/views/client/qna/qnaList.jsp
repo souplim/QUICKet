@@ -69,6 +69,7 @@
 					
 					let q_no = this.q_no;
 					let q_title = this.q_title;
+					let q_cnt = this.q_cnt;
 					let u_id = this.u_id;
 					let q_content = this.q_content;
 					let q_regdate = this.q_regdate;
@@ -98,6 +99,9 @@
 			//$element.addClass("qnaReply");
 			$element.find('.boardNum').html(q_no);
 			$element.find('.title').html(q_title);
+			if(q_cnt != 0){
+				$element.find('.q_cnt').html("[" + q_cnt + "]");	
+			}
 			$element.find('.id').html(u_id);
 			$element.find('.date').html(q_regdate);
 			
@@ -155,6 +159,7 @@
 					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
 				</div>   --%>
 			
+			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
 			
 			<!--  등록한 테이블이 출력되는 영역 	-->
 				<div>
@@ -162,7 +167,9 @@
 						<tbody class="qna-tbody" id = "qnaList">
 							<tr id="qna-template" class="temp">
 								<td class="boardNum"></td>
-								<td class="title"></td>
+								<td class="title">
+								<span class="q_cnt"></span>
+								</td>
 								<td class="id"></td>
 								<td class="date"></td>
 							</tr>
@@ -170,7 +177,7 @@
 					</table>
 				</div>
 			
-			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
+			
 		
 			
 			

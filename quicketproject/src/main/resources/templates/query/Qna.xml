@@ -22,7 +22,8 @@
 	<!-- 사용자  -->
 	<select id="qnaList" parameterType="qna" resultType="qna">
 	SELECT
-		q_no, q_title, q_content, u_id, to_char(q_regdate, 'YYYY-MM-DD') as q_regdate, s_num
+		q_no, q_title, q_content, u_id, to_char(q_regdate, 'YYYY-MM-DD') as q_regdate, s_num,
+		(select count(q_r_no) from qna_reply where q_no = qna.q_no) as q_cnt
 	FROM qna
 	WHERE s_num = #{s_num}
 	ORDER BY q_no desc
@@ -57,11 +58,11 @@
 		WHERE q_no = #{q_no} and s_num = #{s_num}
 	</select>
 	
-	<!-- 전체 레코드수 조회 -->
+	<!-- 전체 레코드수 조회 
 	<select id="qnaListCnt" parameterType="qna" resultType="int">
 		SELECT count(*) FROM qna
 		where s_num = #{s_num}
-	</select>
+	</select> -->
 	
 	<!-- 게시글 수정 -->
 	<update id="qnaUpdate" parameterType="qna">
