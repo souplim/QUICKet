@@ -37,7 +37,7 @@
 </script>
 
 <style>
-	img{width:25px;}
+	.cImg{width:25px;}
 </style>
 </head>
 <body>
@@ -75,7 +75,6 @@
 						<th class="text-center">유효기간</th>
 						<th class="text-center">할인율</th>
 						<th class="text-center">등록일</th>
-						<th class="text-center">발급횟수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,12 +86,11 @@
 									<td>${count - status.index}</td>
 									<td>${coupon.c_num}</td>
 									<td>${coupon.c_name}</td>
-									<td><img src="/uploadStorage/coupon/${coupon.c_img}"/></td>
+									<td><img class="cImg" src="/uploadStorage/coupon/${coupon.c_img}"/></td>
 									<td><span>${coupon.c_startissue }</span>~<span>${coupon.c_endissue }</span></td>
 									<td><span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate}</span></td>
 									<td>${coupon.c_discount}%</td>
 									<td>${coupon.c_regdate}</td>
-									<td>발급횟수</td>
 								</tr>
 							</c:forEach>
 						</c:when>
