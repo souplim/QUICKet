@@ -18,19 +18,24 @@ public class QnaDaoTests {
 	@Setter(onMethod_ = @Autowired)
 	private QnaDao qnaDao;
 	
-	/*
+	/**/
 	@Test
-	public void testQnaList() {
-		List<QnaVO> list = qnaDao.qnaList();
+	public void testQnaList(Integer s_num) {
+		List<QnaVO> list = null;
+		list = qnaDao.qnaList(s_num);
+		
 		for(QnaVO qvo : list) {
 			log.info(qvo.toString());
 		}
-	} */
+	} 
 	
+	/*
 	@Test
 	public void testQnaDelete() {
 		int result = qnaDao.qnaDelete(30);
 		log.info("삭제결과: " + result);
-	}
+	} */
+	
+
 	
 }

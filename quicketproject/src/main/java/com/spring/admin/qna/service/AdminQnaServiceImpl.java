@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.client.qna.dao.QnaDao;
+import com.spring.admin.qna.dao.AdminQnaDao;
 import com.spring.client.qna.reply.dao.QnaReplyDao;
 import com.spring.client.qna.vo.QnaVO;
 
@@ -13,26 +13,27 @@ import lombok.Setter;
 
 @Service
 public class AdminQnaServiceImpl implements AdminQnaService {
+	
 	@Setter(onMethod_ = @Autowired)
-	private QnaDao qnaDao;
+	private AdminQnaDao adminQnaDao;
 	
 	@Setter(onMethod_ = @Autowired)
 	private QnaReplyDao qnaReplyDao;
 
 	// 글 목록 구현
 	@Override
-	public List<QnaVO> qnaList(QnaVO qvo) {
+	public List<QnaVO> adminQnaList(QnaVO qvo) {
 			List<QnaVO> list = null;
-			list = qnaDao.qnaList(qvo);
+			list = adminQnaDao.adminQnaList(qvo);
 			return list;
 	}
 	
 	// 글 상세페이지
 	@Override
-	public QnaVO qnaDetail(QnaVO qvo) {
+	public QnaVO adminQnaDetail(QnaVO qvo) throws Exception {
 			QnaVO detail = null;
 				
-			detail = qnaDao.qnaDetail(qvo);
+			detail = adminQnaDao.adminQnaDetail(qvo);
 			if(detail != null) {
 				detail.setQ_content(detail.getQ_content().replaceAll("\n", "<br />")); 
 				}
@@ -41,18 +42,17 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 	
 	// 전체 레코드수 
 	@Override
-	public int qnaListCnt(QnaVO qvo) {
-		return qnaDao.qnaListCnt(qvo);
+	public int adminQnaListCnt(QnaVO qvo) throws Exception{
+		return adminQnaDao.adminQnaListCnt(qvo);
 	}
 	
 	@Override
-	public int qnaAdminDelete(int q_no) {
+	public int adminQnaDelete(QnaVO qvo) throws Exception {
 		int result = 0;
 		
-		qnaReplyDao.qnaReplyAdminDelete(q_no);
-		result = qnaDao.qnaDelete(q_no);
+		// 댓글 삭제 후 글번호에 해당하는 게시글 삭제
+		qnaReplyDao.qnaReplyAdminDelete(qvo.getQ_no());
+		result = adminQnaDao.adminQnaDelete(qvo);
 		return result;
 	}
-	
-	
 }

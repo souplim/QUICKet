@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 
 <style>
-		 #item-template{display: none;}
+		 #qnaReply-template{display: none;}
 		 .inline{display:inline-block;}
 	</style>
 	
@@ -12,7 +12,7 @@
 			
 			/* 기본 덧글 목록 불러오기 */
 			let q_no = ${detail.q_no};	
-			listAll(q_no);
+			qnaReplyListAll(q_no);
 			
 			let u_id = ${detail.q_no};
 			
@@ -50,7 +50,7 @@
 							if(result =="SUCCESS"){
 								alert("댓글 등록이 완료되었습니다");
 								dataReset();
-								listAll(q_no);
+								qnaReplyListAll(q_no);
 							}
 						}
 					});
@@ -132,7 +132,7 @@
 						if(result == "SUCCESS"){
 							alert("댓글 수정이 완료 되었습니다.");
 							dataReset();
-							listAll(q_no);
+							qnaReplyListAll(q_no);
 						}
 					}
 				});
@@ -142,7 +142,7 @@
 		
 		
 	/** 댓글 목록 보여주는 함수 - 서버로부터 리스트를 받아오기 위한 요청 함수*/
-	function listAll(q_no){
+	function qnaReplyListAll(q_no){
 		$(".reply").detach();	// detach() : 선택한 요소를 DOM 트리에서 삭제
 		
 		let url = "/qnaReply/all/"+q_no;	// 
@@ -154,7 +154,7 @@
 				let q_r_content = this.q_r_content;
 				let q_r_regdate = this.q_r_regdate;
 				q_r_content = q_r_content.replace(/(\r\n|\r|\n)/g, "<br />");
-				template(q_r_no, u_id, q_r_content, q_r_regdate);
+				qrTemplate(q_r_no, u_id, q_r_content, q_r_regdate);
 			
 			});
 		
@@ -164,12 +164,12 @@
 	}
 	
 	/** 새로운 글을 화면에 추가하기(보여주기) 위한 함수 */
-		function template(q_r_no, u_id, q_r_content, q_r_regdate){
+		function qrTemplate(q_r_no, u_id, q_r_content, q_r_regdate){
 		
 			let id = "${userLogin.u_id}"
 			let $div = $('#reviewList');
 			
-			let $element = $('#item-template').clone().removeAttr('id');
+			let $element = $('#qnaReply-template').clone().removeAttr('id');
 			$element.attr("data-num", q_r_no);	
 			$element.addClass("reply");
 			$element.find('.panel-heading > .panel-title > .id').html(u_id);	
@@ -218,7 +218,7 @@
 					console.log("result: "+result);
 					if(result == 'SUCCESS'){
 						alert("댓글 삭제가 완료되었습니다.");
-						listAll(q_no);
+						qnaReplyListAll(q_no);
 					}
 				}
 			});
@@ -261,9 +261,9 @@
 			</form>
 			
 			
-			<%-- 리스트 영역 --%>
+			<%-- 불러온 리스트 출력되는 영역 --%>
 			<div id="reviewList">
-				<div id="item-template" class="panel panel-primary">
+				<div id="qnaReply-template" class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="id"></span>
@@ -276,6 +276,7 @@
 				</div>
 			</div>
 		</div>
+		
 
 </body>
 </html>

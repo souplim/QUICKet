@@ -8,7 +8,7 @@ import com.spring.client.qna.reply.vo.QnaReplyVO;
 
 @Mapper
 public interface QnaReplyDao {
-	public List<QnaReplyVO> qnaReplyList(Integer q_no);
+	public List<QnaReplyVO> qnaReplyList(Integer s_num);
 	public int qnaReplyInsert(QnaReplyVO qrvo);
 	public int qnaReplyUpdate(QnaReplyVO qrvo);
 	public int qnaReplyDelete(Integer q_r_no);
