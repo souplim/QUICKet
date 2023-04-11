@@ -17,6 +17,8 @@ public interface StatService {
 	
 	List<StatVO> monthlySales(List<StatVO> nameList); // 월별 매출액 조회하기
 
+	List<StatVO> genderCnt(); // 예매자 성비 조회
+
 	
 
 }

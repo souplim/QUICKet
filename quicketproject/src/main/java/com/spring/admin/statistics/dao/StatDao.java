@@ -19,4 +19,6 @@ public interface StatDao {
 	List<StatVO> showList(); // 공연명 리스트 조회
 	
 	List<StatVO> monthlySales(List<StatVO> nameList); // 주별 매출액 조회하기
+	
+	List<StatVO> genderCnt(); // 예매자 성비 조회
 }

@@ -9,8 +9,10 @@ public class StatVO {
 	private int s_price=0;
 	private int th_num=0;
 	
-//	private String u_id="";
-//	private String u_gender="";
+	private String u_id="";
+	private String u_gender="";
+	private int u_gendercnt=0; // 예매자 성별수
+	private int u_gendercntRatio=0; // 예매자 성비
 	
 	private int ti_num=0;
 	private String ti_regidate; // 예매일

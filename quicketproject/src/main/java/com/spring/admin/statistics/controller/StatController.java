@@ -210,4 +210,35 @@ public class StatController {
 		
 		return json;
 	}
+	
+	/***********************************************************
+	 * 예매자 성비 조회하기
+	 * 현재 요청 URL : http://localhoast:8080/admin/stat/genderCnt
+	 ***********************************************************/
+	@ResponseBody
+	@PostMapping(value="/genderCnt", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String genderCnt(){
+		log.info("genderCnt 조회");
+		
+		List<StatVO> list = statService.genderCnt();
+		System.out.println(list);
+		
+		GoogleChartDTO gChart = new GoogleChartDTO();
+		gChart.addColumn("성별", "string");
+		gChart.addColumn("성비", "number");
+		
+		gChart.createRows(list.size());
+		
+		int count = 0;
+		for(StatVO vo : list) { 
+			gChart.addCell(count, vo.getU_gender());
+			gChart.addCell(count, vo.getU_gendercnt());
+			count++;
+		} 
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(gChart.getResult());
+		
+		return json;
+	}
 }
