@@ -28,14 +28,14 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
           	<li>
-          		<a class="navbar-brand navbar-brand-img" href="#">
+          		<a class="navbar-brand navbar-brand-img" href="/admin/stat/statList">
           			<img src="/resources/image/001.png" alt="QUICKet로고" width="110" height="45"/>
           		</a>
           	</li>
           </ul>
            <ul class="nav navbar-nav navbar-right">
             <li><a href="/admin/logout">로그아웃</a></li>
-            <li><a href="#">홈페이지</a></li>
+            <li><a href="http://localhost:8080">홈페이지</a></li>
           </ul>
         </div>
 </div>
