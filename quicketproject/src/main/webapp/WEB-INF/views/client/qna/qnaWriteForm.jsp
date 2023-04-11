@@ -19,7 +19,6 @@
 						action: "/qna/qnaInsert"
 					});
 					$("#q_writeForm").submit();
-					location.href = "/showDetail?s_num="+s_num;
 				});
 			
 			
@@ -41,7 +40,7 @@
 	<body>
 		<div class="contentContainer container">
 			<br>
-			<div><h3 class="text-center">Q&A 작성</h3></div>
+		<h3 class="text-center">Q&A 작성</h3>
 		<div class="contentTB text-center">
 			<form  id="q_writeForm" name="q_writeForm" class="form-horizontal">
 				<input type="hidden" id="s_num" name="s_num" value="${param.s_num}"/>

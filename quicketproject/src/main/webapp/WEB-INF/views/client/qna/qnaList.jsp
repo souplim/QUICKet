@@ -96,7 +96,7 @@
 			$element.attr("data-num", q_no);
 			//$element.addClass("qnaReply");
 			$element.find('.boardNum').html(q_no);
-			$element.find('.title').html(q_title + "[" + q_cnt + "]");
+			$element.find('.title').html(q_title + " [" + q_cnt + "]");
 			$element.find('.id').html(u_id);
 			$element.find('.date').html(q_regdate);
 			
@@ -154,8 +154,8 @@
 					<div class="countArea">총 ${count}개의 문의글이 등록되었습니다.</div>
 				</div>   --%>
 			
-			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "btn btn-primary"></div>
-			
+			<div class="insertBtnArea text-right"> <input type="button" value="글쓰기" id="q_insertBtn" class= "w-btn-outline w-btn-indigo-outline btn"></div>
+			<br>
 			<!--  등록한 테이블이 출력되는 영역 	-->
 				<div>
 					<table class="table table-hover table-bordered">

@@ -5,6 +5,8 @@
 <style>
 		 #qnaReply-template{display: none;}
 		 .inline{display:inline-block;}
+		 .panel-heading {background-color:#CCEEFF;} 
+		 .panel-title > button {}
 	</style>
 	
 	<script type = "text/javascript">
@@ -95,7 +97,7 @@
 				$("#replyForm button[type='button']").attr("data-num", q_r_no);
 				$("#replyForm button[type='button']").html("수정");	// 등록 -> 수정 버튼으로 변경
 				
-				let resetButton = $("<button type='button' class='btn btn-primary resetBtn'>");	//취소버튼 생성?
+				let resetButton = $("<button type='button' class='w-btn-outline w-btn-gray-outline btn resetBtn'>");	//취소버튼 생성?
 				resetButton.html("취소");
 				$("#replyForm .sendBtn").after(resetButton);	// 기존등록버튼 뒤에 취소버튼 추가. .after() - 선택한 요소 뒤에 새 요소를 추가하거나, 다른 곳에 있는 요소를 이동시키는 메서드
 			}
@@ -245,8 +247,8 @@
 									${userLogin.u_id}
 								</td>
 									
-									<td class="col-md-4-btnArea">
-										<button type="button" id="replyInsertBtn" class="btn btn-primary gap sendBtn">등록</button>
+									<td class="col-md-4-btnArea text-right">
+										<button type="button" id="replyInsertBtn" class="btn w-btn-outline w-btn-indigo-outline sendBtn">등록</button>
 									</td>
 							</tr>
 							<tr>
@@ -268,7 +270,6 @@
 						<h3 class="panel-title">
 							<span class="id"></span>
 							<span class="date"></span>
-							<span class="btnArea"></span>
 							&nbsp;
 							<button type="button" data-btn="upBtn" class="w-btn-outline w-btn-gray-outline btn gap upBtn">수정하기</button>
 							<button type="button" data-btn="delBtn" id="q_replyDeleteBtn" class="w-btn-outline w-btn-gray-outline btn gap delBtn">삭제하기</button>

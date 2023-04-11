@@ -85,6 +85,7 @@
 			
 			<%-- 상세페이지 --%>
 			<div class="contentTB text-center">
+				<br>
 				<table class="table table-bordered">
 					<tbody>
 						<tr>
@@ -107,14 +108,15 @@
 			</div>
 				<div class="btnArea text-right">
 					<c:if test = "${userLogin.u_id == detail.u_id}">
-						<input type="button" value="수정" id="qnaUpdateBtn" class="btn btn-primary"/>
-						<input type="button" value="삭제" id="qnaDeleteBtn" class="btn btn-primary"/>
+						<input type="button" value="수정" id="qnaUpdateBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
+						<input type="button" value="삭제" id="qnaDeleteBtn" class="btn w-btn-outline w-btn-indigo-outline"/>
 						
 					</c:if>
 					
-						<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+						<input type="button" value="목록" id="qnaListBtn" class="btn w-btn-outline w-btn-indigo-outline"/>
+						
 				</div>
-			
+			<br>
 			
 			<jsp:include page="qnaReply.jsp" />
 			</div>
