@@ -193,6 +193,9 @@ div[role="tabpanel"]{min-height:30em;}
 		} else if (location.hash == "#expectBox"){
 			$(".nav-pills").find("li").eq(3).addClass('active').siblings().removeClass();
 			$(".tab-content").find("#expectBox").addClass("active").siblings().removeClass('active');
+		} else if (location.hash == "#qnaBox"){
+			$(".nav-pills").find("li").eq(4).addClass('active').siblings().removeClass();
+			$(".tab-content").find("#qnaBox").addClass("active").siblings().removeClass('active');
 		}
 		
 	});
