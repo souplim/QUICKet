@@ -30,8 +30,6 @@ public interface HallDao {
 	public PayVO payToken(int pay_num); 
 	public int payStatus(int pay_num);
 	public int ticketStatus(int pay_num);
-	public List<SeatVO> ticketSeatSelect(PayVO pvo);
-	public int seatStatusCancelUpdate(List<SeatVO> sv);
 ////	public int readCntUpdate(BoardVO bvo);
 //	public void readCount(String num);
 //	

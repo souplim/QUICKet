@@ -15,7 +15,6 @@ public class SeatVO {
 	private int th_num;
 	private int hall_id;
 	private int pay_num;
-	private int s_num;
 	
 }
 

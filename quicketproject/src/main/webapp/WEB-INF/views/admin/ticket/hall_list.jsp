@@ -50,8 +50,9 @@
 		$(".goDetail").click(function(){
 			//let num = $(this).parents("tr").children().eq(0).html();
 			// 이벤트가 발생한 자기 자신. 자신을 포함한 부모 요소중 tr을 찾아 trdㅢ 속성인 data-num의 값을 읽ㅇ옴
-			let s_num = $(this).parents("tr").attr("data-num");
-			$("#s_num").val(s_num);
+			let th_num = $(this).parents("tr").attr("data-num");
+			$("#th_num").val(th_num);
+			console.log("글번호 : "+th_num);
 			$("#detailForm").attr({
 				"method":"get",
 				"action":"/admin/ticket/hall_updateForm"
@@ -79,9 +80,9 @@
 <body>
 	<div class="contentContainer container">
 	<form id="detailForm">
-		<input type="hidden" id="s_num" name="s_num"/>
+		<input type="hidden" id="th_num" name="th_num"/>
 	</form>
-		<div class="contentTit page-header"><h3 class="text-center">예매 정보 등록(공연 리스트)</h3></div>
+		<div class="contentTit page-header"><h3 class="text-center">공연 리스트</h3></div>
 		<%-- ============== 검색기능 시작 ====================  --%>
 		<div id="boardSearch" class="text-right">
 			<form id="f_search" name="f_search" class="form-inline">

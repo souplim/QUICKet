@@ -11,7 +11,7 @@
 	$(function(){
 		swal('하위에 좌석테이블을 삭제한 후 이용해주세요', "확인 버튼 클릭 시 원래 창으로 돌아갑니다.", 'warning')
 		.then(function(){
-			location.href="/admin/ticket/hall_updateForm?s_num="+"${hvo.s_num}"                  
+			location.href="/admin/ticket/hall_updateForm?th_num="+"${hvo.th_num}"                  
 		})
 	})
 	</script>

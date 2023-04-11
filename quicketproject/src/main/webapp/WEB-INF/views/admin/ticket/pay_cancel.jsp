@@ -53,7 +53,7 @@
 			})
         }
 		
-		//예매상태변경
+		//결제상태변경
 		function ticketStatus(pay_num1) {
 			$.ajax({
                 url: "/admin/payJson2/ticketStatus", // 예: https://www.myservice.com/payments/complete
@@ -75,53 +75,6 @@
 			})
         }
 		
-		//좌석 테이블 결제 상태 0로 변경 (5번 수행)
-		 function seatStatusCancelUpdate(pay_num1){
-				let UpdateUrl = "/admin/payJson2/seatStatusCancelUpdate";
-				let data_val_arr = [];
-				 
-					
-					$.ajax({
-		                url: "/admin/payJson2/ticketSeatSelect", // 예: https://www.myservice.com/payments/complete
-		                method: "POST",
-		                headers: { "Content-Type": "application/json" },
-		                data: String(pay_num1),
-		                error 	: function(xhr, textStatus, errorThrown) {
-							alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
-					    },
-					    success : function(result){
-					    	/* JSON.stringify(): JAvaScript 값이나 객체를 JSON 문자열로 변환. */
-							 for(let i = 0 ; i < result.length; i++){
-							 	data_val_arr.push(result[i].seat_num);
-							 	data_val_arr.push(result[i].hall_id);
-							 	data_val_arr.push(pay_num1);
-					    	}
-						    	$.ajax({
-									url  : UpdateUrl,
-									type : "post",
-									headers : {
-										"Content-Type":"application/json"
-									},
-									dataType:"text",
-									data : JSON.stringify(data_val_arr),
-									error 	: function(xhr, textStatus, errorThrown) {
-										alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
-								    },
-								    success : function(result){
-								    	if(result == "SUCCESS"){
-								    		console.log("좌석 테이블 update 완료");
-								    	}else{/* 성공 */
-								    		console.log("좌석테이블select 실패");
-								    		
-								    	}
-								    }
-								}); 
-					    	}
-					    })
-					    
-					}
-					
-				  
 		function payToken(pay_num){
 			let url = "/admin/payJson2/payToken/"+pay_num; 
 			$.ajaxSetup({
@@ -136,7 +89,6 @@
 					requestCancel(imp_uid, token, amount);
 					payStatus(pay_num);
 					ticketStatus(pay_num);
-					seatStatusCancelUpdate(pay_num);
 					location.href="/admin/ticket/payCancelPage";
 				});
 			}).fail(function(){
@@ -180,7 +132,7 @@
 							<td class="text-left">${pay.u_id}</td>
 							<td class="text-left">${pay.ti_date}</td>
 							<td class="text-left">${pay.pay_status}</td>
-							<td class="goDetail"><button style="width:100px;">payCancel</button></td>
+							<td class="goDetail"><button>결제취소</button></td>
 						</tr>
 					</c:forEach>
 				</c:when>

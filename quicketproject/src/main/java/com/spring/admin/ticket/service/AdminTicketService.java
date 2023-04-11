@@ -16,14 +16,13 @@ public interface AdminTicketService {
 	public HallVO updateForm2(HallVO hvo);
 	public List<SeatVO> seat_updateForm(HallVO hvo);
 	public SeatVO seat_updateForm2(SeatVO svo);
-	public List<SeatVO> ticketSeatSelect(PayVO pvo);
 	public int hallUpdate(HallVO hvo);
 	public int hall_delete(HallVO hvo);
 	public int seat_delete(SeatVO svo);
 	public int hall_write(HallVO hvo);
 	public int seat_write(SeatVO svo);
 	public int seatUpdate(SeatVO svo);
-	public int seatStatusCancelUpdate(List<SeatVO> sv);
+	
 	public PayVO payToken(int pay_num);
 	public int payStatus(int pay_num);
 	public int ticketStatus(int pay_num);

@@ -5,7 +5,7 @@
 <%@ taglib prefix= "fn" uri= "http://java.sun.com/jsp/jstl/functions" %>
 	<script type="text/javascript">
 	$(function(){
-		console.log("${hall_updateForm2.s_num}");
+		
 		/* 뒤로가기 버튼 클릭 시 처리 이벤트 */
 		$("#back").click(function(){
 			$("#detailForm").attr({
@@ -31,7 +31,7 @@
 <body>
 <div class="contentContainer container">
 <form id="detailForm">
-		<input type="hidden" id="s_num" name="s_num" value = "${hall_updateForm2.s_num}"/>
+		<input type="hidden" id="th_num" name="th_num" value = "${hall_updateForm2.th_num}"/>
 		
 </form>
 <div class="contentTit page-header"><h3 class="text-center">예매 정보 등록</h3></div>
@@ -85,13 +85,12 @@
 	</table>
 	<input type="hidden" id="th_num" name="th_num" value = "${hall_updateForm2.th_num}"/>
 	<input type="hidden" id="hall_id" name="hall_id" value = "${hall_updateForm2.hall_id}"/>
-	<input type="hidden" id="s_num" name="s_num" value = "${hall_updateForm2.s_num}"/>
 	</form>
 	
 </div> 
-	<div class="text-right">
-		<button type="button" id="back" class="btn btn-primary btn-sm">뒤로가기</button>
-	</div>
+			<div class="text-right">
+				<button type="button" id="back" class="btn btn-primary btn-sm">뒤로가기</button>
+			</div>
 
 		
 		
