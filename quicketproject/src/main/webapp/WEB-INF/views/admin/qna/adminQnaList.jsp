@@ -151,6 +151,8 @@
 
 </head>
 <body>
+	<div class="contentTit page-header"><h3 class="text-center">Q&A 관리</h3></div> 
+	
 	<div class="contentContainer container">
 
 		<form id="adminq_detailForm">
@@ -195,10 +197,11 @@
 			<table summary="게시판 리스트" class="table table-striped table-hover active table-condensed">
 				<thead>
 					<tr>
-						<th data-value="q_no" class="order text-center col-md-2"></th>
-						<th class="text-center col-md-5"></th>
-						<th class="text-center col-md-1"></th>
-						<th data-value="q_regdate" class="order col-md-1"></th>	
+						<th data-value="q_no" class="order text-center col-md-1">글번호</th>
+						<th class="text-center col-md-5">제목</th>
+						<th class="text-center col-md-2">작성자</th>
+						<th data-value="b_date" class="order text-center col-md-2">작성일</th>
+						<th class="btnArea col-md-2"></th>
 					</tr>
 				</thead>
 				<tbody id="q_list" class="table-striped">
@@ -208,13 +211,13 @@
 							<c:forEach var="qna" items="${adminQnaList}" varStatus="status">
 								<tr class="text-center" data-no="${qna.q_no }">
 									<td>${qna.q_no }</td>
-									<td class="goDetail text-left">${qna.q_title }
+									<td class="goDetail text-center">${qna.q_title }
 										<c:if test="${qna.q_cnt > 0}">
 											<span class="reply_count">[${qna.q_cnt}]</span>
 										</c:if>
 									</td>  
-									<td class="id text-right">${qna.u_id }</td>
-									<td class="date text-right">${qna.q_regdate}</td>
+									<td class="id text-center">${qna.u_id }</td>
+									<td class="date text-center">${qna.q_regdate}</td>
 									<td>
 										<button type="button" name="detailBtn" class="detailBtn btn btn-danger btn-sm">조회</button>
 										<button type="button" name="delBtn" class="delBtn btn btn-danger btn-sm">삭제</button>

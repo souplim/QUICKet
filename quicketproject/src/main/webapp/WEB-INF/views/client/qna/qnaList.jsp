@@ -75,7 +75,7 @@
 					let q_regdate = this.q_regdate;
 					q_content = q_content.replace(/(\r\n|\r|\n)/g, "<br />");
 					
-					qnaTemplate(q_no, q_title, u_id, q_content, q_regdate);
+					qnaTemplate(q_no, q_title, q_cnt, u_id, q_content, q_regdate);
 
 					console.log(u_id);
 				});
@@ -86,7 +86,7 @@
 			
 		
 		/* 새로운 글을 화면에 추가하기 위한 함수 */
-		function qnaTemplate(q_no, q_title, u_id, q_content, q_regdate){
+		function qnaTemplate(q_no, q_title, q_cnt, u_id, q_content, q_regdate){
 			
 			let id = "${userLogin.u_id}";
 			console.log(u_id);
@@ -98,10 +98,7 @@
 			$element.attr("data-num", q_no);
 			//$element.addClass("qnaReply");
 			$element.find('.boardNum').html(q_no);
-			$element.find('.title').html(q_title);
-			if(q_cnt != 0){
-				$element.find('.q_cnt').html("[" + q_cnt + "]");	
-			}
+			$element.find('.title').html(q_title + "[" + q_cnt + "]");
 			$element.find('.id').html(u_id);
 			$element.find('.date').html(q_regdate);
 			
@@ -164,14 +161,21 @@
 			<!--  등록한 테이블이 출력되는 영역 	-->
 				<div>
 					<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th data-value="q_no" class="order text-center col-md-1">글번호</th>
+								<th class="text-center col-md-7">제목</th>
+								<th class="text-center col-md-2">작성자</th>
+								<th data-value="b_date" class="order text-center col-md-2">등록일</th>	
+								
+							</tr>
+						</thead>
 						<tbody class="qna-tbody" id = "qnaList">
 							<tr id="qna-template" class="temp">
-								<td class="boardNum"></td>
-								<td class="title">
-								<span class="q_cnt"></span>
-								</td>
-								<td class="id"></td>
-								<td class="date"></td>
+								<td class="boardNum text-center"></td>
+								<td class="title text-center"></td>
+								<td class="id text-center"></td>
+								<td class="date text-center"></td>
 							</tr>
 						</tbody>
 					</table>

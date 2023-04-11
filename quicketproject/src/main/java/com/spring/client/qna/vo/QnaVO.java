@@ -18,6 +18,6 @@ public class QnaVO extends CommonVO {
 	private int q_cnt 	= 0;
 	
 	private String u_id = "";
-	private int s_num = 0;
+	private int s_num;
 
 }
