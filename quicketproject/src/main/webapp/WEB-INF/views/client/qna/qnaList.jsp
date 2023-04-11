@@ -79,7 +79,7 @@
 					console.log(u_id);
 				});
 			}).fail(function(){
-				 alert("덧글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+				 alert("잠시후에 다시 시도해 주세요.");
 			});
 		}
 			
@@ -133,10 +133,10 @@
 			<input type="hidden" id="s_number" name="s_num"/>
 		</form>
 		
-		<form id= "page_form" name="page_form">
+		<%-- <form id= "page_form" name="page_form">
 			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount }">
-		</form>
+		</form>--%>
 	
 		<%-- 운영규정 안내 --%>
 			<div class="expectNotice">
@@ -176,7 +176,7 @@
 			
 		
 			
-			<%-- 페이징 --%>
+			<%-- 페이징 
 			<div class="text-center">
 				<ul class="pagination">
 					<c:if test="${pageMaker.prev}">
@@ -197,8 +197,8 @@
 						</li>		
 					</c:if>
 				</ul>
-			</div>
-		</div>	
+			</div>--%>	
+		</div>
  	</body>
 		
 </html>

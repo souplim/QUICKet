@@ -225,7 +225,7 @@ public class QnaController {
 	 ************/
 	@ResponseBody
 	@RequestMapping(value="/qnaReplyCnt")
-	public String qnaReplyCnt(@RequestParam("q_no") int q_no, @RequestParam("s_num") int s_num) {
+	public String qnaReplyCnt(@RequestParam("q_no") int q_no) {
 		log.info(("qnaReplyCnt 호출 성공"));
 		
 		int result = 0;

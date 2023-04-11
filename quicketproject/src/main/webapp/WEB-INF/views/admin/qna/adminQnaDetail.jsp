@@ -84,5 +84,5 @@
 			
 				</div>
 			</div>
-				<jsp:include page="qnaReply.jsp" />
+				<jsp:include page="adminQnaReply.jsp" />
 		</div>
