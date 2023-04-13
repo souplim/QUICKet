@@ -89,7 +89,8 @@ public class ClientPayController_JSON {
 		log.info("seatStatusUpdate 호출 성공");
 		int result = 0;
 		
-		  PayPageVO pvo = new PayPageVO(); List<SeatVO> seatList = pvo.getSeatList();
+		  PayPageVO pvo = new PayPageVO(); 
+		  List<SeatVO> seatList = pvo.getSeatList();
 		  int z = 0; 
 		  for(int i = 0; i < seatData.size(); i++) { 
 			  SeatVO svo = new SeatVO();
@@ -112,8 +113,6 @@ public class ClientPayController_JSON {
 		  log.info(seatList.toString()); 
 		  result = clientPayService.seatStatusUpdate(seatList);
 		  
-		 
-		 
 		return (result != 0) ? "SUCCESS" : "FAILURE";
 	}
 	

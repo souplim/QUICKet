@@ -81,8 +81,6 @@
 			});
 			$.getJSON(url, function(data){
 				$(data).each(function(){
-					let hall_id = this.hall_id;
-					let remaining_seatNum = this.remaining_seatNum; // 예시로 그냥 쓴거
 					returnData = data;
 				});
 				return returnData;

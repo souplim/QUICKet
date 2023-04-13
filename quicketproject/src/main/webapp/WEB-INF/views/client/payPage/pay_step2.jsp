@@ -252,17 +252,17 @@
 		$(document).ready(function() {
 			
 			for(let i =1; i <= ${pay_step2_list.hall_seatNum}; i++){
-				if(i < 7){
+				if(i < 9){
 					$(".lineA").append($('.'+i));
-				}else if(i >= 7 & i < 13){
+				}else if(i >= 9 & i < 17){
 					$(".lineB").append($('.'+i));
-				}else if(i >= 13 & i < 23){
+				}else if(i >= 17 & i < 27){
 					$(".lineC").append($('.'+i));
-				}else if(i >= 23 & i < 33){
+				}else if(i >= 27 & i < 37){
 					$(".lineD").append($('.'+i));
-				}else if(i >= 33 & i < 43){
+				}else if(i >= 37 & i < 47){
 					$(".lineE").append($('.'+i));
-				}else if(i >= 43 & i < 53){
+				}else if(i >= 47){
 					$(".lineF").append($('.'+i));
 				}
 			}			
@@ -336,7 +336,6 @@
 					checked_val = $(".adult_children")[i].value;
 					ageTrue = true;
 				}else if(!($(".adult_children")[0].checked) && !($(".adult_children")[1].checked)){
-					alert("연령을 선택해주세요.");
 					ageTrue = false;
 					return;
 				}
@@ -591,6 +590,15 @@
 										<div class="goDetail status_1 ${paypage.seat_num}" data-num="${paypage.seat_num}"
 										><span></span><input type="hidden" class="seatN" value="${paypage.seat_status}"/></div>
 									</c:when>
+									
+									<c:when test="${fn:contains(pay_step2_seat[status.index].seat_name,'f') and pay_step2_seat[status.index].seat_status==0}">
+										<div class="goDetail ${paypage.seat_num}" data-num="${paypage.seat_num}"
+										><span></span><input type="hidden" class="seatN" value="${paypage.seat_name}"/></div>
+									</c:when>
+									<c:when test="${fn:contains(pay_step2_seat[status.index].seat_name,'f') and pay_step2_seat[status.index].seat_status!=0}">
+										<div class="goDetail status_1 ${paypage.seat_num}" data-num="${paypage.seat_num}"
+										><span></span><input type="hidden" class="seatN" value="${paypage.seat_status}"/></div>
+									</c:when>
 								
 									<c:otherwise>
 										
@@ -645,7 +653,6 @@
 					<li style="color:red;">- 7세 이하 아동의 어린이 할인은 30% 입니다.</li>
 					<li>- 할인은 자동선택 되지 않으니, 적용 받고자 하는 할인이 있는 경우 직접 선택해주시기 바랍니다.</li>
 					<li>- 쿠폰은 한 번에 1개씩만 적용 가능합니다.</li>
-					<li>- 예매 취소 내용.</li>
 				</ul>
 			</div>
 		</div>
