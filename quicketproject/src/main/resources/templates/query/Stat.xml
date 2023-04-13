@@ -84,27 +84,10 @@
 		            JOIN hall h ON th.th_num = h.th_num
 		            JOIN ticket_seat ts ON h.hall_id = ts.hall_id
 		            JOIN ticket t ON ts.pay_num = t.pay_num
+		where ti_status = 1
 		group by s.s_num, s_name
 		order by s.s_num
 	</select>	
-	
-	<!-- <select id="monthlySales" resultType="stat">
-		select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2) AS stat_date, SUM(DECODE(s_num, 1, s_price, 0)) 베토벤, SUM(DECODE(s_num, 2, s_price, 0)) 인터뷰
-		from (
-		    select SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 1, 4) AS stat_year, s_num, s_name, s_price, s.th_num, u.u_id, t.pay_num, t.ti_regdate, ti_status 
-		    from (
-		        select s_num, s_name, s_price, th_num 
-		        from show        
-		    ) s JOIN theater th ON s.th_num = th.th_num
-		        JOIN hall h ON th.th_num = h.th_num
-		        JOIN ticket_seat ts ON h.hall_id = ts.hall_id
-		        JOIN ticket t ON ts.pay_num = t.pay_num
-		        JOIN q_user u ON t.u_id = u.u_id
-		)
-		where ti_status = 1
-		group by SUBSTR(TO_CHAR(ti_regdate,'yyyymmdd'), 5, 2)
-		order by stat_date
-	</select> -->
 	
 	<!-- 월별 공연 매출 조회 -->
 	<select id="monthlySales" parameterType="java.util.List" resultType="stat">
@@ -151,4 +134,44 @@
 		order by u_gendercntRatio DESC
 	</select>
 	
+	<!-- 예매자 연령비 조회 -->
+	<select id="ageGroupCnt" resultType="stat">
+		select ageGroup, count(ageGroup) as ageGroupCnt
+		from(
+		    select t.u_id, u_birth, ti_status, floor((to_char(sysdate,'yyyy')-SUBSTR(TO_CHAR(u_birth,'yyyymmdd'),1,4))/10)*10 as ageGroup 
+		    from ticket t INNER JOIN q_user u
+		                  ON t.u_id = u.u_id
+		)
+		where ti_status = 1
+		group by ageGroup
+	</select>
+	
+	<!-- 회원 성비 조회 -->
+	<select id="userGenderCnt" resultType="stat">
+		select u_gender, COUNT(u_gender) AS u_gendercnt
+		from q_user
+		where u_state = 1
+		group by u_gender
+	</select>
+	
+	<!-- 회원 연령비 조회 -->
+	<select id="userAgeGroupCnt" resultType="stat">
+		select ageGroup, count(ageGroup) as ageGroupCnt
+		from(
+		    select u_id, u_birth, u_state, floor((to_char(sysdate,'yyyy')-SUBSTR(TO_CHAR(u_birth,'yyyymmdd'),1,4))/10)*10 as ageGroup 
+		    from q_user
+		)
+		where u_state = 1
+		group by ageGroup
+	</select>
+	
+	<!-- 일반회원 탈퇴회원 비율 -->
+	<select id="userMemberQuitCount" resultType="stat">
+		select u_state, count(u_state) u_statecnt
+		from (
+		    select DECODE(u_state, 1, '일반회원', 0, '탈퇴회원', '') u_state
+		    from q_user
+		)
+		group by u_state
+	</select>
 </mapper>

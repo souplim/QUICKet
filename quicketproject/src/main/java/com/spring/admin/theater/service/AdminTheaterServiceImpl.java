@@ -55,7 +55,7 @@ public class AdminTheaterServiceImpl implements AdminTheaterService{
 		if(checkNum>0) {
 			result = 500;
 		}else {
-			result = adminTheaterDao.theaterListCnt(vo);
+			result = adminTheaterDao.theaterDelete(vo);
 		}
 		return result;
 	}

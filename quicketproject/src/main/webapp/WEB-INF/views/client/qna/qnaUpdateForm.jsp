@@ -10,7 +10,6 @@
 				else if (!chkData("#q_content", "작성할 내용을")) return;					
 				else{
 					
-					
 					$("#q_updateForm").attr({
 						"method":"post", 
 						"action":"/qna/qnaUpdate"
@@ -26,9 +25,10 @@
 				});
 			});
 			
+			
 			/*목록 버튼 클릭시 처리 이벤트 */
 			$("#qnaListBtn").click(function(){
-				location.href = "/qna/qnaList";
+				location.href = "/showDetail?s_num="+$("#s_number").val();
 			});
 		});
 	</script>
@@ -41,7 +41,7 @@
 					<!-- 글번호 받는 hidden -->
 				<form id="q_updateForm" name="q_updateForm">
 					<input type="hidden" id="q_no" name="q_no" value="${updateData.q_no}"/>
-					
+					<input type="hidden" id="s_number" name="s_num" value="${param.s_num}"/>
 					
 					<table class="table table-bordered">
 						<tbody>
@@ -73,9 +73,9 @@
 			</div>
 			
 			<div class= "contentBtn text-right">
-				<input type="button" value="수정" id="qnaUpdateBtn" class="btn btn-primary"/>
-				<input type="button" value="취소" id="qnaCancelBtn" class="btn btn-primary"/>
-				<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+				<input type="button" value="수정" id="qnaUpdateBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
+				<input type="button" value="취소" id="qnaCancelBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
+				<input type="button" value="목록" id="qnaListBtn" class="w-btn-outline w-btn-indigo-outline btn"/>
 			</div>
 		</div>
 	

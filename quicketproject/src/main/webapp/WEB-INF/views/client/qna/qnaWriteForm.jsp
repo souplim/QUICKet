@@ -5,6 +5,9 @@
 <script type="text/javascript">
 	
 		$(function(){
+			
+			var s_num = $("#s_num").val();
+			
 			/*등록 버튼 클릭 시 처리 이벤트 */
 			$("#qnaInsertBtn").click(function(){
 				
@@ -12,7 +15,7 @@
 				else if(!chkData("#q_content", "내용을")) return;
 					
 					$("#q_writeForm").attr({
-						method: "post",
+						method: "get",
 						action: "/qna/qnaInsert"
 					});
 					$("#q_writeForm").submit();
@@ -28,7 +31,7 @@
 			
 			/* 목록 버튼 클릭 시 처리 이벤트 */
 			$("#qnaListBtn").click(function(){
-				location.href = "/qna/qnaList";
+				location.href = "/showDetail?s_num="+s_num;
 			});
 		
 		});
@@ -36,9 +39,12 @@
 </head>
 	<body>
 		<div class="contentContainer container">
-			
+			<br>
+		<h3 class="text-center">Q&A 작성</h3>
 		<div class="contentTB text-center">
 			<form  id="q_writeForm" name="q_writeForm" class="form-horizontal">
+				<input type="hidden" id="s_num" name="s_num" value="${param.s_num}"/>
+				<!-- request.getParameter -->
 				 <table class="table table-bordered">
 				 	<colgroup>
 				 		<col width = "20%"/>
@@ -62,9 +68,9 @@
 				  </table>
 				  
 				  <div class = "text-right">
-				  	<input type="button" value="등록" id="qnaInsertBtn" class="btn btn-primary"/>
-				  	<input type="button" value="취소" id="qnaCancelBtn" class="btn btn-primary"/>
-				  	<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary"/>
+				  	<input type="button" value="등록" id="qnaInsertBtn" class="w-btn-outline w-btn-indigo-outline btn "/>
+				  	<input type="button" value="취소" id="qnaCancelBtn" class="w-btn-outline w-btn-indigo-outline btn "/>
+				  	<input type="button" value="목록" id="qnaListBtn" class="w-btn-outline w-btn-indigo-outline btn "/>
 				  </div>
 			  </form>
 			</div>

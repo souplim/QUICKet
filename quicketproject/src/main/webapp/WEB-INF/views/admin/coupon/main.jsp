@@ -37,29 +37,16 @@
 </script>
 
 <style>
-	img{width:25px;}
+	.cImg{width:25px;}
 </style>
 </head>
 <body>
 <div class="">
-
-		<div class="well">
+		<div class="contentTit page-header"><h3 class="text-center">쿠폰 관리</h3></div>  
+		<div class="">
 			<form class="form-inline" id="f_search">
 				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 				<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
-							
-				<h3 style="display: inline;"><span class="label label-success">검색조건</span></h3>
-				<div class="form-group">
-					<select id="search" name="search" class="form-control">
-						<option value="c_num">쿠폰번호</option>
-						<option value="c_name">쿠폰명</option>	
-					</select>
-				</div>
-				<div class="form-group" id="textCheck">
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를입력하세요" />
-				</div>
-				<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
-				<button type="button" class="btn btn-primary" id="allSearchBtn">All Search</button>
 			</form>
 		</div> 
 
@@ -75,7 +62,6 @@
 						<th class="text-center">유효기간</th>
 						<th class="text-center">할인율</th>
 						<th class="text-center">등록일</th>
-						<th class="text-center">발급횟수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,12 +73,11 @@
 									<td>${count - status.index}</td>
 									<td>${coupon.c_num}</td>
 									<td>${coupon.c_name}</td>
-									<td><img src="/uploadStorage/coupon/${coupon.c_img}"/></td>
+									<td><img class="cImg" src="/uploadStorage/coupon/${coupon.c_img}"/></td>
 									<td><span>${coupon.c_startissue }</span>~<span>${coupon.c_endissue }</span></td>
 									<td><span>${coupon.c_startdate}</span>~<span>${coupon.c_enddate}</span></td>
 									<td>${coupon.c_discount}%</td>
 									<td>${coupon.c_regdate}</td>
-									<td>발급횟수</td>
 								</tr>
 							</c:forEach>
 						</c:when>

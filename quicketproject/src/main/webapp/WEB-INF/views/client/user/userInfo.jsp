@@ -23,7 +23,7 @@
     border-radius: 20px;
     padding: 0 20px;
   	}
-  	
+  	.table>tbody>tr>td {border : none;}
 </style>
 		
 </head>
@@ -36,6 +36,7 @@
 	<h3 class="text-center">회원 정보</h3>
 	<div id="tableDiv">
 			<table class="table">
+			<br>
 		<tr>
 			<td class="text-center">이름</td>
 			<td colspan="3">${userLogin.u_name}</td>

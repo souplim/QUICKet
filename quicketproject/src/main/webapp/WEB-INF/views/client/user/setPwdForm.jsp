@@ -140,13 +140,13 @@
 <body>
 
     <div class="container">
-
+	<h3 class="text-center">비밀번호 변경</h3>
       <form class="form-signin" id="pwdForm">
       <input type="hidden" id="u_num" name="u_num" value="${userLogin.u_num}"/>
       <input type="hidden" id="u_id" name="u_id" value="${userLogin.u_id}"/>
       <input type="hidden" id="u_pwddate" name="u_pwddate" value="${userLogin.u_pwddate}"/> 	
       <input type="hidden" id="password" value="${userLogin.u_pwd}"/>
-        	<h3 class="text-center">비밀번호 변경</h3>
+        	
         	<table class="table" id="table">
         		<colgroup>
 				<col width="20%">
